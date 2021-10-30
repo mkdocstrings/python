@@ -1,7 +1,7 @@
 # Python for mkdocstrings
 
-[![ci](https://github.com/pawamoy/python/workflows/ci/badge.svg)](https://github.com/pawamoy/python/actions?query=workflow%3Aci)
-[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://pawamoy.github.io/python/)
+[![ci](https://github.com/mkdocstrings/python/workflows/ci/badge.svg)](https://github.com/mkdocstrings/python/actions?query=workflow%3Aci)
+[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/python/)
 [![pypi version](https://img.shields.io/pypi/v/python.svg)](https://pypi.org/project/python/)
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/python/community)
 

@@ -1,8 +1,8 @@
 site_name: "Python for mkdocstrings"
 site_description: "A Python handler for mkdocstrings."
-site_url: "https://pawamoy.github.io/python"
-repo_url: "https://github.com/pawamoy/python"
-repo_name: "pawamoy/python"
+site_url: "https://mkdocstrings.github.io/python"
+repo_url: "https://github.com/mkdocstrings/python"
+repo_name: "mkdocstrings/python"
 site_dir: "site"
 
 nav:

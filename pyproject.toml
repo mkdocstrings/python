@@ -20,14 +20,14 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://pawamoy.github.io/python"
-Documentation = "https://pawamoy.github.io/python"
-Changelog = "https://pawamoy.github.io/python/changelog"
-Repository = "https://github.com/pawamoy/python"
-Issues = "https://github.com/pawamoy/python/issues"
-Discussions = "https://github.com/pawamoy/python/discussions"
+Homepage = "https://mkdocstrings.github.io/python"
+Documentation = "https://mkdocstrings.github.io/python"
+Changelog = "https://mkdocstrings.github.io/python/changelog"
+Repository = "https://github.com/mkdocstrings/python"
+Issues = "https://github.com/mkdocstrings/python/issues"
+Discussions = "https://github.com/mkdocstrings/python/discussions"
 Gitter = "https://gitter.im/python/community"
-Funding = "https://github.com/sponsors/pawamoy"
+Funding = "https://github.com/sponsors/mkdocstrings"
 
 [project.scripts]
 mkdocstrings-python = "mkdocstrings.cli:main"

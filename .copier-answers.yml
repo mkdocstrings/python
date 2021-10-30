@@ -14,6 +14,6 @@ python_package_command_line_name: mkdocstrings-python
 python_package_distribution_name: mkdocstrings-python
 python_package_import_name: mkdocstrings
 repository_name: python
-repository_namespace: pawamoy
+repository_namespace: mkdocstrings
 repository_provider: github.com
 use_precommit: false
