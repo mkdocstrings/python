@@ -9,7 +9,7 @@ description = "A Python handler for mkdocstrings."
 authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
 license = {file = "LICENSE"}
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 keywords = []
 dynamic = ["version", "classifiers"]
 classifiers = [
@@ -17,7 +17,9 @@ classifiers = [
     "License :: OSI Approved :: ISC License (ISCL)",
     "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+    "griffe~=0.3",
+]
 
 [project.urls]
 Homepage = "https://mkdocstrings.github.io/python"
@@ -29,26 +31,23 @@ Discussions = "https://github.com/mkdocstrings/python/discussions"
 Gitter = "https://gitter.im/python/community"
 Funding = "https://github.com/sponsors/mkdocstrings"
 
-[project.scripts]
-mkdocstrings-python = "mkdocstrings.cli:main"
-
 [tool.pdm]
-package-dir = "src"
+includes = ["src/mkdocstrings"]
 
 [tool.pdm.dev-dependencies]
 duty = ["duty~=0.6"]
 docs = [
-    "mkdocs~=1.1; python_version >= '3.7'",
+    "mkdocs~=1.2; python_version >= '3.7'",
     "mkdocs-coverage~=0.2; python_version >= '3.7'",
     "mkdocs-gen-files~=0.3; python_version >= '3.7'",
     "mkdocs-literate-nav~=0.4; python_version >= '3.7'",
     "mkdocs-material~=7.1; python_version >= '3.7'",
-    "mkdocstrings~=0.15; python_version >= '3.7'",
+    "mkdocstrings~=0.16; python_version >= '3.7'",
     "toml~=0.10; python_version >= '3.7'",
 ]
 format = [
     "autoflake~=1.4",
-    "black~=20.8b1",
+    "black~=21.10b0",
     "isort~=5.8",
 ]
 maintain = [
