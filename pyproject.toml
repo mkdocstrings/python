@@ -19,6 +19,7 @@ classifiers = [
 ]
 dependencies = [
     "griffe~=0.3",
+    "-e ../griffe",
 ]
 
 [project.urls]

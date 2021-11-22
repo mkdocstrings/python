@@ -1,0 +1,96 @@
+{{ log.debug() }}
+{% if obj.members %}
+
+  <div class="doc doc-children">
+
+    {% if config.group_by_category %}
+
+      {% with %}
+
+        {% if config.show_category_heading %}
+          {% set extra_level = 1 %}
+        {% else %}
+          {% set extra_level = 0 %}
+        {% endif %}
+
+        {% if config.show_category_heading and obj.attributes.values()|any %}
+          {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for attribute in obj.attributes.values()|order_members(config.members_order) %}
+            {% if not attribute.is_alias or attribute.is_explicitely_exported %}
+              {% include "attribute.html" with context %}
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+
+        {% if config.show_category_heading and obj.classes.values()|any %}
+          {% filter heading(heading_level, id=html_id ~ "-classes") %}Classes{% endfilter %}
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for class in obj.classes.values()|order_members(config.members_order) %}
+            {% if not class.is_alias or class.is_explicitely_exported %}
+              {% include "class.html" with context %}
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+
+        {% if config.show_category_heading and obj.functions.values()|any %}
+          {% filter heading(heading_level, id=html_id ~ "-functions") %}Functions{% endfilter %}
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for function in obj.functions.values()|order_members(config.members_order) %}
+            {% if not function.is_alias or function.is_explicitely_exported %}
+              {% include "function.html" with context %}
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+
+        {% if config.show_submodules %}
+          {% if config.show_category_heading and obj.modules.values()|any %}
+            {% filter heading(heading_level, id=html_id ~ "-modules") %}Modules{% endfilter %}
+          {% endif %}
+          {% with heading_level = heading_level + extra_level %}
+            {% for module in obj.modules.values()|order_members(config.members_order) %}
+              {% if not module.is_alias or module.is_explicitely_exported %}
+                {% include "module.html" with context %}
+              {% endif %}
+            {% endfor %}
+          {% endwith %}
+        {% endif %}
+
+      {% endwith %}
+
+    {% else %}
+
+      {% for child in obj.members.values()|order_members(config.members_order) %}
+
+        {% if child.kind.value == "attribute" %}
+          {% with attribute = child %}
+            {% include "attribute.html" with context %}
+          {% endwith %}
+
+        {% elif child.kind.value == "class" %}
+          {% with class = child %}
+            {% include "class.html" with context %}
+          {% endwith %}
+
+        {% elif child.kind.value == "function" %}
+          {% with function = child %}
+            {% include "function.html" with context %}
+          {% endwith %}
+
+        {% elif child.kind.value == "module" and config.show_submodules %}
+          {% with module = child %}
+            {% include "module.html" with context %}
+          {% endwith %}
+
+        {% endif %}
+
+      {% endfor %}
+
+    {% endif %}
+
+  </div>
+
+{% endif %}

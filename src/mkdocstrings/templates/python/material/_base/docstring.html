@@ -1,0 +1,26 @@
+{{ log.debug() }}
+{% if docstring_sections %}
+  {% for section in docstring_sections %}
+    {% if section.kind.value == "text" %}
+      {{ section.value|convert_markdown(heading_level, html_id) }}
+    {% elif section.kind.value == "attributes" %}
+      {% include "docstring/attributes.html" with context %}
+    {% elif section.kind.value == "parameters" %}
+      {% include "docstring/parameters.html" with context %}
+    {% elif section.kind.value == "other parameters" %}
+      {% include "docstring/other_parameters.html" with context %}
+    {% elif section.kind.value == "raises" %}
+      {% include "docstring/raises.html" with context %}
+      {% elif section.kind.value == "warns" %}
+        {% include "docstring/warns.html" with context %}
+    {% elif section.kind.value == "yields" %}
+      {% include "docstring/yields.html" with context %}
+      {% elif section.kind.value == "receives" %}
+        {% include "docstring/receives.html" with context %}
+    {% elif section.kind.value == "returns" %}
+      {% include "docstring/returns.html" with context %}
+    {% elif section.kind.value == "examples" %}
+      {% include "docstring/examples.html" with context %}
+    {% endif %}
+  {% endfor %}
+{% endif %}

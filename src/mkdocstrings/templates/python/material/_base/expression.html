@@ -1,0 +1,10 @@
+{%- set original_expression = expression -%}
+{%- if original_expression is iterable and original_expression is not string -%}
+  {%- for expression in original_expression -%}
+    {%- include "expression.html" with context -%}
+  {%- endfor -%}
+{%- elif original_expression is string -%}
+  {{ original_expression }}
+{%- else -%}
+  <span data-autorefs-optional="{{ original_expression.full }}">{{ original_expression.source }}</span>
+{%- endif -%}

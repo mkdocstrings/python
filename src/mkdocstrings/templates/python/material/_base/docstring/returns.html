@@ -1,0 +1,65 @@
+{{ log.debug() }}
+{% if config.docstring_section_style == "table" %}
+  {% set name_column = section.value|selectattr("name")|any %}
+  <p><strong>{{ section.title or "Returns:" }}</strong></p>
+  <table>
+    <thead>
+      <tr>
+        {% if name_column %}<th>Name</th>{% endif %}
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for returns in section.value %}
+        <tr>
+          {% if name_column %}<td>{% if returns.name %}<code>{{ returns.name }}</code>{% endif %}</td>{% endif %}
+          <td>
+            {% if returns.annotation %}
+              {% with expression = returns.annotation %}
+                <code>{% include "expression.html" with context %}</code>
+              {% endwith %}
+            {% endif %}
+          </td>
+          <td>{{ returns.description|convert_markdown(heading_level, html_id) }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% elif config.docstring_section_style == "list" %}
+  <p>{{ section.title or "Returns:" }}</p>
+  <ul>
+    {% for returns in section.value %}
+      <li class="field-body">
+        {% if returns.name %}<b>{{ returns.name }}</b>{% endif %}
+        {% if returns.annotation %}
+          {% with expression = returns.annotation %}
+            {% if returns.name %}({% endif %}
+            <code>{% include "expression.html" with context %}</code>
+            {% if returns.name %}){% endif %}
+          {% endwith %}
+        {% endif %}
+        – {{ returns.description|convert_markdown(heading_level, html_id) }}
+      </li>
+    {% endfor %}
+  </ul>
+{% elif config.docstring_section_style == "spacy" %}
+  <table>
+    <tbody>
+      <tr><td><b>RETURNS</b></td></tr>
+      {% for returns in section.value %}
+        <tr>
+          <td class="doc-returns-details">
+            {{ returns.description|convert_markdown(heading_level, html_id) }}
+            <p>
+              <b>TYPE:</b>
+              {% with expression = returns.annotation %}
+                <code>{% include "expression.html" with context %}</code>
+              {% endwith %}
+            </p>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
