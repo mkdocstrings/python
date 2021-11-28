@@ -54,7 +54,7 @@
         {% include "docstring.html" with context %}
       {% endwith %}
 
-      {% if config.show_source %}
+      {% if config.show_source and class.source %}
         <details class="quote">
           <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
           {{ class.source|highlight(language="python", linestart=class.lineno, linenums=True) }}
