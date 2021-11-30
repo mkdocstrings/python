@@ -23,15 +23,7 @@
           toc_label=function.name ~ "()") %}
 
         {% if config.separate_signature %}
-          <details>
-            <summary>Signature</summary>
-            {% filter highlight(language="python", inline=False) %}
-              {% filter format_code(config.line_length) %}        
-                {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
-                {% include "signature.html" with context %}
-              {% endfilter %}
-            {% endfilter %}
-          </details>
+          {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}()
         {% else %}
           {% filter highlight(language="python", inline=True) %}
             {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
@@ -44,6 +36,15 @@
         {% endwith %}
 
       {% endfilter %}
+
+      {% if config.separate_signature %}
+        {% filter highlight(language="python", inline=False) %}
+          {% filter format_signature(config.line_length) %}        
+            {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+            {% include "signature.html" with context %}
+          {% endfilter %}
+        {% endfilter %}
+      {% endif %}
 
     {% else %}
       {% if config.show_root_toc_entry %}
