@@ -17,7 +17,7 @@
           {%- set ns.render_kw_only_separator = False %}*, {% endif -%}
       {%- endif -%}
 
-      {%- if config.show_signature_annotations and "annotation" in parameter -%}
+      {%- if config.show_signature_annotations and parameter.annotation is not none -%}
         {%- set annotation = ": " + parameter.annotation|safe -%}
       {%- endif -%}
 
