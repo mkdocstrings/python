@@ -121,8 +121,8 @@ class PythonRenderer(BaseRenderer):
             **{"config": final_config, data.kind.value: data, "heading_level": heading_level, "root": True},
         )
 
-    def get_anchor(self, data: CollectorItem) -> str:  # noqa: D102 (ignore missing docstring)
-        return data.path
+    def get_anchors(self, data: CollectorItem) -> list[str]:  # noqa: D102 (ignore missing docstring)
+        return list({data.path, data.canonical_path, *data.aliases})
 
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
         super().update_env(md, config)
