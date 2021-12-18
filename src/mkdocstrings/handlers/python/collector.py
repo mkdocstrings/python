@@ -11,9 +11,9 @@ from mkdocstrings.handlers.base import BaseCollector, CollectionError, Collector
 from mkdocstrings.loggers import get_logger
 
 griffe_logger.get_logger = get_logger  # patch logger to blend in MkDocs logs
+from griffe.agents.extensions import load_extensions  # noqa: E402
 from griffe.collections import LinesCollection, ModulesCollection  # noqa: E402
 from griffe.docstrings.parsers import Parser  # noqa: E402
-from griffe.agents.extensions import load_extensions  # noqa: E402
 from griffe.loader import GriffeLoader  # noqa: E402
 
 logger = get_logger(__name__)

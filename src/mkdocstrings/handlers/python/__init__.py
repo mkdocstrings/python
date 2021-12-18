@@ -26,7 +26,11 @@ class PythonHandler(BaseHandler):
 
     @classmethod
     def load_inventory(
-        cls, in_file: BinaryIO, url: str, base_url: Optional[str] = None, **kwargs
+        cls,
+        in_file: BinaryIO,
+        url: str,
+        base_url: Optional[str] = None,
+        **kwargs: Any,
     ) -> Iterator[Tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
@@ -58,7 +62,7 @@ def get_handler(
     Arguments:
         theme: The theme to use when rendering contents.
         custom_templates: Directory containing custom templates.
-        config: Configuration passed to the handler.
+        **config: Configuration passed to the handler.
 
     Returns:
         An instance of `PythonHandler`.
