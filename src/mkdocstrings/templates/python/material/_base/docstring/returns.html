@@ -45,18 +45,38 @@
   </ul>
 {% elif config.docstring_section_style == "spacy" %}
   <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td><b>RETURNS</b></td></tr>
       {% for returns in section.value %}
         <tr>
+          <td>
+            {% if returns.name %}
+              <code>{{ returns.name }}</code>
+            {% elif returns.annotation %}
+              <span class="doc-returns-annotation">
+                {% with expression = returns.annotation %}
+                  <code>{% include "expression.html" with context %}</code>
+                {% endwith %}
+              </span>
+            {% endif %}
+          </td>
           <td class="doc-returns-details">
             {{ returns.description|convert_markdown(heading_level, html_id) }}
-            <p>
-              <b>TYPE:</b>
-              {% with expression = returns.annotation %}
-                <code>{% include "expression.html" with context %}</code>
-              {% endwith %}
-            </p>
+            {% if returns.name and returns.annotation %}
+              <p>
+                <span class="doc-returns-annotation">
+                  <b>TYPE:</b>
+                  {% with expression = returns.annotation %}
+                    <code>{% include "expression.html" with context %}</code>
+                  {% endwith %}
+                </span>
+              </p>
+            {% endif %}
           </td>
         </tr>
       {% endfor %}

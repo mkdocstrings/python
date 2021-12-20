@@ -49,19 +49,15 @@
     <tbody>
       {% for raises in section.value %}
         <tr>
-          <td><code>{{ raises.name }}</code></td>
+          <td>
+            <span class="doc-raises-annotation">
+              {% with expression = raises.annotation %}
+                <code>{% include "expression.html" with context %}</code>
+              {% endwith %}
+            </span>
+          </td>
           <td class="doc-raises-details">
             {{ raises.description|convert_markdown(heading_level, html_id) }}
-            <p>
-              {% if raises.annotation %}
-                <span class="doc-raises-annotation">
-                  <b>TYPE:</b>
-                  {% with expression = raises.annotation %}
-                    <code>{% include "expression.html" with context %}</code>
-                  {% endwith %}
-                </span>
-              {% endif %}
-            </p>
           </td>
         </tr>
       {% endfor %}

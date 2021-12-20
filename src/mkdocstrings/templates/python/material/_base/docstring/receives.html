@@ -1,16 +1,19 @@
 {{ log.debug() }}
 {% if config.docstring_section_style == "table" %}
+  {% set name_column = section.value|selectattr("name")|any %}
   <p><strong>{{ section.title or "Receives:" }}</strong></p>
   <table>
     <thead>
       <tr>
+        {% if name_column %}<th>Name</th>{% endif %}
         <th>Type</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        {% with receives = section.value %}
+      {% for receives in section.value %}
+        <tr>
+          {% if name_column %}<td>{% if receives.name %}<code>{{ receives.name }}</code>{% endif %}</td>{% endif %}
           <td>
             {% if receives.annotation %}
               {% with expression = receives.annotation %}
@@ -19,24 +22,26 @@
             {% endif %}
           </td>
           <td>{{ receives.description|convert_markdown(heading_level, html_id) }}</td>
-        {% endwith %}
-      </tr>
+        </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% elif config.docstring_section_style == "list" %}
   <p>{{ section.title or "Receives:" }}</p>
   <ul>
-    {% with receives = section.value %}
+    {% for receives in section.value %}
       <li class="field-body">
+        {% if receives.name %}<b>{{ receives.name }}</b>{% endif %}
         {% if receives.annotation %}
           {% with expression = receives.annotation %}
+            {% if receives.name %}({% endif %}
             <code>{% include "expression.html" with context %}</code>
+            {% if receives.name %}){% endif %}
           {% endwith %}
-          –
         {% endif %}
-        {{ receives.description|convert_markdown(heading_level, html_id) }}
+        – {{ receives.description|convert_markdown(heading_level, html_id) }}
       </li>
-    {% endwith %}
+    {% endfor %}
   </ul>
 {% elif config.docstring_section_style == "spacy" %}
   <table>
@@ -47,21 +52,31 @@
       </tr>
     </thead>
     <tbody>
-      {% for receive in section.value %}
+      {% for receives in section.value %}
         <tr>
-          <td><code>{{ receive.name }}</code></td>
-          <td class="doc-receive-details">
-            {{ receive.description|convert_markdown(heading_level, html_id) }}
-            <p>
-              {% if receive.annotation %}
-                <span class="doc-receive-annotation">
+          <td>
+            {% if receives.name %}
+              <code>{{ receives.name }}</code>
+            {% elif receives.annotation %}
+              <span class="doc-receives-annotation">
+                {% with expression = receives.annotation %}
+                  <code>{% include "expression.html" with context %}</code>
+                {% endwith %}
+              </span>
+            {% endif %}
+          </td>
+          <td class="doc-receives-details">
+            {{ receives.description|convert_markdown(heading_level, html_id) }}
+            {% if receives.name and receives.annotation %}
+              <p>
+                <span class="doc-receives-annotation">
                   <b>TYPE:</b>
-                  {% with expression = receive.annotation %}
+                  {% with expression = receives.annotation %}
                     <code>{% include "expression.html" with context %}</code>
                   {% endwith %}
                 </span>
-              {% endif %}
-            </p>
+              </p>
+            {% endif %}
           </td>
         </tr>
       {% endfor %}

@@ -1,16 +1,19 @@
 {{ log.debug() }}
 {% if config.docstring_section_style == "table" %}
+  {% set name_column = section.value|selectattr("name")|any %}
   <p><strong>{{ section.title or "Yields:" }}</strong></p>
   <table>
     <thead>
       <tr>
+        {% if name_column %}<th>Name</th>{% endif %}
         <th>Type</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        {% with yields = section.value %}
+      {% for yields in section.value %}
+        <tr>
+          {% if name_column %}<td>{% if yields.name %}<code>{{ yields.name }}</code>{% endif %}</td>{% endif %}
           <td>
             {% if yields.annotation %}
               {% with expression = yields.annotation %}
@@ -19,24 +22,26 @@
             {% endif %}
           </td>
           <td>{{ yields.description|convert_markdown(heading_level, html_id) }}</td>
-        {% endwith %}
-      </tr>
+        </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% elif config.docstring_section_style == "list" %}
   <p>{{ section.title or "Yields:" }}</p>
   <ul>
-    {% with yields = section.value %}
+    {% for yields in section.value %}
       <li class="field-body">
+        {% if yields.name %}<b>{{ yields.name }}</b>{% endif %}
         {% if yields.annotation %}
           {% with expression = yields.annotation %}
+            {% if yields.name %}({% endif %}
             <code>{% include "expression.html" with context %}</code>
+            {% if yields.name %}){% endif %}
           {% endwith %}
-          –
         {% endif %}
-        {{ yields.description|convert_markdown(heading_level, html_id) }}
+        – {{ yields.description|convert_markdown(heading_level, html_id) }}
       </li>
-    {% endwith %}
+    {% endfor %}
   </ul>
 {% elif config.docstring_section_style == "spacy" %}
   <table>
@@ -49,19 +54,29 @@
     <tbody>
       {% for yields in section.value %}
         <tr>
-          <td><code>{{ yields.name }}</code></td>
+          <td>
+            {% if yields.name %}
+              <code>{{ yields.name }}</code>
+            {% elif yields.annotation %}
+              <span class="doc-yields-annotation">
+                {% with expression = yields.annotation %}
+                  <code>{% include "expression.html" with context %}</code>
+                {% endwith %}
+              </span>
+            {% endif %}
+          </td>
           <td class="doc-yields-details">
             {{ yields.description|convert_markdown(heading_level, html_id) }}
-            <p>
-              {% if yields.annotation %}
+            {% if yields.name and yields.annotation %}
+              <p>
                 <span class="doc-yields-annotation">
                   <b>TYPE:</b>
                   {% with expression = yields.annotation %}
                     <code>{% include "expression.html" with context %}</code>
                   {% endwith %}
                 </span>
-              {% endif %}
-            </p>
+              </p>
+            {% endif %}
           </td>
         </tr>
       {% endfor %}
