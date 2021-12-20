@@ -10,10 +10,10 @@ A Python handler for mkdocstrings.
 
 ## Requirements
 
-Python for mkdocstrings requires Python 3.6 or above.
+Python for mkdocstrings requires Python 3.7 or above.
 
 <details>
-<summary>To install Python 3.6, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
+<summary>To install Python 3.7, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
 
 ```bash
 # install pyenv
@@ -24,11 +24,11 @@ export PATH="${HOME}/.pyenv/bin:${PATH}"
 export PYENV_ROOT="${HOME}/.pyenv"
 eval "$(pyenv init -)"
 
-# install Python 3.6
-pyenv install 3.6.12
+# install Python 3.7
+pyenv install 3.7.12
 
 # make it available globally
-pyenv global system 3.6.12
+pyenv global system 3.7.12
 ```
 </details>
 
@@ -36,12 +36,11 @@ pyenv global system 3.6.12
 
 With `pip`:
 ```bash
-python3.6 -m pip install mkdocstrings-python
+pip install mkdocstrings-python
 ```
 
 With [`pipx`](https://github.com/pipxproject/pipx):
 ```bash
-python3.6 -m pip install --user pipx
-
-pipx install --python python3.6 mkdocstrings-python
+python3.7 -m pip install --user pipx
+pipx install mkdocstrings-python
 ```
