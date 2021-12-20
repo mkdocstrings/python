@@ -30,7 +30,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "griffe~=0.4",
+    "griffe>=0.6",
 ]
 
 [project.urls]
