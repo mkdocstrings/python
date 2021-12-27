@@ -70,6 +70,7 @@ class PythonRenderer(BaseRenderer):
         "show_object_full_path": False,
         "show_category_heading": False,
         "show_if_no_docstring": False,
+        "show_signature": True,
         "show_signature_annotations": False,
         "separate_signature": False,
         "line_length": 60,
@@ -91,7 +92,8 @@ class PythonRenderer(BaseRenderer):
     **`show_root_members_full_path`** | `bool` | Show the full Python path of objects that are children of the root object (for example, classes in a module). When False, `show_object_full_path` overrides. | `False`
     **`show_category_heading`** | `bool` | When grouped by categories, show a heading for each category. | `False`
     **`show_if_no_docstring`** | `bool` | Show the object heading even if it has no docstring or children with docstrings. | `False`
-    **`show_signature_annotations`** | `bool` | Show the type annotations in methods and functions signatures. | `False`
+    **`show_signature`** | `bool` | Show method and function signatures. | `True`
+    **`show_signature_annotations`** | `bool` | Show the type annotations in method and function signatures. | `False`
     **`separate_signature`** | `bool` | Whether to put the whole signature in a foldable code block below the heading. | `False`
     **`line_length`** | `int` | Maximum line length when formatting code. | `60`
     **`show_source`** | `bool` | Show the source code of this object. | `True`
