@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.2.0](https://github.com/mkdocstrings/python/releases/tag/0.2.0) - 2021-12-28
+
+<small>[Compare with 0.1.0](https://github.com/mkdocstrings/python/compare/0.1.0...0.2.0)</small>
+
+### Build
+- Depend on griffe >= 0.7.1 ([34f7ebd](https://github.com/mkdocstrings/python/commit/34f7ebd41f3ebda025ad87e3b52a7226fcb93720) by Timothée Mazzucotelli).
+- Upgrade griffe, no upper bound ([8f0aa42](https://github.com/mkdocstrings/python/commit/8f0aa42eed07424a1377708897d92f9894f4abdb) by Timothée Mazzucotelli).
+
+### Features
+- Add `show_signature` rendering option ([0f07c2e](https://github.com/mkdocstrings/python/commit/0f07c2e51a51a56eeb5d32fdf05dbed7243f0bc5) by Will Da Silva).
+
+### Bug Fixes
+- Fix templates for named docstring elements ([47868a1](https://github.com/mkdocstrings/python/commit/47868a143bf2c462abd5ad85bd0ab8dca7bc5f82) by Timothée Mazzucotelli).
+
+
 ## [0.1.0](https://github.com/mkdocstrings/python/releases/tag/0.1.0) - 2021-12-19
 
 <small>[Compare with first commit](https://github.com/mkdocstrings/python/compare/0032f18c9f902c3e75e0e00114ca8fa6a810c8f5...0.1.0)</small>
