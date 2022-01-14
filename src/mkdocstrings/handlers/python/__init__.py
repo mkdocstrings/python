@@ -3,13 +3,15 @@
 import posixpath
 from typing import Any, BinaryIO, Iterator, Optional, Tuple
 
+from griffe.logger import patch_loggers
+
 from mkdocstrings.handlers.base import BaseHandler
 from mkdocstrings.handlers.python.collector import PythonCollector
 from mkdocstrings.handlers.python.renderer import PythonRenderer
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
 
-log = get_logger(__name__)
+patch_loggers(get_logger)
 
 
 class PythonHandler(BaseHandler):

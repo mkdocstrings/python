@@ -14,9 +14,6 @@ from markupsafe import Markup
 
 from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseRenderer, CollectorItem
-from mkdocstrings.loggers import get_logger
-
-log = get_logger(__name__)
 
 # TODO: CSS classes everywhere in templates
 # TODO: name normalization (filenames, Jinja2 variables, HTML tags, CSS classes)
