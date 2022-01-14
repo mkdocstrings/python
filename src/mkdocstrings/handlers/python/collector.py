@@ -62,17 +62,15 @@ class PythonCollector(BaseCollector):
                 lines_collection=self._lines_collection,
             )
             try:
-                module = loader.load_module(module_name)
-            except ModuleNotFoundError as error:
-                raise CollectionError from error
+                loader.load_module(module_name)
+            except ImportError as error:
+                raise CollectionError(str(error)) from error
 
-            for _ in range(5):
-                if loader.follow_aliases(module):
-                    break
-            else:
-                logger.warning("some aliases could not be resolved")
+            unresolved, iterations = loader.resolve_aliases(only_exported=True, only_known_modules=True)
+            if unresolved:
+                logger.warning(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
 
         try:
             return self._modules_collection[identifier]
         except KeyError as error:  # noqa: WPS440
-            raise CollectionError from error
+            raise CollectionError(f"{identifier} could not be found") from error
