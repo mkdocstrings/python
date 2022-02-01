@@ -22,10 +22,7 @@
     {% elif section.kind.value == "examples" %}
       {% include "docstring/examples.html" with context %}
     {% elif section.kind.value == "admonition" %}
-      <details class="{{ section.value.kind }}">
-        {{ section.title|convert_markdown(heading_level, html_id) }}
-        {{ section.value.contents|convert_markdown(heading_level, html_id) }}
-      </details>
+      {% include "docstring/admonition.html" with context %}
     {% endif %}
   {% endfor %}
 {% endif %}
