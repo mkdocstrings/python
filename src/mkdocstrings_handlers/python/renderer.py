@@ -54,7 +54,7 @@ class PythonRenderer(BaseRenderer):
     Attributes:
         fallback_theme: The theme to fallback to.
         default_config: The default rendering options,
-            see [`default_config`][mkdocstrings.handlers.python.PythonRenderer.default_config].
+            see [`default_config`][mkdocstrings_handlers.python.PythonRenderer.default_config].
     """
 
     fallback_theme = "material"

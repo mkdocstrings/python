@@ -45,7 +45,7 @@ Funding = "https://github.com/sponsors/mkdocstrings"
 
 [tool.pdm]
 version = {use_scm = true}
-includes = ["src/mkdocstrings"]
+includes = ["src/mkdocstrings_handlers"]
 
 [tool.pdm.dev-dependencies]
 duty = ["duty>=0.7"]

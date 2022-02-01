@@ -73,7 +73,7 @@ plugins:
         import:
         - https://mkdocstrings.github.io/objects.inv
     watch:
-    - src/mkdocstrings
+    - src/mkdocstrings_handlers
 
 extra:
   social:

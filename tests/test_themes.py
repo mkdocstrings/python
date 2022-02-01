@@ -22,8 +22,8 @@ import pytest
         "mkdocstrings.loggers",
         "mkdocstrings.plugin",
         "mkdocstrings.handlers.base",
-        "mkdocstrings.handlers.python",
         "mkdocstrings.handlers.rendering",
+        "mkdocstrings_handlers.python",
     ],
 )
 @pytest.mark.skipif(sys.version_info < (3, 7), reason="material is not installed on Python 3.6")

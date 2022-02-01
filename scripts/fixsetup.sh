@@ -7,5 +7,4 @@ for python_version in ${PYTHON_VERSIONS}; do
     rm -rf "__pypackages__/${python_version}/lib/mkdocstrings"
     rm -f "__pypackages__/${python_version}/lib/mkdocstrings.pth"
     cp -r ../mkdocstrings/src/mkdocstrings "__pypackages__/${python_version}/lib/"
-    cp -r src/mkdocstrings/* "__pypackages__/${python_version}/lib/mkdocstrings"
 done

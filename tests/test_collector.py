@@ -2,7 +2,7 @@
 
 import pytest
 
-from mkdocstrings.handlers.python.collector import CollectionError, PythonCollector
+from mkdocstrings_handlers.python.collector import CollectionError, PythonCollector
 
 
 def test_collect_missing_module():
