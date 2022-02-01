@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.4.1](https://github.com/mkdocstrings/python/releases/tag/0.4.1) - 2022-02-01
+
+<small>[Compare with 0.4.0](https://github.com/mkdocstrings/python/compare/0.4.0...0.4.1)</small>
+
+### Bug Fixes
+- Fix docstring admonitions rendering ([a24ae2e](https://github.com/mkdocstrings/python/commit/a24ae2e95f4c0451a44037120451cf06c973ba65) by Timothée Mazzucotelli).
+
+
 ## [0.4.0](https://github.com/mkdocstrings/python/releases/tag/0.4.0) - 2022-02-01
 
 <small>[Compare with 0.3.0](https://github.com/mkdocstrings/python/compare/0.3.0...0.4.0)</small>
