@@ -6,7 +6,7 @@
 [![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/python)
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/python/community)
 
-A Python handler for mkdocstrings.
+A Python handler for [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings).
 
 ## Requirements
 
@@ -34,13 +34,24 @@ pyenv global system 3.7.12
 
 ## Installation
 
-With `pip`:
-```bash
-pip install mkdocstrings-python
+You can install this handler as a *mkdocstrings* extra:
+
+```toml
+# PEP 621 dependencies declaration
+# adapt to your dependencies manager
+[project]
+dependencies = [
+    "mkdocstrings[python]>=0.18",
+]
 ```
 
-With [`pipx`](https://github.com/pipxproject/pipx):
-```bash
-python3.7 -m pip install --user pipx
-pipx install mkdocstrings-python
+You can also explicitely depend on the handler:
+
+```toml
+# PEP 621 dependencies declaration
+# adapt to your dependencies manager
+[project]
+dependencies = [
+    "mkdocstrings-python",
+]
 ```

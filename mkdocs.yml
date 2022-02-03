@@ -8,6 +8,7 @@ site_dir: "site"
 nav:
 - Home:
   - Overview: index.md
+  - Usage: usage.md
   - Changelog: changelog.md
   - Credits: credits.md
   - License: license.md
@@ -72,6 +73,8 @@ plugins:
       python:
         import:
         - https://mkdocstrings.github.io/objects.inv
+        rendering:
+          show_submodules: no
     watch:
     - src/mkdocstrings_handlers
 
