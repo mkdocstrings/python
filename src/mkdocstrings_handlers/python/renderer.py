@@ -6,6 +6,7 @@ import enum
 import re
 import sys
 from collections import ChainMap
+from functools import lru_cache
 from typing import Any, Sequence
 
 from griffe.dataclasses import Alias, Object
@@ -14,7 +15,9 @@ from markupsafe import Markup
 
 from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseRenderer, CollectorItem
+from mkdocstrings.loggers import get_logger
 
+logger = get_logger(__name__)
 # TODO: CSS classes everywhere in templates
 # TODO: name normalization (filenames, Jinja2 variables, HTML tags, CSS classes)
 # TODO: Jinja2 blocks everywhere in templates
@@ -145,15 +148,11 @@ class PythonRenderer(BaseRenderer):
         Returns:
             The same code, formatted.
         """
-        from black import Mode, format_str
-
         code = signature.strip()
         if len(code) < line_length:
             return code
-        mode = Mode(line_length=line_length)
-        formatted = format_str(f"def {code}: pass", mode=mode)
-        # remove starting `def ` and trailing `: pass`
-        return formatted[4:-5].strip()[:-1]
+        formatter = _get_black_formatter()
+        return formatter(code, line_length)
 
     def do_order_members(self, members: Sequence[Object | Alias], order: Order) -> Sequence[Object | Alias]:
         """Order members given an ordering method.
@@ -209,3 +208,20 @@ class PythonRenderer(BaseRenderer):
         if code:
             text = f"<code>{text}</code>"
         return Markup(text).format(**variables)
+
+
+@lru_cache(maxsize=1)
+def _get_black_formatter():
+    try:
+        from black import Mode, format_str
+    except ModuleNotFoundError:
+        logger.warning("Formatting signatures requires Black to be installed.")
+        return lambda text, _: text
+
+    def formatter(code, line_length):  # noqa: WPS430
+        mode = Mode(line_length=line_length)
+        formatted = format_str(f"def {code}: pass", mode=mode)
+        # remove starting `def ` and trailing `: pass`
+        return formatted[4:-5].strip()[:-1]
+
+    return formatter
