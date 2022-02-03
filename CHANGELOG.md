@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.5.1](https://github.com/mkdocstrings/python/releases/tag/0.5.1) - 2022-02-03
+
+<small>[Compare with 0.5.0](https://github.com/mkdocstrings/python/compare/0.5.0...0.5.1)</small>
+
+### Dependencies
+- Depend on Griffe >= 0.11.1 ([1303557](https://github.com/mkdocstrings/python/commit/1303557928a27a3d9b063baee9d698458f471357) by Timothée Mazzucotelli).
+
+### Code Refactoring
+- Move handler into its own module ([b787e78](https://github.com/mkdocstrings/python/commit/b787e78e31652438039775850e55ea956c22e8d0) by Timothée Mazzucotelli).
+
+
 ## [0.5.0](https://github.com/mkdocstrings/python/releases/tag/0.5.0) - 2022-02-03
 
 <small>[Compare with 0.4.1](https://github.com/mkdocstrings/python/compare/0.4.1...0.5.0)</small>
