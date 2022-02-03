@@ -77,6 +77,7 @@ class PythonRenderer(BaseRenderer):
         "group_by_category": True,
         "heading_level": 2,
         "members_order": Order.alphabetical.value,
+        "docstring_section_style": "table",
     }
     """The default rendering options.
 
@@ -99,6 +100,7 @@ class PythonRenderer(BaseRenderer):
     **`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
     **`heading_level`** | `int` | The initial heading level to use. | `2`
     **`members_order`** | `str` | The members ordering to use. Options: `alphabetical` - order by the members names, `source` - order members as they appear in the source file. | `alphabetical`
+    **`docstring_section_style`** | `str` | The style used to render docstring sections. Options: `table`, `list`, `spacy`. | `table`
     """  # noqa: E501
 
     def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
