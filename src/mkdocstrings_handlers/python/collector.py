@@ -28,8 +28,8 @@ class PythonCollector(BaseCollector):
 
     Option | Type | Description | Default
     ------ | ---- | ----------- | -------
-    **`docstring_style`** | `"google" | "numpy" | "rst" | None` | The docstring style to use. | `"google"`
-    **`docstring_options`** | dict[str, Any] | The options for the docstring parser. | `{}`
+    **`docstring_style`** | `"google" | "numpy" | "sphinx" | None` | The docstring style to use. | `"google"`
+    **`docstring_options`** | `dict[str, Any]` | The options for the docstring parser. | `{}`
     """
 
     def __init__(self) -> None:
