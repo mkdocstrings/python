@@ -51,13 +51,17 @@ class PythonCollector(BaseCollector):
             The collected object-tree.
         """
         final_config = ChainMap(config, self.default_config)
+        parser_name = final_config["docstring_style"]
+        parser_options = final_config["docstring_options"]
 
+        just_loaded = False
         module_name = identifier.split(".", 1)[0]
         if module_name not in self._modules_collection:
+            just_loaded = True
             loader = GriffeLoader(
                 extensions=load_extensions(final_config.get("extensions", [])),
-                docstring_parser=Parser(final_config["docstring_style"]),
-                docstring_options=final_config["docstring_options"],
+                docstring_parser=Parser(parser_name),
+                docstring_options=parser_options,
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
             )
@@ -71,6 +75,12 @@ class PythonCollector(BaseCollector):
                 logger.warning(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
 
         try:
-            return self._modules_collection[identifier]
+            doc_object = self._modules_collection[identifier]
         except KeyError as error:  # noqa: WPS440
             raise CollectionError(f"{identifier} could not be found") from error
+
+        if not just_loaded and doc_object.docstring is not None:
+            doc_object.docstring.parser = parser_name and Parser(parser_name)
+            doc_object.docstring.parser_options = parser_options
+
+        return doc_object
