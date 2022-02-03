@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.5.0](https://github.com/mkdocstrings/python/releases/tag/0.5.0) - 2022-02-03
+
+<small>[Compare with 0.4.1](https://github.com/mkdocstrings/python/compare/0.4.1...0.5.0)</small>
+
+### Features
+- Allow changing docstring style of an object ([39240c1](https://github.com/mkdocstrings/python/commit/39240c1497dced15c03f9046138f2829fc10e139) by Timothée Mazzucotelli).
+
+### Bug Fixes
+- Warn if Black is not installed when formatting signature ([b848277](https://github.com/mkdocstrings/python/commit/b84827789b2bf66a4b76ff63a514ec6ba98cae68) by Timothée Mazzucotelli).
+- Fix missing default for `docstring_section_style` option ([774988e](https://github.com/mkdocstrings/python/commit/774988ef06a9bf3446949da63611ad7bc5a712fc) by Timothée Mazzucotelli).
+
+### Code Refactoring
+- Change to new way of stripping paragraphs ([33d4594](https://github.com/mkdocstrings/python/commit/33d45945bf8ffce2435a6b3749795397fa7c3fc8) by Timothée Mazzucotelli).
+
+
 ## [0.4.1](https://github.com/mkdocstrings/python/releases/tag/0.4.1) - 2022-02-01
 
 <small>[Compare with 0.4.0](https://github.com/mkdocstrings/python/compare/0.4.0...0.4.1)</small>
