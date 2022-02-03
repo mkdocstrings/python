@@ -92,7 +92,7 @@ class PythonRenderer(BaseRenderer):
     **`show_if_no_docstring`** | `bool` | Show the object heading even if it has no docstring or children with docstrings. | `False`
     **`show_signature`** | `bool` | Show method and function signatures. | `True`
     **`show_signature_annotations`** | `bool` | Show the type annotations in method and function signatures. | `False`
-    **`separate_signature`** | `bool` | Whether to put the whole signature in a foldable code block below the heading. | `False`
+    **`separate_signature`** | `bool` | Whether to put the whole signature in a code block below the heading. | `False`
     **`line_length`** | `int` | Maximum line length when formatting code. | `60`
     **`show_source`** | `bool` | Show the source code of this object. | `True`
     **`show_bases`** | `bool` | Show the base classes of a class. | `True`
