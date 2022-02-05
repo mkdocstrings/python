@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.5.2](https://github.com/mkdocstrings/python/releases/tag/0.5.2) - 2022-02-05
+
+<small>[Compare with 0.5.1](https://github.com/mkdocstrings/python/compare/0.5.1...0.5.2)</small>
+
+### Dependencies
+- Require at least mkdocstrings 0.18 ([7abdda4](https://github.com/mkdocstrings/python/commit/7abdda416e25128eec06f3b15aae5058fbc7320c) by Timothée Mazzucotelli).
+
+
 ## [0.5.1](https://github.com/mkdocstrings/python/releases/tag/0.5.1) - 2022-02-03
 
 <small>[Compare with 0.5.0](https://github.com/mkdocstrings/python/compare/0.5.0...0.5.1)</small>
@@ -54,7 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Features
 - Support griffe 0.10 ([28061de](https://github.com/mkdocstrings/python/commit/28061de20094c510f27bb375b2e1dc44a699809d) by Timothée Mazzucotelli).
 
-### Build
+### Dependencies
 - Require griffe 0.10 ([cfbd7bb](https://github.com/mkdocstrings/python/commit/cfbd7bb4761691ef36100962c775ed1d0a247514) by Timothée Mazzucotelli).
 
 ### Code Refactoring
@@ -65,7 +73,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <small>[Compare with 0.1.0](https://github.com/mkdocstrings/python/compare/0.1.0...0.2.0)</small>
 
-### Build
+### Dependencies
 - Depend on griffe >= 0.7.1 ([34f7ebd](https://github.com/mkdocstrings/python/commit/34f7ebd41f3ebda025ad87e3b52a7226fcb93720) by Timothée Mazzucotelli).
 - Upgrade griffe, no upper bound ([8f0aa42](https://github.com/mkdocstrings/python/commit/8f0aa42eed07424a1377708897d92f9894f4abdb) by Timothée Mazzucotelli).
 
