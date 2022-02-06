@@ -286,11 +286,7 @@ def docs_deploy(ctx):
     Arguments:
         ctx: The context instance (passed automatically).
     """
-    ctx.run(
-        "echo 'Not ready yet! It would override mkdocstrings.github.io/python!' && false",
-        title="Deploying documentation",
-        nofail=True,
-    )
+    ctx.run("mkdocs gh-deploy", title="Deploying documentation")
 
 
 @duty
