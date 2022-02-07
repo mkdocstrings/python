@@ -923,7 +923,9 @@ See <a href="#collector-griffe">Collector: Griffe</a> to learn more about Griffe
 </table>
 <div class="admonition example">
 <p class="admonition-title">Configuration example</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Global</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Global</label><label for="__tabbed_1_2">Local</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
 <span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
@@ -933,11 +935,12 @@ See <a href="#collector-griffe">Collector: Griffe</a> to learn more about Griffe
 <span class="w">            </span><span class="nt">docstring_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google</span><span class="w"></span>
 </code></pre></div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Local</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_package</span><span class="w"></span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">docstring_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinx</span><span class="w"></span>
 </code></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1077,7 +1080,9 @@ See <a href="#collector-griffe">Collector: Griffe</a> to learn more about Griffe
 <p>These options affect how the documentation is rendered.</p>
 <div class="admonition example">
 <p class="admonition-title">Configuration example</p>
-<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Global</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Global</label><label for="__tabbed_2_2">Local</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
 <span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
@@ -1087,7 +1092,7 @@ See <a href="#collector-griffe">Collector: Griffe</a> to learn more about Griffe
 <span class="w">            </span><span class="nt">show_root_heading</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span><span class="w"></span>
 </code></pre></div>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Local</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="gu">## `ClassA`</span>
 
 ::: my_package.my_module.ClassA
@@ -1095,6 +1100,7 @@ See <a href="#collector-griffe">Collector: Griffe</a> to learn more about Griffe
       show_root_heading: no
       heading_level: 3
 </code></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1116,7 +1122,9 @@ both globally or per autodoc instruction.</p>
 <h4 id="google-style-admonitions">Google-style admonitions<a class="headerlink" href="#google-style-admonitions" title="Permanent link">¤</a></h4>
 <p>With Google-style docstrings, any section that is not recognized will be transformed into its admonition equivalent.
 For example:</p>
-<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Docstring</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Docstring</label><label for="__tabbed_3_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Important:</span>
 <span class="sd">    It looks like a section, but it will be rendered as an admonition.</span>
@@ -1126,7 +1134,7 @@ For example:</p>
 <span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Result</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>It looks like a section, but it will be rendered as an admonition.</p>
@@ -1134,6 +1142,7 @@ For example:</p>
 <div class="admonition tip">
 <p class="admonition-title">You can even chose a title.</p>
 <p>This admonition has a custom title!</p>
+</div>
 </div>
 </div>
 </div>
