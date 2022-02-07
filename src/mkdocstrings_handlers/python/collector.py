@@ -9,7 +9,6 @@ from griffe.agents.extensions import load_extensions
 from griffe.collections import LinesCollection, ModulesCollection
 from griffe.docstrings.parsers import Parser
 from griffe.loader import GriffeLoader
-
 from mkdocstrings.handlers.base import BaseCollector, CollectionError, CollectorItem
 from mkdocstrings.loggers import get_logger
 

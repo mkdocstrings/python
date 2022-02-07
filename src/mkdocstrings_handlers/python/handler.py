@@ -4,10 +4,10 @@ import posixpath
 from typing import Any, BinaryIO, Iterator, Optional, Tuple
 
 from griffe.logger import patch_loggers
-
 from mkdocstrings.handlers.base import BaseHandler
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
+
 from mkdocstrings_handlers.python.collector import PythonCollector
 from mkdocstrings_handlers.python.renderer import PythonRenderer
 

@@ -12,7 +12,6 @@ from typing import Any, Sequence
 from griffe.dataclasses import Alias, Object
 from markdown import Markdown
 from markupsafe import Markup
-
 from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseRenderer, CollectorItem
 from mkdocstrings.loggers import get_logger
