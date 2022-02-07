@@ -1,8 +1,8 @@
-## Handler options
-
-!!! warning "This the documentation for the NEW, EXPERIMENTAL Python handler."
+!!! warning "This is the documentation for the NEW, EXPERIMENTAL Python handler."
     To read the documentation for the LEGACY handler,
     go to the [legacy handler documentation](https://mkdocstrings.github.io/python-legacy).
+
+## Handler options
 
 Like every handler, the Python handler accepts the common
 [`selection`](#selection) and [`rendering`](#rendering) options,
