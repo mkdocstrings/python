@@ -1,4 +1,4 @@
-# Python for mkdocstrings
+# mkdocstrings-python
 
 [![ci](https://github.com/mkdocstrings/python/workflows/ci/badge.svg)](https://github.com/mkdocstrings/python/actions?query=workflow%3Aci)
 [![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/python/)
@@ -13,7 +13,7 @@ A Python handler for [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings
 
 ## Requirements
 
-Python for mkdocstrings requires Python 3.7 or above.
+mkdocstrings-python requires Python 3.7 or above.
 
 <details>
 <summary>To install Python 3.7, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>

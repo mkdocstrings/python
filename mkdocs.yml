@@ -1,4 +1,4 @@
-site_name: "Python for mkdocstrings"
+site_name: "mkdocstrings-python"
 site_description: "A Python handler for mkdocstrings."
 site_url: "https://mkdocstrings.github.io/python"
 repo_url: "https://github.com/mkdocstrings/python"
@@ -70,12 +70,6 @@ plugins:
 - coverage
 - section-index
 - mkdocstrings:
-    handlers:
-      python:
-        import:
-        - https://mkdocstrings.github.io/objects.inv
-        rendering:
-          show_submodules: no
     watch:
     - src/mkdocstrings_handlers
 
