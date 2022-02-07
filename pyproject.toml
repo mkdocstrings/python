@@ -44,9 +44,6 @@ Discussions = "https://github.com/mkdocstrings/python/discussions"
 Gitter = "https://gitter.im/python/community"
 Funding = "https://github.com/sponsors/mkdocstrings"
 
-[project.scripts]
-mkdocstrings-python = "mkdocstrings_handlers.cli:main"
-
 [tool.pdm]
 version = {use_scm = true}
 includes = ["src/mkdocstrings_handlers"]

@@ -70,6 +70,12 @@ plugins:
 - coverage
 - section-index
 - mkdocstrings:
+    handlers:
+      python:
+        import:
+        - https://mkdocstrings.github.io/objects.inv
+        rendering:
+          show_submodules: no
     watch:
     - src/mkdocstrings_handlers
 
