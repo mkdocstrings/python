@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.5.3](https://github.com/mkdocstrings/python/releases/tag/0.5.3) - 2022-02-08
+
+<small>[Compare with 0.5.2](https://github.com/mkdocstrings/python/compare/0.5.2...0.5.3)</small>
+
+### Bug Fixes
+- Allow passing `null` as docstring style ([f526816](https://github.com/mkdocstrings/python/commit/f526816ef1d499795c647e6fe184ba91c1d41b1b) by Timothée Mazzucotelli). [Issue #2](https://github.com/mkdocstrings/python/issues/2)
+
+
 ## [0.5.2](https://github.com/mkdocstrings/python/releases/tag/0.5.2) - 2022-02-05
 
 <small>[Compare with 0.5.1](https://github.com/mkdocstrings/python/compare/0.5.1...0.5.2)</small>
