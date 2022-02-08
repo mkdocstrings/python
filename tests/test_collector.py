@@ -23,3 +23,9 @@ def test_collect_module():
     """Assert existing module can be collected."""
     collector = PythonCollector()
     assert collector.collect("mkdocstrings", {})
+
+
+def test_collect_with_null_parser():
+    """Assert we can pass `None` as parser when collecting."""
+    collector = PythonCollector()
+    assert collector.collect("mkdocstrings", {"docstring_style": None})

@@ -52,6 +52,7 @@ class PythonCollector(BaseCollector):
         final_config = ChainMap(config, self.default_config)
         parser_name = final_config["docstring_style"]
         parser_options = final_config["docstring_options"]
+        parser = parser_name and Parser(parser_name)
 
         just_loaded = False
         module_name = identifier.split(".", 1)[0]
@@ -59,7 +60,7 @@ class PythonCollector(BaseCollector):
             just_loaded = True
             loader = GriffeLoader(
                 extensions=load_extensions(final_config.get("extensions", [])),
-                docstring_parser=Parser(parser_name),
+                docstring_parser=parser,
                 docstring_options=parser_options,
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
@@ -79,7 +80,7 @@ class PythonCollector(BaseCollector):
             raise CollectionError(f"{identifier} could not be found") from error
 
         if not just_loaded and doc_object.docstring is not None:
-            doc_object.docstring.parser = parser_name and Parser(parser_name)
+            doc_object.docstring.parser = parser
             doc_object.docstring.parser_options = parser_options
 
         return doc_object
