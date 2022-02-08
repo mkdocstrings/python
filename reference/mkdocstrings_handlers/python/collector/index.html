@@ -920,7 +920,8 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PythonCollector</span><span class="p">(</span><span class="n">BaseCollector</span><span class="p">):</span>
+<span class="normal">85</span>
+<span class="normal">86</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PythonCollector</span><span class="p">(</span><span class="n">BaseCollector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The class responsible for loading Jinja templates and rendering them.</span>
 
 <span class="sd">    It defines some configuration options, implements the `render` method,</span>
@@ -957,6 +958,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
         <span class="n">final_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
         <span class="n">parser_name</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;docstring_style&quot;</span><span class="p">]</span>
         <span class="n">parser_options</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;docstring_options&quot;</span><span class="p">]</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">parser_name</span> <span class="ow">and</span> <span class="n">Parser</span><span class="p">(</span><span class="n">parser_name</span><span class="p">)</span>
 
         <span class="n">just_loaded</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">module_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -964,7 +966,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
             <span class="n">just_loaded</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">loader</span> <span class="o">=</span> <span class="n">GriffeLoader</span><span class="p">(</span>
                 <span class="n">extensions</span><span class="o">=</span><span class="n">load_extensions</span><span class="p">(</span><span class="n">final_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extensions&quot;</span><span class="p">,</span> <span class="p">[])),</span>
-                <span class="n">docstring_parser</span><span class="o">=</span><span class="n">Parser</span><span class="p">(</span><span class="n">parser_name</span><span class="p">),</span>
+                <span class="n">docstring_parser</span><span class="o">=</span><span class="n">parser</span><span class="p">,</span>
                 <span class="n">docstring_options</span><span class="o">=</span><span class="n">parser_options</span><span class="p">,</span>
                 <span class="n">modules_collection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">,</span>
                 <span class="n">lines_collection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">,</span>
@@ -984,7 +986,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
             <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2"> could not be found&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">just_loaded</span> <span class="ow">and</span> <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser_name</span> <span class="ow">and</span> <span class="n">Parser</span><span class="p">(</span><span class="n">parser_name</span><span class="p">)</span>
+            <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span>
             <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser_options</span> <span class="o">=</span> <span class="n">parser_options</span>
 
         <span class="k">return</span> <span class="n">doc_object</span>
@@ -1214,7 +1216,8 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>  <span class="c1"># noqa: WPS231</span>
+<span class="normal">85</span>
+<span class="normal">86</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>  <span class="c1"># noqa: WPS231</span>
     <span class="sd">&quot;&quot;&quot;Collect the documentation tree given an identifier and selection options.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1230,6 +1233,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
     <span class="n">final_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
     <span class="n">parser_name</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;docstring_style&quot;</span><span class="p">]</span>
     <span class="n">parser_options</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;docstring_options&quot;</span><span class="p">]</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">parser_name</span> <span class="ow">and</span> <span class="n">Parser</span><span class="p">(</span><span class="n">parser_name</span><span class="p">)</span>
 
     <span class="n">just_loaded</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">module_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -1237,7 +1241,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
         <span class="n">just_loaded</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">loader</span> <span class="o">=</span> <span class="n">GriffeLoader</span><span class="p">(</span>
             <span class="n">extensions</span><span class="o">=</span><span class="n">load_extensions</span><span class="p">(</span><span class="n">final_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extensions&quot;</span><span class="p">,</span> <span class="p">[])),</span>
-            <span class="n">docstring_parser</span><span class="o">=</span><span class="n">Parser</span><span class="p">(</span><span class="n">parser_name</span><span class="p">),</span>
+            <span class="n">docstring_parser</span><span class="o">=</span><span class="n">parser</span><span class="p">,</span>
             <span class="n">docstring_options</span><span class="o">=</span><span class="n">parser_options</span><span class="p">,</span>
             <span class="n">modules_collection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">,</span>
             <span class="n">lines_collection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">,</span>
@@ -1257,7 +1261,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
         <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2"> could not be found&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">just_loaded</span> <span class="ow">and</span> <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser_name</span> <span class="ow">and</span> <span class="n">Parser</span><span class="p">(</span><span class="n">parser_name</span><span class="p">)</span>
+        <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span>
         <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser_options</span> <span class="o">=</span> <span class="n">parser_options</span>
 
     <span class="k">return</span> <span class="n">doc_object</span>
