@@ -6,5 +6,5 @@
 {%- elif original_expression is string -%}
   {{ original_expression }}
 {%- else -%}
-  <span data-autorefs-optional="{{ original_expression.full }}">{{ original_expression.source }}</span>
+  <span data-autorefs-optional{% if original_expression.full != original_expression.source %}-hover{% endif %}="{{ original_expression.full }}">{{ original_expression.source }}</span>
 {%- endif -%}
