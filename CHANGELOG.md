@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.5.4](https://github.com/mkdocstrings/python/releases/tag/0.5.4) - 2022-02-13
+
+<small>[Compare with 0.5.3](https://github.com/mkdocstrings/python/compare/0.5.3...0.5.4)</small>
+
+### Bug Fixes
+- Don't load additional modules during fallback ([69b8e25](https://github.com/mkdocstrings/python/commit/69b8e25cddc9e256c5edb8843592a466023aa124) by Timothée Mazzucotelli).
+
+
 ## [0.5.3](https://github.com/mkdocstrings/python/releases/tag/0.5.3) - 2022-02-08
 
 <small>[Compare with 0.5.2](https://github.com/mkdocstrings/python/compare/0.5.2...0.5.3)</small>
