@@ -1,4 +1,4 @@
-{{ log.debug() }}
+{{ log.debug("Rendering returns section") }}
 {% if config.docstring_section_style == "table" %}
   {% set name_column = section.value|selectattr("name")|any %}
   <p><strong>{{ section.title or "Returns:" }}</strong></p>

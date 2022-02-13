@@ -1,4 +1,4 @@
-{{ log.debug() }}
+{{ log.debug("Rendering docstring") }}
 {% if docstring_sections %}
   {% for section in docstring_sections %}
     {% if section.kind.value == "text" %}

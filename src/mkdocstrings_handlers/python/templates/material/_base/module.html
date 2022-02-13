@@ -1,4 +1,4 @@
-{{ log.debug() }}
+{{ log.debug("Rendering " + module.path) }}
 {% if config.show_if_no_docstring or module.has_docstrings %}
 
   <div class="doc doc-object doc-module">

@@ -1,4 +1,4 @@
-{{ log.debug() }}
+{{ log.debug("Rendering " + attribute.path) }}
 {% if config.show_if_no_docstring or attribute.has_docstrings %}
 
   <div class="doc doc-object doc-attribute">

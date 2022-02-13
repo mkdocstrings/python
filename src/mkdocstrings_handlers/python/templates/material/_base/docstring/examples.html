@@ -1,4 +1,4 @@
-{{ log.debug() }}
+{{ log.debug("Rendering examples section") }}
 <p><strong>{{ section.title or "Examples:" }}</strong></p>
 {% for section_type, sub_section in section.value %}
   {% if section_type == "markdown" %}
