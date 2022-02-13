@@ -31,6 +31,8 @@ class PythonCollector(BaseCollector):
     **`docstring_options`** | `dict[str, Any]` | The options for the docstring parser. | `{}`
     """
 
+    fallback_config: dict = {"fallback": True}
+
     def __init__(self) -> None:
         """Initialize the object."""
         self._modules_collection: ModulesCollection = ModulesCollection()
@@ -49,15 +51,17 @@ class PythonCollector(BaseCollector):
         Returns:
             The collected object-tree.
         """
+        module_name = identifier.split(".", 1)[0]
+        unknown_module = module_name not in self._modules_collection
+        if config.pop("fallback", False) and unknown_module:
+            raise CollectionError("Not loading additional modules during fallback")
+
         final_config = ChainMap(config, self.default_config)
         parser_name = final_config["docstring_style"]
         parser_options = final_config["docstring_options"]
         parser = parser_name and Parser(parser_name)
 
-        just_loaded = False
-        module_name = identifier.split(".", 1)[0]
-        if module_name not in self._modules_collection:
-            just_loaded = True
+        if unknown_module:
             loader = GriffeLoader(
                 extensions=load_extensions(final_config.get("extensions", [])),
                 docstring_parser=parser,
@@ -79,7 +83,7 @@ class PythonCollector(BaseCollector):
         except KeyError as error:  # noqa: WPS440
             raise CollectionError(f"{identifier} could not be found") from error
 
-        if not just_loaded and doc_object.docstring is not None:
+        if not unknown_module and doc_object.docstring is not None:
             doc_object.docstring.parser = parser
             doc_object.docstring.parser_options = parser_options
 
