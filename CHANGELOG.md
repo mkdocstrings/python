@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.6.0](https://github.com/mkdocstrings/python/releases/tag/0.6.0) - 2022-02-13
+
+<small>[Compare with 0.5.4](https://github.com/mkdocstrings/python/compare/0.5.4...0.6.0)</small>
+
+### Features
+- Add option to merge `__init__` methods' docstrings into their classes' docstrings ([1b4d1c0](https://github.com/mkdocstrings/python/commit/1b4d1c0e9254fc51756caed3875fbc8c1da079a6) by Timothée Mazzucotelli).
+- Support separate attribute signature ([e962b88](https://github.com/mkdocstrings/python/commit/e962b885f48570762c5bfcefc9b61e5fc1df1c70) by Timothée Mazzucotelli).
+
+### Bug Fixes
+- Restore full cross-refs paths on hover ([ac11970](https://github.com/mkdocstrings/python/commit/ac1197062f2e23e819f144fe74a774d504d0ac49) by Timothée Mazzucotelli).
+- Fix rendering of labels ([52919c5](https://github.com/mkdocstrings/python/commit/52919c559378a6006bbe931423c5f03eb5883eaf) by Timothée Mazzucotelli).
+
+### Code Refactoring
+- Don't add trailing parentheses in functions heading when separate signature ([885696e](https://github.com/mkdocstrings/python/commit/885696e05606d07334e0428128ed688d54098da1) by Timothée Mazzucotelli).
+- Use more explicit template debug messages ([f2122d7](https://github.com/mkdocstrings/python/commit/f2122d7fa119ed055ffe2b2bac72d2c643daca1c) by Timothée Mazzucotelli).
+
+
 ## [0.5.4](https://github.com/mkdocstrings/python/releases/tag/0.5.4) - 2022-02-13
 
 <small>[Compare with 0.5.3](https://github.com/mkdocstrings/python/compare/0.5.3...0.5.4)</small>
