@@ -563,13 +563,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.collector.PythonCollector.__init__" class="md-nav__link">
-    __init__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings_handlers.python.collector.PythonCollector.collect" class="md-nav__link">
     collect()
   </a>
@@ -776,13 +769,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.collector.PythonCollector.__init__" class="md-nav__link">
-    __init__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings_handlers.python.collector.PythonCollector.collect" class="md-nav__link">
     collect()
   </a>
@@ -837,170 +823,35 @@
 
 
 <h2 id="mkdocstrings_handlers.python.collector.PythonCollector" class="doc doc-heading">
-        <code>
-PythonCollector            (<a href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.BaseCollector">BaseCollector</a>)
-        </code>
-
+<code class="highlight language-python"><span class="n">PythonCollector</span><span class="p">()</span></code>
 
 
 <a href="#mkdocstrings_handlers.python.collector.PythonCollector" class="headerlink" title="Permanent link">¤</a></h2>
 
+
     <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a title="mkdocstrings.handlers.base.BaseCollector" href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.BaseCollector">BaseCollector</a></code></p>
+
 
       <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
 and overrides the <code>update_env</code> method of the <a href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.BaseRenderer"><code>BaseRenderer</code> class</a>.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>mkdocstrings_handlers/python/collector.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
+
+
+            <details class="quote">
+              <summary>Source code in <code>mkdocstrings_handlers/python/collector.py</code></summary>
+              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PythonCollector</span><span class="p">(</span><span class="n">BaseCollector</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The class responsible for loading Jinja templates and rendering them.</span>
-
-<span class="sd">    It defines some configuration options, implements the `render` method,</span>
-<span class="sd">    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.base.BaseRenderer].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;docstring_style&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span> <span class="s2">&quot;docstring_options&quot;</span><span class="p">:</span> <span class="p">{}}</span>
-    <span class="sd">&quot;&quot;&quot;The default selection options.</span>
-
-<span class="sd">    Option | Type | Description | Default</span>
-<span class="sd">    ------ | ---- | ----------- | -------</span>
-<span class="sd">    **`docstring_style`** | `&quot;google&quot; | &quot;numpy&quot; | &quot;sphinx&quot; | None` | The docstring style to use. | `&quot;google&quot;`</span>
-<span class="sd">    **`docstring_options`** | `dict[str, Any]` | The options for the docstring parser. | `{}`</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">fallback_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fallback&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the object.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">:</span> <span class="n">ModulesCollection</span> <span class="o">=</span> <span class="n">ModulesCollection</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">:</span> <span class="n">LinesCollection</span> <span class="o">=</span> <span class="n">LinesCollection</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>  <span class="c1"># noqa: WPS231</span>
-        <span class="sd">&quot;&quot;&quot;Collect the documentation tree given an identifier and selection options.</span>
-
-<span class="sd">        Arguments:</span>
-<span class="sd">            identifier: The dotted-path of a Python object available in the Python path.</span>
-<span class="sd">            config: Selection options, used to alter the data collection done by `pytkdocs`.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            CollectionError: When there was a problem collecting the object documentation.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The collected object-tree.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">module_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">unknown_module</span> <span class="o">=</span> <span class="n">module_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span>
-        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;fallback&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">unknown_module</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="s2">&quot;Not loading additional modules during fallback&quot;</span><span class="p">)</span>
-
-        <span class="n">final_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
-        <span class="n">parser_name</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;docstring_style&quot;</span><span class="p">]</span>
-        <span class="n">parser_options</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;docstring_options&quot;</span><span class="p">]</span>
-        <span class="n">parser</span> <span class="o">=</span> <span class="n">parser_name</span> <span class="ow">and</span> <span class="n">Parser</span><span class="p">(</span><span class="n">parser_name</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">unknown_module</span><span class="p">:</span>
-            <span class="n">loader</span> <span class="o">=</span> <span class="n">GriffeLoader</span><span class="p">(</span>
-                <span class="n">extensions</span><span class="o">=</span><span class="n">load_extensions</span><span class="p">(</span><span class="n">final_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extensions&quot;</span><span class="p">,</span> <span class="p">[])),</span>
-                <span class="n">docstring_parser</span><span class="o">=</span><span class="n">parser</span><span class="p">,</span>
-                <span class="n">docstring_options</span><span class="o">=</span><span class="n">parser_options</span><span class="p">,</span>
-                <span class="n">modules_collection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">,</span>
-                <span class="n">lines_collection</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">loader</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">error</span>
-
-            <span class="n">unresolved</span><span class="p">,</span> <span class="n">iterations</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">resolve_aliases</span><span class="p">(</span><span class="n">only_exported</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">only_known_modules</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">unresolved</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unresolved</span><span class="p">)</span><span class="si">}</span><span class="s2"> aliases were still unresolved after </span><span class="si">{</span><span class="n">iterations</span><span class="si">}</span><span class="s2"> iterations&quot;</span><span class="p">)</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">doc_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>  <span class="c1"># noqa: WPS440</span>
-            <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2"> could not be found&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">unknown_module</span> <span class="ow">and</span> <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span>
-            <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser_options</span> <span class="o">=</span> <span class="n">parser_options</span>
-
-        <span class="k">return</span> <span class="n">doc_object</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Initialize the collector.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">:</span> <span class="n">ModulesCollection</span> <span class="o">=</span> <span class="n">ModulesCollection</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">:</span> <span class="n">LinesCollection</span> <span class="o">=</span> <span class="n">LinesCollection</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
-        </details>
+            </details>
 
 
 
@@ -1020,8 +871,12 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 <h3 id="mkdocstrings_handlers.python.collector.PythonCollector.default_config" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;docstring_style&#39;</span><span class="p">:</span> <span class="s1">&#39;google&#39;</span><span class="p">,</span> <span class="s1">&#39;docstring_options&#39;</span><span class="p">:</span> <span class="p">{}}</span></code>
 
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+  </span>
 
 <a href="#mkdocstrings_handlers.python.collector.PythonCollector.default_config" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
@@ -1063,39 +918,6 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 
 
 
-<h3 id="mkdocstrings_handlers.python.collector.PythonCollector.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
-
-<a href="#mkdocstrings_handlers.python.collector.PythonCollector.__init__" class="headerlink" title="Permanent link">¤</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-      <p>Initialize the object.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>mkdocstrings_handlers/python/collector.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Initialize the object.&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">:</span> <span class="n">ModulesCollection</span> <span class="o">=</span> <span class="n">ModulesCollection</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">:</span> <span class="n">LinesCollection</span> <span class="o">=</span> <span class="n">LinesCollection</span><span class="p">()</span>
-</code></pre></div>
-</td></tr></table>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
 <h3 id="mkdocstrings_handlers.python.collector.PythonCollector.collect" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
@@ -1121,7 +943,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
         <tr>
           <td><code>identifier</code></td>
           <td>
-                <code>str</code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
           <td><p>The dotted-path of a Python object available in the Python path.</p></td>
           <td>
@@ -1131,7 +953,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
         <tr>
           <td><code>config</code></td>
           <td>
-                <code>dict</code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
           </td>
           <td><p>Selection options, used to alter the data collection done by <code>pytkdocs</code>.</p></td>
           <td>
@@ -1152,7 +974,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
     <tbody>
         <tr>
           <td>
-                <code><a href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.CollectionError">CollectionError</a></code>
+                <code><a title="mkdocstrings.handlers.base.CollectionError" href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.CollectionError">CollectionError</a></code>
           </td>
           <td><p>When there was a problem collecting the object documentation.</p></td>
         </tr>
@@ -1170,7 +992,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
     <tbody>
         <tr>
           <td>
-                <code>CollectorItem</code>
+                <code><span title="mkdocstrings.handlers.base.CollectorItem">CollectorItem</span></code>
           </td>
           <td><p>The collected object-tree.</p></td>
         </tr>
@@ -1179,9 +1001,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings_handlers/python/collector.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
@@ -1228,7 +1048,9 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 <span class="normal">87</span>
 <span class="normal">88</span>
 <span class="normal">89</span>
-<span class="normal">90</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>  <span class="c1"># noqa: WPS231</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>  <span class="c1"># noqa: WPS231</span>
     <span class="sd">&quot;&quot;&quot;Collect the documentation tree given an identifier and selection options.</span>
 
 <span class="sd">    Arguments:</span>

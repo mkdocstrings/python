@@ -605,6 +605,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.do_format_code" class="md-nav__link">
+    do_format_code()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.do_format_signature" class="md-nav__link">
     do_format_signature()
   </a>
@@ -811,6 +818,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.do_format_code" class="md-nav__link">
+    do_format_code()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.do_format_signature" class="md-nav__link">
     do_format_signature()
   </a>
@@ -879,32 +893,21 @@
 
 
 <h2 id="mkdocstrings_handlers.python.renderer.Order" class="doc doc-heading">
-        <code>
-Order            (enum.Enum)
-        </code>
+          <code>Order</code>
 
 
 
 <a href="#mkdocstrings_handlers.python.renderer.Order" class="headerlink" title="Permanent link">¤</a></h2>
 
+
     <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a href="https://docs.python.org/3/library/enum.html#module-enum">enum</a>.<a title="enum.Enum" href="https://docs.python.org/3/library/enum.html#enum.Enum">Enum</a></code></p>
+
 
       <p>Enumeration for the possible members ordering.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>mkdocstrings_handlers/python/renderer.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Order</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enumeration for the possible members ordering.&quot;&quot;&quot;</span>
 
-    <span class="n">alphabetical</span> <span class="o">=</span> <span class="s2">&quot;alphabetical&quot;</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;source&quot;</span>
-</code></pre></div>
-</td></tr></table>
-        </details>
 
 
 
@@ -934,15 +937,17 @@ Order            (enum.Enum)
 
 
 <h2 id="mkdocstrings_handlers.python.renderer.PythonRenderer" class="doc doc-heading">
-        <code>
-PythonRenderer            (<a href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.BaseRenderer">BaseRenderer</a>)
-        </code>
+          <code>PythonRenderer</code>
 
 
 
 <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer" class="headerlink" title="Permanent link">¤</a></h2>
 
+
     <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a title="mkdocstrings.handlers.base.BaseRenderer" href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.BaseRenderer">BaseRenderer</a></code></p>
+
 
       <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
@@ -967,7 +972,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
         <tr>
           <td><code>default_config</code></td>
           <td>
-                <code>dict</code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
           </td>
           <td><p>The default rendering options,
 see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_config"><code>default_config</code></a>.</p></td>
@@ -975,330 +980,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
     </tbody>
   </table>
 
-        <details class="quote">
-          <summary>Source code in <code>mkdocstrings_handlers/python/renderer.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 50</span>
-<span class="normal"> 51</span>
-<span class="normal"> 52</span>
-<span class="normal"> 53</span>
-<span class="normal"> 54</span>
-<span class="normal"> 55</span>
-<span class="normal"> 56</span>
-<span class="normal"> 57</span>
-<span class="normal"> 58</span>
-<span class="normal"> 59</span>
-<span class="normal"> 60</span>
-<span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
-<span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PythonRenderer</span><span class="p">(</span><span class="n">BaseRenderer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The class responsible for loading Jinja templates and rendering them.</span>
 
-<span class="sd">    It defines some configuration options, implements the `render` method,</span>
-<span class="sd">    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.base.BaseRenderer].</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        fallback_theme: The theme to fallback to.</span>
-<span class="sd">        default_config: The default rendering options,</span>
-<span class="sd">            see [`default_config`][mkdocstrings_handlers.python.renderer.PythonRenderer.default_config].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">fallback_theme</span> <span class="o">=</span> <span class="s2">&quot;material&quot;</span>
-
-    <span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;show_root_heading&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;show_root_toc_entry&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;show_root_full_path&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;show_root_members_full_path&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;show_object_full_path&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;show_category_heading&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;show_if_no_docstring&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;show_signature&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;show_signature_annotations&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;separate_signature&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;line_length&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="s2">&quot;show_source&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;show_bases&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;show_submodules&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;group_by_category&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;heading_level&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;members_order&quot;</span><span class="p">:</span> <span class="n">Order</span><span class="o">.</span><span class="n">alphabetical</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-        <span class="s2">&quot;docstring_section_style&quot;</span><span class="p">:</span> <span class="s2">&quot;table&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="sd">&quot;&quot;&quot;The default rendering options.</span>
-
-<span class="sd">    Option | Type | Description | Default</span>
-<span class="sd">    ------ | ---- | ----------- | -------</span>
-<span class="sd">    **`show_root_heading`** | `bool` | Show the heading of the object at the root of the documentation tree. | `False`</span>
-<span class="sd">    **`show_root_toc_entry`** | `bool` | If the root heading is not shown, at least add a ToC entry for it. | `True`</span>
-<span class="sd">    **`show_root_full_path`** | `bool` | Show the full Python path for the root object heading. | `True`</span>
-<span class="sd">    **`show_object_full_path`** | `bool` | Show the full Python path of every object. | `False`</span>
-<span class="sd">    **`show_root_members_full_path`** | `bool` | Show the full Python path of objects that are children of the root object (for example, classes in a module). When False, `show_object_full_path` overrides. | `False`</span>
-<span class="sd">    **`show_category_heading`** | `bool` | When grouped by categories, show a heading for each category. | `False`</span>
-<span class="sd">    **`show_if_no_docstring`** | `bool` | Show the object heading even if it has no docstring or children with docstrings. | `False`</span>
-<span class="sd">    **`show_signature`** | `bool` | Show method and function signatures. | `True`</span>
-<span class="sd">    **`show_signature_annotations`** | `bool` | Show the type annotations in method and function signatures. | `False`</span>
-<span class="sd">    **`separate_signature`** | `bool` | Whether to put the whole signature in a code block below the heading. | `False`</span>
-<span class="sd">    **`line_length`** | `int` | Maximum line length when formatting code. | `60`</span>
-<span class="sd">    **`show_source`** | `bool` | Show the source code of this object. | `True`</span>
-<span class="sd">    **`show_bases`** | `bool` | Show the base classes of a class. | `True`</span>
-<span class="sd">    **`show_submodules`** | `bool` | When rendering a module, show its submodules recursively. | `True`</span>
-<span class="sd">    **`group_by_category`** | `bool` | Group the object&#39;s children by categories: attributes, classes, functions, methods, and modules. | `True`</span>
-<span class="sd">    **`heading_level`** | `int` | The initial heading level to use. | `2`</span>
-<span class="sd">    **`members_order`** | `str` | The members ordering to use. Options: `alphabetical` - order by the members names, `source` - order members as they appear in the source file. | `alphabetical`</span>
-<span class="sd">    **`docstring_section_style`** | `str` | The style used to render docstring sections. Options: `table`, `list`, `spacy`. | `table`</span>
-<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
-
-    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
-        <span class="n">final_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
-
-        <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Heading level is a &quot;state&quot; variable, that will change at each step</span>
-        <span class="c1"># of the rendering recursion. Therefore, it&#39;s easier to use it as a plain value</span>
-        <span class="c1"># than as an item in a dictionary.</span>
-        <span class="n">heading_level</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;heading_level&quot;</span><span class="p">]</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;members_order&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Order</span><span class="p">(</span><span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;members_order&quot;</span><span class="p">])</span>
-        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-            <span class="n">choices</span> <span class="o">=</span> <span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">Order</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="n">PluginError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown members_order &#39;</span><span class="si">{</span><span class="n">final_config</span><span class="p">[</span><span class="s1">&#39;members_order&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, choose between &#39;</span><span class="si">{</span><span class="n">choices</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-            <span class="o">**</span><span class="p">{</span><span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">final_config</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">value</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;heading_level&quot;</span><span class="p">:</span> <span class="n">heading_level</span><span class="p">,</span> <span class="s2">&quot;root&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">get_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">({</span><span class="n">data</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">canonical_path</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">aliases</span><span class="p">})</span>
-
-    <span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update_env</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">trim_blocks</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">lstrip_blocks</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">keep_trailing_newline</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;crossref&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_crossref</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;multi_crossref&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_multi_crossref</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;order_members&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_order_members</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;format_signature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_format_signature</span>
-
-    <span class="k">def</span> <span class="nf">do_format_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Format a signature using Black.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            signature: The signature to format.</span>
-<span class="sd">            line_length: The line length to give to Black.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The same code, formatted.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">code</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">line_length</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">code</span>
-        <span class="n">formatter</span> <span class="o">=</span> <span class="n">_get_black_formatter</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">formatter</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">line_length</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">do_order_members</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">members</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Object</span> <span class="o">|</span> <span class="n">Alias</span><span class="p">],</span> <span class="n">order</span><span class="p">:</span> <span class="n">Order</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Object</span> <span class="o">|</span> <span class="n">Alias</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Order members given an ordering method.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            members: The members to order.</span>
-<span class="sd">            order: The ordering method.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The same members, ordered.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">members</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">order_map</span><span class="p">[</span><span class="n">order</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">do_crossref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">brief</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Filter to create cross-references.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            path: The path to link to.</span>
-<span class="sd">            brief: Show only the last part of the path, add full path as hover.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Markup text.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">full_path</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="k">if</span> <span class="n">brief</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">full_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="s2">&quot;&lt;span data-autorefs-optional-hover=</span><span class="si">{full_path}</span><span class="s2">&gt;</span><span class="si">{path}</span><span class="s2">&lt;/span&gt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">full_path</span><span class="o">=</span><span class="n">full_path</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">do_multi_crossref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Filter to create cross-references.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            text: The text to scan.</span>
-<span class="sd">            code: Whether to wrap the result in a code tag.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Markup text.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">group_number</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">variables</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="k">def</span> <span class="nf">repl</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>  <span class="c1"># noqa: WPS430</span>
-            <span class="k">nonlocal</span> <span class="n">group_number</span>  <span class="c1"># noqa: WPS420</span>
-            <span class="n">group_number</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
-            <span class="n">path_var</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;path</span><span class="si">{</span><span class="n">group_number</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="n">variables</span><span class="p">[</span><span class="n">path_var</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;span data-autorefs-optional-hover=</span><span class="se">{{</span><span class="si">{</span><span class="n">path_var</span><span class="si">}</span><span class="se">}}</span><span class="s2">&gt;</span><span class="se">{{</span><span class="si">{</span><span class="n">path_var</span><span class="si">}</span><span class="se">}}</span><span class="s2">&lt;/span&gt;&quot;</span>
-
-        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([\w.]+)&quot;</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;code&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&lt;/code&gt;&quot;</span>
-        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">variables</span><span class="p">)</span>
-</code></pre></div>
-</td></tr></table>
-        </details>
 
 
 
@@ -1314,10 +996,14 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
 
 
 <h3 id="mkdocstrings_handlers.python.renderer.PythonRenderer.default_config" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;show_root_heading&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_root_toc_entry&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_root_full_path&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_root_members_full_path&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_object_full_path&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_category_heading&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_if_no_docstring&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_signature&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_signature_annotations&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;separate_signature&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;line_length&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;show_source&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_bases&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_submodules&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;group_by_category&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;heading_level&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;members_order&#39;</span><span class="p">:</span> <span class="n">Order</span><span class="o">.</span><span class="n">alphabetical</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;docstring_section_style&#39;</span><span class="p">:</span> <span class="s1">&#39;table&#39;</span><span class="p">}</span></code>
+<code class="highlight language-python"><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;show_root_heading&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_root_toc_entry&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_root_full_path&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_root_members_full_path&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_object_full_path&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_category_heading&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_if_no_docstring&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_signature&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_signature_annotations&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;separate_signature&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;line_length&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;merge_init_into_class&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show_source&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_bases&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;show_submodules&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;group_by_category&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;heading_level&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;members_order&#39;</span><span class="p">:</span> <span class="n">Order</span><span class="o">.</span><span class="n">alphabetical</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;docstring_section_style&#39;</span><span class="p">:</span> <span class="s1">&#39;table&#39;</span><span class="p">}</span></code>
 
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+  </span>
 
 <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_config" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
@@ -1397,6 +1083,12 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
 <td><code>int</code></td>
 <td>Maximum line length when formatting code.</td>
 <td><code>60</code></td>
+</tr>
+<tr>
+<td><strong><code>merge_init_into_class</code></strong></td>
+<td><code>bool</code></td>
+<td>Whether to merge the <code>__init__</code> method into the class' signature and docstring.</td>
+<td><code>False</code></td>
 </tr>
 <tr>
 <td><strong><code>show_source</code></strong></td>
@@ -1480,7 +1172,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>path</code></td>
           <td>
-                <code>str</code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
           <td><p>The path to link to.</p></td>
           <td>
@@ -1490,7 +1182,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>brief</code></td>
           <td>
-                <code>bool</code>
+                <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
           </td>
           <td><p>Show only the last part of the path, add full path as hover.</p></td>
           <td>
@@ -1511,7 +1203,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
     <tbody>
         <tr>
           <td>
-                <code>Markup</code>
+                <code><span title="markupsafe.Markup">Markup</span></code>
           </td>
           <td><p>Markup text.</p></td>
         </tr>
@@ -1520,22 +1212,22 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings_handlers/python/renderer.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_crossref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">brief</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_crossref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">brief</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Filter to create cross-references.</span>
 
 <span class="sd">    Parameters:</span>
@@ -1551,6 +1243,113 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
     <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="s2">&quot;&lt;span data-autorefs-optional-hover=</span><span class="si">{full_path}</span><span class="s2">&gt;</span><span class="si">{path}</span><span class="s2">&lt;/span&gt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">full_path</span><span class="o">=</span><span class="n">full_path</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span>
     <span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="mkdocstrings_handlers.python.renderer.PythonRenderer.do_format_code" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">do_format_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">line_length</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.do_format_code" class="headerlink" title="Permanent link">¤</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Format code using Black.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>code</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The code to format.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>line_length</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The line length to give to Black.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The same code, formatted.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>mkdocstrings_handlers/python/renderer.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_format_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Format code using Black.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        code: The code to format.</span>
+<span class="sd">        line_length: The line length to give to Black.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The same code, formatted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">line_length</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">code</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">_get_black_formatter</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">formatter</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">line_length</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
         </details>
@@ -1589,7 +1388,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>signature</code></td>
           <td>
-                <code>str</code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
           <td><p>The signature to format.</p></td>
           <td>
@@ -1599,7 +1398,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>line_length</code></td>
           <td>
-                <code>int</code>
+                <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code>
           </td>
           <td><p>The line length to give to Black.</p></td>
           <td>
@@ -1620,7 +1419,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
     <tbody>
         <tr>
           <td>
-                <code>str</code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
           <td><p>The same code, formatted.</p></td>
         </tr>
@@ -1629,21 +1428,23 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings_handlers/python/renderer.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_format_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_format_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Format a signature using Black.</span>
 
 <span class="sd">    Parameters:</span>
@@ -1657,7 +1458,9 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">line_length</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">code</span>
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">_get_black_formatter</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">formatter</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">line_length</span><span class="p">)</span>
+    <span class="n">formatted</span> <span class="o">=</span> <span class="n">formatter</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;def </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">: pass&quot;</span><span class="p">,</span> <span class="n">line_length</span><span class="p">)</span>
+    <span class="c1"># remove starting `def ` and trailing `: pass`</span>
+    <span class="k">return</span> <span class="n">formatted</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 </code></pre></div>
 </td></tr></table>
         </details>
@@ -1696,7 +1499,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>text</code></td>
           <td>
-                <code>str</code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
           <td><p>The text to scan.</p></td>
           <td>
@@ -1706,7 +1509,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>code</code></td>
           <td>
-                <code>bool</code>
+                <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
           </td>
           <td><p>Whether to wrap the result in a code tag.</p></td>
           <td>
@@ -1727,7 +1530,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
     <tbody>
         <tr>
           <td>
-                <code>Markup</code>
+                <code><span title="markupsafe.Markup">Markup</span></code>
           </td>
           <td><p>Markup text.</p></td>
         </tr>
@@ -1736,31 +1539,31 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings_handlers/python/renderer.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">206</span>
 <span class="normal">207</span>
 <span class="normal">208</span>
-<span class="normal">209</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_multi_crossref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_multi_crossref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Filter to create cross-references.</span>
 
 <span class="sd">    Parameters:</span>
@@ -1823,7 +1626,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>members</code></td>
           <td>
-                <code>Sequence[Object | Alias]</code>
+                <code><a title="typing.Sequence" href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<span title="griffe.dataclasses.Object">Object</span> | <span title="griffe.dataclasses.Alias">Alias</span>]</code>
           </td>
           <td><p>The members to order.</p></td>
           <td>
@@ -1833,7 +1636,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
         <tr>
           <td><code>order</code></td>
           <td>
-                <code><a href="#mkdocstrings_handlers.python.renderer.Order">Order</a></code>
+                <code><a title="mkdocstrings_handlers.python.renderer.Order" href="#mkdocstrings_handlers.python.renderer.Order">Order</a></code>
           </td>
           <td><p>The ordering method.</p></td>
           <td>
@@ -1854,7 +1657,7 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
     <tbody>
         <tr>
           <td>
-                <code>Sequence[Object | Alias]</code>
+                <code><a title="typing.Sequence" href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<span title="griffe.dataclasses.Object">Object</span> | <span title="griffe.dataclasses.Alias">Alias</span>]</code>
           </td>
           <td><p>The same members, ordered.</p></td>
         </tr>
@@ -1863,17 +1666,17 @@ see <a href="#mkdocstrings_handlers.python.renderer.PythonRenderer.default_confi
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings_handlers/python/renderer.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_order_members</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">members</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Object</span> <span class="o">|</span> <span class="n">Alias</span><span class="p">],</span> <span class="n">order</span><span class="p">:</span> <span class="n">Order</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Object</span> <span class="o">|</span> <span class="n">Alias</span><span class="p">]:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_order_members</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">members</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Object</span> <span class="o">|</span> <span class="n">Alias</span><span class="p">],</span> <span class="n">order</span><span class="p">:</span> <span class="n">Order</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Object</span> <span class="o">|</span> <span class="n">Alias</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Order members given an ordering method.</span>
 
 <span class="sd">    Parameters:</span>
