@@ -22,20 +22,39 @@
           class="doc doc-heading",
           toc_label=class.name) %}
 
-        <code>
-          {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
-          {% if config.show_bases and class.bases %}
-            ({% for expression in class.bases -%}
-              {% include "expression.html" with context %}{% if not loop.last %}, {% endif %}
-             {% endfor %})
-          {% endif %}
-        </code>
+        {% if config.separate_signature %}
+          <code>{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+        {% elif config.merge_init_into_class and "__init__" in class.members -%}
+          {%- with function = class.members["__init__"] -%}
+            {%- filter highlight(language="python", inline=True) -%}
+              {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
+              {% with no_self = True %}
+                {%- include "signature.html" with context -%}
+              {% endwith %}
+            {%- endfilter -%}
+          {%- endwith -%}
+        {% else %}
+          <code>{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+        {% endif %}
 
         {% with labels = class.labels %}
           {% include "labels.html" with context %}
         {% endwith %}
 
       {% endfilter %}
+
+      {% if config.separate_signature and config.merge_init_into_class %}
+        {% if "__init__" in class.members %}
+          {% with function = class.members["__init__"], no_self = True %}
+            {% filter highlight(language="python", inline=False) %}
+              {% filter format_signature(config.line_length) %}        
+                {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
+                {% include "signature.html" with context %}
+              {% endfilter %}
+            {% endfilter %}
+          {% endwith %}
+        {% endif %}
+      {% endif %}
 
     {% else %}
       {% if config.show_root_toc_entry %}
@@ -50,15 +69,40 @@
     {% endif %}
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
+      {% if config.show_bases and class.bases %}
+        <p class="doc doc-class-bases">
+          Bases: {% for expression in class.bases -%}
+            <code>{% include "expression.html" with context %}</code>{% if not loop.last %}, {% endif %}
+          {% endfor -%}
+        </p>
+      {% endif %}
+
       {% with docstring_sections = class.docstring.parsed %}
         {% include "docstring.html" with context %}
       {% endwith %}
 
-      {% if config.show_source and class.source %}
-        <details class="quote">
-          <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
-          {{ class.source|highlight(language="python", linestart=class.lineno, linenums=True) }}
-        </details>
+      {% if config.merge_init_into_class %}
+        {% if "__init__" in class.members and class.members["__init__"].has_docstring %}
+          {% with docstring_sections = class.members["__init__"].docstring.parsed %}
+            {% include "docstring.html" with context %}
+          {% endwith %}
+        {% endif %}
+      {% endif %}
+
+      {% if config.show_source %}
+        {% if config.merge_init_into_class %}
+          {% if "__init__" in class.members %}
+            <details class="quote">
+              <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
+              {{ class.members["__init__"].source|highlight(language="python", linestart=class.lineno, linenums=True) }}
+            </details>
+          {% endif %}
+        {% elif class.source %}
+          <details class="quote">
+            <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
+            {{ class.source|highlight(language="python", linestart=class.lineno, linenums=True) }}
+          </details>
+        {% endif %}
       {% endif %}
 
       {% with obj = class %}

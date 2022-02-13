@@ -73,6 +73,7 @@ class PythonRenderer(BaseRenderer):
         "show_signature_annotations": False,
         "separate_signature": False,
         "line_length": 60,
+        "merge_init_into_class": False,
         "show_source": True,
         "show_bases": True,
         "show_submodules": True,
@@ -96,6 +97,7 @@ class PythonRenderer(BaseRenderer):
     **`show_signature_annotations`** | `bool` | Show the type annotations in method and function signatures. | `False`
     **`separate_signature`** | `bool` | Whether to put the whole signature in a code block below the heading. | `False`
     **`line_length`** | `int` | Maximum line length when formatting code. | `60`
+    **`merge_init_into_class`** | `bool` | Whether to merge the `__init__` method into the class' signature and docstring. | `False`
     **`show_source`** | `bool` | Show the source code of this object. | `True`
     **`show_bases`** | `bool` | Show the base classes of a class. | `True`
     **`show_submodules`** | `bool` | When rendering a module, show its submodules recursively. | `True`

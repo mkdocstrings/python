@@ -40,8 +40,10 @@
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
           {% for function in obj.functions.values()|order_members(config.members_order) %}
-            {% if not function.is_alias or function.is_explicitely_exported %}
-              {% include "function.html" with context %}
+            {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
+              {% if not function.is_alias or function.is_explicitely_exported %}
+                {% include "function.html" with context %}
+              {% endif %}
             {% endif %}
           {% endfor %}
         {% endwith %}
@@ -65,25 +67,29 @@
 
       {% for child in obj.members.values()|order_members(config.members_order) %}
 
-        {% if child.kind.value == "attribute" %}
-          {% with attribute = child %}
-            {% include "attribute.html" with context %}
-          {% endwith %}
+        {% if not (obj.kind.value == "class" and child.name == "__init__" and config.merge_init_into_class) %}
 
-        {% elif child.kind.value == "class" %}
-          {% with class = child %}
-            {% include "class.html" with context %}
-          {% endwith %}
+          {% if child.kind.value == "attribute" %}
+            {% with attribute = child %}
+              {% include "attribute.html" with context %}
+            {% endwith %}
 
-        {% elif child.kind.value == "function" %}
-          {% with function = child %}
-            {% include "function.html" with context %}
-          {% endwith %}
+          {% elif child.kind.value == "class" %}
+            {% with class = child %}
+              {% include "class.html" with context %}
+            {% endwith %}
 
-        {% elif child.kind.value == "module" and config.show_submodules %}
-          {% with module = child %}
-            {% include "module.html" with context %}
-          {% endwith %}
+          {% elif child.kind.value == "function" %}
+            {% with function = child %}
+              {% include "function.html" with context %}
+            {% endwith %}
+
+          {% elif child.kind.value == "module" and config.show_submodules %}
+            {% with module = child %}
+              {% include "module.html" with context %}
+            {% endwith %}
+
+          {% endif %}
 
         {% endif %}
 

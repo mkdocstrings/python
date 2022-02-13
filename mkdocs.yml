@@ -74,9 +74,15 @@ plugins:
     handlers:
       python:
         import:
+        - https://docs.python.org/3/objects.inv
         - https://mkdocstrings.github.io/objects.inv
+        selection:
+          docstring_style: google
+          docstring_options:
+            ignore_init_summary: yes
         rendering:
           show_submodules: no
+          merge_init_into_class: yes
     watch:
     - src/mkdocstrings_handlers
 
