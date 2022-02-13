@@ -3,6 +3,8 @@
 It collects data with [Griffe](https://github.com/pawamoy/griffe).
 """
 
+from __future__ import annotations
+
 from collections import ChainMap
 
 from griffe.agents.extensions import load_extensions
@@ -34,7 +36,7 @@ class PythonCollector(BaseCollector):
     fallback_config: dict = {"fallback": True}
 
     def __init__(self) -> None:
-        """Initialize the object."""
+        """Initialize the collector."""
         self._modules_collection: ModulesCollection = ModulesCollection()
         self._lines_collection: LinesCollection = LinesCollection()
 
