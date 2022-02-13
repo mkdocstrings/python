@@ -135,7 +135,24 @@ class PythonRenderer(BaseRenderer):
         self.env.filters["crossref"] = self.do_crossref
         self.env.filters["multi_crossref"] = self.do_multi_crossref
         self.env.filters["order_members"] = self.do_order_members
+        self.env.filters["format_code"] = self.do_format_code
         self.env.filters["format_signature"] = self.do_format_signature
+
+    def do_format_code(self, code: str, line_length: int) -> str:
+        """Format code using Black.
+
+        Parameters:
+            code: The code to format.
+            line_length: The line length to give to Black.
+
+        Returns:
+            The same code, formatted.
+        """
+        code = code.strip()
+        if len(code) < line_length:
+            return code
+        formatter = _get_black_formatter()
+        return formatter(code, line_length)
 
     def do_format_signature(self, signature: str, line_length: int) -> str:
         """Format a signature using Black.
@@ -151,7 +168,9 @@ class PythonRenderer(BaseRenderer):
         if len(code) < line_length:
             return code
         formatter = _get_black_formatter()
-        return formatter(code, line_length)
+        formatted = formatter(f"def {code}: pass", line_length)
+        # remove starting `def ` and trailing `: pass`
+        return formatted[4:-5].strip()[:-1]
 
     def do_order_members(self, members: Sequence[Object | Alias], order: Order) -> Sequence[Object | Alias]:
         """Order members given an ordering method.
@@ -219,8 +238,6 @@ def _get_black_formatter():
 
     def formatter(code, line_length):  # noqa: WPS430
         mode = Mode(line_length=line_length)
-        formatted = format_str(f"def {code}: pass", mode=mode)
-        # remove starting `def ` and trailing `: pass`
-        return formatted[4:-5].strip()[:-1]
+        return format_str(code, mode=mode)
 
     return formatter
