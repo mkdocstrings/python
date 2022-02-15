@@ -91,10 +91,10 @@
 
       {% if config.show_source %}
         {% if config.merge_init_into_class %}
-          {% if "__init__" in class.members %}
+          {% if "__init__" in class.members and class.members["__init__"].source %}
             <details class="quote">
               <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
-              {{ class.members["__init__"].source|highlight(language="python", linestart=class.lineno, linenums=True) }}
+              {{ class.members["__init__"].source|highlight(language="python", linestart=class.members["__init__"].lineno, linenums=True) }}
             </details>
           {% endif %}
         {% elif class.source %}
