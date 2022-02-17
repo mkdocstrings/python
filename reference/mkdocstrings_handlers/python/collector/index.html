@@ -842,10 +842,10 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 
             <details class="quote">
               <summary>Source code in <code>mkdocstrings_handlers/python/collector.py</code></summary>
-              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize the collector.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">:</span> <span class="n">ModulesCollection</span> <span class="o">=</span> <span class="n">ModulesCollection</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">:</span> <span class="n">LinesCollection</span> <span class="o">=</span> <span class="n">LinesCollection</span><span class="p">()</span>
@@ -1001,9 +1001,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings_handlers/python/collector.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
@@ -1050,7 +1048,11 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 <span class="normal">89</span>
 <span class="normal">90</span>
 <span class="normal">91</span>
-<span class="normal">92</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>  <span class="c1"># noqa: WPS231</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>  <span class="c1"># noqa: WPS231</span>
     <span class="sd">&quot;&quot;&quot;Collect the documentation tree given an identifier and selection options.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1095,9 +1097,11 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
     <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>  <span class="c1"># noqa: WPS440</span>
         <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2"> could not be found&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">unknown_module</span> <span class="ow">and</span> <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span>
-        <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser_options</span> <span class="o">=</span> <span class="n">parser_options</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">unknown_module</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">AliasResolutionError</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span>
+                <span class="n">doc_object</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">parser_options</span> <span class="o">=</span> <span class="n">parser_options</span>
 
     <span class="k">return</span> <span class="n">doc_object</span>
 </code></pre></div>
