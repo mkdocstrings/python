@@ -842,10 +842,10 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 
             <details class="quote">
               <summary>Source code in <code>mkdocstrings_handlers/python/collector.py</code></summary>
-              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize the collector.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span><span class="p">:</span> <span class="n">ModulesCollection</span> <span class="o">=</span> <span class="n">ModulesCollection</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_lines_collection</span><span class="p">:</span> <span class="n">LinesCollection</span> <span class="o">=</span> <span class="n">LinesCollection</span><span class="p">()</span>
@@ -1065,7 +1065,7 @@ and overrides the <code>update_env</code> method of the <a href="https://mkdocst
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">module_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">unknown_module</span> <span class="o">=</span> <span class="n">module_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modules_collection</span>
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;fallback&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">unknown_module</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fallback&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">unknown_module</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="s2">&quot;Not loading additional modules during fallback&quot;</span><span class="p">)</span>
 
     <span class="n">final_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
