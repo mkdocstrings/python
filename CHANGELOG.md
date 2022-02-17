@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.6.1](https://github.com/mkdocstrings/python/releases/tag/0.6.1) - 2022-02-17
+
+<small>[Compare with 0.6.0](https://github.com/mkdocstrings/python/compare/0.6.0...0.6.1)</small>
+
+### Bug Fixes
+- Don't pop from fallback config ([bde32af](https://github.com/mkdocstrings/python/commit/bde32afb5d99539813b1884a4c735de5845f62ae) by Timothée Mazzucotelli).
+- Fix rendering init method source when merged into class ([4a20aea](https://github.com/mkdocstrings/python/commit/4a20aeaa60f3efbcb4781a369feef3b4826ff1df) by Timothée Mazzucotelli).
+
+
 ## [0.6.0](https://github.com/mkdocstrings/python/releases/tag/0.6.0) - 2022-02-13
 
 <small>[Compare with 0.5.4](https://github.com/mkdocstrings/python/compare/0.5.4...0.6.0)</small>
