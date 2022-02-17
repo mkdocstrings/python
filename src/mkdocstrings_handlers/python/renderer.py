@@ -10,6 +10,7 @@ from functools import lru_cache
 from typing import Any, Sequence
 
 from griffe.dataclasses import Alias, Object
+from griffe.exceptions import AliasResolutionError
 from markdown import Markdown
 from markupsafe import Markup
 from mkdocstrings.extension import PluginError
@@ -127,7 +128,10 @@ class PythonRenderer(BaseRenderer):
         )
 
     def get_anchors(self, data: CollectorItem) -> list[str]:  # noqa: D102 (ignore missing docstring)
-        return list({data.path, data.canonical_path, *data.aliases})
+        try:
+            return list({data.path, data.canonical_path, *data.aliases})
+        except AliasResolutionError:
+            return [data.path]
 
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
         super().update_env(md, config)

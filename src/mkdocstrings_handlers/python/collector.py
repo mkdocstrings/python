@@ -6,10 +6,12 @@ It collects data with [Griffe](https://github.com/pawamoy/griffe).
 from __future__ import annotations
 
 from collections import ChainMap
+from contextlib import suppress
 
 from griffe.agents.extensions import load_extensions
 from griffe.collections import LinesCollection, ModulesCollection
 from griffe.docstrings.parsers import Parser
+from griffe.exceptions import AliasResolutionError
 from griffe.loader import GriffeLoader
 from mkdocstrings.handlers.base import BaseCollector, CollectionError, CollectorItem
 from mkdocstrings.loggers import get_logger
@@ -85,8 +87,10 @@ class PythonCollector(BaseCollector):
         except KeyError as error:  # noqa: WPS440
             raise CollectionError(f"{identifier} could not be found") from error
 
-        if not unknown_module and doc_object.docstring is not None:
-            doc_object.docstring.parser = parser
-            doc_object.docstring.parser_options = parser_options
+        if not unknown_module:
+            with suppress(AliasResolutionError):
+                if doc_object.docstring is not None:
+                    doc_object.docstring.parser = parser
+                    doc_object.docstring.parser_options = parser_options
 
         return doc_object
