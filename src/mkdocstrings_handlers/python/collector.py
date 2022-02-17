@@ -55,7 +55,7 @@ class PythonCollector(BaseCollector):
         """
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
-        if config.pop("fallback", False) and unknown_module:
+        if config.get("fallback", False) and unknown_module:
             raise CollectionError("Not loading additional modules during fallback")
 
         final_config = ChainMap(config, self.default_config)
