@@ -4,7 +4,7 @@
 [![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/python/)
 [![pypi version](https://img.shields.io/pypi/v/python.svg)](https://pypi.org/project/python/)
 [![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/python)
-[![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/python/community)
+[![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/mkdocstrings/python)
 
 A Python handler for [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings).
 
