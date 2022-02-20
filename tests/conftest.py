@@ -84,3 +84,18 @@ def fixture_ext_markdown(plugin):
         A Markdown instance.
     """
     return plugin.md
+
+
+@pytest.fixture(name="renderer")
+def fixture_renderer(plugin):
+    """Return a PythonRenderer instance.
+
+    Parameters:
+        plugin: Pytest fixture: [tests.conftest.fixture_plugin][].
+
+    Returns:
+        A renderer instance.
+    """
+    handler = plugin.handlers.get_handler("python")
+    handler.renderer._update_env(plugin.md, plugin.handlers._config)  # noqa: WPS437
+    return handler.renderer

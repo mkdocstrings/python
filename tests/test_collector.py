@@ -1,4 +1,4 @@
-"""Tests for the handlers.python module."""
+"""Tests for the `collector` module."""
 
 import pytest
 
