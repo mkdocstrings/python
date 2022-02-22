@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.6.4](https://github.com/mkdocstrings/python/releases/tag/0.6.4) - 2022-02-22
+
+<small>[Compare with 0.6.3](https://github.com/mkdocstrings/python/compare/0.6.3...0.6.4)</small>
+
+### Bug Fixes
+- Fix rendering of signature return annotation ([b92ba3b](https://github.com/mkdocstrings/python/commit/b92ba3b370388aa6c956bcc70ba87b7aebb91a4c) by Timothée Mazzucotelli). [Issue #4](https://github.com/mkdocstrings/python/issues/4)
+
+
 ## [0.6.3](https://github.com/mkdocstrings/python/releases/tag/0.6.3) - 2022-02-20
 
 <small>[Compare with 0.6.2](https://github.com/mkdocstrings/python/compare/0.6.2...0.6.3)</small>
