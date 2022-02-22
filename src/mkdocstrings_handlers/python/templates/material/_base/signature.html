@@ -38,7 +38,7 @@
         {%- endif -%}
       {%- endfor -%}
     )
-    {%- if config.show_signature_annotations and "return_annotation" in signature %} -> {{ signature.return_annotation }}{%- endif -%}
+    {%- if config.show_signature_annotations and function.annotation %} -> {{ function.annotation }}{%- endif -%}
 
   {%- endwith -%}
 {%- endif -%}
