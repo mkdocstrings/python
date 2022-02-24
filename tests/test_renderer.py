@@ -31,3 +31,15 @@ def test_render_docstring_examples_section(renderer):
     assert "<p>This is an example.</p>" in rendered
     assert "print" in rendered
     assert "Hello" in rendered
+
+
+def test_format_code_and_signature(renderer):
+    """Assert code and signatures can be Black-formatted.
+
+    Parameters:
+        renderer: A renderer instance (parametrized).
+    """
+    assert renderer.do_format_code("print('Hello')", 100)
+    assert renderer.do_format_code('print("Hello")', 100)
+    assert renderer.do_format_signature("(param: str = 'hello') -> 'Class'", 100)
+    assert renderer.do_format_signature('(param: str = "hello") -> "Class"', 100)
