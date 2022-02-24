@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.6.5](https://github.com/mkdocstrings/python/releases/tag/0.6.5) - 2022-02-24
+
+<small>[Compare with 0.6.4](https://github.com/mkdocstrings/python/compare/0.6.4...0.6.5)</small>
+
+### Bug Fixes
+- Don't escape signatures return annotations ([ac54bfc](https://github.com/mkdocstrings/python/commit/ac54bfc5761337aa606fb1aa6575745062ce26f8) by Timothée Mazzucotelli). [Issue #6](https://github.com/mkdocstrings/python/issues/6)
+
+
 ## [0.6.4](https://github.com/mkdocstrings/python/releases/tag/0.6.4) - 2022-02-22
 
 <small>[Compare with 0.6.3](https://github.com/mkdocstrings/python/compare/0.6.3...0.6.4)</small>
@@ -18,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <small>[Compare with 0.6.2](https://github.com/mkdocstrings/python/compare/0.6.2...0.6.3)</small>
 
 ### Bug Fixes
-- Fix examples rendering ([a06a7e3](https://github.com/mkdocstrings/python/commit/a06a7e34c7017374c5bed41f4757ed86ae64cb2e) by Timothée Mazzucotelli). References: [mkdocstrings/griffe#46](https://github.com/mkdocstrings/griffe/issues/46)
+- Fix examples rendering ([a06a7e3](https://github.com/mkdocstrings/python/commit/a06a7e34c7017374c5bed41f4757ed86ae64cb2e) by Timothée Mazzucotelli). [Issue mkdocstrings/griffe#46](https://github.com/mkdocstrings/griffe/issues/46)
 
 
 ## [0.6.2](https://github.com/mkdocstrings/python/releases/tag/0.6.2) - 2022-02-17
