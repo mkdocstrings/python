@@ -76,6 +76,7 @@ plugins:
         import:
         - https://docs.python.org/3/objects.inv
         - https://mkdocstrings.github.io/objects.inv
+        - https://mkdocstrings.github.io/griffe/objects.inv
         selection:
           docstring_style: google
           docstring_options:
