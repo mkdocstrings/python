@@ -28,9 +28,7 @@
           {%- with function = class.members["__init__"] -%}
             {%- filter highlight(language="python", inline=True) -%}
               {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
-              {% with no_self = True %}
-                {%- include "signature.html" with context -%}
-              {% endwith %}
+              {%- include "signature.html" with context -%}
             {%- endfilter -%}
           {%- endwith -%}
         {% else %}
@@ -45,7 +43,7 @@
 
       {% if config.separate_signature and config.merge_init_into_class %}
         {% if "__init__" in class.members %}
-          {% with function = class.members["__init__"], no_self = True %}
+          {% with function = class.members["__init__"] %}
             {% filter highlight(language="python", inline=False) %}
               {% filter format_signature(config.line_length) %}        
                 {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}

@@ -10,7 +10,7 @@
 
     (
       {%- for parameter in function.parameters -%}
-        {%- if parameter.name != "self" or not no_self -%}
+        {%- if parameter.name not in ("self", "cls") or loop.index0 > 0 or not (function.parent and function.parent.is_class) -%}
 
           {%- if parameter.kind.value == "positional-only" -%}
             {%- if ns.render_pos_only_separator -%}
