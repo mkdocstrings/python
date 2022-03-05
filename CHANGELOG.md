@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.6.6](https://github.com/mkdocstrings/python/releases/tag/0.6.6) - 2022-03-06
+
+<small>[Compare with 0.6.5](https://github.com/mkdocstrings/python/compare/0.6.5...0.6.6)</small>
+
+### Code Refactoring
+- Always hide `self` and `cls` parameters ([7f579d1](https://github.com/mkdocstrings/python/commit/7f579d162e184adcfe25b2215bce4d38677f75b7) by Timothée Mazzucotelli). [Issue #7](https://github.com/mkdocstrings/python/issues/7)
+- Use `pycon` for examples code blocks ([6545900](https://github.com/mkdocstrings/python/commit/6545900eecc67c8a6ddd343c497ac22fdd6a26e2) by Timothée Mazzucotelli).
+
+
 ## [0.6.5](https://github.com/mkdocstrings/python/releases/tag/0.6.5) - 2022-02-24
 
 <small>[Compare with 0.6.4](https://github.com/mkdocstrings/python/compare/0.6.4...0.6.5)</small>
