@@ -20,11 +20,7 @@ logger = get_logger(__name__)
 
 
 class PythonCollector(BaseCollector):
-    """The class responsible for loading Jinja templates and rendering them.
-
-    It defines some configuration options, implements the `render` method,
-    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.base.BaseRenderer].
-    """
+    """The class responsible collecting objects data."""
 
     default_config: dict = {"docstring_style": "google", "docstring_options": {}}
     """The default selection options.
@@ -47,7 +43,7 @@ class PythonCollector(BaseCollector):
 
         Arguments:
             identifier: The dotted-path of a Python object available in the Python path.
-            config: Selection options, used to alter the data collection done by `pytkdocs`.
+            config: Selection options, used to alter the data collection done by Griffe.
 
         Raises:
             CollectionError: When there was a problem collecting the object documentation.
