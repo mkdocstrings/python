@@ -1,7 +1,7 @@
 """Tests for the `renderer` module."""
 
 import pytest
-from griffe.docstrings.dataclasses import DocstringSection, DocstringSectionKind
+from griffe.docstrings.dataclasses import DocstringSectionExamples, DocstringSectionKind
 
 
 @pytest.mark.parametrize(
@@ -19,8 +19,7 @@ def test_render_docstring_examples_section(renderer):
     Parameters:
         renderer: A renderer instance (parametrized).
     """
-    section = DocstringSection(
-        DocstringSectionKind.examples,
+    section = DocstringSectionExamples(
         value=[
             (DocstringSectionKind.text, "This is an example."),
             (DocstringSectionKind.examples, ">>> print('Hello')\nHello"),
