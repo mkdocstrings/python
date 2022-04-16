@@ -219,6 +219,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["order_members"] = rendering.do_order_members
         self.env.filters["format_code"] = rendering.do_format_code
         self.env.filters["format_signature"] = rendering.do_format_signature
+        self.env.filters["filter_docstrings"] = rendering.do_filter_docstrings
 
     def get_anchors(self, data: CollectorItem) -> list[str]:  # noqa: D102 (ignore missing docstring)
         try:
