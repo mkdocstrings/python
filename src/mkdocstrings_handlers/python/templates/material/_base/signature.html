@@ -8,7 +8,7 @@
       {%- set ns.equal = " = " -%}
     {%- endif -%}
 
-    (
+    {% if not "property" in function.labels %}({% endif %}
       {%- for parameter in function.parameters -%}
         {%- if parameter.name not in ("self", "cls") or loop.index0 > 0 or not (function.parent and function.parent.is_class) -%}
 
@@ -37,7 +37,7 @@
 
         {%- endif -%}
       {%- endfor -%}
-    )
+    {% if not "property" in function.labels %}){% endif %}
     {%- if config.show_signature_annotations and function.annotation %} -> {{ function.annotation|safe }}{%- endif -%}
 
   {%- endwith -%}

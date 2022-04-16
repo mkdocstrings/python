@@ -1,8 +1,18 @@
 {{ log.debug("Rendering " + function.path) }}
 {% if config.show_if_no_docstring or function.has_docstrings %}
 
+  {% set ns = namespace(is_property=False) %}
+  {% if "property" in function.labels %}
+    {% set ns.is_property = True %}
+  {% endif %}
+
+  {% if ns.is_property %}
+  <div class="doc doc-object doc-attribute">
+  {% else %}
   <div class="doc doc-object doc-function">
-  {% with html_id = function.path %}
+  {% endif %}
+
+    {% with html_id = function.path %}
 
     {% if not root or config.show_root_heading %}
 
@@ -16,27 +26,40 @@
         {% set show_full_path = config.show_object_full_path %}
       {% endif %}
 
-      {% filter heading(heading_level,
-          role="function",
-          id=html_id,
-          class="doc doc-heading",
-          toc_label=function.name ~ "()") %}
-
-        {% if config.separate_signature %}
-          {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
-        {% else %}
-          {% filter highlight(language="python", inline=True) %}
+      {% if ns.is_property %}
+        {% filter heading(heading_level, role="attribute", id=html_id, class="doc doc-heading", toc_label=function.name) %}
+          {% if config.separate_signature %}
             {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
-            {% include "signature.html" with context %}
-          {% endfilter %}
-        {% endif %}
+          {% else %}
+            {% filter highlight(language="python", inline=True) %}
+              {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+              {% include "signature.html" with context %}
+            {% endfilter %}
+          {% endif %}
 
-        {% with labels = function.labels %}
-          {% include "labels.html" with context %}
-        {% endwith %}
+          {% with labels = function.labels %}
+            {% include "labels.html" with context %}
+          {% endwith %}
+        {% endfilter %}
 
-      {% endfilter %}
+      {% else %}
+        {% filter heading(heading_level, role="function", id=html_id, class="doc doc-heading", toc_label=function.name ~ "()") %}
 
+          {% if config.separate_signature %}
+            {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+          {% else %}
+            {% filter highlight(language="python", inline=True) %}
+              {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+              {% include "signature.html" with context %}
+            {% endfilter %}
+          {% endif %}
+
+          {% with labels = function.labels %}
+            {% include "labels.html" with context %}
+          {% endwith %}
+
+        {% endfilter %}      
+      {% endif %}
       {% if config.separate_signature %}
         {% filter highlight(language="python", inline=False) %}
           {% filter format_signature(config.line_length) %}        
@@ -48,12 +71,21 @@
 
     {% else %}
       {% if config.show_root_toc_entry %}
-        {% filter heading(heading_level,
-            role="function",
-            id=html_id,
-            toc_label=function.path,
-            hidden=True) %}
-        {% endfilter %}
+        {% if ns.is_property %}
+          {% filter heading(heading_level,
+              role="attribute",
+              id=html_id,
+              toc_label=function.path,
+              hidden=True) %}
+          {% endfilter %}
+        {% else %}
+          {% filter heading(heading_level,
+              role="function",
+              id=html_id,
+              toc_label=function.path,
+              hidden=True) %}
+          {% endfilter %}
+        {% endif %}
       {% endif %}
       {% set heading_level = heading_level - 1 %}
     {% endif %}

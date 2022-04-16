@@ -22,6 +22,11 @@
               {% include "attribute.html" with context %}
             {% endif %}
           {% endfor %}
+          {% for function in obj.functions.values()|order_members(config.members_order) %}
+            {% if "property" in function.labels %}
+              {% include "function.html" with context %}
+            {% endif %}
+          {% endfor %}
         {% endwith %}
 
         {% if config.show_category_heading and obj.classes.values() %}
@@ -42,7 +47,9 @@
           {% for function in obj.functions.values()|order_members(config.members_order) %}
             {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
               {% if not function.is_alias or function.is_explicitely_exported %}
-                {% include "function.html" with context %}
+                {% if not "property" in function.labels %}
+                  {% include "function.html" with context %}
+                {% endif %}
               {% endif %}
             {% endif %}
           {% endfor %}
