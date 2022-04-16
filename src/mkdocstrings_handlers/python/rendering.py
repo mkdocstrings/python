@@ -133,6 +133,24 @@ def do_multi_crossref(text: str, code: bool = True) -> Markup:
     return Markup(text).format(**variables)
 
 
+def do_filter_docstrings(
+    objects_dictionary: dict[str, Object | Alias],
+    keep_empty: bool = True,
+) -> list[Object | Alias]:
+    """Filter a dictionary of objects based on their docstrings.
+
+    Parameters:
+        objects_dictionary: The dictionary of objects.
+        keep_empty: Whether to keep objects with no/empty docstrings (recursive check).
+
+    Returns:
+        A list of objects.
+    """
+    if keep_empty:
+        return list(objects_dictionary.values())
+    return [obj for obj in objects_dictionary.values() if obj.has_docstrings]
+
+
 @lru_cache(maxsize=1)
 def _get_black_formatter():
     try:

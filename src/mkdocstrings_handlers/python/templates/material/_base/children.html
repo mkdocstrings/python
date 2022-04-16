@@ -13,7 +13,7 @@
           {% set extra_level = 0 %}
         {% endif %}
 
-        {% if config.show_category_heading and obj.attributes.values()|any %}
+        {% if config.show_category_heading and obj.attributes|filter_docstrings(config.show_if_no_docstring) %}
           {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
@@ -24,7 +24,7 @@
           {% endfor %}
         {% endwith %}
 
-        {% if config.show_category_heading and obj.classes.values()|any %}
+        {% if config.show_category_heading and obj.classes|filter_docstrings(config.show_if_no_docstring) %}
           {% filter heading(heading_level, id=html_id ~ "-classes") %}Classes{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
@@ -35,7 +35,7 @@
           {% endfor %}
         {% endwith %}
 
-        {% if config.show_category_heading and obj.functions.values()|any %}
+        {% if config.show_category_heading and obj.functions|filter_docstrings(config.show_if_no_docstring) %}
           {% filter heading(heading_level, id=html_id ~ "-functions") %}Functions{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
@@ -49,7 +49,7 @@
         {% endwith %}
 
         {% if config.show_submodules %}
-          {% if config.show_category_heading and obj.modules.values()|any %}
+          {% if config.show_category_heading and obj.modules|filter_docstrings(config.show_if_no_docstring) %}
             {% filter heading(heading_level, id=html_id ~ "-modules") %}Modules{% endfilter %}
           {% endif %}
           {% with heading_level = heading_level + extra_level %}
