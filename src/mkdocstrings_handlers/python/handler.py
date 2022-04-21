@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import posixpath
+import sys
 from collections import ChainMap
 from contextlib import suppress
 from typing import Any, BinaryIO, Iterator, Optional, Tuple
@@ -97,14 +98,27 @@ class PythonHandler(BaseHandler):
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `table`.
     """  # noqa: E501
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(
+        self, *args: Any, config_file_path: str | None = None, paths: list[str] | None = None, **kwargs: Any
+    ) -> None:
         """Initialize the handler.
 
         Parameters:
             *args: Handler name, theme and custom templates.
+            config_file_path: The MkDocs configuration file path.
+            paths: A list of paths to use as Griffe search paths.
             **kwargs: Same thing, but with keyword arguments.
         """
         super().__init__(*args, **kwargs)
+        self._config_file_path = config_file_path
+        paths = paths or []
+        if not paths and config_file_path:
+            paths.append(posixpath.dirname(config_file_path))
+        search_paths = [path for path in sys.path if path]  # eliminate empty path
+        for path in reversed(paths):
+            if path not in search_paths:
+                search_paths.insert(0, path)
+        self._paths = search_paths
         self._modules_collection: ModulesCollection = ModulesCollection()
         self._lines_collection: LinesCollection = LinesCollection()
 
@@ -161,6 +175,7 @@ class PythonHandler(BaseHandler):
         if unknown_module:
             loader = GriffeLoader(
                 extensions=load_extensions(final_config.get("extensions", [])),
+                search_paths=self._paths,
                 docstring_parser=parser,
                 docstring_options=parser_options,
                 modules_collection=self._modules_collection,
@@ -229,6 +244,8 @@ class PythonHandler(BaseHandler):
 def get_handler(
     theme: str,  # noqa: W0613 (unused argument config)
     custom_templates: Optional[str] = None,
+    config_file_path: str | None = None,
+    paths: list[str] | None = None,
     **config: Any,
 ) -> PythonHandler:
     """Simply return an instance of `PythonHandler`.
@@ -236,9 +253,17 @@ def get_handler(
     Arguments:
         theme: The theme to use when rendering contents.
         custom_templates: Directory containing custom templates.
+        config_file_path: The MkDocs configuration file path.
+        paths: A list of paths to use as Griffe search paths.
         **config: Configuration passed to the handler.
 
     Returns:
         An instance of `PythonHandler`.
     """
-    return PythonHandler("python", theme, custom_templates)
+    return PythonHandler(
+        handler="python",
+        theme=theme,
+        custom_templates=custom_templates,
+        config_file_path=config_file_path,
+        paths=paths,
+    )
