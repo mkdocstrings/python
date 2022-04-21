@@ -41,7 +41,7 @@ Option | Description
     
 ### Rendering
 
-::: mkdocstrings_handlers.python.renderer.PythonRenderer.default_config
+::: mkdocstrings_handlers.python.handler.PythonHandler.default_rendering_config
     rendering:
       show_root_toc_entry: false
 
@@ -162,8 +162,7 @@ Here are some CSS rules for the
 /* Indentation. */
 div.doc-contents:not(.first) {
   padding-left: 25px;
-  border-left: .05rem solid var(--md-default-fg-color--lightest);
-  margin-bottom: 80px;
+  border-left: .05rem solid var(--md-typeset-table-color);
 }
 ```
 
