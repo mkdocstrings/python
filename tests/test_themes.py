@@ -35,6 +35,6 @@ def test_render_themes_templates_python(module, plugin):
         plugin: Pytest fixture: [tests.conftest.fixture_plugin][].
     """
     handler = plugin.handlers.get_handler("python")
-    handler.renderer._update_env(plugin.md, plugin.handlers._config)  # noqa: WPS437
-    data = handler.collector.collect(module, {})
-    handler.renderer.render(data, {})
+    handler._update_env(plugin.md, plugin.handlers._config)  # noqa: WPS437
+    data = handler.collect(module, {})
+    handler.render(data, {})

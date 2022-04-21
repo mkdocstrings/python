@@ -86,16 +86,16 @@ def fixture_ext_markdown(plugin):
     return plugin.md
 
 
-@pytest.fixture(name="renderer")
-def fixture_renderer(plugin):
-    """Return a PythonRenderer instance.
+@pytest.fixture(name="handler")
+def fixture_handler(plugin):
+    """Return a handler instance.
 
     Parameters:
         plugin: Pytest fixture: [tests.conftest.fixture_plugin][].
 
     Returns:
-        A renderer instance.
+        A handler instance.
     """
     handler = plugin.handlers.get_handler("python")
-    handler.renderer._update_env(plugin.md, plugin.handlers._config)  # noqa: WPS437
-    return handler.renderer
+    handler._update_env(plugin.md, plugin.handlers._config)  # noqa: WPS437
+    return handler
