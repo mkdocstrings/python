@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import posixpath
+import re
 import sys
 from collections import ChainMap
 from contextlib import suppress
@@ -75,6 +76,8 @@ class PythonHandler(BaseHandler):
         "heading_level": 2,
         "members_order": rendering.Order.alphabetical.value,
         "docstring_section_style": "table",
+        "members": None,
+        "filters": ["!^_[^_]"],
     }
     """
     Attributes: Default rendering options:
@@ -97,6 +100,9 @@ class PythonHandler(BaseHandler):
         heading_level (int): The initial heading level to use. Default: `2`.
         members_order (str): The members ordering to use. Options: `alphabetical` - order by the members names, `source` - order members as they appear in the source file. Default: `alphabetical`.
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `table`.
+        members (list[str] | False | None): An explicit list of members to render. Default: `None`.
+        filters (list[str] | None): A list of filters applied to filter objects based on their name.
+            A filter starting with `!` will exclude matching objects instead of including them. Default: `["!^_[^_]"]`.
     """  # noqa: E501
 
     def __init__(
@@ -222,6 +228,11 @@ class PythonHandler(BaseHandler):
             choices = "', '".join(item.value for item in rendering.Order)
             raise PluginError(f"Unknown members_order '{final_config['members_order']}', choose between '{choices}'.")
 
+        if final_config["filters"]:
+            final_config["filters"] = [
+                (re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in final_config["filters"]
+            ]
+
         return template.render(
             **{"config": final_config, data.kind.value: data, "heading_level": heading_level, "root": True},
         )
@@ -236,7 +247,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["order_members"] = rendering.do_order_members
         self.env.filters["format_code"] = rendering.do_format_code
         self.env.filters["format_signature"] = rendering.do_format_signature
-        self.env.filters["filter_docstrings"] = rendering.do_filter_docstrings
+        self.env.filters["filter_objects"] = rendering.do_filter_objects
 
     def get_anchors(self, data: CollectorItem) -> list[str]:  # noqa: D102 (ignore missing docstring)
         try:

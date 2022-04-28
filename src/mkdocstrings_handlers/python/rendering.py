@@ -6,7 +6,7 @@ import enum
 import re
 import sys
 from functools import lru_cache
-from typing import Any, Sequence
+from typing import Any, Pattern, Sequence
 
 from griffe.dataclasses import Alias, Object
 from markupsafe import Markup
@@ -77,16 +77,28 @@ def do_format_signature(signature: str, line_length: int) -> str:
     return formatted[4:-5].strip()[:-1]
 
 
-def do_order_members(members: Sequence[Object | Alias], order: Order) -> Sequence[Object | Alias]:
+def do_order_members(
+    members: Sequence[Object | Alias],
+    order: Order,
+    members_list: list[str] | None,
+) -> Sequence[Object | Alias]:
     """Order members given an ordering method.
 
     Parameters:
         members: The members to order.
         order: The ordering method.
+        members_list: An optional member list (manual ordering).
 
     Returns:
         The same members, ordered.
     """
+    if members_list:
+        sorted_members = []
+        members_dict = {member.name: member for member in members}
+        for name in members_list:
+            if name in members_dict:
+                sorted_members.append(members_dict[name])
+        return sorted_members
     return sorted(members, key=order_map[order])
 
 
@@ -133,22 +145,53 @@ def do_multi_crossref(text: str, code: bool = True) -> Markup:
     return Markup(text).format(**variables)
 
 
-def do_filter_docstrings(
+def _keep_object(name, filters):
+    keep = None
+    rules = set()
+    for regex, exclude in filters:
+        rules.add(exclude)
+        if regex.search(name):
+            keep = not exclude
+    if keep is None:
+        if rules == {False}:  # noqa: WPS531
+            # only included stuff, no match = reject
+            return False
+        # only excluded stuff, or included and excluded stuff, no match = keep
+        return True
+    return keep
+
+
+def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
-    keep_empty: bool = True,
+    filters: list[tuple[bool, Pattern]] | None = None,
+    members_list: list[str] | None = None,
+    keep_no_docstrings: bool = True,
 ) -> list[Object | Alias]:
     """Filter a dictionary of objects based on their docstrings.
 
     Parameters:
         objects_dictionary: The dictionary of objects.
-        keep_empty: Whether to keep objects with no/empty docstrings (recursive check).
+        filters: Filters to apply, based on members' names.
+            Each element is a tuple: a pattern, and a boolean indicating whether
+            to reject the object if the pattern matches.
+        members_list: An optional, explicit list of members to keep.
+            When given and empty, return an empty list.
+            When given and not empty, ignore filters and docstrings presence/absence.
+        keep_no_docstrings: Whether to keep objects with no/empty docstrings (recursive check).
 
     Returns:
         A list of objects.
     """
-    if keep_empty:
-        return list(objects_dictionary.values())
-    return [obj for obj in objects_dictionary.values() if obj.has_docstrings]
+    if members_list is not None:
+        if not members_list:
+            return []
+        return [obj for obj in objects_dictionary.values() if obj.name in set(members_list)]
+    objects = list(objects_dictionary.values())
+    if filters:
+        objects = [obj for obj in objects if _keep_object(obj.name, filters)]
+    if keep_no_docstrings:
+        return objects
+    return [obj for obj in objects if obj.has_docstrings]
 
 
 @lru_cache(maxsize=1)
