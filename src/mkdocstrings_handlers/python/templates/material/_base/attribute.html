@@ -53,7 +53,7 @@
         {% filter heading(heading_level,
             role="data" if attribute.parent.kind.value == "module" else "attr",
             id=html_id,
-            toc_label=attribute.path,
+            toc_label=attribute.path if config.show_root_full_path else attribute.name,
             hidden=True) %}
         {% endfilter %}
       {% endif %}
