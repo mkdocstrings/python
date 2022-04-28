@@ -73,17 +73,20 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
+        paths: [src]
         import:
         - https://docs.python.org/3/objects.inv
         - https://mkdocstrings.github.io/objects.inv
         - https://mkdocstrings.github.io/griffe/objects.inv
-        selection:
+        options:
           docstring_style: google
           docstring_options:
             ignore_init_summary: yes
-        rendering:
           show_submodules: no
           merge_init_into_class: yes
+          separate_signature: yes
+          show_source: no
+          show_root_full_path: no
     watch:
     - src/mkdocstrings_handlers
 

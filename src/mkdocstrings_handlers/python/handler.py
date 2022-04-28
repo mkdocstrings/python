@@ -142,7 +142,7 @@ class PythonHandler(BaseHandler):
     ) -> Iterator[Tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
-        This implements mkdocstrings' `load_inventory` "protocol" (see plugin.py).
+        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][mkdocstrings.plugin]).
 
         Arguments:
             in_file: The binary file-like object to read the inventory from.
@@ -159,19 +159,7 @@ class PythonHandler(BaseHandler):
         for item in Inventory.parse_sphinx(in_file, domain_filter=("py",)).values():  # noqa: WPS526
             yield item.name, posixpath.join(base_url, item.uri)
 
-    def collect(self, identifier: str, config: dict) -> CollectorItem:  # noqa: WPS231
-        """Collect the documentation tree given an identifier and selection options.
-
-        Arguments:
-            identifier: The dotted-path of a Python object available in the Python path.
-            config: Selection options, used to alter the data collection done by `pytkdocs`.
-
-        Raises:
-            CollectionError: When there was a problem collecting the object documentation.
-
-        Returns:
-            The collected object-tree.
-        """
+    def collect(self, identifier: str, config: dict) -> CollectorItem:  # noqa: D102,WPS231
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
         if config.get("fallback", False) and unknown_module:
