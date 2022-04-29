@@ -22,7 +22,7 @@
         toc_label=attribute.name) %}
 
       {% if config.separate_signature %}
-        {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
+        <span class="doc doc-object-name doc-attribute-name">{% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}</span>
       {% else %}
         {% filter highlight(language="python", inline=True) %}
           {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}

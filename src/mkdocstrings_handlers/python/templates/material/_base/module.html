@@ -21,9 +21,13 @@
         class="doc doc-heading",
         toc_label=module.name) %}
 
-      {% if not config.separate_signature %}<code>{% endif %}
-      {% if show_full_path %}{{ module.path }}{% else %}{{ module.name }}{% endif %}
-      {% if not config.separate_signature %}</code>{% endif %}
+      {% with module_name = module.path if show_full_path else module.name %}
+        {% if config.separate_signature %}
+          <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
+        {% else %}
+          <code>{{ module_name }}</code>
+        {% endif %}
+      {% endwith %}
 
       {% with labels = module.labels %}
         {% include "labels.html" with context %}

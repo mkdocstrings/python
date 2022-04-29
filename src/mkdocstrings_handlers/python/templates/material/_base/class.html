@@ -22,7 +22,7 @@
         toc_label=class.name) %}
 
       {% if config.separate_signature %}
-        {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
+        <span class="doc doc-object-name doc-class-name">{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</span>
       {% elif config.merge_init_into_class and "__init__" in class.members -%}
         {%- with function = class.members["__init__"] -%}
           {%- filter highlight(language="python", inline=True) -%}
