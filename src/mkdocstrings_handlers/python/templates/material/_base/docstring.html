@@ -1,5 +1,5 @@
-{{ log.debug("Rendering docstring") }}
 {% if docstring_sections %}
+  {{ log.debug("Rendering docstring") }}
   {% for section in docstring_sections %}
     {% if section.kind.value == "text" %}
       {{ section.value|convert_markdown(heading_level, html_id) }}
