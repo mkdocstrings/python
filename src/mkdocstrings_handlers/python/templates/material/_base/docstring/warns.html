@@ -1,5 +1,6 @@
 {{ log.debug("Rendering warns section") }}
 {% if config.docstring_section_style == "table" %}
+  {% block table_style %}
   <p><strong>{{ section.title or "Warns:" }}</strong></p>
   <table>
     <thead>
@@ -23,7 +24,9 @@
       {% endfor %}
     </tbody>
   </table>
+  {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
+  {% block list_style %}
   <p>{{ section.title or "Warns:" }}</p>
   <ul>
     {% for warns in section.value %}
@@ -38,7 +41,9 @@
       </li>
     {% endfor %}
   </ul>
+  {% endblock list_style %}
 {% elif config.docstring_section_style == "spacy" %}
+  {% block spacy_style %}
   <table>
     <thead>
       <tr>
@@ -63,4 +68,5 @@
       {% endfor %}
     </tbody>
   </table>
+  {% endblock spacy_style %}
 {% endif %}

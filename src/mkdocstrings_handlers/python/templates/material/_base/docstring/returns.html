@@ -1,5 +1,6 @@
 {{ log.debug("Rendering returns section") }}
 {% if config.docstring_section_style == "table" %}
+  {% block table_style %}
   {% set name_column = section.value|selectattr("name")|any %}
   <p><strong>{{ section.title or "Returns:" }}</strong></p>
   <table>
@@ -26,7 +27,9 @@
       {% endfor %}
     </tbody>
   </table>
+  {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
+  {% block list_style %}
   <p>{{ section.title or "Returns:" }}</p>
   <ul>
     {% for returns in section.value %}
@@ -43,7 +46,9 @@
       </li>
     {% endfor %}
   </ul>
+  {% endblock list_style %}
 {% elif config.docstring_section_style == "spacy" %}
+  {% block spacy_style %}
   <table>
     <thead>
       <tr>
@@ -82,4 +87,5 @@
       {% endfor %}
     </tbody>
   </table>
+  {% endblock spacy_style %}
 {% endif %}
