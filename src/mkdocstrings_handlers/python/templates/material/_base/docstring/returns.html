@@ -52,7 +52,7 @@
   <table>
     <thead>
       <tr>
-        <th><b>RETURNS</b></th>
+        <th><b>{{ (section.title or "RETURNS").rstrip(":").upper() }}</b></th>
         <th><b>DESCRIPTION</b></th>
       </tr>
     </thead>
