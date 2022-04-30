@@ -78,6 +78,7 @@ class PythonHandler(BaseHandler):
         "docstring_section_style": "table",
         "members": None,
         "filters": ["!^_[^_]"],
+        "annotations_path": "brief",
     }
     """
     Attributes: Default rendering options:
@@ -88,6 +89,7 @@ class PythonHandler(BaseHandler):
         show_object_full_path (bool): Show the full Python path of objects that are children of the root object (for example, classes in a module). When False, `show_object_full_path` overrides. Default: `False`.
         show_category_heading (bool): When grouped by categories, show a heading for each category. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
+        annotations_path: The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
         show_signature (bool): Show method and function signatures. Default: `True`.
         show_signature_annotations (bool): Show the type annotations in method and function signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading. Default: `False`.
