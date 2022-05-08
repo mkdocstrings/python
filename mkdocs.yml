@@ -4,11 +4,13 @@ site_url: "https://mkdocstrings.github.io/python"
 repo_url: "https://github.com/mkdocstrings/python"
 repo_name: "mkdocstrings/python"
 site_dir: "site"
+watch: [src, README.md]
 
 nav:
 - Home:
   - Overview: index.md
   - Usage: usage.md
+  - Customization: customization.md
   - Changelog: changelog.md
   - Credits: credits.md
   - License: license.md
@@ -22,8 +24,7 @@ nav:
 
 theme:
   name: material
-  icon:
-    logo: material/currency-sign
+  logo: logo.png
   features:
   - navigation.tabs
   - navigation.top
@@ -49,6 +50,8 @@ extra_css:
 
 markdown_extensions:
 - admonition
+- callouts:
+    strip_period: no
 - pymdownx.emoji
 - pymdownx.magiclink
 - pymdownx.snippets:
@@ -82,13 +85,10 @@ plugins:
           docstring_style: google
           docstring_options:
             ignore_init_summary: yes
-          show_submodules: no
           merge_init_into_class: yes
           separate_signature: yes
           show_source: no
           show_root_full_path: no
-    watch:
-    - src/mkdocstrings_handlers
 
 extra:
   social:

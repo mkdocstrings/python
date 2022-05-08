@@ -75,33 +75,35 @@ class PythonHandler(BaseHandler):
     """
     Attributes: Headings options:
         heading_level (int): The initial heading level to use. Default: `2`.
-        show_root_heading (bool): Show the heading of the object at the root of the documentation tree. Default: `False`.
+        show_root_heading (bool): Show the heading of the object at the root of the documentation tree
+            (i.e. the object referenced by the identifier after `:::`). Default: `False`.
         show_root_toc_entry (bool): If the root heading is not shown, at least add a ToC entry for it. Default: `True`.
         show_root_full_path (bool): Show the full Python path for the root object heading. Default: `True`.
-        show_root_members_full_path (bool): Show the full Python path of every object. Default: `False`.
-        show_object_full_path (bool): Show the full Python path of objects that are children of the root object (for example, classes in a module). When False, `show_object_full_path` overrides. Default: `False`.
+        show_root_members_full_path (bool): Show the full Python path of the root members. Default: `False`.
+        show_object_full_path (bool): Show the full Python path of every object. Default: `False`.
         show_category_heading (bool): When grouped by categories, show a heading for each category. Default: `False`.
 
     Attributes: Members options:
         members (list[str] | False | None): An explicit list of members to render. Default: `None`.
+        members_order (str): The members ordering to use. Options: `alphabetical` - order by the members names,
+            `source` - order members as they appear in the source file. Default: `"alphabetical"`.
         filters (list[str] | None): A list of filters applied to filter objects based on their name.
             A filter starting with `!` will exclude matching objects instead of including them. Default: `["!^_[^_]"]`.
-        group_by_category (bool): Group the object's children by categories: attributes, classes, functions, methods, and modules. Default: `True`.
+        group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
         show_submodules (bool): When rendering a module, show its submodules recursively. Default: `True`.
-        members_order (str): The members ordering to use. Options: `alphabetical` - order by the members names, `source` - order members as they appear in the source file. Default: `"alphabetical"`.
 
     Attributes: Docstrings options:
         docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
         docstring_options (dict): The options for the docstring parser. See parsers under [`griffe.docstrings`][].
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `"table"`.
-        line_length (int): Maximum line length when formatting code. Default: `60`.
+        line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
 
-    Attributes: Signature/annotations options:
-        annotations_path: The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
-        show_signature (bool): Show method and function signatures. Default: `True`.
-        show_signature_annotations (bool): Show the type annotations in method and function signatures. Default: `False`.
+    Attributes: Signatures/annotations options:
+        annotations_path (str): The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
+        show_signature (bool): Show methods and functions signatures. Default: `True`.
+        show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading. Default: `False`.
 
     Attributes: Additional options:

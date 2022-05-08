@@ -1,45 +1,34 @@
-# mkdocstrings-python
+<h1 align="center">mkdocstrings-python</h1>
 
-[![ci](https://github.com/mkdocstrings/python/workflows/ci/badge.svg)](https://github.com/mkdocstrings/python/actions?query=workflow%3Aci)
-[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/python/)
-[![pypi version](https://img.shields.io/pypi/v/python.svg)](https://pypi.org/project/python/)
-[![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/python)
-[![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/mkdocstrings/python)
+<p align="center">A Python handler for <a href="https://github.com/mkdocstrings/mkdocstrings"><i>mkdocstrings</i></a>.</p>
 
-A Python handler for [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings).
+<p align="center">
+  <a href="https://github.com/mkdocstrings/python/actions?query=workflow%3Aci">
+    <img alt="ci" src="https://github.com/mkdocstrings/python/workflows/ci/badge.svg" />
+  </a>
+  <a href="https://mkdocstrings.github.io/python/">
+    <img alt="documentation" src="https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat" />
+  </a>
+  <a href="https://pypi.org/project/mkdocstrings-python/">
+    <img alt="pypi version" src="https://img.shields.io/pypi/v/mkdocstrings-python.svg" />
+  </a>
+  <a href="https://gitpod.io/#https://github.com/mkdocstrings/python">
+    <img alt="gitpod" src="https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat" />
+  </a>
+  <a href="https://gitter.im/mkdocstrings/python">
+    <img alt="gitter" src="https://badges.gitter.im/join%20chat.svg" />
+  </a>
+</p>
 
-<!-- TODO: update the GIF with a more recent screen capture. Maybe use mp4 instead -->
-![mkdocstrings_python_gif](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
+---
 
-## Requirements
-
-mkdocstrings-python requires Python 3.7 or above.
-
-<details>
-<summary>To install Python 3.7, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
-
-```bash
-# install pyenv
-git clone https://github.com/pyenv/pyenv ~/.pyenv
-
-# setup pyenv (you should also put these three lines in .bashrc or similar)
-export PATH="${HOME}/.pyenv/bin:${PATH}"
-export PYENV_ROOT="${HOME}/.pyenv"
-eval "$(pyenv init -)"
-
-# install Python 3.7
-pyenv install 3.7.12
-
-# make it available globally
-pyenv global system 3.7.12
-```
-</details>
+<p align="center"><img src="logo.png"></p>
 
 ## Installation
 
 You can install this handler as a *mkdocstrings* extra:
 
-```toml
+```toml title="pyproject.toml"
 # PEP 621 dependencies declaration
 # adapt to your dependencies manager
 [project]
@@ -50,7 +39,7 @@ dependencies = [
 
 You can also explicitely depend on the handler:
 
-```toml
+```toml title="pyproject.toml"
 # PEP 621 dependencies declaration
 # adapt to your dependencies manager
 [project]
@@ -58,6 +47,11 @@ dependencies = [
     "mkdocstrings-python",
 ]
 ```
+
+## Preview
+
+<!-- TODO: update the GIF with a more recent screen capture. Maybe use mp4 instead -->
+![mkdocstrings_python_gif](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
 
 ## Features
 
