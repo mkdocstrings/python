@@ -63,7 +63,7 @@ class PythonHandler(BaseHandler):
         "merge_init_into_class": False,
         "show_source": True,
         "show_bases": True,
-        "show_submodules": True,
+        "show_submodules": False,
         "group_by_category": True,
         "heading_level": 2,
         "members_order": rendering.Order.alphabetical.value,
@@ -90,7 +90,7 @@ class PythonHandler(BaseHandler):
         filters (list[str] | None): A list of filters applied to filter objects based on their name.
             A filter starting with `!` will exclude matching objects instead of including them. Default: `["!^_[^_]"]`.
         group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
-        show_submodules (bool): When rendering a module, show its submodules recursively. Default: `True`.
+        show_submodules (bool): When rendering a module, show its submodules recursively. Default: `False`.
 
     Attributes: Docstrings options:
         docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
