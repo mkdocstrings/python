@@ -4,7 +4,7 @@ site_url: "https://mkdocstrings.github.io/python"
 repo_url: "https://github.com/mkdocstrings/python"
 repo_name: "mkdocstrings/python"
 site_dir: "site"
-watch: [src, README.md]
+watch: [README.md, CONTRIBUTING.md, CHANGELOG.md, src/mkdocstrings_handlers]
 
 nav:
 - Home:
@@ -27,6 +27,7 @@ theme:
   logo: logo.png
   features:
   - navigation.tabs
+  - navigation.tabs.sticky
   - navigation.top
   palette:
   - media: "(prefers-color-scheme: light)"
@@ -65,9 +66,9 @@ markdown_extensions:
 
 plugins:
 - search
+- markdown-exec
 - gen-files:
     scripts:
-    - docs/gen_credits.py
     - docs/gen_ref_nav.py
 - literate-nav:
     nav_file: SUMMARY.md

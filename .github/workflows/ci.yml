@@ -28,7 +28,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up PDM
-      uses: pdm-project/setup-pdm@v2.5
+      uses: pdm-project/setup-pdm@v2.6
       with:
         python-version: "3.8"
 
@@ -86,7 +86,7 @@ jobs:
       uses: actions/checkout@v2    
 
     - name: Set up PDM
-      uses: pdm-project/setup-pdm@v2.5
+      uses: pdm-project/setup-pdm@v2.6
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -105,7 +105,7 @@ jobs:
         key: tests-cache-${{ runner.os }}-${{ matrix.python-version }}
 
     - name: Install dependencies
-      run: pdm install -G duty -G tests
+      run: pdm install --no-editable -G duty -G tests
 
     - name: Run the test suite
       run: pdm run duty test
