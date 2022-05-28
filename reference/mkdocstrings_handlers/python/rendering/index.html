@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/handler/">
+        <link rel="canonical" href="https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/rendering/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
     
     
       
-        <title>handler - mkdocstrings-python</title>
+        <title>rendering - mkdocstrings-python</title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mkdocstrings_handlers.python.handler" class="md-skip">
+        <a href="#mkdocstrings_handlers.python.rendering" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              handler
+              rendering
             
           </span>
         </div>
@@ -524,6 +524,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../handler/" class="md-nav__link">
+        handler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -534,12 +548,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          handler
+          rendering
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        handler
+        rendering
       </a>
       
         
@@ -556,42 +570,57 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler" class="md-nav__link">
-    handler
+  <a href="#mkdocstrings_handlers.python.rendering" class="md-nav__link">
+    rendering
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.PythonHandler" class="md-nav__link">
-    PythonHandler
+  <a href="#mkdocstrings_handlers.python.rendering.Order" class="md-nav__link">
+    Order
   </a>
-  
-    <nav class="md-nav" aria-label="PythonHandler">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.PythonHandler.default_config" class="md-nav__link">
-    default_config
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.PythonHandler.load_inventory" class="md-nav__link">
-    load_inventory()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.get_handler" class="md-nav__link">
-    get_handler()
+  <a href="#mkdocstrings_handlers.python.rendering.do_crossref" class="md-nav__link">
+    do_crossref()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_filter_objects" class="md-nav__link">
+    do_filter_objects()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_format_code" class="md-nav__link">
+    do_format_code()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_format_signature" class="md-nav__link">
+    do_format_signature()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_multi_crossref" class="md-nav__link">
+    do_multi_crossref()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_order_members" class="md-nav__link">
+    do_order_members()
   </a>
   
 </li>
@@ -600,20 +629,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../rendering/" class="md-nav__link">
-        rendering
-      </a>
     </li>
   
 
@@ -755,42 +770,57 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler" class="md-nav__link">
-    handler
+  <a href="#mkdocstrings_handlers.python.rendering" class="md-nav__link">
+    rendering
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.PythonHandler" class="md-nav__link">
-    PythonHandler
+  <a href="#mkdocstrings_handlers.python.rendering.Order" class="md-nav__link">
+    Order
   </a>
-  
-    <nav class="md-nav" aria-label="PythonHandler">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.PythonHandler.default_config" class="md-nav__link">
-    default_config
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.PythonHandler.load_inventory" class="md-nav__link">
-    load_inventory()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings_handlers.python.handler.get_handler" class="md-nav__link">
-    get_handler()
+  <a href="#mkdocstrings_handlers.python.rendering.do_crossref" class="md-nav__link">
+    do_crossref()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_filter_objects" class="md-nav__link">
+    do_filter_objects()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_format_code" class="md-nav__link">
+    do_format_code()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_format_signature" class="md-nav__link">
+    do_format_signature()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_multi_crossref" class="md-nav__link">
+    do_multi_crossref()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings_handlers.python.rendering.do_order_members" class="md-nav__link">
+    do_order_members()
   </a>
   
 </li>
@@ -807,21 +837,21 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/mkdocstrings/edit/master/docs/src/mkdocstrings_handlers/python/handler.py" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/mkdocstrings/edit/master/docs/src/mkdocstrings_handlers/python/rendering.py" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
 
-  <h1>handler</h1>
+  <h1>rendering</h1>
 
 <div class="doc doc-object doc-module">
 
 
-<a id="mkdocstrings_handlers.python.handler"></a>
+<a id="mkdocstrings_handlers.python.rendering"></a>
   <div class="doc doc-contents first">
   
-      <p>This module implements a handler for the Python language.</p>
+      <p>This module implements rendering utilities.</p>
 
   
 
@@ -838,127 +868,20 @@
 
 
 
-<h2 id="mkdocstrings_handlers.python.handler.PythonHandler" class="doc doc-heading">
-        <span class="doc doc-object-name doc-class-name">PythonHandler</span>
+<h2 id="mkdocstrings_handlers.python.rendering.Order" class="doc doc-heading">
+        <span class="doc doc-object-name doc-class-name">Order</span>
 
 
-<a href="#mkdocstrings_handlers.python.handler.PythonHandler" class="headerlink" title="Permanent link">¤</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">PythonHandler</span><span class="p">(</span>
-    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">config_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span>
-</code></pre></div>
+<a href="#mkdocstrings_handlers.python.rendering.Order" class="headerlink" title="Permanent link">¤</a></h2>
+
 
   <div class="doc doc-contents ">
       <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-external" title="mkdocstrings.handlers.base.BaseHandler" href="https://mkdocstrings.github.io/reference/handlers/base/#mkdocstrings.handlers.base.BaseHandler">BaseHandler</a></code></p>
+        Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/enum.html#module-enum">enum</a>.<a class="autorefs autorefs-external" title="enum.Enum" href="https://docs.python.org/3/library/enum.html#enum.Enum">Enum</a></code></p>
 
   
-      <p>The Python handler class.</p>
+      <p>Enumeration for the possible members ordering.</p>
 
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>domain</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td><p>The cross-documentation domain/language for this handler.</p></td>
-        </tr>
-        <tr>
-          <td><code>enable_inventory</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Whether this handler is interested in enabling the creation
-of the <code>objects.inv</code> Sphinx inventory file.</p></td>
-        </tr>
-        <tr>
-          <td><code>fallback_theme</code></td>
-          <td>
-          </td>
-          <td><p>The fallback theme.</p></td>
-        </tr>
-        <tr>
-          <td><code>fallback_config</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
-          </td>
-          <td><p>The configuration used to collect item during autorefs fallback.</p></td>
-        </tr>
-        <tr>
-          <td><code>default_config</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
-          </td>
-          <td><p>The default rendering options,
-see <a class="autorefs autorefs-internal" href="#mkdocstrings_handlers.python.handler.PythonHandler.default_config"><code>default_config</code></a>.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-  
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>*args</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
-          </td>
-          <td><p>Handler name, theme and custom templates.</p></td>
-          <td>
-                <code>()</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>config_file_path</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>
-          </td>
-          <td><p>The MkDocs configuration file path.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>paths</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
-          </td>
-          <td><p>A list of paths to use as Griffe search paths.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>**kwargs</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
-          </td>
-          <td><p>Same thing, but with keyword arguments.</p></td>
-          <td>
-                <code>{}</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
 
 
   
@@ -971,389 +894,7 @@ see <a class="autorefs autorefs-internal" href="#mkdocstrings_handlers.python.ha
 
 
 
-<div class="doc doc-object doc-attribute">
 
-
-
-<h3 id="mkdocstrings_handlers.python.handler.PythonHandler.default_config" class="doc doc-heading">
-        <span class="doc doc-object-name doc-attribute-name">default_config</span>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-<a href="#mkdocstrings_handlers.python.handler.PythonHandler.default_config" class="headerlink" title="Permanent link">¤</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;docstring_style&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;docstring_options&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s2">&quot;show_root_heading&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;show_root_toc_entry&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;show_root_full_path&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;show_root_members_full_path&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;show_object_full_path&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;show_category_heading&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;show_if_no_docstring&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;show_signature&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;show_signature_annotations&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;separate_signature&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;line_length&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-    <span class="s2">&quot;merge_init_into_class&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;show_source&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;show_bases&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;show_submodules&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;group_by_category&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;heading_level&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">&quot;members_order&quot;</span><span class="p">:</span> <span class="n">rendering</span><span class="o">.</span><span class="n">Order</span><span class="o">.</span><span class="n">alphabetical</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-    <span class="s2">&quot;docstring_section_style&quot;</span><span class="p">:</span> <span class="s2">&quot;table&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;!^_[^_]&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;annotations_path&quot;</span><span class="p">:</span> <span class="s2">&quot;brief&quot;</span><span class="p">,</span>
-<span class="p">}</span>
-</code></pre></div>
-
-  <div class="doc doc-contents ">
-  
-
-  <p><strong>Headings options:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>heading_level</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
-          </td>
-          <td><p>The initial heading level to use. Default: <code>2</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_root_heading</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the heading of the object at the root of the documentation tree
-(i.e. the object referenced by the identifier after <code>:::</code>). Default: <code>False</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_root_toc_entry</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>If the root heading is not shown, at least add a ToC entry for it. Default: <code>True</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_root_full_path</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the full Python path for the root object heading. Default: <code>True</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_root_members_full_path</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the full Python path of the root members. Default: <code>False</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_object_full_path</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the full Python path of every object. Default: <code>False</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_category_heading</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>When grouped by categories, show a heading for each category. Default: <code>False</code>.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-  <p><strong>Members options:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>members</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | False | None</code>
-          </td>
-          <td><p>An explicit list of members to render. Default: <code>None</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>members_order</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td><p>The members ordering to use. Options: <code>alphabetical</code> - order by the members names,
-<code>source</code> - order members as they appear in the source file. Default: <code>"alphabetical"</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>filters</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
-          </td>
-          <td><p>A list of filters applied to filter objects based on their name.
-A filter starting with <code>!</code> will exclude matching objects instead of including them.
-The <code>members</code> option takes precedence over <code>filters</code> (filters will still be applied recursively
-to lower members in the hierarchy). Default: <code>["!^_[^_]"]</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>group_by_category</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Group the object's children by categories: attributes, classes, functions, and modules. Default: <code>True</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_submodules</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>When rendering a module, show its submodules recursively. Default: <code>False</code>.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-  <p><strong>Docstrings options:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>docstring_style</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td><p>The docstring style to use: <code>google</code>, <code>numpy</code>, <code>sphinx</code>, or <code>None</code>. Default: <code>"google"</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>docstring_options</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
-          </td>
-          <td><p>The options for the docstring parser. See parsers under <a class="autorefs autorefs-external" href="https://mkdocstrings.github.io/griffe/reference/griffe/docstrings/#griffe.docstrings"><code>griffe.docstrings</code></a>.</p></td>
-        </tr>
-        <tr>
-          <td><code>docstring_section_style</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td><p>The style used to render docstring sections. Options: <code>table</code>, <code>list</code>, <code>spacy</code>. Default: <code>"table"</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>line_length</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
-          </td>
-          <td><p>Maximum line length when formatting code/signatures. Default: <code>60</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>merge_init_into_class</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Whether to merge the <code>__init__</code> method into the class' signature and docstring. Default: <code>False</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_if_no_docstring</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the object heading even if it has no docstring or children with docstrings. Default: <code>False</code>.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-  <p><strong>Signatures/annotations options:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>annotations_path</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td><p>The verbosity for annotations path: <code>brief</code> (recommended), or <code>source</code> (as written in the source). Default: <code>"brief"</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_signature</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show methods and functions signatures. Default: <code>True</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_signature_annotations</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the type annotations in methods and functions signatures. Default: <code>False</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>separate_signature</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Whether to put the whole signature in a code block below the heading. Default: <code>False</code>.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-  <p><strong>Additional options:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>show_bases</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the base classes of a class. Default: <code>True</code>.</p></td>
-        </tr>
-        <tr>
-          <td><code>show_source</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-          </td>
-          <td><p>Show the source code of this object. Default: <code>True</code>.</p></td>
-        </tr>
-    </tbody>
-  </table>
-  </div>
-
-</div>
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 id="mkdocstrings_handlers.python.handler.PythonHandler.load_inventory" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">load_inventory</span>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-<a href="#mkdocstrings_handlers.python.handler.PythonHandler.load_inventory" class="headerlink" title="Permanent link">¤</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">load_inventory</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</code></pre></div>
-
-  <div class="doc doc-contents ">
-  
-      <p>Yield items and their URLs from an inventory file streamed from <code>in_file</code>.</p>
-<p>This implements mkdocstrings' <code>load_inventory</code> "protocol" (see <a class="autorefs autorefs-external" href="https://mkdocstrings.github.io/reference/plugin/#mkdocstrings.plugin"><code>mkdocstrings.plugin</code></a>).</p>
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>in_file</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.BinaryIO" href="https://docs.python.org/3/library/typing.html#typing.BinaryIO">BinaryIO</a></code>
-          </td>
-          <td><p>The binary file-like object to read the inventory from.</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>url</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td><p>The URL that this file is being streamed from (used to guess <code>base_url</code>).</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>base_url</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
-          </td>
-          <td><p>The URL that this inventory's sub-paths are relative to.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>**kwargs</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
-          </td>
-          <td><p>Ignore additional arguments passed from the config.</p></td>
-          <td>
-                <code>{}</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  <p><strong>Yields:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Iterator" href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<a class="autorefs autorefs-external" title="typing.Tuple" href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
-          </td>
-          <td><p>Tuples of (item identifier, item URL).</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
 
 
 
@@ -1368,23 +909,17 @@ to lower members in the hierarchy). Default: <code>["!^_[^_]"]</code>.</p></td>
 
 
 
-<h2 id="mkdocstrings_handlers.python.handler.get_handler" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">get_handler</span>
+<h2 id="mkdocstrings_handlers.python.rendering.do_crossref" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">do_crossref</span>
 
 
-<a href="#mkdocstrings_handlers.python.handler.get_handler" class="headerlink" title="Permanent link">¤</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">get_handler</span><span class="p">(</span>
-    <span class="n">theme</span><span class="p">,</span>
-    <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">config_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">config</span>
-<span class="p">)</span>
+<a href="#mkdocstrings_handlers.python.rendering.do_crossref" class="headerlink" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">do_crossref</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">brief</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
   
-      <p>Simply return an instance of <code>PythonHandler</code>.</p>
+      <p>Filter to create cross-references.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1398,53 +933,23 @@ to lower members in the hierarchy). Default: <code>["!^_[^_]"]</code>.</p></td>
     </thead>
     <tbody>
         <tr>
-          <td><code>theme</code></td>
+          <td><code>path</code></td>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>The theme to use when rendering contents.</p></td>
+          <td><p>The path to link to.</p></td>
           <td>
               <em>required</em>
           </td>
         </tr>
         <tr>
-          <td><code>custom_templates</code></td>
+          <td><code>brief</code></td>
           <td>
-                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
           </td>
-          <td><p>Directory containing custom templates.</p></td>
+          <td><p>Show only the last part of the path, add full path as hover.</p></td>
           <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>config_file_path</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>
-          </td>
-          <td><p>The MkDocs configuration file path.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>paths</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
-          </td>
-          <td><p>A list of paths to use as Griffe search paths.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>**config</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
-          </td>
-          <td><p>Configuration passed to the handler.</p></td>
-          <td>
-                <code>{}</code>
+                <code>True</code>
           </td>
         </tr>
     </tbody>
@@ -1461,9 +966,408 @@ to lower members in the hierarchy). Default: <code>["!^_[^_]"]</code>.</p></td>
     <tbody>
         <tr>
           <td>
-                <code><a class="autorefs autorefs-internal" title="mkdocstrings_handlers.python.handler.PythonHandler" href="#mkdocstrings_handlers.python.handler.PythonHandler">PythonHandler</a></code>
+                <code><span title="markupsafe.Markup">Markup</span></code>
           </td>
-          <td><p>An instance of <code>PythonHandler</code>.</p></td>
+          <td><p>Markup text.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings_handlers.python.rendering.do_filter_objects" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">do_filter_objects</span>
+
+
+<a href="#mkdocstrings_handlers.python.rendering.do_filter_objects" class="headerlink" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">do_filter_objects</span><span class="p">(</span>
+    <span class="n">objects_dictionary</span><span class="p">,</span>
+    <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">members_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">keep_no_docstrings</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Filter a dictionary of objects based on their docstrings.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>objects_dictionary</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="griffe.dataclasses.Object" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Object">Object</a> | <a class="autorefs autorefs-external" title="griffe.dataclasses.Alias" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Alias">Alias</a>]</code>
+          </td>
+          <td><p>The dictionary of objects.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>filters</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a>, <a class="autorefs autorefs-external" title="typing.Pattern" href="https://docs.python.org/3/library/typing.html#typing.Pattern">Pattern</a>]] | None</code>
+          </td>
+          <td><p>Filters to apply, based on members' names.
+Each element is a tuple: a pattern, and a boolean indicating whether
+to reject the object if the pattern matches.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>members_list</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
+          </td>
+          <td><p>An optional, explicit list of members to keep.
+When given and empty, return an empty list.
+When given and not empty, ignore filters and docstrings presence/absence.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>keep_no_docstrings</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether to keep objects with no/empty docstrings (recursive check).</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="griffe.dataclasses.Object" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Object">Object</a> | <a class="autorefs autorefs-external" title="griffe.dataclasses.Alias" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Alias">Alias</a>]</code>
+          </td>
+          <td><p>A list of objects.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings_handlers.python.rendering.do_format_code" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">do_format_code</span>
+
+
+<a href="#mkdocstrings_handlers.python.rendering.do_format_code" class="headerlink" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">do_format_code</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">line_length</span><span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Format code using Black.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>code</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The code to format.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>line_length</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The line length to give to Black.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The same code, formatted.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings_handlers.python.rendering.do_format_signature" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">do_format_signature</span>
+
+
+<a href="#mkdocstrings_handlers.python.rendering.do_format_signature" class="headerlink" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">do_format_signature</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">line_length</span><span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Format a signature using Black.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>signature</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The signature to format.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>line_length</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The line length to give to Black.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The same code, formatted.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings_handlers.python.rendering.do_multi_crossref" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">do_multi_crossref</span>
+
+
+<a href="#mkdocstrings_handlers.python.rendering.do_multi_crossref" class="headerlink" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">do_multi_crossref</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Filter to create cross-references.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>text</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The text to scan.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>code</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether to wrap the result in a code tag.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="markupsafe.Markup">Markup</span></code>
+          </td>
+          <td><p>Markup text.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings_handlers.python.rendering.do_order_members" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">do_order_members</span>
+
+
+<a href="#mkdocstrings_handlers.python.rendering.do_order_members" class="headerlink" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">do_order_members</span><span class="p">(</span><span class="n">members</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">members_list</span><span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Order members given an ordering method.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>members</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Sequence" href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<a class="autorefs autorefs-external" title="griffe.dataclasses.Object" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Object">Object</a> | <a class="autorefs autorefs-external" title="griffe.dataclasses.Alias" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Alias">Alias</a>]</code>
+          </td>
+          <td><p>The members to order.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>order</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="mkdocstrings_handlers.python.rendering.Order" href="#mkdocstrings_handlers.python.rendering.Order">Order</a></code>
+          </td>
+          <td><p>The ordering method.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>members_list</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
+          </td>
+          <td><p>An optional member list (manual ordering).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Sequence" href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<a class="autorefs autorefs-external" title="griffe.dataclasses.Object" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Object">Object</a> | <a class="autorefs autorefs-external" title="griffe.dataclasses.Alias" href="https://mkdocstrings.github.io/griffe/reference/griffe/dataclasses/#griffe.dataclasses.Alias">Alias</a>]</code>
+          </td>
+          <td><p>The same members, ordered.</p></td>
         </tr>
     </tbody>
   </table>
@@ -1497,7 +1401,7 @@ to lower members in the hierarchy). Default: <code>["!^_[^_]"]</code>.</p></td>
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: python" rel="prev">
+        <a href="../handler/" class="md-footer__link md-footer__link--prev" aria-label="Previous: handler" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1506,20 +1410,20 @@ to lower members in the hierarchy). Default: <code>["!^_[^_]"]</code>.</p></td>
               <span class="md-footer__direction">
                 Previous
               </span>
-              python
+              handler
             </div>
           </div>
         </a>
       
       
         
-        <a href="../rendering/" class="md-footer__link md-footer__link--next" aria-label="Next: rendering" rel="next">
+        <a href="../../../../contributing/" class="md-footer__link md-footer__link--next" aria-label="Next: Contributing" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              rendering
+              Contributing
             </div>
           </div>
           <div class="md-footer__button md-icon">

@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/python/usage/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.50e68009.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -32,8 +32,9 @@
     
       
         
+        
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -72,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#handler-options" class="md-skip">
+        <a href="#usage" class="md-skip">
           Skip to content
         </a>
       
@@ -84,12 +85,13 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="mkdocstrings-python" class="md-header__button md-logo" aria-label="mkdocstrings-python" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.41 3 3 4.41 5.69 7.1A7.924 7.924 0 0 0 4 12c0 1.85.63 3.55 1.69 4.9L3 19.59 4.41 21l2.69-2.69A7.924 7.924 0 0 0 12 20c1.85 0 3.55-.63 4.9-1.69L19.59 21 21 19.59l-2.69-2.69A7.924 7.924 0 0 0 20 12c0-1.85-.63-3.55-1.69-4.9L21 4.41 19.59 3 16.9 5.69A7.924 7.924 0 0 0 12 4c-1.85 0-3.55.63-4.9 1.69L4.41 3M12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"/></svg>
+  <img src="../logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -171,10 +173,10 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/mkdocstrings/python/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/mkdocstrings/python" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     mkdocstrings/python
@@ -184,14 +186,8 @@
     
   </nav>
   
-</header>
     
-    <div class="md-container" data-md-component="container">
       
-      
-        
-          
-            
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
@@ -268,7 +264,13 @@
     </ul>
   </div>
 </nav>
-          
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
       
       <main class="md-main" data-md-component="main">
@@ -288,18 +290,17 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="mkdocstrings-python" class="md-nav__button md-logo" aria-label="mkdocstrings-python" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.41 3 3 4.41 5.69 7.1A7.924 7.924 0 0 0 4 12c0 1.85.63 3.55 1.69 4.9L3 19.59 4.41 21l2.69-2.69A7.924 7.924 0 0 0 12 20c1.85 0 3.55-.63 4.9-1.69L19.59 21 21 19.59l-2.69-2.69A7.924 7.924 0 0 0 20 12c0-1.85-.63-3.55-1.69-4.9L21 4.41 19.59 3 16.9 5.69A7.924 7.924 0 0 0 12 4c-1.85 0-3.55.63-4.9 1.69L4.41 3M12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"/></svg>
+  <img src="../logo.png" alt="logo">
 
     </a>
     mkdocstrings-python
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/mkdocstrings/python/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/mkdocstrings/python" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     mkdocstrings/python
@@ -365,6 +366,8 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Usage
@@ -381,6 +384,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -389,41 +394,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#handler-options" class="md-nav__link">
-    Handler options
+  <a href="#global-only-options" class="md-nav__link">
+    Global-only options
   </a>
-  
-    <nav class="md-nav" aria-label="Handler options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#selection" class="md-nav__link">
-    Selection
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rendering" class="md-nav__link">
-    Rendering
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#collector-griffe" class="md-nav__link">
-    Collector: Griffe
+  <a href="#globallocal-options" class="md-nav__link">
+    Global/local options
   </a>
   
-    <nav class="md-nav" aria-label="Collector: Griffe">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#supported-docstrings-styles" class="md-nav__link">
     Supported docstrings styles
   </a>
@@ -442,30 +426,38 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#finding-modules" class="md-nav__link">
     Finding modules
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-style-material" class="md-nav__link">
-    Recommended style (Material)
+    <nav class="md-nav" aria-label="Finding modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-paths-option" class="md-nav__link">
+    Using the paths option
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-style-readthedocs" class="md-nav__link">
-    Recommended style (ReadTheDocs)
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pythonpath-environment-variable" class="md-nav__link">
+    Using the PYTHONPATH environment variable
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-your-package-in-the-current-python-environment" class="md-nav__link">
+    Installing your package in the current Python environment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -473,6 +465,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customization/" class="md-nav__link">
+        Customization
+      </a>
     </li>
   
 
@@ -618,20 +624,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/mkdocstrings_handlers/python/collector/" class="md-nav__link">
-        collector
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../reference/mkdocstrings_handlers/python/handler/" class="md-nav__link">
         handler
       </a>
@@ -646,8 +638,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/mkdocstrings_handlers/python/renderer/" class="md-nav__link">
-        renderer
+      <a href="../reference/mkdocstrings_handlers/python/rendering/" class="md-nav__link">
+        rendering
       </a>
     </li>
   
@@ -782,6 +774,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -790,41 +784,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#handler-options" class="md-nav__link">
-    Handler options
+  <a href="#global-only-options" class="md-nav__link">
+    Global-only options
   </a>
-  
-    <nav class="md-nav" aria-label="Handler options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#selection" class="md-nav__link">
-    Selection
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rendering" class="md-nav__link">
-    Rendering
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#collector-griffe" class="md-nav__link">
-    Collector: Griffe
+  <a href="#globallocal-options" class="md-nav__link">
+    Global/local options
   </a>
   
-    <nav class="md-nav" aria-label="Collector: Griffe">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#supported-docstrings-styles" class="md-nav__link">
     Supported docstrings styles
   </a>
@@ -843,30 +816,38 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#finding-modules" class="md-nav__link">
     Finding modules
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-style-material" class="md-nav__link">
-    Recommended style (Material)
+    <nav class="md-nav" aria-label="Finding modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-paths-option" class="md-nav__link">
+    Using the paths option
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-style-readthedocs" class="md-nav__link">
-    Recommended style (ReadTheDocs)
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pythonpath-environment-variable" class="md-nav__link">
+    Using the PYTHONPATH environment variable
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-your-package-in-the-current-python-environment" class="md-nav__link">
+    Installing your package in the current Python environment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -887,238 +868,328 @@
 </a>
 
 
-  <h1>Usage</h1>
 
-<div class="admonition warning">
-<p class="admonition-title">This is the documentation for the NEW, EXPERIMENTAL Python handler.</p>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">¤</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">This is the documentation for the NEW Python handler.</p>
 <p>To read the documentation for the LEGACY handler,
 go to the <a href="https://mkdocstrings.github.io/python-legacy">legacy handler documentation</a>.</p>
 </div>
-<h2 id="handler-options">Handler options<a class="headerlink" href="#handler-options" title="Permanent link">¤</a></h2>
-<p>Like every handler, the Python handler accepts the common
-<a href="#selection"><code>selection</code></a> and <a href="#rendering"><code>rendering</code></a> options,
-both as <strong>global</strong> and <strong>local</strong> options.
-The <code>selection</code> options gives you control over the selection of Python objects,
-while the <code>rendering</code> options lets you change how the documentation is rendered.</p>
-<h3 id="selection">Selection<a class="headerlink" href="#selection" title="Permanent link">¤</a></h3>
-<p>The following options are directly passed to the handler's collector.
-See <a href="#collector-griffe">Collector: Griffe</a> to learn more about Griffe.</p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>docstring_style</code></strong></td>
-<td>Type: <code>str</code>. Docstring style to parse: <code>google</code> (default), <code>numpy</code> or <code>sphinx</code>.</td>
-</tr>
-<tr>
-<td><strong><code>docstring_options</code></strong></td>
-<td>Type: <code>dict</code>. Options to pass to the docstring parser. See <a href="#collector-griffe">Collector: Griffe</a>.</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition example">
-<p class="admonition-title">Configuration example</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Global</label><label for="__tabbed_1_2">Local</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
-<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">selection</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">docstring_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google</span><span class="w"></span>
+<p>The tool used by the Python handler to collect documentation from Python source code
+is <a href="https://mkdocstrings.github.io/griffe">Griffe</a>. The word "griffe" can sometimes be used instead of "signature" in french.
+Griffe is able to visit the Abstract Syntax Tree (AST) of the source code to extract useful information.
+It is also able to execute the code (by importing it) and introspect objects in memory
+when source code is not available. Finally, it can parse docstrings following different styles,
+see <a href="#supported-docstrings-styles">Supported docstrings styles</a>.</p>
+<p>Like every handler, the Python handler accepts both <strong>global</strong> and <strong>local</strong> options.</p>
+<h2 id="global-only-options">Global-only options<a class="headerlink" href="#global-only-options" title="Permanent link">¤</a></h2>
+<p>Some options are <strong>global only</strong>, and go directly under the handler's name.</p>
+<ul>
+<li>
+<p><code>import</code>: this option is used to import Sphinx-compatible objects inventories from other
+    documentation sites. For example, you can import the standard library
+    objects inventory like this:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">import</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://docs.python-requests.org/en/master/objects.inv</span><span class="w"></span>
 </code></pre></div>
+<p>When importing an inventory, you enable automatic cross-references
+to other documentation sites like the standard library docs
+or any third-party package docs. Typically, you want to import
+the inventories of your project's dependencies, at least those
+that are used in the public API. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This global option is common to <em>all</em> handlers, however
+they might implement it differently (or not even implement it).</p>
 </div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_package</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">docstring_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinx</span><span class="w"></span>
+</li>
+<li>
+<p><code>paths</code>: this option is used to provide filesystem paths in which to search for Python modules.
+    Non-absolute paths are computed as relative to MkDocs configuration file. Example:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">src</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># search packages in the src folder</span><span class="w"></span>
 </code></pre></div>
-</div>
-</div>
-</div>
-</div>
-<h3 id="rendering">Rendering<a class="headerlink" href="#rendering" title="Permanent link">¤</a></h3>
+<p>More details at <a href="#finding-modules">Finding modules</a>.</p>
+</li>
+</ul>
+<h2 id="globallocal-options">Global/local options<a class="headerlink" href="#globallocal-options" title="Permanent link">¤</a></h2>
+<p>The other options can be used both globally <em>and</em> locally, under the <code>options</code> key.
+For example, globally:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">options</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">do_something</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+</code></pre></div>
+<p>...and locally, overriding the global configuration:</p>
+<div class="highlight"><span class="filename">docs/some_page.md</span><pre><span></span><code>::: package.module.class
+    options:
+      do_something: false
+</code></pre></div>
+<p>These options affect how the documentation is collected from sources and renderered:
+headings, members, docstrings, etc.</p>
 
 
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
-    <div class="doc doc-contents first">
 
-      <p>The default rendering options.</p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>show_root_heading</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the heading of the object at the root of the documentation tree.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>show_root_toc_entry</code></strong></td>
-<td><code>bool</code></td>
-<td>If the root heading is not shown, at least add a ToC entry for it.</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><strong><code>show_root_full_path</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the full Python path for the root object heading.</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><strong><code>show_object_full_path</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the full Python path of every object.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>show_root_members_full_path</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the full Python path of objects that are children of the root object (for example, classes in a module). When False, <code>show_object_full_path</code> overrides.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>show_category_heading</code></strong></td>
-<td><code>bool</code></td>
-<td>When grouped by categories, show a heading for each category.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>show_if_no_docstring</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the object heading even if it has no docstring or children with docstrings.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>show_signature</code></strong></td>
-<td><code>bool</code></td>
-<td>Show method and function signatures.</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><strong><code>show_signature_annotations</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the type annotations in method and function signatures.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>separate_signature</code></strong></td>
-<td><code>bool</code></td>
-<td>Whether to put the whole signature in a code block below the heading.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>line_length</code></strong></td>
-<td><code>int</code></td>
-<td>Maximum line length when formatting code.</td>
-<td><code>60</code></td>
-</tr>
-<tr>
-<td><strong><code>merge_init_into_class</code></strong></td>
-<td><code>bool</code></td>
-<td>Whether to merge the <code>__init__</code> method into the class' signature and docstring.</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><strong><code>show_source</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the source code of this object.</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><strong><code>show_bases</code></strong></td>
-<td><code>bool</code></td>
-<td>Show the base classes of a class.</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><strong><code>show_submodules</code></strong></td>
-<td><code>bool</code></td>
-<td>When rendering a module, show its submodules recursively.</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><strong><code>group_by_category</code></strong></td>
-<td><code>bool</code></td>
-<td>Group the object's children by categories: attributes, classes, functions, methods, and modules.</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><strong><code>heading_level</code></strong></td>
-<td><code>int</code></td>
-<td>The initial heading level to use.</td>
-<td><code>2</code></td>
-</tr>
-<tr>
-<td><strong><code>members_order</code></strong></td>
-<td><code>str</code></td>
-<td>The members ordering to use. Options: <code>alphabetical</code> - order by the members names, <code>source</code> - order members as they appear in the source file.</td>
-<td><code>alphabetical</code></td>
-</tr>
-<tr>
-<td><strong><code>docstring_section_style</code></strong></td>
-<td><code>str</code></td>
-<td>The style used to render docstring sections. Options: <code>table</code>, <code>list</code>, <code>spacy</code>.</td>
-<td><code>table</code></td>
-</tr>
-</tbody>
-</table>
-    </div>
+  <div class="doc doc-contents first">
+  
 
+  <p><strong>Headings options:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>heading_level</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The initial heading level to use. Default: <code>2</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_root_heading</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the heading of the object at the root of the documentation tree
+(i.e. the object referenced by the identifier after <code>:::</code>). Default: <code>False</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_root_toc_entry</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>If the root heading is not shown, at least add a ToC entry for it. Default: <code>True</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_root_full_path</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the full Python path for the root object heading. Default: <code>True</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_root_members_full_path</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the full Python path of the root members. Default: <code>False</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_object_full_path</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the full Python path of every object. Default: <code>False</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_category_heading</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>When grouped by categories, show a heading for each category. Default: <code>False</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Members options:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>members</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | False | None</code>
+          </td>
+          <td><p>An explicit list of members to render. Default: <code>None</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>members_order</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The members ordering to use. Options: <code>alphabetical</code> - order by the members names,
+<code>source</code> - order members as they appear in the source file. Default: <code>"alphabetical"</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>filters</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
+          </td>
+          <td><p>A list of filters applied to filter objects based on their name.
+A filter starting with <code>!</code> will exclude matching objects instead of including them.
+The <code>members</code> option takes precedence over <code>filters</code> (filters will still be applied recursively
+to lower members in the hierarchy). Default: <code>["!^_[^_]"]</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>group_by_category</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Group the object's children by categories: attributes, classes, functions, and modules. Default: <code>True</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_submodules</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>When rendering a module, show its submodules recursively. Default: <code>False</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Docstrings options:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>docstring_style</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The docstring style to use: <code>google</code>, <code>numpy</code>, <code>sphinx</code>, or <code>None</code>. Default: <code>"google"</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>docstring_options</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
+          </td>
+          <td><p>The options for the docstring parser. See parsers under <a class="autorefs autorefs-external" href="https://mkdocstrings.github.io/griffe/reference/griffe/docstrings/#griffe.docstrings"><code>griffe.docstrings</code></a>.</p></td>
+        </tr>
+        <tr>
+          <td><code>docstring_section_style</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The style used to render docstring sections. Options: <code>table</code>, <code>list</code>, <code>spacy</code>. Default: <code>"table"</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>line_length</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>Maximum line length when formatting code/signatures. Default: <code>60</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>merge_init_into_class</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether to merge the <code>__init__</code> method into the class' signature and docstring. Default: <code>False</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_if_no_docstring</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the object heading even if it has no docstring or children with docstrings. Default: <code>False</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Signatures/annotations options:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>annotations_path</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The verbosity for annotations path: <code>brief</code> (recommended), or <code>source</code> (as written in the source). Default: <code>"brief"</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_signature</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show methods and functions signatures. Default: <code>True</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_signature_annotations</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the type annotations in methods and functions signatures. Default: <code>False</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>separate_signature</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether to put the whole signature in a code block below the heading. Default: <code>False</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Additional options:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>show_bases</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the base classes of a class. Default: <code>True</code>.</p></td>
+        </tr>
+        <tr>
+          <td><code>show_source</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Show the source code of this object. Default: <code>True</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
   </div>
 
-<p>These options affect how the documentation is rendered.</p>
-<div class="admonition example">
-<p class="admonition-title">Configuration example</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Global</label><label for="__tabbed_2_2">Local</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
-<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">rendering</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">show_root_heading</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span><span class="w"></span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="gu">## `ClassA`</span>
-
-::: my_package.my_module.ClassA
-    rendering:
-      show_root_heading: no
-      heading_level: 3
-</code></pre></div>
-</div>
-</div>
-</div>
-</div>
-<h2 id="collector-griffe">Collector: Griffe<a class="headerlink" href="#collector-griffe" title="Permanent link">¤</a></h2>
-<p>The tool used by the Python handler to collect documentation from Python source code
-is <a href="https://mkdocstrings.github.io/griffe">Griffe</a>. Griffe can mean "signature" in french.</p>
-<h3 id="supported-docstrings-styles">Supported docstrings styles<a class="headerlink" href="#supported-docstrings-styles" title="Permanent link">¤</a></h3>
+</div><h2 id="supported-docstrings-styles">Supported docstrings styles<a class="headerlink" href="#supported-docstrings-styles" title="Permanent link">¤</a></h2>
 <p>Griffe supports the Google-style, Numpy-style and Sphinx-style docstring formats.
 The style used by default is the Google-style.
 You can configure what style you want to use with
-the <code>docstring_style</code> and <code>docstring_options</code> <a href="#selection">selection options</a>,
-both globally or per autodoc instruction.</p>
+the <code>docstring_style</code> and <code>docstring_options</code> options,
+both globally or locally, i.e. per autodoc instruction.</p>
 <ul>
 <li>Google: see <a href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">Napoleon's documentation</a>.</li>
 <li>Numpy: see <a href="https://numpydoc.readthedocs.io/en/latest/format.html">Numpydoc's documentation</a>.</li>
@@ -1132,79 +1203,187 @@ you may experience problems in the building process if your docstring
 has a <code>Methods</code> section in the class docstring
 (see <a href="https://github.com/mkdocstrings/mkdocstrings/issues/366">#366</a>).</p>
 </div>
-<h4 id="google-style-admonitions">Google-style admonitions<a class="headerlink" href="#google-style-admonitions" title="Permanent link">¤</a></h4>
+<h3 id="google-style-admonitions">Google-style admonitions<a class="headerlink" href="#google-style-admonitions" title="Permanent link">¤</a></h3>
 <p>With Google-style docstrings, any section that is not recognized will be transformed into its admonition equivalent.
 For example:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Docstring</label><label for="__tabbed_3_2">Result</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Docstring</label><label for="__tabbed_1_2">Result</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Important:</span>
+<span class="sd">Note:</span>
 <span class="sd">    It looks like a section, but it will be rendered as an admonition.</span>
 
-<span class="sd">Tip: You can even chose a title.</span>
+<span class="sd">Tip: You can even choose a title.</span>
 <span class="sd">    This admonition has a custom title!</span>
 <span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="admonition important">
-<p class="admonition-title">Important</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>It looks like a section, but it will be rendered as an admonition.</p>
 </div>
 <div class="admonition tip">
-<p class="admonition-title">You can even chose a title.</p>
+<p class="admonition-title">You can even choose a title.</p>
 <p>This admonition has a custom title!</p>
 </div>
 </div>
 </div>
 </div>
 <h2 id="finding-modules">Finding modules<a class="headerlink" href="#finding-modules" title="Permanent link">¤</a></h2>
-<p>In order for Griffe to find your packages and modules,
-you can take advantage of the usual Python loading mechanisms:</p>
-<ul>
+<p>There are multiple ways to tell the handler where to find your packages/modules.</p>
+<p><strong>The recommended method is to use the <code>paths</code> option, as it's the only one
+that works with the <code>-f</code> option of MkDocs, allowing to build the documentation
+from any location on the file system.</strong> Indeed, the paths provided with the
+<code>paths</code> option are computed as relative to the configuration file (mkdocs.yml),
+so that the current working directory has no impact on the build process:
+<em>you can build the docs from any location on your filesystem</em>.</p>
+<h3 id="using-the-paths-option">Using the <code>paths</code> option<a class="headerlink" href="#using-the-paths-option" title="Permanent link">¤</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">This is the recommended method.</p>
+</div>
+<ol>
 <li>
-<p>install your package in the current virtualenv:
-    <div class="highlight"><pre><span></span><code>. venv/bin/activate
-pip install -e .
+<p>mkdocs.yml in root, package in root
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📄 mkdocs.yml
+└── 📁 package/
 </code></pre></div></p>
-<div class="highlight"><pre><span></span><code>poetry install
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">.</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># actually not needed, default</span><span class="w"></span>
 </code></pre></div>
-<p>...etc.</p>
 </li>
 <li>
-<p>or add your package(s) parent directory in the <code>PYTHONPATH</code>.</p>
+<p>mkdocs.yml in root, package in subfolder
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📄 mkdocs.yml
+└── 📁 src/
+    └── 📁 package/
+</code></pre></div></p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">src</span><span class="p p-Indicator">]</span><span class="w"></span>
+</code></pre></div>
 </li>
-</ul>
-<p>(<em>The following instructions assume your Python package is in the <code>src</code> directory.</em>)</p>
-<p>In Bash and other shells, you can run your command like this
+<li>
+<p>mkdocs.yml in subfolder, package in root
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📁 docs/
+│   └── 📄 mkdocs.yml
+└── 📁 package/
+</code></pre></div></p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">..</span><span class="p p-Indicator">]</span><span class="w"></span>
+</code></pre></div>
+</li>
+<li>
+<p>mkdocs.yml in subfolder, package in subfolder
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📁 docs/
+│   └── 📄 mkdocs.yml
+└── 📁 src/
+    └── 📁 package/
+</code></pre></div></p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">../src</span><span class="p p-Indicator">]</span><span class="w"></span>
+</code></pre></div>
+</li>
+</ol>
+<p>Except for case 1, which is supported by default, <strong>we strongly recommend
+to set the path to your packages using this option, even if it works without it</strong>
+(for example because your project manager automatically adds <code>src</code> to PYTHONPATH),
+to make sure anyone can build your docs from any location on their filesystem.</p>
+<h3 id="using-the-pythonpath-environment-variable">Using the PYTHONPATH environment variable<a class="headerlink" href="#using-the-pythonpath-environment-variable" title="Permanent link">¤</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">This method has limitations.</p>
+<p>This method might work for you, with your current setup,
+but not for others trying your build your docs with their own setup/environment.
+We recommend to use the <a href="#using-the-paths-option"><code>paths</code> method</a> instead.</p>
+</div>
+<p>You can take advantage of the usual Python loading mechanisms.
+In Bash and other shells, you can run your command like this
 (note the prepended <code>PYTHONPATH=...</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="nv">PYTHONPATH</span><span class="o">=</span>src mkdocs serve
+<ol>
+<li>
+<p>mkdocs.yml in root, package in root
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📄 mkdocs.yml
+└── 📁 package/
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>. mkdocs build  <span class="c1"># actually not needed, default</span>
 </code></pre></div>
-<p>You can also export that variable,
-but this is <strong>not recommended</strong> as it could affect other Python processes:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>src  <span class="c1"># Linux/Bash and similar</span>
-setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
+</li>
+<li>
+<p>mkdocs.yml in root, package in subfolder
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📄 mkdocs.yml
+└── 📁 src/
+    └── 📁 package/
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>src mkdocs build
 </code></pre></div>
-<h2 id="recommended-style-material">Recommended style (Material)<a class="headerlink" href="#recommended-style-material" title="Permanent link">¤</a></h2>
-<p>Here are some CSS rules for the
-<a href="https://squidfunk.github.io/mkdocs-material/"><em>Material for MkDocs</em></a> theme:</p>
-<div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span><span class="w"></span>
-<span class="nt">div</span><span class="p">.</span><span class="nc">doc-contents</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">first</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">border-left</span><span class="p">:</span><span class="w"> </span><span class="mf">.05</span><span class="kt">rem</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-default-fg-color--lightest</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+</li>
+<li>
+<p>mkdocs.yml in subfolder, package in root
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📁 docs/
+│   └── 📄 mkdocs.yml
+└── 📁 package/
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>. mkdocs build -f docs/mkdocs.yml
 </code></pre></div>
-<h2 id="recommended-style-readthedocs">Recommended style (ReadTheDocs)<a class="headerlink" href="#recommended-style-readthedocs" title="Permanent link">¤</a></h2>
-<p>Here are some CSS rules for the built-in <em>ReadTheDocs</em> theme:</p>
-<div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span><span class="w"></span>
-<span class="nt">div</span><span class="p">.</span><span class="nc">doc-contents</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">first</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">border-left</span><span class="p">:</span><span class="w"> </span><span class="mf">.05</span><span class="kt">rem</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+</li>
+<li>
+<p>mkdocs.yml in subfolder, package in subfolder
+    <div class="highlight"><pre><span></span><code>📁 root/
+├── 📁 docs/
+│   └── 📄 mkdocs.yml
+└── 📁 src/
+    └── 📁 package/
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>src mkdocs build -f docs/mkdocs.yml
 </code></pre></div>
+</li>
+</ol>
+<h3 id="installing-your-package-in-the-current-python-environment">Installing your package in the current Python environment<a class="headerlink" href="#installing-your-package-in-the-current-python-environment" title="Permanent link">¤</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">This method has limitations.</p>
+<p>This method might work for you, with your current setup,
+but not for others trying your build your docs with their own setup/environment.
+We recommend to use the <a href="#using-the-paths-option"><code>paths</code> method</a> instead.</p>
+</div>
+<p>Install your package in the current environment, and run MkDocs:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">pip</label><label for="__tabbed_2_2">PDM</label><label for="__tabbed_2_3">Poetry</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>. venv/bin/activate
+pip install -e .
+mkdocs build
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>pdm install
+pdm run mkdocs build
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>poetry install
+poetry run mkdocs build
+</code></pre></div>
+</div>
+</div>
+</div>
 
               
             </article>
@@ -1239,13 +1418,13 @@ setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
       
       
         
-        <a href="../changelog/" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+        <a href="../customization/" class="md-footer__link md-footer__link--next" aria-label="Next: Customization" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Changelog
+              Customization
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1275,7 +1454,7 @@ setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
       
     
     <a href="https://github.com/pawamoy" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
     
@@ -1284,7 +1463,7 @@ setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
       
     
     <a href="https://twitter.com/pawamoy" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
 </div>
@@ -1297,10 +1476,10 @@ setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a9542cf.min.js"></script>
+      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
       
     
   </body>
