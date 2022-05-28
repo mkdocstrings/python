@@ -5,6 +5,34 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.7.0](https://github.com/mkdocstrings/python/releases/tag/0.7.0) - 2022-05-28
+
+<small>[Compare with 0.6.6](https://github.com/mkdocstrings/python/compare/0.6.6...0.7.0)</small>
+
+### Packaging / Dependencies
+- Depend on mkdocstrings 0.19 ([b6a9a47](https://github.com/mkdocstrings/python/commit/b6a9a4799980c4590a7ce2838e12653f40e43be3) by Timothée Mazzucotelli).
+
+### Features
+- Add config option for annotations paths verbosity ([b6c9893](https://github.com/mkdocstrings/python/commit/b6c989315fb028813a919319ad1818b0b1f597ac) by Timothée Mazzucotelli).
+- Use sections titles in SpaCy-styled docstrings ([fe16b54](https://github.com/mkdocstrings/python/commit/fe16b54aea60473575343e3a3c428567b701bd7d) by Timothée Mazzucotelli).
+- Wrap objects names in spans to allow custom styling ([0822ff9](https://github.com/mkdocstrings/python/commit/0822ff9d3ffd3fb71fb619a8b557160661eff9c3) by Timothée Mazzucotelli). [Issue mkdocstrings/mkdocstrings#240](https://github.com/mkdocstrings/mkdocstrings/issues/240)
+- Add Jinja blocks around docstring section styles ([aaa79ee](https://github.com/mkdocstrings/python/commit/aaa79eea40d49a64a69badbe732bf5211fbf055a) by Timothée Mazzucotelli).
+- Add members and filters options ([24a6136](https://github.com/mkdocstrings/python/commit/24a6136ee6c04a6a49ee74b20e65177868a10ea7) by Timothée Mazzucotelli).
+- Add paths option ([dd41182](https://github.com/mkdocstrings/python/commit/dd41182c210f0bb2675ead162adaa01dbbb1949f) by Timothée Mazzucotelli). [Issue mkdocstrings/mkdocstrings#311](https://github.com/mkdocstrings/mkdocstrings/issues/311), [PR #20](https://github.com/mkdocstrings/python/issues/20)
+
+### Bug Fixes
+- Fix CSS class on labels ([312a709](https://github.com/mkdocstrings/python/commit/312a7092394aab968032cf08195af7445a85052f) by Timothée Mazzucotelli).
+- Fix categories rendering ([6407cf4](https://github.com/mkdocstrings/python/commit/6407cf4f2375c894e0c528e932e9b76774a6455e) by Timothée Mazzucotelli). [Issue #14](https://github.com/mkdocstrings/python/issues/14)
+
+### Code Refactoring
+- Disable `show_submodules` by default ([480d0c3](https://github.com/mkdocstrings/python/commit/480d0c373904713313ec76b6e2570dbc35eb527b) by Timothée Mazzucotelli).
+- Merge default configuration options in handler ([347ce76](https://github.com/mkdocstrings/python/commit/347ce76d074c0e3841df2d5162b54d3938d00453) by Timothée Mazzucotelli).
+- Reduce number of template debug logs ([8fed314](https://github.com/mkdocstrings/python/commit/8fed314243e3981fc7b527c69cee628e87b10220) by Timothée Mazzucotelli).
+- Respect `show_root_full_path` for ToC entries (hidden headings) ([8f4c853](https://github.com/mkdocstrings/python/commit/8f4c85328e8b4a45db77f9fc3e536a5008686f37) by Timothée Mazzucotelli).
+- Bring consistency on headings style ([59104c4](https://github.com/mkdocstrings/python/commit/59104c4c51c86c774eed76d8508f9f4d3db5463f) by Timothée Mazzucotelli).
+- Stop using deprecated base classes ([d5ea1c5](https://github.com/mkdocstrings/python/commit/d5ea1c5cf7884d8c019145f73685a84218e69840) by Timothée Mazzucotelli).
+
+
 ## [0.6.6](https://github.com/mkdocstrings/python/releases/tag/0.6.6) - 2022-03-06
 
 <small>[Compare with 0.6.5](https://github.com/mkdocstrings/python/compare/0.6.5...0.6.6)</small>
