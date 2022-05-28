@@ -88,7 +88,9 @@ class PythonHandler(BaseHandler):
         members_order (str): The members ordering to use. Options: `alphabetical` - order by the members names,
             `source` - order members as they appear in the source file. Default: `"alphabetical"`.
         filters (list[str] | None): A list of filters applied to filter objects based on their name.
-            A filter starting with `!` will exclude matching objects instead of including them. Default: `["!^_[^_]"]`.
+            A filter starting with `!` will exclude matching objects instead of including them.
+            The `members` option takes precedence over `filters` (filters will still be applied recursively
+            to lower members in the hierarchy). Default: `["!^_[^_]"]`.
         group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
         show_submodules (bool): When rendering a module, show its submodules recursively. Default: `False`.
 

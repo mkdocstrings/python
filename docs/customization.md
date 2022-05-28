@@ -96,28 +96,28 @@ div.doc-contents:not(.first) {
 
 Templates are organized into the following tree:
 
-```
-📁 theme/
-├── 📄 attribute.html
-├── 📄 children.html
-├── 📄 class.html
-├── 📁 docstring/
-│   ├── 📄 admonition.html
-│   ├── 📄 attributes.html
-│   ├── 📄 examples.html
-│   ├── 📄 other_parameters.html
-│   ├── 📄 parameters.html
-│   ├── 📄 raises.html
-│   ├── 📄 receives.html
-│   ├── 📄 returns.html
-│   ├── 📄 warns.html
-│   └── 📄 yields.html
-├── 📄 docstring.html
-├── 📄 expression.html
-├── 📄 function.html
-├── 📄 labels.html
-├── 📄 module.html
-└── 📄 signature.html
+```tree result="text"
+theme/
+    attribute.html
+    children.html
+    class.html
+    docstring/
+        admonition.html
+        attributes.html
+        examples.html
+        other_parameters.html
+        parameters.html
+        raises.html
+        receives.html
+        returns.html
+        warns.html
+        yields.html
+    docstring.html
+    expression.html
+    function.html
+    labels.html
+    module.html
+    signature.html
 ```
 
 See them [in the repository](https://github.com/mkdocstrings/python/tree/master/src/mkdocstrings_handlers/python/templates/).

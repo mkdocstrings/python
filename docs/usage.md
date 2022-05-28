@@ -1,6 +1,6 @@
 # Usage
 
-WARNING: **This is the documentation for the NEW, EXPERIMENTAL Python handler.**  
+TIP: **This is the documentation for the NEW Python handler.**  
 To read the documentation for the LEGACY handler,
 go to the [legacy handler documentation](https://mkdocstrings.github.io/python-legacy).
 
@@ -17,7 +17,7 @@ Like every handler, the Python handler accepts both **global** and **local** opt
 
 Some options are **global only**, and go directly under the handler's name.
 
-- `import`: This option is used to import Sphinx-compatible objects inventories from other
+- `import`: this option is used to import Sphinx-compatible objects inventories from other
     documentation sites. For example, you can import the standard library
     objects inventory like this:
 
@@ -138,10 +138,10 @@ so that the current working directory has no impact on the build process:
 TIP: **This is the recommended method.**
 
 1. mkdocs.yml in root, package in root
-    ```
-    📁 root/
-    ├── 📄 mkdocs.yml
-    └── 📁 package/
+    ```tree
+    root/
+        mkdocs.yml
+        package/
     ```
 
     ```yaml title="mkdocs.yml"
@@ -153,11 +153,11 @@ TIP: **This is the recommended method.**
     ```
 
 1. mkdocs.yml in root, package in subfolder
-    ```
-    📁 root/
-    ├── 📄 mkdocs.yml
-    └── 📁 src/
-        └── 📁 package/
+    ```tree
+    root/
+        mkdocs.yml
+        src/
+            package/
     ```
 
     ```yaml title="mkdocs.yml"
@@ -169,11 +169,11 @@ TIP: **This is the recommended method.**
     ```
 
 1. mkdocs.yml in subfolder, package in root
-    ```
-    📁 root/
-    ├── 📁 docs/
-    │   └── 📄 mkdocs.yml
-    └── 📁 package/
+    ```tree
+    root/
+        docs/
+            mkdocs.yml
+        package/
     ```
 
     ```yaml title="mkdocs.yml"
@@ -185,12 +185,12 @@ TIP: **This is the recommended method.**
     ```
 
 1. mkdocs.yml in subfolder, package in subfolder
-    ```
-    📁 root/
-    ├── 📁 docs/
-    │   └── 📄 mkdocs.yml
-    └── 📁 src/
-        └── 📁 package/
+    ```tree
+    root/
+        docs/
+            mkdocs.yml
+        src/
+            package/
     ```
 
     ```yaml title="mkdocs.yml"
@@ -218,10 +218,10 @@ In Bash and other shells, you can run your command like this
 (note the prepended `PYTHONPATH=...`):
 
 1. mkdocs.yml in root, package in root
-    ```
-    📁 root/
-    ├── 📄 mkdocs.yml
-    └── 📁 package/
+    ```tree
+    root/
+        mkdocs.yml
+        package/
     ```
 
     ```bash
@@ -229,11 +229,11 @@ In Bash and other shells, you can run your command like this
     ```
 
 1. mkdocs.yml in root, package in subfolder
-    ```
-    📁 root/
-    ├── 📄 mkdocs.yml
-    └── 📁 src/
-        └── 📁 package/
+    ```tree
+    root/
+        mkdocs.yml
+        src/
+            package/
     ```
 
     ```bash
@@ -241,11 +241,11 @@ In Bash and other shells, you can run your command like this
     ```
 
 1. mkdocs.yml in subfolder, package in root
-    ```
-    📁 root/
-    ├── 📁 docs/
-    │   └── 📄 mkdocs.yml
-    └── 📁 package/
+    ```tree
+    root/
+        docs/
+            mkdocs.yml
+        package/
     ```
 
     ```bash
@@ -253,12 +253,12 @@ In Bash and other shells, you can run your command like this
     ```
 
 1. mkdocs.yml in subfolder, package in subfolder
-    ```
-    📁 root/
-    ├── 📁 docs/
-    │   └── 📄 mkdocs.yml
-    └── 📁 src/
-        └── 📁 package/
+    ```tree
+    root/
+        docs/
+            mkdocs.yml
+        src/
+            package/
     ```
 
     ```bash

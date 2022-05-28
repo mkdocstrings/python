@@ -1,5 +1,4 @@
 import re
-from importlib.metadata import metadata, PackageNotFoundError
 from itertools import chain
 from pathlib import Path
 from textwrap import dedent
@@ -7,6 +6,11 @@ from textwrap import dedent
 import toml
 from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
+
+try:
+    from importlib.metadata import metadata, PackageNotFoundError
+except ImportError:
+    from importlib_metadata import metadata, PackageNotFoundError
 
 project_dir = Path(".")
 pyproject = toml.load(project_dir / "pyproject.toml")
