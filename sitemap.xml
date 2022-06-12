@@ -2,67 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://mkdocstrings.github.io/python/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/changelog/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/code_of_conduct/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/contributing/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/credits/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/customization/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/license/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/usage/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>None</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/handler/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/rendering/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/python/coverage/</loc>
-         <lastmod>2022-05-28</lastmod>
+         <lastmod>2022-06-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
