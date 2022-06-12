@@ -2,7 +2,7 @@
   {{ log.debug("Rendering signature") }}
   {%- with -%}
 
-    {%- set ns = namespace(render_pos_only_separator=True, render_kw_only_separator=True, equal="=") -%}
+    {%- set ns = namespace(has_pos_only=False, render_pos_only_separator=True, render_kw_only_separator=True, equal="=") -%}
 
     {%- if config.show_signature_annotations -%}
       {%- set ns.equal = " = " -%}
@@ -13,11 +13,14 @@
         {%- if parameter.name not in ("self", "cls") or loop.index0 > 0 or not (function.parent and function.parent.is_class) -%}
 
           {%- if parameter.kind.value == "positional-only" -%}
-            {%- if ns.render_pos_only_separator -%}
+            {%- set ns.has_pos_only = True -%}
+          {%- else -%}
+            {%- if ns.has_pos_only and ns.render_pos_only_separator -%}
               {%- set ns.render_pos_only_separator = False %}/, {% endif -%}
-          {%- elif parameter.kind.value == "keyword-only" -%}
-            {%- if ns.render_kw_only_separator -%}
-              {%- set ns.render_kw_only_separator = False %}*, {% endif -%}
+            {%- if parameter.kind.value == "keyword-only" -%}
+              {%- if ns.render_kw_only_separator -%}
+                {%- set ns.render_kw_only_separator = False %}*, {% endif -%}
+            {%- endif -%}
           {%- endif -%}
 
           {%- if config.show_signature_annotations and parameter.annotation is not none -%}
