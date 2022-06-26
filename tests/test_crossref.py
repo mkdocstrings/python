@@ -106,3 +106,5 @@ def test_substitute_relative_crossrefs(caplog):
     [bar][mod1.mod2.bar]
     """
     )  # noqa: WPS355
+
+    assert not caplog.records

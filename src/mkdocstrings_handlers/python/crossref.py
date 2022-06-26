@@ -75,7 +75,7 @@ If the 'parent' group is matched, then exactly one of its subgroups will be pres
 - 'current': an expression of the form '.'
 """
 
-_RE_ID = re.compile("[a-zA-Z][a-zA-Z_.]*")
+_RE_ID = re.compile("[a-zA-Z_][a-zA-Z0-9_.]*")
 """Regular expression that matches a qualified python identifier."""
 
 
@@ -221,7 +221,7 @@ class _RelativeCrossrefProcessor:
             line = doc.lineno
             if line is not None:
                 # Add line offset to match in docstring
-                line + doc.value.count("\n", 0, self._cur_offset)
+                line += doc.value.count("\n", 0, self._cur_offset)
                 prefix += f"{line}:"
                 # It would be nice to add the column as well, but we cannot determine
                 # that without knowing how much the doc string was unindented.
