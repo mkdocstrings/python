@@ -23,6 +23,7 @@ from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
 
 from mkdocstrings_handlers.python import rendering
+from mkdocstrings_handlers.python.crossref import substitute_relative_crossrefs
 
 logger = get_logger(__name__)
 
@@ -39,7 +40,7 @@ class PythonHandler(BaseHandler):
         fallback_theme: The fallback theme.
         fallback_config: The configuration used to collect item during autorefs fallback.
         default_config: The default rendering options,
-            see [`default_config`][mkdocstrings_handlers.python.handler.PythonHandler.default_config].
+            see [`default_config`][.].
     """
 
     domain: str = "py"  # to match Sphinx's default domain
@@ -71,6 +72,7 @@ class PythonHandler(BaseHandler):
         "members": None,
         "filters": ["!^_[^_]"],
         "annotations_path": "brief",
+        "relative_crossrefs": False,
     }
     """
     Attributes: Headings options:
@@ -100,6 +102,7 @@ class PythonHandler(BaseHandler):
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `"table"`.
         line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
+        relative_crossrefs (bool): Expand relative cross-references after collection.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
 
     Attributes: Signatures/annotations options:
@@ -150,7 +153,7 @@ class PythonHandler(BaseHandler):
     ) -> Iterator[Tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
-        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][mkdocstrings.plugin]).
+        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][]).
 
         Arguments:
             in_file: The binary file-like object to read the inventory from.
@@ -187,7 +190,7 @@ class PythonHandler(BaseHandler):
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
             )
-            try:
+            try:  # noqa: WPS229
                 loader.load_module(module_name)
             except ImportError as error:
                 raise CollectionError(str(error)) from error
@@ -211,6 +214,9 @@ class PythonHandler(BaseHandler):
 
     def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
         final_config = ChainMap(config, self.default_config)
+
+        if final_config["relative_crossrefs"]:
+            substitute_relative_crossrefs(data, checkref=self._check_ref)
 
         template = self.env.get_template(f"{data.kind.value}.html")
 
@@ -250,6 +256,22 @@ class PythonHandler(BaseHandler):
             return list({data.path, data.canonical_path, *data.aliases})
         except AliasResolutionError:
             return [data.path]
+
+    def _check_ref(self, ref: str) -> bool:
+        """Check for existence of reference.
+
+        Arguments:
+            ref: reference to check
+
+        Returns:
+            true if reference exists
+        """
+        try:
+            self.collect(ref, {})
+        except Exception:  # pylint: disable=broad-except
+            # Only expect a CollectionError but we may as well catch everything.
+            return False
+        return True
 
 
 def get_handler(
