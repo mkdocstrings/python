@@ -191,11 +191,7 @@ class PythonHandler(BaseHandler):
                 lines_collection=self._lines_collection,
             )
             try:  # noqa: WPS229
-                module = loader.load_module(module_name)
-
-                if final_config["relative_crossrefs"]:
-                    substitute_relative_crossrefs(module)
-
+                loader.load_module(module_name)
             except ImportError as error:
                 raise CollectionError(str(error)) from error
 
@@ -218,6 +214,9 @@ class PythonHandler(BaseHandler):
 
     def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
         final_config = ChainMap(config, self.default_config)
+
+        if final_config["relative_crossrefs"]:
+            substitute_relative_crossrefs(data, checkref=self._check_ref)
 
         template = self.env.get_template(f"{data.kind.value}.html")
 
@@ -257,6 +256,22 @@ class PythonHandler(BaseHandler):
             return list({data.path, data.canonical_path, *data.aliases})
         except AliasResolutionError:
             return [data.path]
+
+    def _check_ref(self, ref: str) -> bool:
+        """Check for existence of reference.
+
+        Arguments:
+            ref: reference to check
+
+        Returns:
+            true if reference exists
+        """
+        try:
+            self.collect(ref, {})
+        except Exception:  # pylint: disable=broad-except
+            # Only expect a CollectionError but we may as well catch everything.
+            return False
+        return True
 
 
 def get_handler(
