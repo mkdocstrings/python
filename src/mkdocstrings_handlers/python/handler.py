@@ -106,7 +106,8 @@ class PythonHandler(BaseHandler):
         annotations_path (str): The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
         show_signature (bool): Show methods and functions signatures. Default: `True`.
         show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
-        separate_signature (bool): Whether to put the whole signature in a code block below the heading. Default: `False`.
+        separate_signature (bool): Whether to put the whole signature in a code block below the heading.
+            If Black is installed, the signature is also formatted using it. Default: `False`.
 
     Attributes: Additional options:
         show_bases (bool): Show the base classes of a class. Default: `True`.
