@@ -83,8 +83,6 @@ plugins:
         - https://mkdocstrings.github.io/objects.inv
         - https://mkdocstrings.github.io/griffe/objects.inv
         options:
-          paths:
-            - src/*
           docstring_style: google
           docstring_options:
             ignore_init_summary: yes
