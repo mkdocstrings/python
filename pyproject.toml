@@ -44,7 +44,10 @@ Gitter = "https://gitter.im/python/community"
 Funding = "https://github.com/sponsors/mkdocstrings"
 
 [tool.pdm]
-version = {use_scm = true}
+version = {source = "scm"}
+
+[tool.pdm.build]
+package-dir = "src"
 includes = ["src/mkdocstrings_handlers"]
 editable-backend = "editables"
 
