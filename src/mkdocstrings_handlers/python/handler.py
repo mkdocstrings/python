@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import glob
 import os
 import posixpath
 import re
@@ -128,6 +129,8 @@ class PythonHandler(BaseHandler):
         super().__init__(*args, **kwargs)
         self._config_file_path = config_file_path
         paths = paths or []
+        resolved_globs = [glob.glob(path) for path in paths]
+        paths = [path for glob_list in resolved_globs for path in glob_list]
         if not paths and config_file_path:
             paths.append(os.path.dirname(config_file_path))
         search_paths = [path for path in sys.path if path]  # eliminate empty path
