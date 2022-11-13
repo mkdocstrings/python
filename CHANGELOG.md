@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.8.0](https://github.com/mkdocstrings/python/releases/tag/0.8.0) - 2022-11-13
+
+<small>[Compare with 0.7.1](https://github.com/mkdocstrings/python/compare/0.7.1...0.8.0)</small>
+
+### Features
+- Add support for globs in paths configuration ([29edd02](https://github.com/mkdocstrings/python/commit/29edd02e7a4d83f6b7e8555d4d5b03a79882eb07) by Andrew Guenther). [Issue #33](https://github.com/mkdocstrings/python/issues/33), [PR #34](https://github.com/mkdocstrings/python/pull/34)
+
+### Code Refactoring
+- Support Griffe 0.24 ([3b9f701](https://github.com/mkdocstrings/python/commit/3b9f7013a7367f18e4354c37f029f9caf3ad0a4e) by Timothée Mazzucotelli).
+
+
 ## [0.7.1](https://github.com/mkdocstrings/python/releases/tag/0.7.1) - 2022-06-12
 
 <small>[Compare with 0.7.0](https://github.com/mkdocstrings/python/compare/0.7.0...0.7.1)</small>
