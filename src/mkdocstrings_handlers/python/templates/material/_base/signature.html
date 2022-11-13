@@ -35,6 +35,7 @@
             {%- set ns.render_kw_only_separator = False -%}
           {%- endif -%}
 
+          {% if parameter.kind.value == "variadic positional" %}*{% elif parameter.kind.value == "variadic keyword" %}**{% endif -%}
           {{ parameter.name }}{{ annotation }}{{ default }}
           {%- if not loop.last %}, {% endif -%}
 

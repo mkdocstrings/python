@@ -196,7 +196,7 @@ class PythonHandler(BaseHandler):
             except ImportError as error:
                 raise CollectionError(str(error)) from error
 
-            unresolved, iterations = loader.resolve_aliases(only_exported=True, only_known_modules=True)
+            unresolved, iterations = loader.resolve_aliases(implicit=False, external=False)
             if unresolved:
                 logger.warning(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
 
