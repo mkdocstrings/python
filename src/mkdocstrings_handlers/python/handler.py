@@ -8,7 +8,7 @@ import posixpath
 import re
 import sys
 from collections import ChainMap
-from contextlib import suppress
+from contextlib import contextmanager, suppress
 from typing import Any, BinaryIO, Iterator, Optional, Tuple
 
 from griffe.agents.extensions import load_extensions
@@ -129,7 +129,8 @@ class PythonHandler(BaseHandler):
         super().__init__(*args, **kwargs)
         self._config_file_path = config_file_path
         paths = paths or []
-        resolved_globs = [glob.glob(path) for path in paths]
+        with self._change_cwd(config_file_path):
+            resolved_globs = [glob.glob(path) for path in paths]
         paths = [path for glob_list in resolved_globs for path in glob_list]
         if not paths and config_file_path:
             paths.append(os.path.dirname(config_file_path))
@@ -254,6 +255,18 @@ class PythonHandler(BaseHandler):
             return list({data.path, data.canonical_path, *data.aliases})
         except AliasResolutionError:
             return [data.path]
+
+    @contextmanager
+    def _change_cwd(self, path):
+        oldwd = os.getcwd()
+        if path:
+            if os.path.isfile(path):
+                path = os.path.dirname(path)
+            os.chdir(path)
+        try:
+            yield
+        finally:
+            os.chdir(oldwd)
 
 
 def get_handler(
