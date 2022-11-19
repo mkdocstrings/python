@@ -145,7 +145,7 @@ class PythonHandler(BaseHandler):
         super().__init__(*args, **kwargs)
         self._config_file_path = config_file_path
         paths = paths or []
-        with chdir(os.path.dirname(config_file_path) if config_file_path else "."):
+        with chdir((os.path.dirname(config_file_path) or ".") if config_file_path else "."):
             resolved_globs = [glob.glob(path) for path in paths]
         paths = [path for glob_list in resolved_globs for path in glob_list]
         if not paths and config_file_path:
