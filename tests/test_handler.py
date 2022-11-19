@@ -1,5 +1,8 @@
 """Tests for the `handler` module."""
 
+import os
+from glob import glob
+
 import pytest
 from griffe.docstrings.dataclasses import DocstringSectionExamples, DocstringSectionKind
 
@@ -83,3 +86,15 @@ def test_expand_globs(tmp_path):
     )
     for path in globbed_paths:  # noqa: WPS440
         assert str(path) in handler._paths  # noqa: WPS437
+
+
+def test_expand_globs_without_changing_directory():
+    """Assert globs are correctly expanded when we are already in the right directory."""
+    handler = PythonHandler(
+        handler="python",
+        theme="material",
+        config_file_path="mkdocs.yml",
+        paths=["*.md"],
+    )
+    for path in list(glob(os.path.abspath(".") + "/*.md")):
+        assert path in handler._paths  # noqa: WPS437
