@@ -8,7 +8,7 @@ import posixpath
 import re
 import sys
 from collections import ChainMap
-from contextlib import contextmanager, suppress
+from contextlib import suppress
 from typing import Any, BinaryIO, Iterator, Optional, Tuple
 
 from griffe.agents.extensions import load_extensions
@@ -24,6 +24,22 @@ from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
 
 from mkdocstrings_handlers.python import rendering
+
+if sys.version_info >= (3, 11):
+    from contextlib import chdir
+else:
+    # TODO: remove once support for Python 3.10 is dropped
+    from contextlib import contextmanager
+
+    @contextmanager  # noqa: WPS440
+    def chdir(path: str):  # noqa: D103,WPS440
+        old_wd = os.getcwd()
+        os.chdir(path)
+        try:
+            yield
+        finally:
+            os.chdir(old_wd)
+
 
 logger = get_logger(__name__)
 
@@ -129,7 +145,7 @@ class PythonHandler(BaseHandler):
         super().__init__(*args, **kwargs)
         self._config_file_path = config_file_path
         paths = paths or []
-        with self._change_cwd(config_file_path):
+        with chdir(os.path.dirname(config_file_path) if config_file_path else "."):
             resolved_globs = [glob.glob(path) for path in paths]
         paths = [path for glob_list in resolved_globs for path in glob_list]
         if not paths and config_file_path:
@@ -255,18 +271,6 @@ class PythonHandler(BaseHandler):
             return list({data.path, data.canonical_path, *data.aliases})
         except AliasResolutionError:
             return [data.path]
-
-    @contextmanager
-    def _change_cwd(self, path):
-        oldwd = os.getcwd()
-        if path:
-            if os.path.isfile(path):
-                path = os.path.dirname(path)
-            os.chdir(path)
-        try:
-            yield
-        finally:
-            os.chdir(oldwd)
 
 
 def get_handler(
