@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.8.1](https://github.com/mkdocstrings/python/releases/tag/0.8.1) - 2022-11-19
+
+<small>[Compare with 0.8.0](https://github.com/mkdocstrings/python/compare/0.8.0...0.8.1)</small>
+
+### Bug Fixes
+- Expand globs relative to configuration file path ([0dc45ae](https://github.com/mkdocstrings/python/commit/0dc45aeb7c7f9b2f15118ebf1584baa06d365c9b) by David Vegh). [Issue #42](https://github.com/mkdocstrings/python/issues/42), [PR #43](https://github.com/mkdocstrings/python/pull/43)
+
+
 ## [0.8.0](https://github.com/mkdocstrings/python/releases/tag/0.8.0) - 2022-11-13
 
 <small>[Compare with 0.7.1](https://github.com/mkdocstrings/python/compare/0.7.1...0.8.0)</small>
