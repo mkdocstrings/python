@@ -77,7 +77,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
-      run: pdm install --no-editable -G duty -G tests
+      run: pdm install --no-editable -G duty -G tests -G docs
 
     - name: Run the test suite
       run: pdm run duty test
