@@ -163,7 +163,9 @@
           "enum": ["brief", "source"],
           "default": "brief"
         }
-      }
+      },
+      "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 }
