@@ -25,6 +25,22 @@ from mkdocstrings.loggers import get_logger
 
 from mkdocstrings_handlers.python import rendering
 
+if sys.version_info >= (3, 11):
+    from contextlib import chdir
+else:
+    # TODO: remove once support for Python 3.10 is dropped
+    from contextlib import contextmanager
+
+    @contextmanager  # noqa: WPS440
+    def chdir(path: str):  # noqa: D103,WPS440
+        old_wd = os.getcwd()
+        os.chdir(path)
+        try:
+            yield
+        finally:
+            os.chdir(old_wd)
+
+
 logger = get_logger(__name__)
 
 patch_loggers(get_logger)
@@ -129,7 +145,9 @@ class PythonHandler(BaseHandler):
         super().__init__(*args, **kwargs)
         self._config_file_path = config_file_path
         paths = paths or []
-        resolved_globs = [glob.glob(path) for path in paths]
+        glob_base_dir = os.path.dirname(os.path.abspath(config_file_path)) if config_file_path else "."
+        with chdir(glob_base_dir):
+            resolved_globs = [glob.glob(path) for path in paths]
         paths = [path for glob_list in resolved_globs for path in glob_list]
         if not paths and config_file_path:
             paths.append(os.path.dirname(config_file_path))
