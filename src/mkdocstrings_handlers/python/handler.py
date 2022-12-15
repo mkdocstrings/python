@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import glob
 import os
 import posixpath
 import re
@@ -24,6 +25,22 @@ from mkdocstrings.loggers import get_logger
 
 from mkdocstrings_handlers.python import rendering
 from mkdocstrings_handlers.python.crossref import substitute_relative_crossrefs
+
+if sys.version_info >= (3, 11):
+    from contextlib import chdir
+else:
+    # TODO: remove once support for Python 3.10 is dropped
+    from contextlib import contextmanager
+
+    @contextmanager  # noqa: WPS440
+    def chdir(path: str):  # noqa: D103,WPS440
+        old_wd = os.getcwd()
+        os.chdir(path)
+        try:
+            yield
+        finally:
+            os.chdir(old_wd)
+
 
 logger = get_logger(__name__)
 
@@ -109,7 +126,8 @@ class PythonHandler(BaseHandler):
         annotations_path (str): The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
         show_signature (bool): Show methods and functions signatures. Default: `True`.
         show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
-        separate_signature (bool): Whether to put the whole signature in a code block below the heading. Default: `False`.
+        separate_signature (bool): Whether to put the whole signature in a code block below the heading.
+            If Black is installed, the signature is also formatted using it. Default: `False`.
 
     Attributes: Additional options:
         show_bases (bool): Show the base classes of a class. Default: `True`.
@@ -130,6 +148,10 @@ class PythonHandler(BaseHandler):
         super().__init__(*args, **kwargs)
         self._config_file_path = config_file_path
         paths = paths or []
+        glob_base_dir = os.path.dirname(os.path.abspath(config_file_path)) if config_file_path else "."
+        with chdir(glob_base_dir):
+            resolved_globs = [glob.glob(path) for path in paths]
+        paths = [path for glob_list in resolved_globs for path in glob_list]
         if not paths and config_file_path:
             paths.append(os.path.dirname(config_file_path))
         search_paths = [path for path in sys.path if path]  # eliminate empty path
@@ -195,7 +217,7 @@ class PythonHandler(BaseHandler):
             except ImportError as error:
                 raise CollectionError(str(error)) from error
 
-            unresolved, iterations = loader.resolve_aliases(only_exported=True, only_known_modules=True)
+            unresolved, iterations = loader.resolve_aliases(implicit=False, external=False)
             if unresolved:
                 logger.warning(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
 

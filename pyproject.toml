@@ -6,7 +6,7 @@ build-backend = "pdm.pep517.api"
 name = "mkdocstrings-python"
 description = "A Python handler for mkdocstrings."
 authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
-license-expression = "ISC"
+license = "ISC"
 readme = "README.md"
 requires-python = ">=3.7"
 keywords = []
@@ -30,7 +30,7 @@ classifiers = [
 ]
 dependencies = [
     "mkdocstrings>=0.19",
-    "griffe>=0.11.1",
+    "griffe>=0.24",
 ]
 
 [project.urls]
@@ -44,7 +44,10 @@ Gitter = "https://gitter.im/python/community"
 Funding = "https://github.com/sponsors/mkdocstrings"
 
 [tool.pdm]
-version = {use_scm = true}
+version = {source = "scm"}
+
+[tool.pdm.build]
+package-dir = "src"
 includes = ["src/mkdocstrings_handlers"]
 editable-backend = "editables"
 
@@ -70,6 +73,10 @@ maintain = [
     "git-changelog>=0.4",
 ]
 quality = [
+    # TODO: remove once importlib-metadata version conflict is resolved
+    "importlib-metadata<5; python_version < '3.8'",
+    "flake8>=4; python_version >= '3.8'",
+
     "darglint>=1.8",
     "flake8-bandit>=2.1",
     "flake8-black>=0.2",
@@ -95,7 +102,7 @@ typing = [
     "types-markdown>=3.3",
     "types-toml>=0.10",
 ]
-security = ["safety>=1.10"]
+security = ["safety>=2"]
 
 [tool.black]
 line-length = 120
