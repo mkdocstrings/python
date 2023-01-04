@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.8.3](https://github.com/mkdocstrings/python/releases/tag/0.8.3) - 2023-01-04
+
+<small>[Compare with 0.8.2](https://github.com/mkdocstrings/python/compare/0.8.2...0.8.3)</small>
+
+### Code Refactoring
+- Change "unresolved aliases" log level to DEBUG ([dccb818](https://github.com/mkdocstrings/python/commit/dccb818f51278cc8799e2187a615d999a3ab86fb) by Timothée Mazzucotelli).
+
+
 ## [0.8.2](https://github.com/mkdocstrings/python/releases/tag/0.8.2) - 2022-11-19
 
 <small>[Compare with 0.8.1](https://github.com/mkdocstrings/python/compare/0.8.1...0.8.2)</small>
