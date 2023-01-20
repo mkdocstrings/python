@@ -74,7 +74,7 @@ plugins:
       do_something: false
 ```
 
-These options affect how the documentation is collected from sources and renderered:
+These options affect how the documentation is collected from sources and rendered:
 headings, members, docstrings, etc.
 
 ::: mkdocstrings_handlers.python.handler.PythonHandler.default_config
@@ -202,7 +202,7 @@ TIP: **This is the recommended method.**
     ```
 
 Except for case 1, which is supported by default, **we strongly recommend
-to set the path to your packages using this option, even if it works without it**
+setting the path to your packages using this option, even if it works without it**
 (for example because your project manager automatically adds `src` to PYTHONPATH),
 to make sure anyone can build your docs from any location on their filesystem.
 
@@ -211,7 +211,7 @@ to make sure anyone can build your docs from any location on their filesystem.
 WARNING: **This method has limitations.**  
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
-We recommend to use the [`paths` method](#using-the-paths-option) instead.
+We recommend using the [`paths` method](#using-the-paths-option) instead.
 
 You can take advantage of the usual Python loading mechanisms.
 In Bash and other shells, you can run your command like this
@@ -270,7 +270,7 @@ In Bash and other shells, you can run your command like this
 WARNING: **This method has limitations.**  
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
-We recommend to use the [`paths` method](#using-the-paths-option) instead.
+We recommend using the [`paths` method](#using-the-paths-option) instead.
 
 Install your package in the current environment, and run MkDocs:
 

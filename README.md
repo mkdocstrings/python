@@ -37,7 +37,7 @@ dependencies = [
 ]
 ```
 
-You can also explicitely depend on the handler:
+You can also explicitly depend on the handler:
 
 ```toml title="pyproject.toml"
 # PEP 621 dependencies declaration
@@ -59,11 +59,11 @@ dependencies = [
   [Griffe](https://github.com/mkdocstrings/griffe).
 
 - **Support for type annotations:** Griffe collects your type annotations and *mkdocstrings* uses them
-  to display parameters types or return types. It is even able to automatically add cross-references
-  to other objects from your API, from the standard library or from third-party libraries!
+  to display parameter types or return types. It is even able to automatically add cross-references
+  to other objects from your API, from the standard library or third-party libraries!
   See [how to load inventories](https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories) to enable it.
 
-- **Recursive documentation of Python objects:** just use the module dotted-path as identifier, and you get the full
+- **Recursive documentation of Python objects:** just use the module dotted-path as an identifier, and you get the full
   module docs. You don't need to inject documentation for each class, function, etc.
 
 - **Support for documented attributes:** attributes (variables) followed by a docstring (triple-quoted string) will
@@ -77,7 +77,7 @@ dependencies = [
   *We do not support nested admonitions in docstrings!*
 
 - **Every object has a TOC entry:** we render a heading for each object, meaning *MkDocs* picks them into the Table
-  of Contents, which is nicely display by the Material theme. Thanks to *mkdocstrings* cross-reference ability,
+  of Contents, which is nicely displayed by the Material theme. Thanks to *mkdocstrings* cross-reference ability,
   you can reference other objects within your docstrings, with the classic Markdown syntax:
   `[this object][package.module.object]` or directly with `[package.module.object][]`
 
