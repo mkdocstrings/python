@@ -19,14 +19,14 @@ make setup
 > you'll need to install
 > [PDM](https://github.com/pdm-project/pdm)
 > manually.
-> 
+>
 > You can install it with:
-> 
+>
 > ```bash
 > python3 -m pip install --user pipx
 > pipx install pdm
 > ```
-> 
+>
 > Now you can try running `make setup` again,
 > or simply `pdm install`.
 

@@ -1,6 +1,6 @@
 # Usage
 
-TIP: **This is the documentation for the NEW Python handler.**  
+TIP: **This is the documentation for the NEW Python handler.**
 To read the documentation for the LEGACY handler,
 go to the [legacy handler documentation](https://mkdocstrings.github.io/python-legacy).
 
@@ -34,7 +34,7 @@ Some options are **global only**, and go directly under the handler's name.
     to other documentation sites like the standard library docs
     or any third-party package docs. Typically, you want to import
     the inventories of your project's dependencies, at least those
-    that are used in the public API. 
+    that are used in the public API.
 
     NOTE: This global option is common to *all* handlers, however
     they might implement it differently (or not even implement it).
@@ -115,11 +115,11 @@ For example:
         This admonition has a custom title!
     """
     ```
-    
+
 === "Result"
     NOTE: It looks like a section, but it will be rendered as an admonition.
 
-    TIP: **You can even choose a title.**  
+    TIP: **You can even choose a title.**
     This admonition has a custom title!
 
 ## Finding modules
@@ -208,7 +208,7 @@ to make sure anyone can build your docs from any location on their filesystem.
 
 ### Using the PYTHONPATH environment variable
 
-WARNING: **This method has limitations.**  
+WARNING: **This method has limitations.**
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
 We recommend to use the [`paths` method](#using-the-paths-option) instead.
@@ -264,10 +264,10 @@ In Bash and other shells, you can run your command like this
     ```bash
     PYTHONPATH=src mkdocs build -f docs/mkdocs.yml
     ```
-  
+
 ### Installing your package in the current Python environment
 
-WARNING: **This method has limitations.**  
+WARNING: **This method has limitations.**
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
 We recommend to use the [`paths` method](#using-the-paths-option) instead.
