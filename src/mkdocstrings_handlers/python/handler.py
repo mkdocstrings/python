@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import glob
 import os
 import posixpath
@@ -9,7 +10,7 @@ import re
 import sys
 from collections import ChainMap
 from contextlib import suppress
-from typing import Any, BinaryIO, Iterator, Optional, Tuple
+from typing import Any, BinaryIO, Iterator, Mapping, Optional, Tuple
 
 from griffe.agents.extensions import load_extensions
 from griffe.collections import LinesCollection, ModulesCollection
@@ -189,13 +190,15 @@ class PythonHandler(BaseHandler):
         for item in Inventory.parse_sphinx(in_file, domain_filter=("py",)).values():  # noqa: WPS526
             yield item.name, posixpath.join(base_url, item.uri)
 
-    def collect(self, identifier: str, config: dict) -> CollectorItem:  # noqa: D102,WPS231
+    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:  # noqa: D102,WPS231
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
         if config.get("fallback", False) and unknown_module:
             raise CollectionError("Not loading additional modules during fallback")
 
-        final_config = ChainMap(config, self.default_config)
+        # See: https://github.com/python/typeshed/issues/8430
+        mutable_config = dict(copy.deepcopy(config))
+        final_config = ChainMap(mutable_config, self.default_config)
         parser_name = final_config["docstring_style"]
         parser_options = final_config["docstring_options"]
         parser = parser_name and Parser(parser_name)
@@ -232,8 +235,10 @@ class PythonHandler(BaseHandler):
 
         return doc_object
 
-    def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
-        final_config = ChainMap(config, self.default_config)
+    def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:  # noqa: D102 (ignore missing docstring)
+        # See https://github.com/python/typeshed/issues/8430
+        mutabled_config = dict(copy.deepcopy(config))
+        final_config = ChainMap(mutabled_config, self.default_config)
 
         template = self.env.get_template(f"{data.kind.value}.html")
 
