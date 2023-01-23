@@ -169,6 +169,7 @@ class PythonHandler(BaseHandler):
         in_file: BinaryIO,
         url: str,
         base_url: Optional[str] = None,
+        domains: list[str] | None = None,
         **kwargs: Any,
     ) -> Iterator[Tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
@@ -179,15 +180,17 @@ class PythonHandler(BaseHandler):
             in_file: The binary file-like object to read the inventory from.
             url: The URL that this file is being streamed from (used to guess `base_url`).
             base_url: The URL that this inventory's sub-paths are relative to.
+            domains: A list of domain strings to filter the inventory by, when not passed, "py" will be used.
             **kwargs: Ignore additional arguments passed from the config.
 
         Yields:
             Tuples of (item identifier, item URL).
         """
+        domains = domains or ["py"]
         if base_url is None:
             base_url = posixpath.dirname(url)
 
-        for item in Inventory.parse_sphinx(in_file, domain_filter=("py",)).values():  # noqa: WPS526
+        for item in Inventory.parse_sphinx(in_file, domain_filter=domains).values():  # noqa: WPS526
             yield item.name, posixpath.join(base_url, item.uri)
 
     def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:  # noqa: D102,WPS231

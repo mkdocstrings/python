@@ -26,6 +26,14 @@
                   "base_url": {
                     "title": "Base URL used to build references URLs.",
                     "type": "string"
+                  },
+                  "domains": {
+                    "title": "Domains to import from the inventory.",
+                    "description": "If not defined it will only import 'py' domain.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
