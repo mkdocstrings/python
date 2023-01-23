@@ -124,7 +124,7 @@ See them [in the repository](https://github.com/mkdocstrings/python/tree/master/
 See the general *mkdocstrings* documentation to learn how to override them: https://mkdocstrings.github.io/theming/#templates.
 
 In preparation for Jinja2 blocks, which will improve customization,
-each one of these templates extends in fact a base version in `theme/_base`. Example:
+each one of these templates extends a base version in `theme/_base`. Example:
 
 ```html+jinja title="theme/docstring/admonition.html"
 {% extends "_base/docstring/admonition.html" %}
@@ -139,7 +139,7 @@ each one of these templates extends in fact a base version in `theme/_base`. Exa
 ```
 
 It means you will be able to customize only *parts* of a template
-without having to fully copy-paste it in your project:
+without having to fully copy-paste it into your project:
 
 ```jinja title="templates/theme/docstring.html"
 {% extends "_base/docstring.html" %}
