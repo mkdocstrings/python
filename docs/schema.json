@@ -140,8 +140,74 @@
               "type": "boolean",
               "default": false
             },
+            "show_docstring_section_attributes": {
+              "title": "Whether to display the \"Attributes\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_parameters": {
+              "title": "Whether to display the \"Parameters\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_other_parameters": {
+              "title": "Whether to display the \"Other Parameters\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_raises": {
+              "title": "Whether to display the \"Raises\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_warns": {
+              "title": "Whether to display the \"Warns\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_yields": {
+              "title": "Whether to display the \"Yields\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_receives": {
+              "title": "Whether to display the \"Receives\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_returns": {
+              "title": "Whether to display the \"Returns\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_section_examples": {
+              "title": "Whether to display the \"Examples\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_description": {
+              "title": "Whether to display the textual block (including admonitions) in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
             "show_source": {
-              "title": "Show the source code of this object..",
+              "title": "Show the source code of this object.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_function_title": {
+              "title": "Whether to display the title of the function/class method object.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
               "type": "boolean",
               "default": true
