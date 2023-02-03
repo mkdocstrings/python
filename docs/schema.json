@@ -140,14 +140,14 @@
               "type": "boolean",
               "default": false
             },
-            "show_docstring_description": {
-              "title": "Whether to display the textual block (including admonitions) in the object's docstring.",
+            "show_docstring_attributes": {
+              "title": "Whether to display the \"Attributes\" section in the object's docstring.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
               "type": "boolean",
               "default": true
             },
-            "show_docstring_attributes": {
-              "title": "Whether to display the \"Attributes\" section in the object's docstring.",
+            "show_docstring_description": {
+              "title": "Whether to display the textual block (including admonitions) in the object's docstring.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
               "type": "boolean",
               "default": true
