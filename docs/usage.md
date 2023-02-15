@@ -52,6 +52,15 @@ Some options are **global only**, and go directly under the handler's name.
 
     More details at [Finding modules](#finding-modules).
 
+- `load_external_modules`:
+  this option allows resolving aliases to any external module.  
+  Enabling this option will tell handler that when it encounters an import that is made public  
+  through the `__all__` variable, it will resolve it recursively to *any* module.  
+  **Use with caution:** this can load a *lot* of modules, slowing down your build  
+  or triggering errors that we do not yet handle.  
+  **We recommend using the `preload_modules` option instead**,  
+  which acts as an include-list rather than as include-all.  
+
 ## Global/local options
 
 The other options can be used both globally *and* locally, under the `options` key.

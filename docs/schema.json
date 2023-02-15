@@ -49,6 +49,12 @@
             "format": "path"
           }
         },
+        "load_external_modules": {
+          "title": "Load external modules to resolve aliases.",
+          "markdownDescription": "https://mkdocstrings.github.io/python/usage/#global-only-options",
+          "type": "boolean",
+          "default": false
+        },
         "options": {
           "title": "Options for collecting and rendering objects.",
           "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",

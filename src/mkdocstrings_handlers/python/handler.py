@@ -100,6 +100,7 @@ class PythonHandler(BaseHandler):
         "filters": ["!^_[^_]"],
         "annotations_path": "brief",
         "preload_modules": None,
+        "load_external_modules": False,
     }
     """
     Attributes: Headings options:
@@ -253,8 +254,9 @@ class PythonHandler(BaseHandler):
                 loader.load_module(module_name)
             except ImportError as error:
                 raise CollectionError(str(error)) from error
-
-            unresolved, iterations = loader.resolve_aliases(implicit=False, external=False)
+            unresolved, iterations = loader.resolve_aliases(
+                implicit=False, external=final_config["load_external_modules"]
+            )
             if unresolved:
                 logger.debug(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
                 logger.debug(f"Unresolved aliases: {', '.join(sorted(unresolved))}")
