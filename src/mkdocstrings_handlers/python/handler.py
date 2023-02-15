@@ -99,6 +99,7 @@ class PythonHandler(BaseHandler):
         "members": None,
         "filters": ["!^_[^_]"],
         "annotations_path": "brief",
+        "preload_modules": None,
     }
     """
     Attributes: Headings options:
@@ -150,6 +151,16 @@ class PythonHandler(BaseHandler):
     Attributes: Additional options:
         show_bases (bool): Show the base classes of a class. Default: `True`.
         show_source (bool): Show the source code of this object. Default: `True`.
+        preload_modules (list[str] | None): Pre-load modules that are
+            not specified directly in autodoc instructions (`::: identifier`).
+            It is useful when you want to render documentation for a particular member of an object,
+            and this member is imported from another package than its parent.
+
+            For an imported member to be rendered, you need to add it to the `__all__` attribute
+            of the importing module.
+
+            The modules must be listed as an array of strings. Default: `None`.
+
     """  # noqa: E501
 
     def __init__(
@@ -235,7 +246,10 @@ class PythonHandler(BaseHandler):
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
             )
-            try:
+            try:  # noqa: WPS229 we expect one type of exception, and want to fail on the first one
+                for pre_loaded_module in final_config.get("preload_modules") or []:
+                    if pre_loaded_module not in self._modules_collection:
+                        loader.load_module(pre_loaded_module)
                 loader.load_module(module_name)
             except ImportError as error:
                 raise CollectionError(str(error)) from error
