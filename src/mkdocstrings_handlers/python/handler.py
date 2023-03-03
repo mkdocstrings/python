@@ -217,6 +217,7 @@ class PythonHandler(BaseHandler):
             unresolved, iterations = loader.resolve_aliases(implicit=False, external=False)
             if unresolved:
                 logger.warning(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
+                logger.debug(f"Unresolved aliases: {', '.join(sorted(unresolved))}")
 
         try:
             doc_object = self._modules_collection[identifier]
