@@ -93,7 +93,7 @@ Scope and body are optional. Type can be:
 - `feat`: New feature.
 - `fix`: Bug fix.
 - `perf`: About performance.
-- `refactor`: Changes which are not features nor bug fixes.
+- `refactor`: Changes that are not features or bug fixes.
 - `style`: A change in code style/format.
 - `tests`: About tests.
 
@@ -111,7 +111,7 @@ Fixes #15.
 
 Link to any related issue in the Pull Request message.
 
-During review, we recommend using fixups:
+During the review, we recommend using fixups:
 
 ```bash
 # SHA is the SHA of the commit you want to fix

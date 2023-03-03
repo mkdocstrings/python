@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import glob
 import os
 import posixpath
@@ -9,7 +10,7 @@ import re
 import sys
 from collections import ChainMap
 from contextlib import suppress
-from typing import Any, BinaryIO, Iterator, Optional, Tuple
+from typing import Any, BinaryIO, Iterator, Mapping, Optional, Tuple
 
 from griffe.agents.extensions import load_extensions
 from griffe.collections import LinesCollection, ModulesCollection
@@ -78,6 +79,16 @@ class PythonHandler(BaseHandler):
         "separate_signature": False,
         "line_length": 60,
         "merge_init_into_class": False,
+        "show_docstring_attributes": True,
+        "show_docstring_description": True,
+        "show_docstring_examples": True,
+        "show_docstring_other_parameters": True,
+        "show_docstring_parameters": True,
+        "show_docstring_raises": True,
+        "show_docstring_receives": True,
+        "show_docstring_returns": True,
+        "show_docstring_warns": True,
+        "show_docstring_yields": True,
         "show_source": True,
         "show_bases": True,
         "show_submodules": False,
@@ -118,6 +129,16 @@ class PythonHandler(BaseHandler):
         line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
+        show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
+        show_docstring_description (bool): Whether to display the textual block (including admonitions) in the object's docstring. Default: `True`.
+        show_docstring_examples (bool): Whether to display the "Examples" section in the object's docstring. Default: `True`.
+        show_docstring_other_parameters (bool): Whether to display the "Other Parameters" section in the object's docstring. Default: `True`.
+        show_docstring_parameters (bool): Whether to display the "Parameters" section in the object's docstring. Default: `True`.
+        show_docstring_raises (bool): Whether to display the "Raises" section in the object's docstring. Default: `True`.
+        show_docstring_receives (bool): Whether to display the "Receives" section in the object's docstring. Default: `True`.
+        show_docstring_returns (bool): Whether to display the "Returns" section in the object's docstring. Default: `True`.
+        show_docstring_warns (bool): Whether to display the "Warns" section in the object's docstring. Default: `True`.
+        show_docstring_yields (bool): Whether to display the "Yields" section in the object's docstring. Default: `True`.
 
     Attributes: Signatures/annotations options:
         annotations_path (str): The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
@@ -168,6 +189,7 @@ class PythonHandler(BaseHandler):
         in_file: BinaryIO,
         url: str,
         base_url: Optional[str] = None,
+        domains: list[str] | None = None,
         **kwargs: Any,
     ) -> Iterator[Tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
@@ -178,24 +200,28 @@ class PythonHandler(BaseHandler):
             in_file: The binary file-like object to read the inventory from.
             url: The URL that this file is being streamed from (used to guess `base_url`).
             base_url: The URL that this inventory's sub-paths are relative to.
+            domains: A list of domain strings to filter the inventory by, when not passed, "py" will be used.
             **kwargs: Ignore additional arguments passed from the config.
 
         Yields:
             Tuples of (item identifier, item URL).
         """
+        domains = domains or ["py"]
         if base_url is None:
             base_url = posixpath.dirname(url)
 
-        for item in Inventory.parse_sphinx(in_file, domain_filter=("py",)).values():  # noqa: WPS526
+        for item in Inventory.parse_sphinx(in_file, domain_filter=domains).values():  # noqa: WPS526
             yield item.name, posixpath.join(base_url, item.uri)
 
-    def collect(self, identifier: str, config: dict) -> CollectorItem:  # noqa: D102,WPS231
+    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:  # noqa: D102,WPS231
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
         if config.get("fallback", False) and unknown_module:
             raise CollectionError("Not loading additional modules during fallback")
 
-        final_config = ChainMap(config, self.default_config)
+        # See: https://github.com/python/typeshed/issues/8430
+        mutable_config = dict(copy.deepcopy(config))
+        final_config = ChainMap(mutable_config, self.default_config)
         parser_name = final_config["docstring_style"]
         parser_options = final_config["docstring_options"]
         parser = parser_name and Parser(parser_name)
@@ -216,7 +242,7 @@ class PythonHandler(BaseHandler):
 
             unresolved, iterations = loader.resolve_aliases(implicit=False, external=False)
             if unresolved:
-                logger.warning(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
+                logger.debug(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
                 logger.debug(f"Unresolved aliases: {', '.join(sorted(unresolved))}")
 
         try:
@@ -232,8 +258,10 @@ class PythonHandler(BaseHandler):
 
         return doc_object
 
-    def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
-        final_config = ChainMap(config, self.default_config)
+    def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:  # noqa: D102 (ignore missing docstring)
+        # See https://github.com/python/typeshed/issues/8430
+        mutabled_config = dict(copy.deepcopy(config))
+        final_config = ChainMap(mutabled_config, self.default_config)
 
         template = self.env.get_template(f"{data.kind.value}.html")
 
