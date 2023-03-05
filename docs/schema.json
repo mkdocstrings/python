@@ -262,6 +262,14 @@
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
               "enum": ["brief", "source"],
               "default": "brief"
+            },
+            "preload_modules": {
+              "title": "Pre-load modules. It permits to resolve aliases pointing to these modules (packages), and therefore render members of an object that are external to the given object (originating from another package).",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "array",
+              "items": {
+                "type":"string"
+              }
             }
           },
           "additionalProperties": false
