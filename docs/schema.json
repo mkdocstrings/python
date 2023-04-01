@@ -49,6 +49,12 @@
             "format": "path"
           }
         },
+        "load_external_modules": {
+          "title": "Load external modules to resolve aliases.",
+          "markdownDescription": "https://mkdocstrings.github.io/python/usage/#global-only-options",
+          "type": "boolean",
+          "default": false
+        },
         "options": {
           "title": "Options for collecting and rendering objects.",
           "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
@@ -262,6 +268,14 @@
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
               "enum": ["brief", "source"],
               "default": "brief"
+            },
+            "preload_modules": {
+              "title": "Pre-load modules. It permits to resolve aliases pointing to these modules (packages), and therefore render members of an object that are external to the given object (originating from another package).",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "array",
+              "items": {
+                "type":"string"
+              }
             }
           },
           "additionalProperties": false
