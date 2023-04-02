@@ -272,6 +272,8 @@ class PythonHandler(BaseHandler):
             doc_object = self._modules_collection[identifier]
         except KeyError as error:
             raise CollectionError(f"{identifier} could not be found") from error
+        except AliasResolutionError as error:
+            raise CollectionError(str(error)) from error
 
         if not unknown_module:
             with suppress(AliasResolutionError):
