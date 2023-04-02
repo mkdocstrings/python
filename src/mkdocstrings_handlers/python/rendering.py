@@ -6,12 +6,14 @@ import enum
 import re
 import sys
 from functools import lru_cache
-from typing import Any, Pattern, Sequence
+from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
 
-from griffe.dataclasses import Alias, Object
 from markupsafe import Markup
-from mkdocstrings.handlers.base import CollectorItem
 from mkdocstrings.loggers import get_logger
+
+if TYPE_CHECKING:
+    from griffe.dataclasses import Alias, Object
+    from mkdocstrings.handlers.base import CollectorItem
 
 logger = get_logger(__name__)
 
@@ -102,7 +104,7 @@ def do_order_members(
     return sorted(members, key=order_map[order])
 
 
-def do_crossref(path: str, brief: bool = True) -> Markup:
+def do_crossref(path: str, *, brief: bool = True) -> Markup:
     """Filter to create cross-references.
 
     Parameters:
@@ -118,7 +120,7 @@ def do_crossref(path: str, brief: bool = True) -> Markup:
     return Markup("<span data-autorefs-optional-hover={full_path}>{path}</span>").format(full_path=full_path, path=path)
 
 
-def do_multi_crossref(text: str, code: bool = True) -> Markup:
+def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
     """Filter to create cross-references.
 
     Parameters:
@@ -131,8 +133,8 @@ def do_multi_crossref(text: str, code: bool = True) -> Markup:
     group_number = 0
     variables = {}
 
-    def repl(match):  # noqa: WPS430
-        nonlocal group_number  # noqa: WPS420
+    def repl(match: Match) -> str:
+        nonlocal group_number
         group_number += 1
         path = match.group()
         path_var = f"path{group_number}"
@@ -145,7 +147,7 @@ def do_multi_crossref(text: str, code: bool = True) -> Markup:
     return Markup(text).format(**variables)
 
 
-def _keep_object(name, filters):
+def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
     keep = None
     rules = set()
     for regex, exclude in filters:
@@ -153,7 +155,7 @@ def _keep_object(name, filters):
         if regex.search(name):
             keep = not exclude
     if keep is None:
-        if rules == {False}:  # noqa: WPS531
+        if rules == {False}:
             # only included stuff, no match = reject
             return False
         # only excluded stuff, or included and excluded stuff, no match = keep
@@ -163,7 +165,8 @@ def _keep_object(name, filters):
 
 def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
-    filters: list[tuple[bool, Pattern]] | None = None,
+    *,
+    filters: Sequence[tuple[Pattern, bool]] | None = None,
     members_list: list[str] | None = None,
     keep_no_docstrings: bool = True,
 ) -> list[Object | Alias]:
@@ -195,14 +198,14 @@ def do_filter_objects(
 
 
 @lru_cache(maxsize=1)
-def _get_black_formatter():
+def _get_black_formatter() -> Callable[[str, int], str]:
     try:
         from black import Mode, format_str
     except ModuleNotFoundError:
         logger.warning("Formatting signatures requires Black to be installed.")
         return lambda text, _: text
 
-    def formatter(code, line_length):  # noqa: WPS430
+    def formatter(code: str, line_length: int) -> str:
         mode = Mode(line_length=line_length)
         return format_str(code, mode=mode)
 

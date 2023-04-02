@@ -10,7 +10,7 @@ import re
 import sys
 from collections import ChainMap
 from contextlib import suppress
-from typing import Any, BinaryIO, Iterator, Mapping, Optional, Tuple
+from typing import TYPE_CHECKING, Any, BinaryIO, Iterator, Mapping
 
 from griffe.agents.extensions import load_extensions
 from griffe.collections import LinesCollection, ModulesCollection
@@ -18,7 +18,6 @@ from griffe.docstrings.parsers import Parser
 from griffe.exceptions import AliasResolutionError
 from griffe.loader import GriffeLoader
 from griffe.logger import patch_loggers
-from markdown import Markdown
 from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem
 from mkdocstrings.inventory import Inventory
@@ -26,14 +25,18 @@ from mkdocstrings.loggers import get_logger
 
 from mkdocstrings_handlers.python import rendering
 
+if TYPE_CHECKING:
+    from markdown import Markdown
+
+
 if sys.version_info >= (3, 11):
     from contextlib import chdir
 else:
     # TODO: remove once support for Python 3.10 is dropped
     from contextlib import contextmanager
 
-    @contextmanager  # noqa: WPS440
-    def chdir(path: str):  # noqa: D103,WPS440
+    @contextmanager
+    def chdir(path: str) -> Iterator[None]:  # noqa: D103
         old_wd = os.getcwd()
         os.chdir(path)
         try:
@@ -162,10 +165,14 @@ class PythonHandler(BaseHandler):
 
             The modules must be listed as an array of strings. Default: `None`.
 
-    """  # noqa: E501
+    """
 
     def __init__(
-        self, *args: Any, config_file_path: str | None = None, paths: list[str] | None = None, **kwargs: Any
+        self,
+        *args: Any,
+        config_file_path: str | None = None,
+        paths: list[str] | None = None,
+        **kwargs: Any,
     ) -> None:
         """Initialize the handler.
 
@@ -186,9 +193,8 @@ class PythonHandler(BaseHandler):
             paths.append(os.path.dirname(config_file_path))
         search_paths = [path for path in sys.path if path]  # eliminate empty path
         for path in reversed(paths):
-            if not os.path.isabs(path):
-                if config_file_path:
-                    path = os.path.abspath(os.path.join(os.path.dirname(config_file_path), path))
+            if not os.path.isabs(path) and config_file_path:
+                path = os.path.abspath(os.path.join(os.path.dirname(config_file_path), path))  # noqa: PLW2901
             if path not in search_paths:
                 search_paths.insert(0, path)
         self._paths = search_paths
@@ -200,10 +206,10 @@ class PythonHandler(BaseHandler):
         cls,
         in_file: BinaryIO,
         url: str,
-        base_url: Optional[str] = None,
+        base_url: str | None = None,
         domains: list[str] | None = None,
-        **kwargs: Any,
-    ) -> Iterator[Tuple[str, str]]:
+        **kwargs: Any,  # noqa: ARG003
+    ) -> Iterator[tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
         This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][mkdocstrings.plugin]).
@@ -222,10 +228,10 @@ class PythonHandler(BaseHandler):
         if base_url is None:
             base_url = posixpath.dirname(url)
 
-        for item in Inventory.parse_sphinx(in_file, domain_filter=domains).values():  # noqa: WPS526
+        for item in Inventory.parse_sphinx(in_file, domain_filter=domains).values():
             yield item.name, posixpath.join(base_url, item.uri)
 
-    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:  # noqa: D102,WPS231
+    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:  # noqa: D102
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
         if config.get("fallback", False) and unknown_module:
@@ -247,7 +253,7 @@ class PythonHandler(BaseHandler):
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
             )
-            try:  # noqa: WPS229 we expect one type of exception, and want to fail on the first one
+            try:
                 for pre_loaded_module in final_config.get("preload_modules") or []:
                     if pre_loaded_module not in self._modules_collection:
                         loader.load_module(pre_loaded_module)
@@ -255,7 +261,8 @@ class PythonHandler(BaseHandler):
             except ImportError as error:
                 raise CollectionError(str(error)) from error
             unresolved, iterations = loader.resolve_aliases(
-                implicit=False, external=final_config["load_external_modules"]
+                implicit=False,
+                external=final_config["load_external_modules"],
             )
             if unresolved:
                 logger.debug(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
@@ -263,7 +270,7 @@ class PythonHandler(BaseHandler):
 
         try:
             doc_object = self._modules_collection[identifier]
-        except KeyError as error:  # noqa: WPS440
+        except KeyError as error:
             raise CollectionError(f"{identifier} could not be found") from error
 
         if not unknown_module:
@@ -287,9 +294,11 @@ class PythonHandler(BaseHandler):
         heading_level = final_config["heading_level"]
         try:
             final_config["members_order"] = rendering.Order(final_config["members_order"])
-        except ValueError:
+        except ValueError as error:
             choices = "', '".join(item.value for item in rendering.Order)
-            raise PluginError(f"Unknown members_order '{final_config['members_order']}', choose between '{choices}'.")
+            raise PluginError(
+                f"Unknown members_order '{final_config['members_order']}', choose between '{choices}'.",
+            ) from error
 
         if final_config["filters"]:
             final_config["filters"] = [
@@ -320,11 +329,11 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
-    theme: str,  # noqa: W0613 (unused argument config)
-    custom_templates: Optional[str] = None,
+    theme: str,
+    custom_templates: str | None = None,
     config_file_path: str | None = None,
     paths: list[str] | None = None,
-    **config: Any,
+    **config: Any,  # noqa: ARG001
 ) -> PythonHandler:
     """Simply return an instance of `PythonHandler`.
 

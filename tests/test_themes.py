@@ -1,8 +1,15 @@
 """Tests for the different themes we claim to support."""
 
+from __future__ import annotations
+
 import sys
+from typing import TYPE_CHECKING
 
 import pytest
+
+if TYPE_CHECKING:
+    from markdown import Markdown
+    from mkdocstrings.plugin import MkdocstringsPlugin
 
 
 @pytest.mark.parametrize(
@@ -27,7 +34,7 @@ import pytest
     ],
 )
 @pytest.mark.skipif(sys.version_info < (3, 7), reason="material is not installed on Python 3.6")
-def test_render_themes_templates_python(module, plugin):
+def test_render_themes_templates_python(module: str, plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> None:
     """Test rendering of a given theme's templates.
 
     Parameters:
@@ -35,6 +42,6 @@ def test_render_themes_templates_python(module, plugin):
         plugin: Pytest fixture: [tests.conftest.fixture_plugin][].
     """
     handler = plugin.handlers.get_handler("python")
-    handler._update_env(plugin.md, plugin.handlers._config)  # noqa: WPS437
+    handler._update_env(ext_markdown, plugin.handlers._config)
     data = handler.collect(module, {})
     handler.render(data, {})

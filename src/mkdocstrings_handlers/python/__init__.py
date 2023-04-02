@@ -2,7 +2,7 @@
 
 from mkdocstrings_handlers.python.handler import get_handler
 
-__all__ = ["get_handler"]  # noqa: WPS410
+__all__ = ["get_handler"]
 
 # TODO: CSS classes everywhere in templates
 # TODO: name normalization (filenames, Jinja2 variables, HTML tags, CSS classes)
