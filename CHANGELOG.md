@@ -5,6 +5,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.9.0](https://github.com/mkdocstrings/python/releases/tag/0.9.0) - 2023-04-03
+
+<small>[Compare with 0.8.3](https://github.com/mkdocstrings/python/compare/0.8.3...0.9.0)</small>
+
+### Features
+
+- Allow resolving alias to external modules ([02052e2](https://github.com/mkdocstrings/python/commit/02052e248b125a113ab788faa9a075adbdc92ca6) by Gilad). [PR #61](https://github.com/mkdocstrings/python/pull/61), [Follow-up of PR #60](https://github.com/mkdocstrings/python/pull/60)
+- Allow pre-loading modules ([36002cb](https://github.com/mkdocstrings/python/commit/36002cb9c89fba35d23afb07a866dd8c6877f742) by Gilad). [Issue mkdocstrings/mkdocstrings#503](https://github.com/mkdocstrings/mkdocstrings/issues/503), [PR #60](https://github.com/mkdocstrings/python/pull/60)
+- Add show options for docstrings ([a6c55fb](https://github.com/mkdocstrings/python/commit/a6c55fb52f362dd49b1a7e334a631f6ea3b1b963) by Jeremy Goh). [Issue mkdocstrings/mkdocstrings#466](https://github.com/mkdocstrings/mkdocstrings/issues/466), [PR #56](https://github.com/mkdocstrings/python/pull/56)
+- Allow custom list of domains for inventories ([f5ea6fd](https://github.com/mkdocstrings/python/commit/f5ea6fd81f7a531e8a97bb0e48267188d72936c1) by Sorin Sbarnea). [Issue mkdocstrings/mkdocstrings#510](https://github.com/mkdocstrings/mkdocstrings/issues/510), [PR #49](https://github.com/mkdocstrings/python/pull/49)
+
+### Bug Fixes
+
+- Prevent alias resolution error when searching for anchors ([a190e2c](https://github.com/mkdocstrings/python/commit/a190e2c4a752e74a05ad03702837a0914c198742) by Timothée Mazzucotelli). [Issue #64](https://github.com/mkdocstrings/python/issues/64)
+
+### Code Refactoring
+
+- Support Griffe 0.26 ([075735c](https://github.com/mkdocstrings/python/commit/075735ce8d86921fbf092d7ad1d009bbb3a2e0bb) by Timothée Mazzucotelli).
+- Log (debug) unresolved aliases ([9164742](https://github.com/mkdocstrings/python/commit/9164742f87362e8241dea11bec0fd96f6b9d9dda) by Timothée Mazzucotelli).
+
 ## [0.8.3](https://github.com/mkdocstrings/python/releases/tag/0.8.3) - 2023-01-04
 
 <small>[Compare with 0.8.2](https://github.com/mkdocstrings/python/compare/0.8.2...0.8.3)</small>
