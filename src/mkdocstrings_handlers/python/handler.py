@@ -12,7 +12,6 @@ from collections import ChainMap
 from contextlib import suppress
 from typing import TYPE_CHECKING, Any, BinaryIO, Iterator, Mapping
 
-from griffe.agents.extensions import load_extensions
 from griffe.collections import LinesCollection, ModulesCollection
 from griffe.docstrings.parsers import Parser
 from griffe.exceptions import AliasResolutionError
@@ -24,6 +23,12 @@ from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
 
 from mkdocstrings_handlers.python import rendering
+
+try:
+    from griffe.extensions import load_extensions
+except ImportError:
+    # TODO: remove once support for Griffe 0.25 is dropped
+    from griffe.agents.extensions import load_extensions  # type: ignore[no-redef]
 
 if TYPE_CHECKING:
     from markdown import Markdown
