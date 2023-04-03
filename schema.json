@@ -26,6 +26,14 @@
                   "base_url": {
                     "title": "Base URL used to build references URLs.",
                     "type": "string"
+                  },
+                  "domains": {
+                    "title": "Domains to import from the inventory.",
+                    "description": "If not defined it will only import 'py' domain.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -40,6 +48,12 @@
             "type": "string",
             "format": "path"
           }
+        },
+        "load_external_modules": {
+          "title": "Load external modules to resolve aliases.",
+          "markdownDescription": "https://mkdocstrings.github.io/python/usage/#global-only-options",
+          "type": "boolean",
+          "default": false
         },
         "options": {
           "title": "Options for collecting and rendering objects.",
@@ -132,8 +146,68 @@
               "type": "boolean",
               "default": false
             },
+            "show_docstring_attributes": {
+              "title": "Whether to display the \"Attributes\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_description": {
+              "title": "Whether to display the textual block (including admonitions) in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_examples": {
+              "title": "Whether to display the \"Examples\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_other_parameters": {
+              "title": "Whether to display the \"Other Parameters\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_parameters": {
+              "title": "Whether to display the \"Parameters\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_raises": {
+              "title": "Whether to display the \"Raises\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_receives": {
+              "title": "Whether to display the \"Receives\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_returns": {
+              "title": "Whether to display the \"Returns\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_warns": {
+              "title": "Whether to display the \"Warns\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_yields": {
+              "title": "Whether to display the \"Yields\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "boolean",
+              "default": true
+            },
             "show_source": {
-              "title": "Show the source code of this object..",
+              "title": "Show the source code of this object.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
               "type": "boolean",
               "default": true
@@ -194,6 +268,14 @@
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
               "enum": ["brief", "source"],
               "default": "brief"
+            },
+            "preload_modules": {
+              "title": "Pre-load modules. It permits to resolve aliases pointing to these modules (packages), and therefore render members of an object that are external to the given object (originating from another package).",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
+              "type": "array",
+              "items": {
+                "type":"string"
+              }
             }
           },
           "additionalProperties": false

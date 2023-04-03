@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://mkdocstrings.github.io/python/changelog/">
       
+      
+        <link rel="prev" href="../customization/">
+      
+      
+        <link rel="next" href="../credits/">
+      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.5">
     
     
       
@@ -21,11 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a7fce14.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -40,6 +45,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../assets/_markdown_exec_ansi.css">
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
@@ -90,7 +97,7 @@
 
   
 
-<header class="md-header md-header--lifted" data-md-component="header">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="mkdocstrings-python" class="md-header__button md-logo" aria-label="mkdocstrings-python" data-md-component="logo">
       
@@ -120,8 +127,6 @@
       <form class="md-header__option" data-md-component="palette">
         
           
-          
-          
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
@@ -129,8 +134,6 @@
             </label>
           
         
-          
-          
           
           <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
@@ -162,6 +165,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -169,7 +174,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -181,7 +186,7 @@
         <a href="https://github.com/mkdocstrings/python" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     mkdocstrings/python
@@ -194,7 +199,7 @@
     
       
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -305,7 +310,7 @@
       <a href="https://github.com/mkdocstrings/python" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     mkdocstrings/python
@@ -328,17 +333,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1">
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
           Home
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
@@ -396,7 +402,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -427,6 +433,40 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#090-2023-04-03" class="md-nav__link">
+    0.9.0 - 2023-04-03
+  </a>
+  
+    <nav class="md-nav" aria-label="0.9.0 - 2023-04-03">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#083-2023-01-04" class="md-nav__link">
     0.8.3 - 2023-01-04
   </a>
@@ -435,7 +475,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#code-refactoring" class="md-nav__link">
+  <a href="#code-refactoring_1" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -455,7 +495,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes" class="md-nav__link">
+  <a href="#bug-fixes_1" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -475,7 +515,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_1" class="md-nav__link">
+  <a href="#bug-fixes_2" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -495,14 +535,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#features_1" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_1" class="md-nav__link">
+  <a href="#code-refactoring_2" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -522,7 +562,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_2" class="md-nav__link">
+  <a href="#bug-fixes_3" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -549,21 +589,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#features_1" class="md-nav__link">
+  <a href="#features_2" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_3" class="md-nav__link">
+  <a href="#bug-fixes_4" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_2" class="md-nav__link">
+  <a href="#code-refactoring_3" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -583,7 +623,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_3" class="md-nav__link">
+  <a href="#code-refactoring_4" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -603,7 +643,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_4" class="md-nav__link">
+  <a href="#bug-fixes_5" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -623,7 +663,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_5" class="md-nav__link">
+  <a href="#bug-fixes_6" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -643,7 +683,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_6" class="md-nav__link">
+  <a href="#bug-fixes_7" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -663,7 +703,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_7" class="md-nav__link">
+  <a href="#bug-fixes_8" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -683,7 +723,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_8" class="md-nav__link">
+  <a href="#bug-fixes_9" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -703,21 +743,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_2" class="md-nav__link">
+  <a href="#features_3" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_9" class="md-nav__link">
+  <a href="#bug-fixes_10" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_4" class="md-nav__link">
+  <a href="#code-refactoring_5" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -737,7 +777,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_10" class="md-nav__link">
+  <a href="#bug-fixes_11" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -757,7 +797,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_11" class="md-nav__link">
+  <a href="#bug-fixes_12" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -804,7 +844,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_5" class="md-nav__link">
+  <a href="#code-refactoring_6" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -824,21 +864,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_3" class="md-nav__link">
+  <a href="#features_4" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_12" class="md-nav__link">
+  <a href="#bug-fixes_13" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_6" class="md-nav__link">
+  <a href="#code-refactoring_7" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -858,7 +898,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_13" class="md-nav__link">
+  <a href="#bug-fixes_14" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -878,7 +918,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_7" class="md-nav__link">
+  <a href="#code-refactoring_8" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -898,7 +938,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_4" class="md-nav__link">
+  <a href="#features_5" class="md-nav__link">
     Features
   </a>
   
@@ -912,7 +952,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_8" class="md-nav__link">
+  <a href="#code-refactoring_9" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -939,14 +979,14 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#features_5" class="md-nav__link">
+  <a href="#features_6" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_14" class="md-nav__link">
+  <a href="#bug-fixes_15" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -966,21 +1006,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_6" class="md-nav__link">
+  <a href="#features_7" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_15" class="md-nav__link">
+  <a href="#bug-fixes_16" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_9" class="md-nav__link">
+  <a href="#code-refactoring_10" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1045,17 +1085,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Code Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Code Reference
@@ -1071,17 +1112,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2_1">
+        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
           mkdocstrings_handlers
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="mkdocstrings_handlers" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_1">
           <span class="md-nav__icon md-icon"></span>
           mkdocstrings_handlers
@@ -1097,8 +1139,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" >
       
       
       
@@ -1113,7 +1156,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="python" data-md-level="3">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_1_1">
           <span class="md-nav__icon md-icon"></span>
           python
@@ -1179,17 +1222,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Development
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Development" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Development
@@ -1286,6 +1330,40 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#090-2023-04-03" class="md-nav__link">
+    0.9.0 - 2023-04-03
+  </a>
+  
+    <nav class="md-nav" aria-label="0.9.0 - 2023-04-03">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#083-2023-01-04" class="md-nav__link">
     0.8.3 - 2023-01-04
   </a>
@@ -1294,7 +1372,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#code-refactoring" class="md-nav__link">
+  <a href="#code-refactoring_1" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1314,7 +1392,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes" class="md-nav__link">
+  <a href="#bug-fixes_1" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1334,7 +1412,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_1" class="md-nav__link">
+  <a href="#bug-fixes_2" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1354,14 +1432,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#features_1" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_1" class="md-nav__link">
+  <a href="#code-refactoring_2" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1381,7 +1459,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_2" class="md-nav__link">
+  <a href="#bug-fixes_3" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1408,21 +1486,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#features_1" class="md-nav__link">
+  <a href="#features_2" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_3" class="md-nav__link">
+  <a href="#bug-fixes_4" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_2" class="md-nav__link">
+  <a href="#code-refactoring_3" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1442,7 +1520,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_3" class="md-nav__link">
+  <a href="#code-refactoring_4" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1462,7 +1540,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_4" class="md-nav__link">
+  <a href="#bug-fixes_5" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1482,7 +1560,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_5" class="md-nav__link">
+  <a href="#bug-fixes_6" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1502,7 +1580,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_6" class="md-nav__link">
+  <a href="#bug-fixes_7" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1522,7 +1600,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_7" class="md-nav__link">
+  <a href="#bug-fixes_8" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1542,7 +1620,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_8" class="md-nav__link">
+  <a href="#bug-fixes_9" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1562,21 +1640,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_2" class="md-nav__link">
+  <a href="#features_3" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_9" class="md-nav__link">
+  <a href="#bug-fixes_10" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_4" class="md-nav__link">
+  <a href="#code-refactoring_5" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1596,7 +1674,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_10" class="md-nav__link">
+  <a href="#bug-fixes_11" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1616,7 +1694,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_11" class="md-nav__link">
+  <a href="#bug-fixes_12" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1663,7 +1741,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_5" class="md-nav__link">
+  <a href="#code-refactoring_6" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1683,21 +1761,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_3" class="md-nav__link">
+  <a href="#features_4" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_12" class="md-nav__link">
+  <a href="#bug-fixes_13" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_6" class="md-nav__link">
+  <a href="#code-refactoring_7" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1717,7 +1795,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_13" class="md-nav__link">
+  <a href="#bug-fixes_14" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1737,7 +1815,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_7" class="md-nav__link">
+  <a href="#code-refactoring_8" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1757,7 +1835,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_4" class="md-nav__link">
+  <a href="#features_5" class="md-nav__link">
     Features
   </a>
   
@@ -1771,7 +1849,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_8" class="md-nav__link">
+  <a href="#code-refactoring_9" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1798,14 +1876,14 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#features_5" class="md-nav__link">
+  <a href="#features_6" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_14" class="md-nav__link">
+  <a href="#bug-fixes_15" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1825,21 +1903,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_6" class="md-nav__link">
+  <a href="#features_7" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_15" class="md-nav__link">
+  <a href="#bug-fixes_16" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_9" class="md-nav__link">
+  <a href="#code-refactoring_10" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -1864,10 +1942,8 @@
                 
                   
 
-  <a href="https://github.com/mkdocstrings/python/edit/master/docs/changelog.md" title="Edit this page" class="md-content__button md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+  
+  
 
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">¤</a></h1>
@@ -1875,37 +1951,55 @@
 <p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <!-- insertion marker -->
+<h2 id="090-2023-04-03"><a href="https://github.com/mkdocstrings/python/releases/tag/0.9.0">0.9.0</a> - 2023-04-03<a class="headerlink" href="#090-2023-04-03" title="Permanent link">¤</a></h2>
+<p><small><a href="https://github.com/mkdocstrings/python/compare/0.8.3...0.9.0">Compare with 0.8.3</a></small></p>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h3>
+<ul>
+<li>Allow resolving alias to external modules (<a href="https://github.com/mkdocstrings/python/commit/02052e248b125a113ab788faa9a075adbdc92ca6">02052e2</a> by Gilad). <a href="https://github.com/mkdocstrings/python/pull/61">PR #61</a>, <a href="https://github.com/mkdocstrings/python/pull/60">Follow-up of PR #60</a></li>
+<li>Allow pre-loading modules (<a href="https://github.com/mkdocstrings/python/commit/36002cb9c89fba35d23afb07a866dd8c6877f742">36002cb</a> by Gilad). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/503">Issue mkdocstrings/mkdocstrings#503</a>, <a href="https://github.com/mkdocstrings/python/pull/60">PR #60</a></li>
+<li>Add show options for docstrings (<a href="https://github.com/mkdocstrings/python/commit/a6c55fb52f362dd49b1a7e334a631f6ea3b1b963">a6c55fb</a> by Jeremy Goh). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/466">Issue mkdocstrings/mkdocstrings#466</a>, <a href="https://github.com/mkdocstrings/python/pull/56">PR #56</a></li>
+<li>Allow custom list of domains for inventories (<a href="https://github.com/mkdocstrings/python/commit/f5ea6fd81f7a531e8a97bb0e48267188d72936c1">f5ea6fd</a> by Sorin Sbarnea). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/510">Issue mkdocstrings/mkdocstrings#510</a>, <a href="https://github.com/mkdocstrings/python/pull/49">PR #49</a></li>
+</ul>
+<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¤</a></h3>
+<ul>
+<li>Prevent alias resolution error when searching for anchors (<a href="https://github.com/mkdocstrings/python/commit/a190e2c4a752e74a05ad03702837a0914c198742">a190e2c</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/python/issues/64">Issue #64</a></li>
+</ul>
+<h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">¤</a></h3>
+<ul>
+<li>Support Griffe 0.26 (<a href="https://github.com/mkdocstrings/python/commit/075735ce8d86921fbf092d7ad1d009bbb3a2e0bb">075735c</a> by Timothée Mazzucotelli).</li>
+<li>Log (debug) unresolved aliases (<a href="https://github.com/mkdocstrings/python/commit/9164742f87362e8241dea11bec0fd96f6b9d9dda">9164742</a> by Timothée Mazzucotelli).</li>
+</ul>
 <h2 id="083-2023-01-04"><a href="https://github.com/mkdocstrings/python/releases/tag/0.8.3">0.8.3</a> - 2023-01-04<a class="headerlink" href="#083-2023-01-04" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.8.2...0.8.3">Compare with 0.8.2</a></small></p>
-<h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_1">Code Refactoring<a class="headerlink" href="#code-refactoring_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Change "unresolved aliases" log level to DEBUG (<a href="https://github.com/mkdocstrings/python/commit/dccb818f51278cc8799e2187a615d999a3ab86fb">dccb818</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="082-2022-11-19"><a href="https://github.com/mkdocstrings/python/releases/tag/0.8.2">0.8.2</a> - 2022-11-19<a class="headerlink" href="#082-2022-11-19" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.8.1...0.8.2">Compare with 0.8.1</a></small></p>
-<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix base directory used to expand globs (<a href="https://github.com/mkdocstrings/python/commit/34cfa4b41f264437a338e66f6060ceeee134ba15">34cfa4b</a> by Florian Hofer). <a href="https://github.com/mkdocstrings/python/pull/45">PR #45</a></li>
 </ul>
 <h2 id="081-2022-11-19"><a href="https://github.com/mkdocstrings/python/releases/tag/0.8.1">0.8.1</a> - 2022-11-19<a class="headerlink" href="#081-2022-11-19" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.8.0...0.8.1">Compare with 0.8.0</a></small></p>
-<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>Expand globs relative to configuration file path (<a href="https://github.com/mkdocstrings/python/commit/0dc45aeb7c7f9b2f15118ebf1584baa06d365c9b">0dc45ae</a> by David Vegh). <a href="https://github.com/mkdocstrings/python/issues/42">Issue #42</a>, <a href="https://github.com/mkdocstrings/python/pull/43">PR #43</a></li>
 </ul>
 <h2 id="080-2022-11-13"><a href="https://github.com/mkdocstrings/python/releases/tag/0.8.0">0.8.0</a> - 2022-11-13<a class="headerlink" href="#080-2022-11-13" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.7.1...0.8.0">Compare with 0.7.1</a></small></p>
-<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h3>
+<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Add support for globs in paths configuration (<a href="https://github.com/mkdocstrings/python/commit/29edd02e7a4d83f6b7e8555d4d5b03a79882eb07">29edd02</a> by Andrew Guenther). <a href="https://github.com/mkdocstrings/python/issues/33">Issue #33</a>, <a href="https://github.com/mkdocstrings/python/pull/34">PR #34</a></li>
 </ul>
-<h3 id="code-refactoring_1">Code Refactoring<a class="headerlink" href="#code-refactoring_1" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_2">Code Refactoring<a class="headerlink" href="#code-refactoring_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>Support Griffe 0.24 (<a href="https://github.com/mkdocstrings/python/commit/3b9f7013a7367f18e4354c37f029f9caf3ad0a4e">3b9f701</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="071-2022-06-12"><a href="https://github.com/mkdocstrings/python/releases/tag/0.7.1">0.7.1</a> - 2022-06-12<a class="headerlink" href="#071-2022-06-12" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.7.0...0.7.1">Compare with 0.7.0</a></small></p>
-<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix rendering of <code>/</code> in signatures (<a href="https://github.com/mkdocstrings/python/commit/3e927e43192710218fe69f67ff832936c856a678">3e927e4</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/python/issues/25">Issue #25</a></li>
 </ul>
@@ -1915,7 +2009,7 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <ul>
 <li>Depend on mkdocstrings 0.19 (<a href="https://github.com/mkdocstrings/python/commit/b6a9a4799980c4590a7ce2838e12653f40e43be3">b6a9a47</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">¤</a></h3>
+<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>Add config option for annotations paths verbosity (<a href="https://github.com/mkdocstrings/python/commit/b6c989315fb028813a919319ad1818b0b1f597ac">b6c9893</a> by Timothée Mazzucotelli).</li>
 <li>Use sections titles in SpaCy-styled docstrings (<a href="https://github.com/mkdocstrings/python/commit/fe16b54aea60473575343e3a3c428567b701bd7d">fe16b54</a> by Timothée Mazzucotelli).</li>
@@ -1924,12 +2018,12 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <li>Add members and filters options (<a href="https://github.com/mkdocstrings/python/commit/24a6136ee6c04a6a49ee74b20e65177868a10ea7">24a6136</a> by Timothée Mazzucotelli).</li>
 <li>Add paths option (<a href="https://github.com/mkdocstrings/python/commit/dd41182c210f0bb2675ead162adaa01dbbb1949f">dd41182</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/311">Issue mkdocstrings/mkdocstrings#311</a>, <a href="https://github.com/mkdocstrings/python/issues/20">PR #20</a></li>
 </ul>
-<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix CSS class on labels (<a href="https://github.com/mkdocstrings/python/commit/312a7092394aab968032cf08195af7445a85052f">312a709</a> by Timothée Mazzucotelli).</li>
 <li>Fix categories rendering (<a href="https://github.com/mkdocstrings/python/commit/6407cf4f2375c894e0c528e932e9b76774a6455e">6407cf4</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/python/issues/14">Issue #14</a></li>
 </ul>
-<h3 id="code-refactoring_2">Code Refactoring<a class="headerlink" href="#code-refactoring_2" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_3">Code Refactoring<a class="headerlink" href="#code-refactoring_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Disable <code>show_submodules</code> by default (<a href="https://github.com/mkdocstrings/python/commit/480d0c373904713313ec76b6e2570dbc35eb527b">480d0c3</a> by Timothée Mazzucotelli).</li>
 <li>Merge default configuration options in handler (<a href="https://github.com/mkdocstrings/python/commit/347ce76d074c0e3841df2d5162b54d3938d00453">347ce76</a> by Timothée Mazzucotelli).</li>
@@ -1940,68 +2034,68 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 </ul>
 <h2 id="066-2022-03-06"><a href="https://github.com/mkdocstrings/python/releases/tag/0.6.6">0.6.6</a> - 2022-03-06<a class="headerlink" href="#066-2022-03-06" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.6.5...0.6.6">Compare with 0.6.5</a></small></p>
-<h3 id="code-refactoring_3">Code Refactoring<a class="headerlink" href="#code-refactoring_3" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_4">Code Refactoring<a class="headerlink" href="#code-refactoring_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Always hide <code>self</code> and <code>cls</code> parameters (<a href="https://github.com/mkdocstrings/python/commit/7f579d162e184adcfe25b2215bce4d38677f75b7">7f579d1</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/python/issues/7">Issue #7</a></li>
 <li>Use <code>pycon</code> for examples code blocks (<a href="https://github.com/mkdocstrings/python/commit/6545900eecc67c8a6ddd343c497ac22fdd6a26e2">6545900</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="065-2022-02-24"><a href="https://github.com/mkdocstrings/python/releases/tag/0.6.5">0.6.5</a> - 2022-02-24<a class="headerlink" href="#065-2022-02-24" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.6.4...0.6.5">Compare with 0.6.4</a></small></p>
-<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't escape signatures return annotations (<a href="https://github.com/mkdocstrings/python/commit/ac54bfc5761337aa606fb1aa6575745062ce26f8">ac54bfc</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/python/issues/6">Issue #6</a></li>
 </ul>
 <h2 id="064-2022-02-22"><a href="https://github.com/mkdocstrings/python/releases/tag/0.6.4">0.6.4</a> - 2022-02-22<a class="headerlink" href="#064-2022-02-22" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.6.3...0.6.4">Compare with 0.6.3</a></small></p>
-<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix rendering of signature return annotation (<a href="https://github.com/mkdocstrings/python/commit/b92ba3b370388aa6c956bcc70ba87b7aebb91a4c">b92ba3b</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/python/issues/4">Issue #4</a></li>
 </ul>
 <h2 id="063-2022-02-20"><a href="https://github.com/mkdocstrings/python/releases/tag/0.6.3">0.6.3</a> - 2022-02-20<a class="headerlink" href="#063-2022-02-20" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.6.2...0.6.3">Compare with 0.6.2</a></small></p>
-<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix examples rendering (<a href="https://github.com/mkdocstrings/python/commit/a06a7e34c7017374c5bed41f4757ed86ae64cb2e">a06a7e3</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/griffe/issues/46">Issue mkdocstrings/griffe#46</a></li>
 </ul>
 <h2 id="062-2022-02-17"><a href="https://github.com/mkdocstrings/python/releases/tag/0.6.2">0.6.2</a> - 2022-02-17<a class="headerlink" href="#062-2022-02-17" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.6.1...0.6.2">Compare with 0.6.1</a></small></p>
-<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">¤</a></h3>
 <ul>
 <li>Catch alias resolution errors (<a href="https://github.com/mkdocstrings/python/commit/b734dd0dcd72f5b985b3afce01e852c9c74e451a">b734dd0</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="061-2022-02-17"><a href="https://github.com/mkdocstrings/python/releases/tag/0.6.1">0.6.1</a> - 2022-02-17<a class="headerlink" href="#061-2022-02-17" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.6.0...0.6.1">Compare with 0.6.0</a></small></p>
-<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_9">Bug Fixes<a class="headerlink" href="#bug-fixes_9" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't pop from fallback config (<a href="https://github.com/mkdocstrings/python/commit/bde32afb5d99539813b1884a4c735de5845f62ae">bde32af</a> by Timothée Mazzucotelli).</li>
 <li>Fix rendering init method source when merged into class (<a href="https://github.com/mkdocstrings/python/commit/4a20aeaa60f3efbcb4781a369feef3b4826ff1df">4a20aea</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="060-2022-02-13"><a href="https://github.com/mkdocstrings/python/releases/tag/0.6.0">0.6.0</a> - 2022-02-13<a class="headerlink" href="#060-2022-02-13" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.5.4...0.6.0">Compare with 0.5.4</a></small></p>
-<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">¤</a></h3>
+<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Add option to merge <code>__init__</code> methods' docstrings into their classes' docstrings (<a href="https://github.com/mkdocstrings/python/commit/1b4d1c0e9254fc51756caed3875fbc8c1da079a6">1b4d1c0</a> by Timothée Mazzucotelli).</li>
 <li>Support separate attribute signature (<a href="https://github.com/mkdocstrings/python/commit/e962b885f48570762c5bfcefc9b61e5fc1df1c70">e962b88</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="bug-fixes_9">Bug Fixes<a class="headerlink" href="#bug-fixes_9" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_10">Bug Fixes<a class="headerlink" href="#bug-fixes_10" title="Permanent link">¤</a></h3>
 <ul>
 <li>Restore full cross-refs paths on hover (<a href="https://github.com/mkdocstrings/python/commit/ac1197062f2e23e819f144fe74a774d504d0ac49">ac11970</a> by Timothée Mazzucotelli).</li>
 <li>Fix rendering of labels (<a href="https://github.com/mkdocstrings/python/commit/52919c559378a6006bbe931423c5f03eb5883eaf">52919c5</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="code-refactoring_4">Code Refactoring<a class="headerlink" href="#code-refactoring_4" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_5">Code Refactoring<a class="headerlink" href="#code-refactoring_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't add trailing parentheses in functions heading when separate signature (<a href="https://github.com/mkdocstrings/python/commit/885696e05606d07334e0428128ed688d54098da1">885696e</a> by Timothée Mazzucotelli).</li>
 <li>Use more explicit template debug messages (<a href="https://github.com/mkdocstrings/python/commit/f2122d7fa119ed055ffe2b2bac72d2c643daca1c">f2122d7</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="054-2022-02-13"><a href="https://github.com/mkdocstrings/python/releases/tag/0.5.4">0.5.4</a> - 2022-02-13<a class="headerlink" href="#054-2022-02-13" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.5.3...0.5.4">Compare with 0.5.3</a></small></p>
-<h3 id="bug-fixes_10">Bug Fixes<a class="headerlink" href="#bug-fixes_10" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_11">Bug Fixes<a class="headerlink" href="#bug-fixes_11" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't load additional modules during fallback (<a href="https://github.com/mkdocstrings/python/commit/69b8e25cddc9e256c5edb8843592a466023aa124">69b8e25</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="053-2022-02-08"><a href="https://github.com/mkdocstrings/python/releases/tag/0.5.3">0.5.3</a> - 2022-02-08<a class="headerlink" href="#053-2022-02-08" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.5.2...0.5.3">Compare with 0.5.2</a></small></p>
-<h3 id="bug-fixes_11">Bug Fixes<a class="headerlink" href="#bug-fixes_11" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_12">Bug Fixes<a class="headerlink" href="#bug-fixes_12" title="Permanent link">¤</a></h3>
 <ul>
 <li>Allow passing <code>null</code> as docstring style (<a href="https://github.com/mkdocstrings/python/commit/f526816ef1d499795c647e6fe184ba91c1d41b1b">f526816</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/python/issues/2">Issue #2</a></li>
 </ul>
@@ -2017,40 +2111,40 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <ul>
 <li>Depend on Griffe &gt;= 0.11.1 (<a href="https://github.com/mkdocstrings/python/commit/1303557928a27a3d9b063baee9d698458f471357">1303557</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="code-refactoring_5">Code Refactoring<a class="headerlink" href="#code-refactoring_5" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_6">Code Refactoring<a class="headerlink" href="#code-refactoring_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Move handler into its own module (<a href="https://github.com/mkdocstrings/python/commit/b787e78e31652438039775850e55ea956c22e8d0">b787e78</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="050-2022-02-03"><a href="https://github.com/mkdocstrings/python/releases/tag/0.5.0">0.5.0</a> - 2022-02-03<a class="headerlink" href="#050-2022-02-03" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.4.1...0.5.0">Compare with 0.4.1</a></small></p>
-<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">¤</a></h3>
+<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Allow changing docstring style of an object (<a href="https://github.com/mkdocstrings/python/commit/39240c1497dced15c03f9046138f2829fc10e139">39240c1</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="bug-fixes_12">Bug Fixes<a class="headerlink" href="#bug-fixes_12" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_13">Bug Fixes<a class="headerlink" href="#bug-fixes_13" title="Permanent link">¤</a></h3>
 <ul>
 <li>Warn if Black is not installed when formatting signature (<a href="https://github.com/mkdocstrings/python/commit/b84827789b2bf66a4b76ff63a514ec6ba98cae68">b848277</a> by Timothée Mazzucotelli).</li>
 <li>Fix missing default for <code>docstring_section_style</code> option (<a href="https://github.com/mkdocstrings/python/commit/774988ef06a9bf3446949da63611ad7bc5a712fc">774988e</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="code-refactoring_6">Code Refactoring<a class="headerlink" href="#code-refactoring_6" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_7">Code Refactoring<a class="headerlink" href="#code-refactoring_7" title="Permanent link">¤</a></h3>
 <ul>
 <li>Change to new way of stripping paragraphs (<a href="https://github.com/mkdocstrings/python/commit/33d45945bf8ffce2435a6b3749795397fa7c3fc8">33d4594</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="041-2022-02-01"><a href="https://github.com/mkdocstrings/python/releases/tag/0.4.1">0.4.1</a> - 2022-02-01<a class="headerlink" href="#041-2022-02-01" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.4.0...0.4.1">Compare with 0.4.0</a></small></p>
-<h3 id="bug-fixes_13">Bug Fixes<a class="headerlink" href="#bug-fixes_13" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_14">Bug Fixes<a class="headerlink" href="#bug-fixes_14" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix docstring admonitions rendering (<a href="https://github.com/mkdocstrings/python/commit/a24ae2e95f4c0451a44037120451cf06c973ba65">a24ae2e</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="040-2022-02-01"><a href="https://github.com/mkdocstrings/python/releases/tag/0.4.0">0.4.0</a> - 2022-02-01<a class="headerlink" href="#040-2022-02-01" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.3.0...0.4.0">Compare with 0.3.0</a></small></p>
-<h3 id="code-refactoring_7">Code Refactoring<a class="headerlink" href="#code-refactoring_7" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_8">Code Refactoring<a class="headerlink" href="#code-refactoring_8" title="Permanent link">¤</a></h3>
 <ul>
 <li>Use the new <code>mkdocstrings_handlers</code> namespace (<a href="https://github.com/mkdocstrings/python/commit/23c9023780535251778077cd7d957c0067ecb0dc">23c9023</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="030-2022-01-14"><a href="https://github.com/mkdocstrings/python/releases/tag/0.3.0">0.3.0</a> - 2022-01-14<a class="headerlink" href="#030-2022-01-14" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0.2.0...0.3.0">Compare with 0.2.0</a></small></p>
-<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">¤</a></h3>
+<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Support griffe 0.10 (<a href="https://github.com/mkdocstrings/python/commit/28061de20094c510f27bb375b2e1dc44a699809d">28061de</a> by Timothée Mazzucotelli).</li>
 </ul>
@@ -2058,7 +2152,7 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <ul>
 <li>Require griffe 0.10 (<a href="https://github.com/mkdocstrings/python/commit/cfbd7bb4761691ef36100962c775ed1d0a247514">cfbd7bb</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="code-refactoring_8">Code Refactoring<a class="headerlink" href="#code-refactoring_8" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_9">Code Refactoring<a class="headerlink" href="#code-refactoring_9" title="Permanent link">¤</a></h3>
 <ul>
 <li>Use new logger patching utility (<a href="https://github.com/mkdocstrings/python/commit/4cdb2921b3a9292db3ef0663c63f148a4eec3966">4cdb292</a> by Timothée Mazzucotelli).</li>
 </ul>
@@ -2069,27 +2163,27 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <li>Depend on griffe &gt;= 0.7.1 (<a href="https://github.com/mkdocstrings/python/commit/34f7ebd41f3ebda025ad87e3b52a7226fcb93720">34f7ebd</a> by Timothée Mazzucotelli).</li>
 <li>Upgrade griffe, no upper bound (<a href="https://github.com/mkdocstrings/python/commit/8f0aa42eed07424a1377708897d92f9894f4abdb">8f0aa42</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">¤</a></h3>
+<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Add <code>show_signature</code> rendering option (<a href="https://github.com/mkdocstrings/python/commit/0f07c2e51a51a56eeb5d32fdf05dbed7243f0bc5">0f07c2e</a> by Will Da Silva).</li>
 </ul>
-<h3 id="bug-fixes_14">Bug Fixes<a class="headerlink" href="#bug-fixes_14" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_15">Bug Fixes<a class="headerlink" href="#bug-fixes_15" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix templates for named docstring elements (<a href="https://github.com/mkdocstrings/python/commit/47868a143bf2c462abd5ad85bd0ab8dca7bc5f82">47868a1</a> by Timothée Mazzucotelli).</li>
 </ul>
 <h2 id="010-2021-12-19"><a href="https://github.com/mkdocstrings/python/releases/tag/0.1.0">0.1.0</a> - 2021-12-19<a class="headerlink" href="#010-2021-12-19" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/python/compare/0032f18c9f902c3e75e0e00114ca8fa6a810c8f5...0.1.0">Compare with first commit</a></small></p>
-<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">¤</a></h3>
+<h3 id="features_7">Features<a class="headerlink" href="#features_7" title="Permanent link">¤</a></h3>
 <ul>
 <li>Implement handler and add templates (<a href="https://github.com/mkdocstrings/python/commit/dbb580aa79f6b2f8a089c80bdc67d0f7457c2d30">dbb580a</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="bug-fixes_15">Bug Fixes<a class="headerlink" href="#bug-fixes_15" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_16">Bug Fixes<a class="headerlink" href="#bug-fixes_16" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix separate signature feature (<a href="https://github.com/mkdocstrings/python/commit/da6e81c897899f09e1dae7bb8930ce6782aeb306">da6e81c</a> by Timothée Mazzucotelli).</li>
 <li>Fix signature template (parameters annotations) (<a href="https://github.com/mkdocstrings/python/commit/b34ead008773880fd8d1d7a2a41768ec27820520">b34ead0</a> by Timothée Mazzucotelli).</li>
 <li>Only show source when present (<a href="https://github.com/mkdocstrings/python/commit/c270d68c9e17204606ae12a2159c04563a18ec2b">c270d68</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="code-refactoring_9">Code Refactoring<a class="headerlink" href="#code-refactoring_9" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_10">Code Refactoring<a class="headerlink" href="#code-refactoring_10" title="Permanent link">¤</a></h3>
 <ul>
 <li>Return all known anchors (<a href="https://github.com/mkdocstrings/python/commit/9bbfe1442e2aab28bd6fb2618c943d3f698750ab">9bbfe14</a> by Timothée Mazzucotelli).</li>
 <li>Update for griffe 0.4.0 (<a href="https://github.com/mkdocstrings/python/commit/831aabb135db7e75729954adc675af6379f58e24">831aabb</a> by Timothée Mazzucotelli).</li>
@@ -2106,50 +2200,14 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
           
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../customization/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Customization" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Customization
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../credits/" class="md-footer__link md-footer__link--next" aria-label="Next: Credits" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Credits
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2167,20 +2225,37 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
   
     
     
+    
+    
       
       
     
     <a href="https://github.com/pawamoy" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
+    
+    
+      
+    
+    
+    
+      
+      
+    
+    <a href="https://fosstodon.org/@pawamoy" target="_blank" rel="noopener me" title="fosstodon.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"/></svg>
+    </a>
+  
+    
+    
     
     
       
       
     
     <a href="https://twitter.com/pawamoy" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
 </div>
@@ -2194,12 +2269,11 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../assets/javascripts/bundle.407015b8.min.js"></script>
       
-    
     
   </body>
 </html>

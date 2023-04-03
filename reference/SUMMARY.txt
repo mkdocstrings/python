@@ -1,0 +1,4 @@
+* mkdocstrings_handlers
+    * [python](mkdocstrings_handlers/python/index.md)
+        * [handler](mkdocstrings_handlers/python/handler.md)
+        * [rendering](mkdocstrings_handlers/python/rendering.md)
