@@ -328,11 +328,11 @@ class PythonHandler(BaseHandler):
         self.env.filters["format_signature"] = rendering.do_format_signature
         self.env.filters["filter_objects"] = rendering.do_filter_objects
 
-    def get_anchors(self, data: CollectorItem) -> list[str]:  # noqa: D102 (ignore missing docstring)
+    def get_anchors(self, data: CollectorItem) -> set[str]:  # noqa: D102 (ignore missing docstring)
         try:
-            return list({data.path, data.canonical_path, *data.aliases})
+            return {data.path, data.canonical_path, *data.aliases}
         except AliasResolutionError:
-            return [data.path]
+            return {data.path}
 
 
 def get_handler(
