@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: 0.11.2
+_commit: 0.15.2
 _src_path: gh:pawamoy/copier-pdm
 author_email: pawamoy@pm.me
 author_fullname: Timothée Mazzucotelli
@@ -8,13 +8,13 @@ copyright_date: '2021'
 copyright_holder: Timothée Mazzucotelli
 copyright_holder_email: pawamoy@pm.me
 copyright_license: ISC License
+insiders: true
 project_description: A Python handler for mkdocstrings.
 project_name: mkdocstrings-python
-python_package_command_line_name: mkdocstrings-python
+python_package_command_line_name: ''
 python_package_distribution_name: mkdocstrings-python
 python_package_import_name: mkdocstrings_handlers
 repository_name: python
 repository_namespace: mkdocstrings
 repository_provider: github.com
-use_precommit: false
 
