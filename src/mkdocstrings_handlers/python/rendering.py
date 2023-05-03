@@ -202,7 +202,7 @@ def _get_black_formatter() -> Callable[[str, int], str]:
     try:
         from black import Mode, format_str
     except ModuleNotFoundError:
-        logger.warning("Formatting signatures requires Black to be installed.")
+        logger.info("Formatting signatures requires Black to be installed.")
         return lambda text, _: text
 
     def formatter(code: str, line_length: int) -> str:
