@@ -109,6 +109,7 @@ class PythonHandler(BaseHandler):
         "annotations_path": "brief",
         "preload_modules": None,
         "load_external_modules": False,
+        "allow_inspection": True,
     }
     """
     Attributes: Headings options:
@@ -169,6 +170,7 @@ class PythonHandler(BaseHandler):
             of the importing module.
 
             The modules must be listed as an array of strings. Default: `None`.
+        allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
 
     """
 
@@ -257,6 +259,7 @@ class PythonHandler(BaseHandler):
                 docstring_options=parser_options,
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
+                allow_inspection=final_config["inspect_modules"],
             )
             try:
                 for pre_loaded_module in final_config.get("preload_modules") or []:
