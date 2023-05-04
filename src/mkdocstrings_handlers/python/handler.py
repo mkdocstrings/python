@@ -259,7 +259,7 @@ class PythonHandler(BaseHandler):
                 docstring_options=parser_options,
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
-                allow_inspection=final_config["inspect_modules"],
+                allow_inspection=final_config["allow_inspection"],
             )
             try:
                 for pre_loaded_module in final_config.get("preload_modules") or []:
