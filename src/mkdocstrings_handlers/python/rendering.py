@@ -185,11 +185,21 @@ def do_filter_objects(
     Returns:
         A list of objects.
     """
-    if members_list is not None:
-        if not members_list:
-            return []
-        return [obj for obj in objects_dictionary.values() if obj.name in set(members_list)]
+    # no members
+    if members_list is False or members_list == []:
+        return []
+
     objects = list(objects_dictionary.values())
+
+    # all members
+    if members_list is True:
+        return objects
+
+    # list of members
+    if members_list is not None:
+        return [obj for obj in objects if obj.name in set(members_list)]
+
+    # none, use filters and docstrings
     if filters:
         objects = [obj for obj in objects if _keep_object(obj.name, filters)]
     if keep_no_docstrings:
