@@ -10,11 +10,23 @@ copyright: Copyright &copy; 2021 Timothée Mazzucotelli
 nav:
 - Home:
   - Overview: index.md
-  - Usage: usage.md
-  - Customization: customization.md
   - Changelog: changelog.md
   - Credits: credits.md
   - License: license.md
+- Usage:
+  - usage/index.md
+  - Configuration options:
+    - General: usage/configuration/general.md
+    - Headings: usage/configuration/headings.md
+    - Members: usage/configuration/members.md
+    - Docstrings: usage/configuration/docstrings.md
+    - Signatures: usage/configuration/signatures.md
+  - Docstring styles:
+    - Google: usage/docstrings/google.md
+    - Numpy: usage/docstrings/numpy.md
+    - Sphinx: usage/docstrings/sphinx.md
+  - Advanced:
+    - Customization: usage/customization.md
 # defer to gen-files + literate-nav
 - Code Reference: reference/
 - Development:
@@ -74,16 +86,26 @@ extra_css:
 - css/insiders.css
 
 markdown_extensions:
+- abbr
 - attr_list
 - admonition
 - callouts:
     strip_period: no
 - footnotes
+- md_in_html
+- pymdownx.blocks.admonition
+- pymdownx.blocks.details
+- pymdownx.blocks.tab:
+    alternate_style: true
+    slugify: !!python/object/apply:pymdownx.slugs.slugify
+      kwds:
+        case: lower
 - pymdownx.emoji:
     emoji_index: !!python/name:materialx.emoji.twemoji
     emoji_generator: !!python/name:materialx.emoji.to_svg
 - pymdownx.magiclink
 - pymdownx.snippets:
+    auto_append: [docs/.glossary.md]
     check_paths: true
 - pymdownx.superfences
 - pymdownx.tabbed:
@@ -97,6 +119,7 @@ markdown_extensions:
     permalink: "¤"
 
 plugins:
+  autorefs: {}
   search: {}
   markdown-exec: {}
   gen-files:

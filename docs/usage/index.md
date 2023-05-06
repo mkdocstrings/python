@@ -4,16 +4,74 @@ TIP: **This is the documentation for the NEW Python handler.**
 To read the documentation for the LEGACY handler,
 go to the [legacy handler documentation](https://mkdocstrings.github.io/python-legacy).
 
-The tool used by the Python handler to collect documentation from Python source code
-is [Griffe](https://mkdocstrings.github.io/griffe). The word "griffe" can sometimes be used instead of "signature" in french.
-Griffe is able to visit the Abstract Syntax Tree (AST) of the source code to extract useful information.
-It is also able to execute the code (by importing it) and introspect objects in memory
-when source code is not available. Finally, it can parse docstrings following different styles,
-see [Supported docstrings styles](#supported-docstrings-styles).
+## Installation
 
-Like every handler, the Python handler accepts both **global** and **local** options.
+You can install this handler as a *mkdocstrings* extra:
 
-## Global-only options
+```toml title="pyproject.toml"
+# PEP 621 dependencies declaration
+# adapt to your dependencies manager
+[project]
+dependencies = [
+    "mkdocstrings[python]>=0.18",
+]
+```
+
+You can also explicitly depend on the handler:
+
+```toml title="pyproject.toml"
+# PEP 621 dependencies declaration
+# adapt to your dependencies manager
+[project]
+dependencies = [
+    "mkdocstrings-python",
+]
+```
+
+The Python handler is the default *mkdocstrings* handler.
+You can change the default handler,
+or explicitely set the Python handler as default by defining the `default_handler`
+configuration option of `mkdocstrings` in `mkdocs.yml`:
+
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    default_handler: python
+```
+
+## Injecting documentation
+
+With the Python handler installed and configured as default handler,
+you can inject documentation for a module, class, function, or any other Python object
+with *mkdocstrings*' [autodoc syntax], in your Markdown pages:
+
+```md
+::: path.to.object
+```
+
+If another handler was defined as default handler,
+you can explicitely ask for the Python handler to be used when injecting documentation
+with the `handler` option:
+
+```md
+::: path.to.object
+    handler: python
+```
+
+## Configuration
+
+When installed, the Python handler becomes the default *mkdocstrings* handler.
+You can configure it in `mkdocs.yml`:
+
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        ...  # the Python handler configuration
+```
+
+### Global-only options
 
 Some options are **global only**, and go directly under the handler's name.
 
@@ -36,6 +94,11 @@ Some options are **global only**, and go directly under the handler's name.
     the inventories of your project's dependencies, at least those
     that are used in the public API. 
 
+    See [*mkdocstrings*' documentation on inventories][inventories]
+    for more details.
+
+      [inventories]: https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories
+
     NOTE: This global option is common to *all* handlers, however
     they might implement it differently (or not even implement it).
 
@@ -52,16 +115,31 @@ Some options are **global only**, and go directly under the handler's name.
 
     More details at [Finding modules](#finding-modules).
 
-- `load_external_modules`:
-  this option allows resolving aliases to any external module.  
-  Enabling this option will tell handler that when it encounters an import that is made public  
-  through the `__all__` variable, it will resolve it recursively to *any* module.  
-  **Use with caution:** this can load a *lot* of modules, slowing down your build  
-  or triggering errors that we do not yet handle.  
-  **We recommend using the `preload_modules` option instead**,  
-  which acts as an include-list rather than as include-all.  
+- `load_external_modules`: this option allows resolving aliases (imports) to any external module.
+    Modules are considered external when they are not part
+    of the package your are injecting documentation for.
+    Enabling this option will tell the handler to resolve aliases recursively
+    when they are made public through the [`__all__`][__all__] variable.
+    
+    WARNING: **Use with caution**
+    This can load a *lot* of modules through [Griffe],
+    slowing down your build or triggering errors that Griffe does not yet handle.
+    **We recommend using the [`preload_modules`][] option instead**,
+    which acts as an include-list rather than as include-all.
+    
+    Example:
 
-## Global/local options
+    ```yaml title="mkdocs.yml"
+    plugins:
+    - mkdocstrings:
+        handlers:
+          python:
+            load_external_modules: true
+    ```
+
+      [__all__]: https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
+
+### Global/local options
 
 The other options can be used both globally *and* locally, under the `options` key.
 For example, globally:
@@ -83,53 +161,23 @@ plugins:
       do_something: false
 ```
 
-These options affect how the documentation is collected from sources and rendered:
-headings, members, docstrings, etc.
+These options affect how the documentation is collected from sources and rendered.
+See the following tables summarizing the options, and get more details for each option
+in the following pages:
+
+- [General options](configuration/general.md): various options that do not fit in the other categories
+- [Headings options](configuration/headings.md): options related to headings and the table of contents
+    (or sidebar, depending on the theme used)
+- [Members options](configuration/members.md): options related to filtering or ordering members
+    in the generated documentation
+- [Docstrings options](configuration/docstrings.md): options related to docstrings (parsing and rendering)
+- [Signature options](configuration/signatures.md): options related to signatures and type annotations
+
+#### Options summary
 
 ::: mkdocstrings_handlers.python.handler.PythonHandler.default_config
     options:
       show_root_toc_entry: false
-
-## Supported docstrings styles
-
-Griffe supports the Google-style, Numpy-style and Sphinx-style docstring formats.
-The style used by default is the Google-style.
-You can configure what style you want to use with
-the `docstring_style` and `docstring_options` options,
-both globally or locally, i.e. per autodoc instruction.
-
-- Google: see [Napoleon's documentation](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html).
-- Numpy: see [Numpydoc's documentation](https://numpydoc.readthedocs.io/en/latest/format.html).
-- Sphinx: see [Sphinx's documentation](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html).
-
-See the supported docstring sections on [Griffe's documentation](https://mkdocstrings.github.io/griffe/docstrings/).
-
-NOTE: As Numpy-style is partially supported by the underlying parser,
-you may experience problems in the building process if your docstring
-has a `Methods` section in the class docstring
-(see [#366](https://github.com/mkdocstrings/mkdocstrings/issues/366)).
-
-### Google-style admonitions
-
-With Google-style docstrings, any section that is not recognized will be transformed into its admonition equivalent.
-For example:
-
-=== "Docstring"
-    ```python
-    """
-    Note:
-        It looks like a section, but it will be rendered as an admonition.
-
-    Tip: You can even choose a title.
-        This admonition has a custom title!
-    """
-    ```
-    
-=== "Result"
-    NOTE: It looks like a section, but it will be rendered as an admonition.
-
-    TIP: **You can even choose a title.**  
-    This admonition has a custom title!
 
 ## Finding modules
 
@@ -283,21 +331,24 @@ We recommend using the [`paths` method](#using-the-paths-option) instead.
 
 Install your package in the current environment, and run MkDocs:
 
-=== "pip"
-    ```bash
-    . venv/bin/activate
-    pip install -e .
-    mkdocs build
-    ```
+/// tab | pip
+```bash
+. venv/bin/activate
+pip install -e .
+mkdocs build
+```
+///
 
-=== "PDM"
-    ```bash
-    pdm install
-    pdm run mkdocs build
-    ```
+/// tab | PDM
+```bash
+pdm install
+pdm run mkdocs build
+```
+///
 
-=== "Poetry"
-    ```bash
-    poetry install
-    poetry run mkdocs build
-    ```
+/// tab | Poetry
+```bash
+poetry install
+poetry run mkdocs build
+```
+///

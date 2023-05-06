@@ -23,26 +23,32 @@ The following CSS classes are used in the generated HTML:
     - `doc-label`: on `small` elements containing a label
         - `doc-label-LABEL`: same, where `LABEL` is replaced by the actual label
 
-!!! example "Example with colorful labels"
-    === "CSS"
-        ```css
-        .doc-label { border-radius: 15px; padding: 0 5px; }
-        .doc-label-special { background-color: blue; color: white; }
-        .doc-label-private { background-color: red; color: white; }
-        .doc-label-property { background-color: green; color: white; }
-        .doc-label-read-only { background-color: yellow; color: black; }
-        ```
+/// admonition | Example with colorful labels
+    type: example
 
-    === "Result"
-        <style>
-          .lbl { border-radius: 15px; padding: 0 5px; }
-        </style>
-        <h3 style="margin: 0;"><span>
-            <small class="lbl" style="background-color: blue; color: white !important;">special</small>
-            <small class="lbl" style="background-color: red; color: white !important;">private</small>
-            <small class="lbl" style="background-color: green; color: white !important;">property</small>
-            <small class="lbl" style="background-color: yellow; color: black !important;">read-only</small>
-        </span></h3>
+//// tab | CSS
+```css
+.doc-label { border-radius: 15px; padding: 0 5px; }
+.doc-label-special { background-color: blue; color: white; }
+.doc-label-private { background-color: red; color: white; }
+.doc-label-property { background-color: green; color: white; }
+.doc-label-read-only { background-color: yellow; color: black; }
+```
+////
+
+//// tab | Result
+<style>
+  .lbl { border-radius: 15px; padding: 0 5px; }
+</style>
+<h3 style="margin: 0;"><span>
+    <small class="lbl" style="background-color: blue; color: white !important;">special</small>
+    <small class="lbl" style="background-color: red; color: white !important;">private</small>
+    <small class="lbl" style="background-color: green; color: white !important;">property</small>
+    <small class="lbl" style="background-color: yellow; color: black !important;">read-only</small>
+</span></h3>
+////
+
+///
 
 
 ### Recommended style (Material)

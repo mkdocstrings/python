@@ -24,6 +24,13 @@
 
 <p align="center"><img src="logo.png"></p>
 
+The Python handler uses [Griffe](https://mkdocstrings.github.io/griffe)
+to collect documentation from Python source code.
+The word "griffe" can sometimes be used instead of "signature" in French.
+Griffe is able to visit the Abstract Syntax Tree (AST) of the source code to extract useful information.
+It is also able to execute the code (by importing it) and introspect objects in memory
+when source code is not available. Finally, it can parse docstrings following different styles.
+
 ## Installation
 
 You can install this handler as a *mkdocstrings* extra:

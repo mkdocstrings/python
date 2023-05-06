@@ -112,6 +112,20 @@ class PythonHandler(BaseHandler):
         "allow_inspection": True,
     }
     """
+    Attributes: General options:
+        allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
+        show_bases (bool): Show the base classes of a class. Default: `True`.
+        show_source (bool): Show the source code of this object. Default: `True`.
+        preload_modules (list[str] | None): Pre-load modules that are
+            not specified directly in autodoc instructions (`::: identifier`).
+            It is useful when you want to render documentation for a particular member of an object,
+            and this member is imported from another package than its parent.
+
+            For an imported member to be rendered, you need to add it to the `__all__` attribute
+            of the importing module.
+
+            The modules must be listed as an array of strings. Default: `None`.
+
     Attributes: Headings options:
         heading_level (int): The initial heading level to use. Default: `2`.
         show_root_heading (bool): Show the heading of the object at the root of the documentation tree
@@ -137,7 +151,6 @@ class PythonHandler(BaseHandler):
         docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
         docstring_options (dict): The options for the docstring parser. See parsers under [`griffe.docstrings`][].
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `"table"`.
-        line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
         show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
@@ -153,25 +166,11 @@ class PythonHandler(BaseHandler):
 
     Attributes: Signatures/annotations options:
         annotations_path (str): The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
+        line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
         show_signature (bool): Show methods and functions signatures. Default: `True`.
         show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading.
             If Black is installed, the signature is also formatted using it. Default: `False`.
-
-    Attributes: Additional options:
-        show_bases (bool): Show the base classes of a class. Default: `True`.
-        show_source (bool): Show the source code of this object. Default: `True`.
-        preload_modules (list[str] | None): Pre-load modules that are
-            not specified directly in autodoc instructions (`::: identifier`).
-            It is useful when you want to render documentation for a particular member of an object,
-            and this member is imported from another package than its parent.
-
-            For an imported member to be rendered, you need to add it to the `__all__` attribute
-            of the importing module.
-
-            The modules must be listed as an array of strings. Default: `None`.
-        allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
-
     """
 
     def __init__(
