@@ -197,7 +197,7 @@ def docs_deploy(ctx: Context) -> None:
     if config_file == "mkdocs.yml":
         ctx.run(lambda: False, title="Not deploying docs without Material for MkDocs Insiders!")
     origin = ctx.run("git config --get remote.origin.url", silent=True)
-    if "pawamoy-insiders/python" in origin:
+    if "pawamoy-insiders/mkdocstrings-python" in origin:
         ctx.run("git remote add upstream git@github.com:mkdocstrings/python", silent=True, nofail=True)
         ctx.run(
             mkdocs.gh_deploy(config_file=config_file, remote_name="upstream", force=True),
