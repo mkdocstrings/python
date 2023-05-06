@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.10.0](https://github.com/mkdocstrings/python/releases/tag/0.10.0) - 2023-05-07
+
+<small>[Compare with 0.9.0](https://github.com/mkdocstrings/python/compare/0.9.0...0.10.0)</small>
+
+### Features
+
+- Add option to disallow inspection ([40f2f26](https://github.com/mkdocstrings/python/commit/40f2f268876358941cf8221d01d219a0deb9de38) by Nyuan Zhang). [Issue #68](https://github.com/mkdocstrings/python/issues/68), [PR #69](https://github.com/mkdocstrings/python/pull/69)
+
+### Bug Fixes
+
+- Make admonitions open by default ([79cd153](https://github.com/mkdocstrings/python/commit/79cd153cfceec860f6ce08d30817c21031983238) by Timothée Mazzucotelli). [Issue #22](https://github.com/mkdocstrings/python/issues/22)
+
+### Code Refactoring
+
+- Match documented behavior for filtering (all members, list, none) ([c7f70c3](https://github.com/mkdocstrings/python/commit/c7f70c353c3dd2b82e1f34c70cd433e0bab4f6e6) by Timothée Mazzucotelli).
+- Switch to an info level log for when black's not installed ([f593bb0](https://github.com/mkdocstrings/python/commit/f593bb06c63860be14d2025c4bd795e0c8976ce0) by Faster Speeding).
+- Return anchors as a set ([e2b820c](https://github.com/mkdocstrings/python/commit/e2b820c5af3787518656d5f7f799ecb6b55aa033) by Timothée Mazzucotelli).
+
 ## [0.9.0](https://github.com/mkdocstrings/python/releases/tag/0.9.0) - 2023-04-03
 
 <small>[Compare with 0.8.3](https://github.com/mkdocstrings/python/compare/0.8.3...0.9.0)</small>
