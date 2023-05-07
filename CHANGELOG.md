@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.10.1](https://github.com/mkdocstrings/python/releases/tag/0.10.1) - 2023-05-07
+
+<small>[Compare with 0.10.0](https://github.com/mkdocstrings/python/compare/0.10.0...0.10.1)</small>
+
+### Bug Fixes
+
+- Format signatures with full-path names ([685512d](https://github.com/mkdocstrings/python/commit/685512decf1a14c53fa6ca82048e65619aa6a463) by Timothée Mazzucotelli).
+
 ## [0.10.0](https://github.com/mkdocstrings/python/releases/tag/0.10.0) - 2023-05-07
 
 <small>[Compare with 0.9.0](https://github.com/mkdocstrings/python/compare/0.9.0...0.10.0)</small>
