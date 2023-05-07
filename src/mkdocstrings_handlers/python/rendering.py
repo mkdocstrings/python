@@ -73,10 +73,18 @@ def do_format_signature(signature: str, line_length: int) -> str:
     code = signature.strip()
     if len(code) < line_length:
         return code
+
+    # Black cannot format names with dots, so we replace
+    # the whole name with a string of equal length
+    name_length = code.index("(")
+    name = code[:name_length]
     formatter = _get_black_formatter()
-    formatted = formatter(f"def {code}: pass", line_length)
-    # remove starting `def ` and trailing `: pass`
-    return formatted[4:-5].strip()[:-1]
+    formatable = f"def {'x' * name_length}{code[name_length:]}: pass"
+    formatted = formatter(formatable, line_length)
+
+    # We put back the original name
+    # and remove starting `def ` and trailing `: pass`
+    return name + formatted[4:-5].strip()[name_length:-1]
 
 
 def do_order_members(

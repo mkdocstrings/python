@@ -11,12 +11,35 @@ import pytest
 from mkdocstrings_handlers.python import rendering
 
 
-def test_format_code_and_signature() -> None:
-    """Assert code and signatures can be Black-formatted."""
-    assert rendering.do_format_code("print('Hello')", 100)
-    assert rendering.do_format_code('print("Hello")', 100)
-    assert rendering.do_format_signature("(param: str = 'hello') -> 'Class'", 100)
-    assert rendering.do_format_signature('(param: str = "hello") -> "Class"', 100)
+@pytest.mark.parametrize(
+    "code",
+    [
+        "print('Hello')",
+        "aaaaa(bbbbb, ccccc=1) + ddddd.eeeee[ffff] or {ggggg: hhhhh, iiiii: jjjjj}",
+    ],
+)
+def test_format_code(code: str) -> None:
+    """Assert code can be Black-formatted.
+
+    Parameters:
+        code: Code to format.
+    """
+    for length in (5, 100):
+        assert rendering.do_format_code(code, length)
+
+
+@pytest.mark.parametrize(
+    "signature",
+    ["Class.method(param: str = 'hello') -> 'OtherClass'"],
+)
+def test_format_signature(signature: str) -> None:
+    """Assert signatures can be Black-formatted.
+
+    Parameters:
+        signature: Signature to format.
+    """
+    for length in (5, 100):
+        assert rendering.do_format_signature(signature, length)
 
 
 @dataclass
