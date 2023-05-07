@@ -36,13 +36,14 @@ plugins:
 import markdown
 import markupsafe
 
+
 def convert(text: str, md: markdown.Markdown) -> markupsafe.Markup:
     """Convert text to Markdown.
 
     Parameters:
         text: The text to convert.
         md: A Markdown instance.
-    
+
     Returns:
         Converted markup.
     """

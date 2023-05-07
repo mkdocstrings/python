@@ -224,7 +224,7 @@ def format(ctx: Context) -> None:
     )
     ctx.run(black.run(*PY_SRC_LIST, config="config/black.toml"), title="Formatting code")
     ctx.run(
-        blacken_docs.run(*PY_SRC_LIST, "docs", exts=["py", "md"], line_length=120),
+        blacken_docs.run(*PY_SRC_LIST, "docs", exts=["py", "md"], line_length=120, skip_errors=True),
         title="Formatting docs",
         nofail=True,
     )
