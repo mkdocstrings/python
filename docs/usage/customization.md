@@ -70,20 +70,20 @@ a.autorefs-external::after {
   content: ' ';
 
   display: inline-block;
+  vertical-align: middle;
   position: relative;
-  top: 0.1em;
+  bottom: 0.1em;
   margin-left: 0.2em;
   margin-right: 0.1em;
 
-  height: 1em;
-  width: 1em;
+  height: 0.7em;
+  width: 0.7em;
   border-radius: 100%;
   background-color: var(--md-typeset-a-color);
 }
 a.autorefs-external:hover::after {
   background-color: var(--md-accent-fg-color);
 }
-
 ```
 
 ### Recommended style (ReadTheDocs)
