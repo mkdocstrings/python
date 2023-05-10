@@ -119,16 +119,16 @@ markdown_extensions:
     permalink: "¤"
 
 plugins:
-  autorefs: {}
-  search: {}
-  markdown-exec: {}
-  gen-files:
+- autorefs
+- search
+- markdown-exec
+- gen-files:
     scripts:
     - scripts/gen_ref_nav.py
-  literate-nav:
+- literate-nav:
     nav_file: SUMMARY.txt
-  coverage: {}
-  mkdocstrings:
+- coverage
+- mkdocstrings:
     handlers:
       python:
         paths: [src]
@@ -141,10 +141,10 @@ plugins:
           merge_init_into_class: true
           docstring_options:
             ignore_init_summary: true
-  git-committers:
+- git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/python
-  minify:
+- minify:
     minify_html: !ENV [DEPLOY, false]
 
 extra:

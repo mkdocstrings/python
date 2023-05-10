@@ -45,6 +45,9 @@ Funding = "https://github.com/sponsors/mkdocstrings"
 
 [tool.pdm]
 version = {source = "scm"}
+plugins = [
+    "pdm-multirun",
+]
 
 [tool.pdm.build]
 package-dir = "src"

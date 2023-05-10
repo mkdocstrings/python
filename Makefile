@@ -32,7 +32,7 @@ help:
 
 .PHONY: lock
 lock:
-	@pdm lock
+	@pdm lock --no-cross-platform
 
 .PHONY: setup
 setup:

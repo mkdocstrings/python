@@ -4,7 +4,7 @@ div.doc-contents:not(.first) {
   border-left: .05rem solid var(--md-typeset-table-color);
 }
 
-/* Mark external links as such */
+/* Mark external links as such. */
 a.external::after,
 a.autorefs-external::after {
   /* https://primer.style/octicons/arrow-up-right-24 */
