@@ -75,69 +75,92 @@ plugins:
 
 Some options are **global only**, and go directly under the handler's name.
 
-- `import`: this option is used to import Sphinx-compatible objects inventories from other
-    documentation sites. For example, you can import the standard library
-    objects inventory like this:
+#### `import`
 
-    ```yaml title="mkdocs.yml"
-    plugins:
-    - mkdocstrings:
-        handlers:
-          python:
-            import:
-            - https://docs.python-requests.org/en/master/objects.inv
-    ```
+This option is used to import Sphinx-compatible objects inventories from other
+documentation sites. For example, you can import the standard library
+objects inventory like this:
 
-    When importing an inventory, you enable automatic cross-references
-    to other documentation sites like the standard library docs
-    or any third-party package docs. Typically, you want to import
-    the inventories of your project's dependencies, at least those
-    that are used in the public API. 
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        import:
+        - https://docs.python-requests.org/en/master/objects.inv
+```
 
-    See [*mkdocstrings*' documentation on inventories][inventories]
-    for more details.
+When importing an inventory, you enable automatic cross-references
+to other documentation sites like the standard library docs
+or any third-party package docs. Typically, you want to import
+the inventories of your project's dependencies, at least those
+that are used in the public API. 
 
-      [inventories]: https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories
+See [*mkdocstrings*' documentation on inventories][inventories]
+for more details.
 
-    NOTE: This global option is common to *all* handlers, however
-    they might implement it differently (or not even implement it).
+  [inventories]: https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories
 
-- `paths`: this option is used to provide filesystem paths in which to search for Python modules.
-    Non-absolute paths are computed as relative to MkDocs configuration file. Example:
+Additionally, the Python handler accepts a `domains` option in the import items,
+which allows to select the inventory domains to select.
+By default the Python handler only selects the `py` domain (for Python objects).
+You might find useful to also enable the [`std` domain][std domain]:
 
-    ```yaml title="mkdocs.yml"
-    plugins:
-    - mkdocstrings:
-        handlers:
-          python:
-            paths: [src]  # search packages in the src folder
-    ```
+  [std domain]: https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#the-standard-domain
 
-    More details at [Finding modules](#finding-modules).
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        import:
+        - url: https://docs.python-requests.org/en/master/objects.inv
+          domains: [std, py]
+```
 
-- `load_external_modules`: this option allows resolving aliases (imports) to any external module.
-    Modules are considered external when they are not part
-    of the package your are injecting documentation for.
-    Enabling this option will tell the handler to resolve aliases recursively
-    when they are made public through the [`__all__`][__all__] variable.
-    
-    WARNING: **Use with caution**
-    This can load a *lot* of modules through [Griffe],
-    slowing down your build or triggering errors that Griffe does not yet handle.
-    **We recommend using the [`preload_modules`][] option instead**,
-    which acts as an include-list rather than as include-all.
-    
-    Example:
+NOTE: The `import` option is common to *all* handlers, however
+they might implement it differently, or not even implement it.
 
-    ```yaml title="mkdocs.yml"
-    plugins:
-    - mkdocstrings:
-        handlers:
-          python:
-            load_external_modules: true
-    ```
+#### `paths`
 
-      [__all__]: https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
+This option is used to provide filesystem paths in which to search for Python modules.
+Non-absolute paths are computed as relative to MkDocs configuration file. Example:
+
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        paths: [src]  # search packages in the src folder
+```
+
+More details at [Finding modules](#finding-modules).
+
+#### `load_external_modules`
+
+This option allows resolving aliases (imports) to any external module.
+Modules are considered external when they are not part
+of the package your are injecting documentation for.
+Enabling this option will tell the handler to resolve aliases recursively
+when they are made public through the [`__all__`][__all__] variable.
+
+WARNING: **Use with caution**
+This can load a *lot* of modules through [Griffe],
+slowing down your build or triggering errors that Griffe does not yet handle.
+**We recommend using the [`preload_modules`][] option instead**,
+which acts as an include-list rather than as include-all.
+
+Example:
+
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        load_external_modules: true
+```
+
+  [__all__]: https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
 
 ### Global/local options
 
