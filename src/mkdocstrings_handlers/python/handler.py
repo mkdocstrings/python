@@ -84,6 +84,7 @@ class PythonHandler(BaseHandler):
         "show_if_no_docstring": False,
         "show_signature": True,
         "show_signature_annotations": False,
+        "signature_crossrefs": False,
         "separate_signature": False,
         "line_length": 60,
         "merge_init_into_class": False,
@@ -169,6 +170,7 @@ class PythonHandler(BaseHandler):
         line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
         show_signature (bool): Show methods and functions signatures. Default: `True`.
         show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
+        signature_crossrefs (bool): Whether to render cross-references for type annotations in signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading.
             If Black is installed, the signature is also formatted using it. Default: `False`.
     """
@@ -314,6 +316,9 @@ class PythonHandler(BaseHandler):
                 (re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in final_config["filters"]
             ]
 
+        # TODO: goal reached: remove once `signature_crossrefs` feature becomes public
+        final_config["signature_crossrefs"] = False
+
         return template.render(
             **{"config": final_config, data.kind.value: data, "heading_level": heading_level, "root": True},
         )
@@ -329,6 +334,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["format_code"] = rendering.do_format_code
         self.env.filters["format_signature"] = rendering.do_format_signature
         self.env.filters["filter_objects"] = rendering.do_filter_objects
+        self.env.filters["stash_crossref"] = lambda ref, length: ref
 
     def get_anchors(self, data: CollectorItem) -> set[str]:  # noqa: D102 (ignore missing docstring)
         try:

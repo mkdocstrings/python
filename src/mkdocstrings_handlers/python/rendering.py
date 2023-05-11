@@ -8,11 +8,13 @@ import sys
 from functools import lru_cache
 from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
 
+from jinja2 import pass_context
 from markupsafe import Markup
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
-    from griffe.dataclasses import Alias, Object
+    from griffe.dataclasses import Alias, Function, Object
+    from jinja2.runtime import Context
     from mkdocstrings.handlers.base import CollectorItem
 
 logger = get_logger(__name__)
@@ -60,31 +62,49 @@ def do_format_code(code: str, line_length: int) -> str:
     return formatter(code, line_length)
 
 
-def do_format_signature(signature: str, line_length: int) -> str:
-    """Format a signature using Black.
-
-    Parameters:
-        signature: The signature to format.
-        line_length: The line length to give to Black.
-
-    Returns:
-        The same code, formatted.
-    """
-    code = signature.strip()
-    if len(code) < line_length:
-        return code
+def _format_signature(name: Markup, signature: str, line_length: int) -> str:
+    name = str(name).strip()  # type: ignore[assignment]
+    signature = signature.strip()
+    if len(name + signature) < line_length:
+        return name + signature
 
     # Black cannot format names with dots, so we replace
     # the whole name with a string of equal length
-    name_length = code.index("(")
-    name = code[:name_length]
+    name_length = len(name)
     formatter = _get_black_formatter()
-    formatable = f"def {'x' * name_length}{code[name_length:]}: pass"
+    formatable = f"def {'x' * name_length}{signature}: pass"
     formatted = formatter(formatable, line_length)
 
     # We put back the original name
     # and remove starting `def ` and trailing `: pass`
     return name + formatted[4:-5].strip()[name_length:-1]
+
+
+@pass_context
+def do_format_signature(
+    context: Context,
+    callable_path: Markup,
+    function: Function,
+    line_length: int,
+    *,
+    crossrefs: bool = False,  # noqa: ARG001
+) -> str:
+    """Format a signature using Black.
+
+    Parameters:
+        callable_path: The path of the callable we render the signature of.
+        line_length: The line length to give to Black.
+        crossrefs: Whether to cross-reference types in the signature.
+
+    Returns:
+        The same code, formatted.
+    """
+    env = context.environment
+    template = env.get_template("signature.html")
+    signature = template.render(context.parent, function=function)
+    signature = _format_signature(callable_path, signature, line_length)
+    signature = str(env.filters["highlight"](signature, language="python", inline=False))
+    return signature
 
 
 def do_order_members(

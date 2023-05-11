@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import pytest
 
 from mkdocstrings_handlers.python import rendering
+
+if TYPE_CHECKING:
+    from markupsafe import Markup
 
 
 @pytest.mark.parametrize(
@@ -29,17 +32,17 @@ def test_format_code(code: str) -> None:
 
 
 @pytest.mark.parametrize(
-    "signature",
-    ["Class.method(param: str = 'hello') -> 'OtherClass'"],
+    ("name", "signature"),
+    [("Class.method", "(param: str = 'hello') -> 'OtherClass'")],
 )
-def test_format_signature(signature: str) -> None:
+def test_format_signature(name: Markup, signature: str) -> None:
     """Assert signatures can be Black-formatted.
 
     Parameters:
         signature: Signature to format.
     """
     for length in (5, 100):
-        assert rendering.do_format_signature(signature, length)
+        assert rendering._format_signature(name, signature, length)
 
 
 @dataclass

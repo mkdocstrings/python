@@ -43,11 +43,8 @@
     {% if config.separate_signature and config.merge_init_into_class %}
       {% if "__init__" in class.members %}
         {% with function = class.members["__init__"] %}
-          {% filter highlight(language="python", inline=False) %}
-            {% filter format_signature(config.line_length) %}
-              {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
-              {% include "signature.html" with context %}
-            {% endfilter %}
+          {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
+            {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
           {% endfilter %}
         {% endwith %}
       {% endif %}

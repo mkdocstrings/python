@@ -7,6 +7,8 @@
   {{ original_expression }}
 {%- else -%}
   {%- with annotation = original_expression|attr(config.annotations_path) -%}
-    <span data-autorefs-optional{% if annotation != original_expression.full %}-hover{% endif %}="{{ original_expression.full }}">{{ annotation }}</span>
+    {%- filter stash_crossref(length=annotation|length) -%}
+      <span data-autorefs-optional{% if annotation != original_expression.full %}-hover{% endif %}="{{ original_expression.full }}">{{ annotation }}</span>
+    {%- endfilter -%}
   {%- endwith -%}
 {%- endif -%}
