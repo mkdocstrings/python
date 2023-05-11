@@ -1,1 +1,7 @@
-goals: {}
+goals:
+  500:
+    name: PlasmaVac User Guide
+    features:
+    - name: Cross-references for type annotations in signatures
+      ref: /usage/configuration/signatures/#signature_crossrefs
+      since: 2023/05/10
