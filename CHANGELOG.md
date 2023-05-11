@@ -5,6 +5,32 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.0](https://github.com/mkdocstrings/python/releases/tag/1.0.0) - 2023-05-11
+
+<small>[Compare with 0.10.1](https://github.com/mkdocstrings/python/compare/0.10.1...1.0.0)</small>
+
+### Breaking changes
+
+- The signature of the [`format_signature` filter](https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/rendering/#mkdocstrings_handlers.python.rendering.do_format_signature) has changed.
+    If you override templates in your project to customize the output,
+    make sure to update the following templates so that they use
+    the new filter signature:
+
+    - `class.html`
+    - `expression.html`
+    - `function.html`
+    - `signature.html`
+
+    You can see how to use the filter in this commit's changes:
+    [f686f4e4](https://github.com/mkdocstrings/python/commit/f686f4e4599cea64686d4ef4863b507dd096a513).
+    
+**We take this as an opportunity to go out of beta and bump the version to 1.0.0.
+This will allow users to rely on semantic versioning.**
+
+### Bug Fixes
+
+- Bring compatibility with insiders signature crossrefs feature ([f686f4e](https://github.com/mkdocstrings/python/commit/f686f4e4599cea64686d4ef4863b507dd096a513) by Timothée Mazzucotelli).
+
 ## [0.10.1](https://github.com/mkdocstrings/python/releases/tag/0.10.1) - 2023-05-07
 
 <small>[Compare with 0.10.0](https://github.com/mkdocstrings/python/compare/0.10.0...0.10.1)</small>
