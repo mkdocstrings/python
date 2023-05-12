@@ -297,7 +297,10 @@ class PythonHandler(BaseHandler):
         mutabled_config = dict(copy.deepcopy(config))
         final_config = ChainMap(mutabled_config, self.default_config)
 
-        template = self.env.get_template(f"{data.kind.value}.html")
+        if hasattr(data, "template") and data.template:
+            template = self.env.get_template(data.template)
+        else:
+            template = self.env.get_template(f"{data.kind.value}.html")
 
         # Heading level is a "state" variable, that will change at each step
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
