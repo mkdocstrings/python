@@ -40,8 +40,8 @@ Changelog = "https://mkdocstrings.github.io/python/changelog"
 Repository = "https://github.com/mkdocstrings/python"
 Issues = "https://github.com/mkdocstrings/python/issues"
 Discussions = "https://github.com/mkdocstrings/python/discussions"
-Gitter = "https://gitter.im/python/community"
-Funding = "https://github.com/sponsors/mkdocstrings"
+Gitter = "https://gitter.im/mkdocstrings/python"
+Funding = "https://github.com/sponsors/pawamoy"
 
 [tool.pdm]
 version = {source = "scm"}
