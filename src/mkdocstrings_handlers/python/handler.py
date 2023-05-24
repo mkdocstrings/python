@@ -297,10 +297,8 @@ class PythonHandler(BaseHandler):
         mutabled_config = dict(copy.deepcopy(config))
         final_config = ChainMap(mutabled_config, self.default_config)
 
-        if hasattr(data, "template") and data.template:
-            template = self.env.get_template(data.template)
-        else:
-            template = self.env.get_template(f"{data.kind.value}.html")
+        template_name = rendering.do_get_template(data)
+        template = self.env.get_template(template_name)
 
         # Heading level is a "state" variable, that will change at each step
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
@@ -338,6 +336,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["format_signature"] = rendering.do_format_signature
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = lambda ref, length: ref
+        self.env.filters["get_template"] = rendering.do_get_template
 
     def get_anchors(self, data: CollectorItem) -> set[str]:  # noqa: D102 (ignore missing docstring)
         try:

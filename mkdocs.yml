@@ -27,6 +27,7 @@ nav:
     - Sphinx: usage/docstrings/sphinx.md
   - Advanced:
     - Customization: usage/customization.md
+    - Extensions: usage/extensions.md
 # defer to gen-files + literate-nav
 - Code Reference: reference/
 - Development:
