@@ -248,3 +248,16 @@ def _get_black_formatter() -> Callable[[str, int], str]:
         return format_str(code, mode=mode)
 
     return formatter
+
+
+def do_get_template(obj: Object) -> str:
+    """Get the template name used to render an object.
+
+    Parameters:
+        obj: A Griffe object.
+
+    Returns:
+        A template name.
+    """
+    extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
+    return extra_data.get("template", "") or f"{obj.kind.value}.html"
