@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.1.0](https://github.com/mkdocstrings/python/releases/tag/1.1.0) - 2023-05-25
+
+<small>[Compare with 1.0.0](https://github.com/mkdocstrings/python/compare/1.0.0...1.1.0)</small>
+
+### Features
+
+- Support custom templates through objects' extra data ([8ff2b06](https://github.com/mkdocstrings/python/commit/8ff2b06295e848b9c84867802eb845adf061dc10) by Timothée Mazzucotelli). [PR #70](https://github.com/mkdocstrings/python/pull/70)
+
 ## [1.0.0](https://github.com/mkdocstrings/python/releases/tag/1.0.0) - 2023-05-11
 
 <small>[Compare with 0.10.1](https://github.com/mkdocstrings/python/compare/0.10.1...1.0.0)</small>
