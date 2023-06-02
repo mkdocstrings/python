@@ -5,6 +5,7 @@ from pathlib import Path
 import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
+mod_symbol = '<code class="doc-symbol doc-symbol-nav doc-symbol-mod">mod</code>'
 
 for path in sorted(Path("src").rglob("*.py")):
     module_path = path.relative_to("src").with_suffix("")
@@ -20,7 +21,8 @@ for path in sorted(Path("src").rglob("*.py")):
     elif parts[-1].startswith("_"):
         continue
 
-    nav[parts] = doc_path.as_posix()
+    nav_parts = [f"{mod_symbol} {part}" for part in parts]
+    nav[tuple(nav_parts)] = doc_path.as_posix()
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
