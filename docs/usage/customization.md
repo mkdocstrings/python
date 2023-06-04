@@ -29,76 +29,41 @@ The following CSS classes are used in the generated HTML:
 
 //// tab | CSS
 ```css
-.doc-label { border-radius: 15px; padding: 0 5px; }
-.doc-label-special { background-color: blue; color: white; }
-.doc-label-private { background-color: red; color: white; }
-.doc-label-property { background-color: green; color: white; }
-.doc-label-read-only { background-color: yellow; color: black; }
+.doc-label { border-radius: 15px; padding: 2px 8px; font-weight: bold; }
+.doc-label-special { background-color: #3330E4; color: white; }
+.doc-label-private { background-color: #F637EC; color: white; }
+.doc-label-property { background-color: #FBB454; color: black; }
+.doc-label-read-only { background-color: #FAEA48; color: black; }
 ```
 ////
 
 //// tab | Result
 <style>
-  .lbl { border-radius: 15px; padding: 0 5px; }
+  .lbl { border-radius: 15px; padding: 2px 8px; font-weight: bold; }
 </style>
-<h3 style="margin: 0;"><span>
-    <small class="lbl" style="background-color: blue; color: white !important;">special</small>
-    <small class="lbl" style="background-color: red; color: white !important;">private</small>
-    <small class="lbl" style="background-color: green; color: white !important;">property</small>
-    <small class="lbl" style="background-color: yellow; color: black !important;">read-only</small>
-</span></h3>
+<h3 style="margin: 0;">
+  <p>
+  <small class="lbl" style="background-color: #3330E4; color: white !important;">special</small>
+  <small class="lbl" style="background-color: #F637EC; color: white !important;">private</small>
+  <small class="lbl" style="background-color: #FBB454; color: black !important;">property</small>
+  <small class="lbl" style="background-color: #FAEA48; color: black !important;">read-only</small>
+  </p>
+</h3>
 ////
 
 ///
-
-
-### Recommended style (Material)
-
-Here are some CSS rules for the
-[*Material for MkDocs*](https://squidfunk.github.io/mkdocs-material/) theme:
-
-```css
---8<-- "docs/css/mkdocstrings.css"
-```
-
-### Recommended style (ReadTheDocs)
-
-Here are some CSS rules for the built-in *ReadTheDocs* theme:
-
-```css
-/* Indentation. */
-div.doc-contents:not(.first) {
-  padding-left: 25px;
-  border-left: .05rem solid rgba(200, 200, 200, 0.2);
-}
-```
 
 ## Templates
 
 Templates are organized into the following tree:
 
-```tree result="text"
-theme/
-    attribute.html
-    children.html
-    class.html
-    docstring/
-        admonition.html
-        attributes.html
-        examples.html
-        other_parameters.html
-        parameters.html
-        raises.html
-        receives.html
-        returns.html
-        warns.html
-        yields.html
-    docstring.html
-    expression.html
-    function.html
-    labels.html
-    module.html
-    signature.html
+```python exec="1" result="tree"
+from pathlib import Path
+
+basedir = "src/mkdocstrings_handlers/python/templates/material"
+print("theme/")
+for filepath in sorted(path for path in Path(basedir).rglob("*") if "_base" not in str(path) and path.suffix != ".css"):
+    print("    " * (len(filepath.relative_to(basedir).parent.parts) + 1) + filepath.name + ("/" if filepath.is_dir() else ""))
 ```
 
 See them [in the repository](https://github.com/mkdocstrings/python/tree/master/src/mkdocstrings_handlers/python/templates/).
@@ -131,3 +96,29 @@ without having to fully copy-paste it into your project:
 ```
 
 WARNING: **Block-level customization is not ready yet. We welcome [suggestions](https://github.com/mkdocstrings/python/issues/new).**
+
+## Style recommendations
+
+<a id="recommended-style-material"></a>
+
+### Material
+
+Here are some CSS rules for the [Material for MkDocs] theme:
+
+```css
+--8<-- "docs/css/mkdocstrings.css"
+```
+
+<a id="recommended-style-readthedocs"></a>
+
+### ReadTheDocs
+
+Here are some CSS rules for the built-in ReadTheDocs theme:
+
+```css
+/* Indentation. */
+div.doc-contents:not(.first) {
+  padding-left: 25px;
+  border-left: .05rem solid rgba(200, 200, 200, 0.2);
+}
+```
