@@ -22,7 +22,11 @@
               {% endwith %}
             {% endif %}
           </td>
-          <td>{{ returns.description|convert_markdown(heading_level, html_id) }}</td>
+          <td>
+            <div class="doc-md-description">
+              {{ returns.description|convert_markdown(heading_level, html_id) }}
+            </div>
+          </td>
         </tr>
       {% endfor %}
     </tbody>
@@ -42,7 +46,10 @@
             {% if returns.name %}){% endif %}
           {% endwith %}
         {% endif %}
-        – {{ returns.description|convert_markdown(heading_level, html_id) }}
+        –
+        <div class="doc-md-description">
+          {{ returns.description|convert_markdown(heading_level, html_id) }}
+      </div>
       </li>
     {% endfor %}
   </ul>
@@ -71,7 +78,9 @@
             {% endif %}
           </td>
           <td class="doc-returns-details">
-            {{ returns.description|convert_markdown(heading_level, html_id) }}
+            <div class="doc-md-description">
+              {{ returns.description|convert_markdown(heading_level, html_id) }}
+            </div>
             {% if returns.name and returns.annotation %}
               <p>
                 <span class="doc-returns-annotation">

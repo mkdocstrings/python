@@ -22,7 +22,11 @@
               {% endwith %}
             {% endif %}
           </td>
-          <td>{{ receives.description|convert_markdown(heading_level, html_id) }}</td>
+          <td>
+            <div class="doc-md-description">
+              {{ receives.description|convert_markdown(heading_level, html_id) }}
+            </div>
+          </td>
         </tr>
       {% endfor %}
     </tbody>
@@ -42,7 +46,10 @@
             {% if receives.name %}){% endif %}
           {% endwith %}
         {% endif %}
-        – {{ receives.description|convert_markdown(heading_level, html_id) }}
+        –
+        <div class="doc-md-description">
+          {{ receives.description|convert_markdown(heading_level, html_id) }}
+        </div>
       </li>
     {% endfor %}
   </ul>
@@ -71,7 +78,9 @@
             {% endif %}
           </td>
           <td class="doc-receives-details">
-            {{ receives.description|convert_markdown(heading_level, html_id) }}
+            <div class="doc-md-description">
+              {{ receives.description|convert_markdown(heading_level, html_id) }}
+            </div>
             {% if receives.name and receives.annotation %}
               <p>
                 <span class="doc-receives-annotation">

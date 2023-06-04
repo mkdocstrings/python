@@ -19,7 +19,11 @@
               {% endwith %}
             {% endif %}
           </td>
-          <td>{{ raises.description|convert_markdown(heading_level, html_id) }}</td>
+          <td>
+            <div class="doc-md-description">
+              {{ raises.description|convert_markdown(heading_level, html_id) }}
+            </div>
+          </td>
         </tr>
       {% endfor %}
     </tbody>
@@ -37,7 +41,9 @@
           {% endwith %}
           –
         {% endif %}
-        {{ raises.description|convert_markdown(heading_level, html_id) }}
+        <div class="doc-md-description">
+          {{ raises.description|convert_markdown(heading_level, html_id) }}
+        </div>
       </li>
     {% endfor %}
   </ul>
@@ -62,7 +68,9 @@
             </span>
           </td>
           <td class="doc-raises-details">
-            {{ raises.description|convert_markdown(heading_level, html_id) }}
+            <div class="doc-md-description">
+              {{ raises.description|convert_markdown(heading_level, html_id) }}
+            </div>
           </td>
         </tr>
       {% endfor %}

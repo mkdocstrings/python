@@ -22,6 +22,7 @@ The following CSS classes are used in the generated HTML:
 - `doc-labels`: on `span`s wrapping the object's labels
     - `doc-label`: on `small` elements containing a label
         - `doc-label-LABEL`: same, where `LABEL` is replaced by the actual label
+- `doc-md-description`: on `div`s containing HTML descriptions converted from Markdown docstrings
 
 /// admonition | Example with colorful labels
     type: example

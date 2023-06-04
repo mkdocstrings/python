@@ -21,7 +21,11 @@
               {% endwith %}
             {% endif %}
           </td>
-          <td>{{ parameter.description|convert_markdown(heading_level, html_id) }}</td>
+          <td>
+            <div class="doc-md-description">
+              {{ parameter.description|convert_markdown(heading_level, html_id) }}
+            </div>
+          </td>
         </tr>
       {% endfor %}
     </tbody>
@@ -39,7 +43,10 @@
             (<code>{% include "expression.html" with context %}</code>)
           {% endwith %}
         {% endif %}
-        – {{ parameter.description|convert_markdown(heading_level, html_id) }}
+        –
+        <div class="doc-md-description">
+          {{ parameter.description|convert_markdown(heading_level, html_id) }}
+        </div>
       </li>
     {% endfor %}
   </ul>
@@ -58,7 +65,9 @@
         <tr>
           <td><code>{{ parameter.name }}</code></td>
           <td class="doc-param-details">
-            {{ parameter.description|convert_markdown(heading_level, html_id) }}
+            <div class="doc-md-description">
+              {{ parameter.description|convert_markdown(heading_level, html_id) }}
+            </div>
             <p>
               {% if parameter.annotation %}
                 <span class="doc-param-annotation">

@@ -8,10 +8,10 @@ h5.doc-heading {
   word-break: normal !important;
 }
 
-/* For pieces of Markdown rendered in table cells. */
-.doc-contents td p {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+/* No line break before first paragraph of descriptions. */
+.doc-md-description,
+.doc-md-description>p:first-child {
+  display: inline;
 }
 
 /* Max width for docstring sections tables. */
@@ -20,13 +20,9 @@ h5.doc-heading {
   display: table !important;
   width: 100%;
 }
+
 .doc .md-typeset__table tr {
   display: table-row;
-}
-
-/* Avoid line breaks in rendered fields. */
-.field-body p {
-  display: inline;
 }
 
 /* Defaults in Spacy table style. */
