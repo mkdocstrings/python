@@ -1,0 +1,30 @@
+{{ log.debug() }}
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">{{ section.title or "Attributes:" }}</th>
+      <td class="field-body">
+        <ul class="first simple">
+          {% for attribute in section.value %}
+            <li>
+              <b>{{ attribute.name }}</b>
+              {% if attribute.annotation %}
+                {% with expression = attribute.annotation %}
+                  (<code>{% include "expression.html" with context %}</code>)
+                {% endwith %}
+              {% endif %}
+              –
+              <div class="doc-md-description">
+                {{ attribute.description|convert_markdown(heading_level, html_id) }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

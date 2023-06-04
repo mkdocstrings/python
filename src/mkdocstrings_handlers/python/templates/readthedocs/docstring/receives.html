@@ -1,0 +1,32 @@
+{{ log.debug() }}
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">{{ section.title or "Receives:" }}</th>
+      <td class="field-body">
+        <ul class="first simple">
+          {% for receives in section.value %}
+            <li>
+              {% if receives.name %}<b>{{ receives.name }}</b>{% endif %}
+              {% if receives.annotation %}
+                {% with expression = receives.annotation %}
+                  {% if receives.name %}({% endif %}
+                  <code>{% include "expression.html" with context %}</code>
+                  {% if receives.name %}){% endif %}
+                {% endwith %}
+              {% endif %}
+              –
+              <div class="doc-md-description">
+                {{ receives.description|convert_markdown(heading_level, html_id) }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
