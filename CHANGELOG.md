@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.1.2](https://github.com/mkdocstrings/python/releases/tag/1.1.2) - 2023-06-04
+
+<small>[Compare with 1.1.1](https://github.com/mkdocstrings/python/compare/1.1.1...1.1.2)</small>
+
+### Code Refactoring
+
+- Keep headings style consistent (CSS) ([92032e5](https://github.com/mkdocstrings/python/commit/92032e561861c3fc4e3fb0c6882bb076d0e6614d) by Timothée Mazzucotelli).
+
 ## [1.1.1](https://github.com/mkdocstrings/python/releases/tag/1.1.1) - 2023-06-04
 
 <small>[Compare with 1.1.0](https://github.com/mkdocstrings/python/compare/1.1.0...1.1.1)</small>
