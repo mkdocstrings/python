@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.1.1](https://github.com/mkdocstrings/python/releases/tag/1.1.1) - 2023-06-04
+
+<small>[Compare with 1.1.0](https://github.com/mkdocstrings/python/compare/1.1.0...1.1.1)</small>
+
+### Bug Fixes
+
+- Fix mkdocs and readthedocs themes support ([14f18b2](https://github.com/mkdocstrings/python/commit/14f18b219f67f9b6d154d4a52051d8d7d7c49348) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Improve display of paragraphs in docstring sections ([439f5e6](https://github.com/mkdocstrings/python/commit/439f5e6984fe94c28324ca57fbd1a52ef8f55b62) by Timothée Mazzucotelli).
+
 ## [1.1.0](https://github.com/mkdocstrings/python/releases/tag/1.1.0) - 2023-05-25
 
 <small>[Compare with 1.0.0](https://github.com/mkdocstrings/python/compare/1.0.0...1.1.0)</small>
