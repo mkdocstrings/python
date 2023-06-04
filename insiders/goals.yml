@@ -5,3 +5,6 @@ goals:
     - name: Cross-references for type annotations in signatures
       ref: /usage/configuration/signatures/#signature_crossrefs
       since: 2023/05/10
+    - name: Symbol types in headings and table of contents
+      ref: /usage/configuration/headings/#show_symbol_type_toc
+      since: 2023/06/04
