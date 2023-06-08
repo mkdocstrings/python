@@ -5,7 +5,7 @@ from pathlib import Path
 import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
-mod_symbol = '<code class="doc-symbol doc-symbol-nav doc-symbol-module">mod</code>'
+mod_symbol = '<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>'
 
 for path in sorted(Path("src").rglob("*.py")):
     module_path = path.relative_to("src").with_suffix("")
