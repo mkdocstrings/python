@@ -1,14 +1,17 @@
 {{ log.debug("Rendering parameters section") }}
+
+{% import "language.html" as lang with context %}
+
 {% if config.docstring_section_style == "table" %}
   {% block table_style %}
-  <p><strong>{{ section.title or "Parameters:" }}</strong></p>
+  <p><strong>{{ section.title or lang.t("Parameters:") }}</strong></p>
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
+        <th>{{ lang.t("Name") }}</th>
+        <th>{{ lang.t("Type") }}</th>
+        <th>{{ lang.t("Description") }}</th>
+        <th>{{ lang.t("Default") }}</th>
       </tr>
     </thead>
     <tbody>
@@ -33,7 +36,7 @@
                 <code>{% include "expression.html" with context %}</code>
               {% endwith %}
             {% else %}
-              <em>required</em>
+              <em>{{ lang.t("required") }}</em>
             {% endif %}
           </td>
         </tr>
@@ -43,7 +46,7 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style %}
-  <p>{{ section.title or "Parameters:" }}</p>
+  <p>{{ section.title or lang.t("Parameters:") }}</p>
   <ul>
     {% for parameter in section.value %}
       <li class="field-body">
@@ -66,8 +69,8 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or "PARAMETER").rstrip(":").upper() }}</b></th>
-        <th><b>DESCRIPTION</b></th>
+        <th><b>{{ (section.title or lang.t("PARAMETER")).rstrip(":").upper() }}</b></th>
+        <th><b> {{ lang.t("DESCRIPTION") }}</b></th>
       </tr>
     </thead>
     <tbody>
@@ -81,7 +84,7 @@
             <p>
               {% if parameter.annotation %}
                 <span class="doc-param-annotation">
-                  <b>TYPE:</b>
+                  <b>{{ lang.t("TYPE:") }}</b>
                   {% with expression = parameter.annotation %}
                     <code>{% include "expression.html" with context %}</code>
                   {% endwith %}
@@ -89,7 +92,7 @@
               {% endif %}
               {% if parameter.default %}
                 <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
+                  <b>{{ lang.t("DEFAULT:") }}</b> 
                   {% with expression = parameter.default %}
                     <code>{% include "expression.html" with context %}</code>
                   {% endwith %}

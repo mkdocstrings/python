@@ -1,14 +1,17 @@
 {{ log.debug("Rendering yields section") }}
+
+{% import "language.html" as lang with context %}
+
 {% if config.docstring_section_style == "table" %}
   {% block table_style %}
   {% set name_column = section.value|selectattr("name")|any %}
-  <p><strong>{{ section.title or "Yields:" }}</strong></p>
+  <p><strong>{{ section.title or lang.t("Yields:") }}</strong></p>
   <table>
     <thead>
       <tr>
-        {% if name_column %}<th>Name</th>{% endif %}
-        <th>Type</th>
-        <th>Description</th>
+        {% if name_column %}<th>{{ lang.t("Name") }}</th>{% endif %}
+        <th>{{ lang.t("Type") }}</th>
+        <th>{{ lang.t("Description") }}</th>
       </tr>
     </thead>
     <tbody>
@@ -34,7 +37,7 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style %}
-  <p>{{ section.title or "Yields:" }}</p>
+  <p>{{ section.title or lang.t("Yields:") }}</p>
   <ul>
     {% for yields in section.value %}
       <li class="field-body">
@@ -59,8 +62,8 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or "YIELDS").rstrip(":").upper() }}</b></th>
-        <th><b>DESCRIPTION</b></th>
+        <th><b>{{ (section.title or lang.t("YIELDS")).rstrip(":").upper() }}</b></th>
+        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
       </tr>
     </thead>
     <tbody>
@@ -84,7 +87,7 @@
             {% if yields.name and yields.annotation %}
               <p>
                 <span class="doc-yields-annotation">
-                  <b>TYPE:</b>
+                  <b>{{ lang.t("TYPE") }}:</b>
                   {% with expression = yields.annotation %}
                     <code>{% include "expression.html" with context %}</code>
                   {% endwith %}

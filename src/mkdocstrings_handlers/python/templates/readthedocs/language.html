@@ -1,0 +1,7 @@
+<!-- Import translations for given language and fallback -->
+
+{% import "languages/" ~ locale ~ ".html" as lang %}
+{% import "languages/en.html" as fallback %}
+
+<!-- Re-export translations -->
+{% macro t(key) %}{{ lang.t(key) or fallback.t(key) }}{% endmacro %}
