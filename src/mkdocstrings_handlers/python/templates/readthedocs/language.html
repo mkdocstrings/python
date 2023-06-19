@@ -1,9 +1,5 @@
 <!-- Import translations for given language and fallback -->
 
-{% if locale is not defined %}
-    {% set locale = "en" %}
-{% endif %}
-
 {% import "languages/" ~ locale ~ ".html" as lang %}
 {% import "languages/en.html" as fallback %}
 
