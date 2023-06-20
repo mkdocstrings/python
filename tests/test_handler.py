@@ -64,6 +64,7 @@ def test_render_docstring_examples_section(handler: PythonHandler) -> None:
     )
     template = handler.env.get_template("docstring/examples.html")
     rendered = template.render(section=section, locale="en")
+    template.render(section=section, locale="not_existing")
     assert "<p>This is an example.</p>" in rendered
     assert "print" in rendered
     assert "Hello" in rendered

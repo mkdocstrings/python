@@ -346,6 +346,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = lambda ref, length: ref
         self.env.filters["get_template"] = rendering.do_get_template
+        self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_anchors(self, data: CollectorItem) -> set[str]:  # noqa: D102 (ignore missing docstring)
         try:
