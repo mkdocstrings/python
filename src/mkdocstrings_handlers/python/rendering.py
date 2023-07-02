@@ -103,8 +103,7 @@ def do_format_signature(
     template = env.get_template("signature.html")
     signature = template.render(context.parent, function=function)
     signature = _format_signature(callable_path, signature, line_length)
-    signature = str(env.filters["highlight"](signature, language="python", inline=False))
-    return signature
+    return str(env.filters["highlight"](signature, language="python", inline=False))
 
 
 def do_order_members(

@@ -10,7 +10,7 @@ import re
 import sys
 from collections import ChainMap
 from contextlib import suppress
-from typing import TYPE_CHECKING, Any, BinaryIO, Iterator, Mapping
+from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterator, Mapping
 
 from griffe.collections import LinesCollection, ModulesCollection
 from griffe.docstrings.parsers import Parser
@@ -71,8 +71,8 @@ class PythonHandler(BaseHandler):
     domain: str = "py"  # to match Sphinx's default domain
     enable_inventory: bool = True
     fallback_theme = "material"
-    fallback_config: dict = {"fallback": True}
-    default_config: dict = {
+    fallback_config: ClassVar[dict] = {"fallback": True}  # type: ignore[misc]
+    default_config: ClassVar[dict] = {
         "docstring_style": "google",
         "docstring_options": {},
         "show_root_heading": False,
