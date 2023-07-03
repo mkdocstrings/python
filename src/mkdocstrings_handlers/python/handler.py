@@ -106,6 +106,7 @@ class PythonHandler(BaseHandler):
         "members_order": rendering.Order.alphabetical.value,
         "docstring_section_style": "table",
         "members": None,
+        "inherited_members": False,
         "filters": ["!^_[^_]"],
         "annotations_path": "brief",
         "preload_modules": None,
@@ -138,7 +139,13 @@ class PythonHandler(BaseHandler):
         show_category_heading (bool): When grouped by categories, show a heading for each category. Default: `False`.
 
     Attributes: Members options:
-        members (list[str] | False | None): An explicit list of members to render. Default: `None`.
+        inherited_members (list[str] | bool | None): A boolean, or an explicit list of inherited members to render.
+            If true, select all inherited members, which can then be filtered with `members`.
+            If false or empty list, do not select any inherited member. Default: `False`.
+        members (list[str] | bool | None): A boolean, or an explicit list of members to render.
+            If true, select all members without further filtering.
+            If false or empty list, do not render members.
+            If none, select all members and apply further filtering with filters and docstrings. Default: `None`.
         members_order (str): The members ordering to use. Options: `alphabetical` - order by the members names,
             `source` - order members as they appear in the source file. Default: `"alphabetical"`.
         filters (list[str] | None): A list of filters applied to filter objects based on their name.

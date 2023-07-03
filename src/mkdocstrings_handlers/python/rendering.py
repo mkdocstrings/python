@@ -194,7 +194,8 @@ def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
     *,
     filters: Sequence[tuple[Pattern, bool]] | None = None,
-    members_list: list[str] | None = None,
+    members_list: bool | list[str] | None = None,
+    inherited_members: bool | list[str] = False,
     keep_no_docstrings: bool = True,
 ) -> list[Object | Alias]:
     """Filter a dictionary of objects based on their docstrings.
@@ -207,31 +208,49 @@ def do_filter_objects(
         members_list: An optional, explicit list of members to keep.
             When given and empty, return an empty list.
             When given and not empty, ignore filters and docstrings presence/absence.
+        inherited_members: Whether to keep inherited members or exclude them.
         keep_no_docstrings: Whether to keep objects with no/empty docstrings (recursive check).
 
     Returns:
         A list of objects.
     """
-    # no members
-    if members_list is False or members_list == []:
-        return []
+    inherited_members_specified = False
+    if inherited_members is True:
+        # Include all inherited members.
+        objects = list(objects_dictionary.values())
+    elif inherited_members is False:
+        # Include no inherited members.
+        objects = [obj for obj in objects_dictionary.values() if not obj.inherited]
+    else:
+        # Include specific inherited members.
+        inherited_members_specified = True
+        objects = [
+            obj for obj in objects_dictionary.values() if not obj.inherited or obj.name in set(inherited_members)
+        ]
 
-    objects = list(objects_dictionary.values())
-
-    # all members
     if members_list is True:
+        # Return all pre-selected members.
         return objects
 
-    # list of members
-    if members_list is not None:
-        return [obj for obj in objects if obj.name in set(members_list)]
+    if members_list is False or members_list == []:
+        # Return selected inherited members, if any.
+        return [obj for obj in objects if obj.inherited]
 
-    # none, use filters and docstrings
+    if members_list is not None:
+        # Return selected members (keeping any pre-selected inherited members).
+        return [
+            obj for obj in objects if obj.name in set(members_list) or (inherited_members_specified and obj.inherited)
+        ]
+
+    # Use filters and docstrings.
     if filters:
-        objects = [obj for obj in objects if _keep_object(obj.name, filters)]
+        objects = [
+            obj for obj in objects if _keep_object(obj.name, filters) or (inherited_members_specified and obj.inherited)
+        ]
     if keep_no_docstrings:
         return objects
-    return [obj for obj in objects if obj.has_docstrings]
+
+    return [obj for obj in objects if obj.has_docstrings or (inherited_members_specified and obj.inherited)]
 
 
 @lru_cache(maxsize=1)
