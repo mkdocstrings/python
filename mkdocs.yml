@@ -143,7 +143,9 @@ plugins:
             ignore_init_summary: true
           docstring_section_style: list
           heading_level: 1
+          inherited_members: true
           merge_init_into_class: true
+          preload_modules: [mkdocstrings]
           separate_signature: true
           show_root_heading: true
           show_root_full_path: false
