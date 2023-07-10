@@ -416,7 +416,7 @@ plugins:
 ```md title="or in docs/some_page.md (local configuration)"
 ::: path.to.module
     options:
-      show_if_no_docstring: false
+      show_docstring_attributes: false
 ```
 
 ```python
