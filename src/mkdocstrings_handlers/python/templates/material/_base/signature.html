@@ -55,7 +55,10 @@
         {%- endif -%}
       {%- endfor -%}
     )
-    {%- if config.show_signature_annotations and function.annotation %} -> {% if config.separate_signature and config.signature_crossrefs -%}
+    {%- if config.show_signature_annotations
+        and function.annotation
+        and not (config.merge_init_into_class and function.name == "__init__" )
+    %} -> {% if config.separate_signature and config.signature_crossrefs -%}
         {%- with expression = function.annotation %}{% include "expression.html" with context %}{%- endwith -%}
       {%- else -%}
         {{ function.annotation|safe }}
