@@ -1,14 +1,17 @@
 {{ log.debug("Rendering receives section") }}
+
+{% import "language.html" as lang with context %}
+
 {% if config.docstring_section_style == "table" %}
   {% block table_style %}
   {% set name_column = section.value|selectattr("name")|any %}
-  <p><strong>{{ section.title or "Receives:" }}</strong></p>
+  <p><strong>{{ section.title or lang.t("Receives:") }}</strong></p>
   <table>
     <thead>
       <tr>
-        {% if name_column %}<th>Name</th>{% endif %}
-        <th>Type</th>
-        <th>Description</th>
+        {% if name_column %}<th>{{ lang.t("Name") }}</th>{% endif %}
+        <th>{{ lang.t("Type") }}</th>
+        <th>{{ lang.t("Description") }}</th>
       </tr>
     </thead>
     <tbody>
@@ -34,7 +37,7 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style %}
-  <p>{{ section.title or "Receives:" }}</p>
+  <p>{{ section.title or lang.t("Receives:") }}</p>
   <ul>
     {% for receives in section.value %}
       <li class="field-body">
@@ -59,8 +62,8 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or "RECEIVES").rstrip(":").upper() }}</b></th>
-        <th><b>DESCRIPTION</b></th>
+        <th><b>{{ (section.title or lang.t("RECEIVES")).rstrip(":").upper()) }}</b></th>
+        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
       </tr>
     </thead>
     <tbody>
@@ -84,7 +87,7 @@
             {% if receives.name and receives.annotation %}
               <p>
                 <span class="doc-receives-annotation">
-                  <b>TYPE:</b>
+                  <b>{{ lang.t("TYPE:") }}</b>
                   {% with expression = receives.annotation %}
                     <code>{% include "expression.html" with context %}</code>
                   {% endwith %}

@@ -1,4 +1,7 @@
 {{ log.debug() }}
+
+{% import "language.html" as lang with context %}
+
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -6,7 +9,7 @@
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">{{ section.title or "Returns:" }}</th>
+    <th class="field-name">{{ section.title or lang.t("Returns:") }}</th>
     <td class="field-body">
       <ul class="first simple">
         {% for returns in section.value %}
