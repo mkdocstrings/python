@@ -200,6 +200,7 @@ in the following pages:
 
 ::: mkdocstrings_handlers.python.handler.PythonHandler.default_config
     options:
+      show_root_heading: false
       show_root_toc_entry: false
 
 ## Finding modules
