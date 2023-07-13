@@ -182,6 +182,7 @@ class PythonHandler(BaseHandler):
         *args: Any,
         config_file_path: str | None = None,
         paths: list[str] | None = None,
+        locale: str = "en",
         **kwargs: Any,
     ) -> None:
         """Initialize the handler.
@@ -190,6 +191,7 @@ class PythonHandler(BaseHandler):
             *args: Handler name, theme and custom templates.
             config_file_path: The MkDocs configuration file path.
             paths: A list of paths to use as Griffe search paths.
+            locale: The locale to use when rendering content.
             **kwargs: Same thing, but with keyword arguments.
         """
         super().__init__(*args, **kwargs)
@@ -210,6 +212,7 @@ class PythonHandler(BaseHandler):
         self._paths = search_paths
         self._modules_collection: ModulesCollection = ModulesCollection()
         self._lines_collection: LinesCollection = LinesCollection()
+        self._locale = locale
 
     @classmethod
     def load_inventory(
@@ -323,7 +326,13 @@ class PythonHandler(BaseHandler):
         final_config["signature_crossrefs"] = False
 
         return template.render(
-            **{"config": final_config, data.kind.value: data, "heading_level": heading_level, "root": True},
+            **{
+                "config": final_config,
+                data.kind.value: data,
+                "heading_level": heading_level,
+                "root": True,
+                "locale": self._locale,
+            },
         )
 
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
@@ -339,6 +348,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = lambda ref, length: ref
         self.env.filters["get_template"] = rendering.do_get_template
+        self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_anchors(self, data: CollectorItem) -> set[str]:  # noqa: D102 (ignore missing docstring)
         try:
@@ -352,6 +362,7 @@ def get_handler(
     custom_templates: str | None = None,
     config_file_path: str | None = None,
     paths: list[str] | None = None,
+    locale: str = "en",
     **config: Any,  # noqa: ARG001
 ) -> PythonHandler:
     """Simply return an instance of `PythonHandler`.
@@ -361,6 +372,7 @@ def get_handler(
         custom_templates: Directory containing custom templates.
         config_file_path: The MkDocs configuration file path.
         paths: A list of paths to use as Griffe search paths.
+        locale: The locale to use when rendering content.
         **config: Configuration passed to the handler.
 
     Returns:
@@ -372,4 +384,5 @@ def get_handler(
         custom_templates=custom_templates,
         config_file_path=config_file_path,
         paths=paths,
+        locale=locale,
     )

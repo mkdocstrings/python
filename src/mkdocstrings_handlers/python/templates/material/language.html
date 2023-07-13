@@ -1,0 +1,10 @@
+<!-- Import translations for given language and fallback -->
+{% set lang_pth = "languages/" ~ locale ~ ".html" %}
+{% if lang_pth is existing_template %}
+    {% import lang_pth as lang %}
+    {% import "languages/en.html" as fallback %}
+    {% macro t(key) %}{{ lang.t(key) or fallback.t(key) }}{% endmacro %}
+{% else %}
+    {% import "languages/en.html" as lang %}
+    {% macro t(key) %}{{ lang.t(key) }}{% endmacro %}
+{% endif %}

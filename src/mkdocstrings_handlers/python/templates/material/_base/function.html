@@ -1,5 +1,7 @@
 {{ log.debug("Rendering " + function.path) }}
 
+{% import "language.html" as lang with context %}
+
 <div class="doc doc-object doc-function">
 {% with html_id = function.path %}
 
@@ -61,7 +63,7 @@
 
     {% if config.show_source and function.source %}
       <details class="quote">
-        <summary>Source code in <code>{{ function.relative_filepath }}</code></summary>
+        <summary>{{ lang.t("Source code in") }} <code>{{ function.relative_filepath }}</code></summary>
         {{ function.source|highlight(language="python", linestart=function.lineno, linenums=True) }}
       </details>
     {% endif %}
