@@ -87,7 +87,7 @@
             {% if yields.name and yields.annotation %}
               <p>
                 <span class="doc-yields-annotation">
-                  <b>{{ lang.t("TYPE") }}:</b>
+                  <b>{{ lang.t("TYPE:") }}:</b>
                   {% with expression = yields.annotation %}
                     <code>{% include "expression.html" with context %}</code>
                   {% endwith %}

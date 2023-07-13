@@ -189,7 +189,7 @@ class PythonHandler(BaseHandler):
             *args: Handler name, theme and custom templates.
             config_file_path: The MkDocs configuration file path.
             paths: A list of paths to use as Griffe search paths.
-            locale: The locale to use for when rendering content.
+            locale: The locale to use when rendering content.
             **kwargs: Same thing, but with keyword arguments.
         """
         super().__init__(*args, **kwargs)
