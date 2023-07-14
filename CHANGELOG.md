@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.0](https://github.com/mkdocstrings/python/releases/tag/1.2.0) - 2023-07-14
+
+<small>[Compare with 1.1.2](https://github.com/mkdocstrings/python/compare/1.1.2...1.2.0)</small>
+
+### Features
+
+- Add Jinja blocks to module, class, function and attribute templates ([299fe48](https://github.com/mkdocstrings/python/commit/299fe483cc03ba76df29b843f88467f89db6dc72) by Timothée Mazzucotelli).
+- Setup infrastructure for I18N, add translations for simplified chinese and japanese ([b053b29](https://github.com/mkdocstrings/python/commit/b053b2900ef5c0069b68ad19bda9aaa98141a525) by Nyuan Zhang). [PR #77](https://github.com/mkdocstrings/python/pull/77)
+- Support inheritance ([ae42356](https://github.com/mkdocstrings/python/commit/ae4235689155a4b4f0c1e74b0014a466c6b1181f) by Timothée Mazzucotelli). [Issue mkdocstrings#157](https://github.com/mkdocstrings/mkdocstrings/issues/157), [Discussion mkdocstrings#536](https://github.com/mkdocstrings/mkdocstrings/discussions/536)
+
+### Bug Fixes
+
+- Don't show `None` as return annotation of class signatures ([3d8724e](https://github.com/mkdocstrings/python/commit/3d8724ed1f4d040d7a3d9d02784cf0d1f80445b2) by Timothée Mazzucotelli). [Issue #85](https://github.com/mkdocstrings/python/issues/85)
+- Show labels in deterministic order ([02619a8](https://github.com/mkdocstrings/python/commit/02619a85ee4aab25f3241d983bdfff0534dd3f81) by Oleh Prypin).
+
 ## [1.1.2](https://github.com/mkdocstrings/python/releases/tag/1.1.2) - 2023-06-04
 
 <small>[Compare with 1.1.1](https://github.com/mkdocstrings/python/compare/1.1.1...1.1.2)</small>
