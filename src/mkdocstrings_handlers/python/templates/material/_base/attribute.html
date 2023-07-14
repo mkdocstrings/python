@@ -21,31 +21,37 @@
         class="doc doc-heading",
         toc_label=attribute.name) %}
 
-      {% if config.separate_signature %}
-        <span class="doc doc-object-name doc-attribute-name">{% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}</span>
-      {% else %}
-        {% filter highlight(language="python", inline=True) %}
-          {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-          {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
-          {% if attribute.value %} = {{ attribute.value }}{% endif %}
-        {% endfilter %}
-      {% endif %}
+      {% block heading scoped %}
+        {% if config.separate_signature %}
+          <span class="doc doc-object-name doc-attribute-name">{% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}</span>
+        {% else %}
+          {% filter highlight(language="python", inline=True) %}
+            {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
+            {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+            {% if attribute.value %} = {{ attribute.value }}{% endif %}
+          {% endfilter %}
+        {% endif %}
+      {% endblock heading %}
 
-      {% with labels = attribute.labels %}
-        {% include "labels.html" with context %}
-      {% endwith %}
+      {% block labels scoped %}
+        {% with labels = attribute.labels %}
+          {% include "labels.html" with context %}
+        {% endwith %}
+      {% endblock labels %}
 
     {% endfilter %}
 
-    {% if config.separate_signature %}
-      {% filter highlight(language="python", inline=False) %}
-        {% filter format_code(config.line_length) %}
-          {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-          {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
-          {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
+    {% block signature scoped %}
+      {% if config.separate_signature %}
+        {% filter highlight(language="python", inline=False) %}
+          {% filter format_code(config.line_length) %}
+            {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
+            {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
+            {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
+          {% endfilter %}
         {% endfilter %}
-      {% endfilter %}
-    {% endif %}
+      {% endif %}
+    {% endblock signature %}
 
   {% else %}
     {% if config.show_root_toc_entry %}
@@ -60,9 +66,13 @@
   {% endif %}
 
   <div class="doc doc-contents {% if root %}first{% endif %}">
-    {% with docstring_sections = attribute.docstring.parsed %}
-      {% include "docstring.html" with context %}
-    {% endwith %}
+    {% block contents scoped %}
+      {% block docstring scoped %}
+        {% with docstring_sections = attribute.docstring.parsed %}
+          {% include "docstring.html" with context %}
+        {% endwith %}
+      {% endblock docstring %}
+    {% endblock contents %}
   </div>
 
 {% endwith %}

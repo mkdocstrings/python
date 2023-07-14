@@ -69,33 +69,97 @@ for filepath in sorted(path for path in Path(basedir).rglob("*") if "_base" not 
 See them [in the repository](https://github.com/mkdocstrings/python/tree/master/src/mkdocstrings_handlers/python/templates/).
 See the general *mkdocstrings* documentation to learn how to override them: https://mkdocstrings.github.io/theming/#templates.
 
-In preparation for Jinja2 blocks, which will improve customization,
-each one of these templates extends a base version in `theme/_base`. Example:
+Each one of these templates extends a base version in `theme/_base`. Example:
 
-```html+jinja title="theme/docstring/admonition.html"
-{% extends "_base/docstring/admonition.html" %}
+```html+jinja title="theme/class.html"
+{% extends "_base/class.html" %}
 ```
 
-```html+jinja title="theme/_base/docstring/admonition.html"
-{{ log.debug() }}
-<details class="{{ section.value.kind }}">
-  <summary>{{ section.title|convert_markdown(heading_level, html_id, strip_paragraph=True) }}</summary>
-  {{ section.value.contents|convert_markdown(heading_level, html_id) }}
-</details>
-```
-
-It means you will be able to customize only *parts* of a template
+Some of these templates define [Jinja blocks](https://jinja.palletsprojects.com/en/3.0.x/templates/#template-inheritance).
+allowing to customize only *parts* of a template
 without having to fully copy-paste it into your project:
 
-```jinja title="templates/theme/docstring.html"
-{% extends "_base/docstring.html" %}
+```jinja title="templates/theme/class.html"
+{% extends "_base/class.html" %}
 {% block contents %}
   {{ block.super }}
   Additional contents
 {% endblock contents %}
 ```
 
-WARNING: **Block-level customization is not ready yet. We welcome [suggestions](https://github.com/mkdocstrings/python/issues/new).**
+### Available blocks
+
+Only the templates for the **Material for MkDocs** provide Jinja blocks.
+The following tables show the block names, description,
+and the Jinja context available in their scope.
+
+#### `module.html`
+
+- `heading`: The module heading.
+- `labels`: The module labels.
+- `contents`: The module contents: docstring and children blocks.
+- `docstring`: The module docstring.
+- `children`: The module children.
+
+Available context:
+
+- `config`: The handler configuration (dictionary).
+- `module`: The [Module][griffe.dataclasses.Module] instance.
+
+#### `class.html`
+
+- `heading`: The class heading.
+- `labels`: The class labels.
+- `signature`: The class signature.
+- `contents`: The class contents: bases, docstring, source and children blocks.
+- `bases`: The class bases.
+- `docstring`: The class docstring.
+- `source`: The class source code.
+- `children`: The class children.
+
+Available context:
+
+- `config`: The handler configuration (dictionary).
+- `class`: The [Class][griffe.dataclasses.Class] instance.
+
+#### `function.html`
+
+- `heading`: The function heading.
+- `labels`: The function labels.
+- `signature`: The function signature.
+- `contents`: The function contents: docstring and source blocks.
+- `docstring`: The function docstring.
+- `source`: The function source code.
+
+Available context:
+
+- `config`: The handler configuration (dictionary).
+- `function`: The [Function][griffe.dataclasses.Function] instance.
+
+#### `attribute.html`
+
+- `heading`: The attribute heading.
+- `labels`: The attribute labels.
+- `signature`: The attribute signature.
+- `contents`: The attribute contents: docstring block.
+- `docstring`: The attribute docstring.
+
+Available context:
+
+- `config`: The handler configuration (dictionary).
+- `function`: The [Attribute][griffe.dataclasses.Attribute] instance.
+
+#### Docstring sections
+
+In `docstring/attributes.html`, `docstring/other_parameters.html`, `docstring/parameters.html`, `docstring/raises.html`, `docstring/receives.html`, `docstring/returns.html`, `docstring/warns.html`, and `docstring/yields.html`:
+
+- `table_style`: The section as a table.
+- `list_style`: The section as a list.
+- `spacy_style`: The section as a Spacy table.
+
+Available context:
+
+- `section`: The [DocstringSection][griffe.docstrings.dataclasses.DocstringSection] instance (see `DocstringSection*` subclasses).
 
 ## Style recommendations
 

@@ -23,26 +23,32 @@
         class="doc doc-heading",
         toc_label=function.name ~ "()") %}
 
-      {% if config.separate_signature %}
-        <span class="doc doc-object-name doc-function-name">{% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}</span>
-      {% else %}
-        {% filter highlight(language="python", inline=True) %}
-          {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
-          {% include "signature.html" with context %}
-        {% endfilter %}
-      {% endif %}
+      {% block heading scoped %}
+        {% if config.separate_signature %}
+          <span class="doc doc-object-name doc-function-name">{% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}</span>
+        {% else %}
+          {% filter highlight(language="python", inline=True) %}
+            {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+            {% include "signature.html" with context %}
+          {% endfilter %}
+        {% endif %}
+      {% endblock heading %}
 
-      {% with labels = function.labels %}
-        {% include "labels.html" with context %}
-      {% endwith %}
+      {% block labels scoped %}
+        {% with labels = function.labels %}
+          {% include "labels.html" with context %}
+        {% endwith %}
+      {% endblock labels %}
 
     {% endfilter %}
 
-    {% if config.separate_signature %}
-      {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
-        {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
-      {% endfilter %}
-    {% endif %}
+    {% block signature scoped %}
+      {% if config.separate_signature %}
+        {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
+          {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+        {% endfilter %}
+      {% endif %}
+    {% endblock signature %}
 
   {% else %}
     {% if config.show_root_toc_entry %}
@@ -57,16 +63,22 @@
   {% endif %}
 
   <div class="doc doc-contents {% if root %}first{% endif %}">
-    {% with docstring_sections = function.docstring.parsed %}
-      {% include "docstring.html" with context %}
-    {% endwith %}
+    {% block contents scoped %}
+      {% block docstring scoped %}
+        {% with docstring_sections = function.docstring.parsed %}
+          {% include "docstring.html" with context %}
+        {% endwith %}
+      {% endblock docstring %}
 
-    {% if config.show_source and function.source %}
-      <details class="quote">
-        <summary>{{ lang.t("Source code in") }} <code>{{ function.relative_filepath }}</code></summary>
-        {{ function.source|highlight(language="python", linestart=function.lineno, linenums=True) }}
-      </details>
-    {% endif %}
+      {% block source scoped %}
+        {% if config.show_source and function.source %}
+          <details class="quote">
+            <summary>{{ lang.t("Source code in") }} <code>{{ function.relative_filepath }}</code></summary>
+            {{ function.source|highlight(language="python", linestart=function.lineno, linenums=True) }}
+          </details>
+        {% endif %}
+      {% endblock source %}
+    {% endblock contents %}
   </div>
 
 {% endwith %}

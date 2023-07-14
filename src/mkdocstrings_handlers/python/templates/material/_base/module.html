@@ -21,17 +21,21 @@
         class="doc doc-heading",
         toc_label=module.name) %}
 
-      {% with module_name = module.path if show_full_path else module.name %}
-        {% if config.separate_signature %}
-          <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
-        {% else %}
-          <code>{{ module_name }}</code>
-        {% endif %}
-      {% endwith %}
+      {% block heading scoped %}
+        {% with module_name = module.path if show_full_path else module.name %}
+          {% if config.separate_signature %}
+            <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
+          {% else %}
+            <code>{{ module_name }}</code>
+          {% endif %}
+        {% endwith %}
+      {% endblock heading %}
 
-      {% with labels = module.labels %}
-        {% include "labels.html" with context %}
-      {% endwith %}
+      {% block labels scoped %}
+        {% with labels = module.labels %}
+          {% include "labels.html" with context %}
+        {% endwith %}
+      {% endblock labels %}
 
     {% endfilter %}
 
@@ -48,15 +52,21 @@
   {% endif %}
 
   <div class="doc doc-contents {% if root %}first{% endif %}">
-    {% with docstring_sections = module.docstring.parsed %}
-      {% include "docstring.html" with context %}
-    {% endwith %}
+    {% block contents scoped %}
+      {% block docstring scoped %}
+        {% with docstring_sections = module.docstring.parsed %}
+          {% include "docstring.html" with context %}
+        {% endwith %}
+      {% endblock docstring %}
 
-    {% with obj = module %}
-      {% set root = False %}
-      {% set heading_level = heading_level + 1 %}
-      {% include "children.html" with context %}
-    {% endwith %}
+      {% block children scoped %}
+        {% with obj = module %}
+          {% set root = False %}
+          {% set heading_level = heading_level + 1 %}
+          {% include "children.html" with context %}
+        {% endwith %}
+      {% endblock children %}
+    {% endblock contents %}
   </div>
 
 {% endwith %}
