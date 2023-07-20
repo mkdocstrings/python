@@ -131,3 +131,35 @@ def test_filter_inherited_members(
         filtered = rendering.do_filter_objects(objects, members_list=members, inherited_members=inherited_members)
         names = {obj.name for obj in filtered}
         assert names == expected_names
+
+
+@pytest.mark.parametrize(
+    ("order", "members_list", "expected_names"),
+    [
+        (rendering.Order.alphabetical, None, ["a", "b", "c"]),
+        (rendering.Order.source, None, ["c", "b", "a"]),
+        (rendering.Order.alphabetical, ["c", "b"], ["c", "b"]),
+        (rendering.Order.source, ["a", "c"], ["a", "c"]),
+        (rendering.Order.alphabetical, [], ["a", "b", "c"]),
+        (rendering.Order.source, [], ["c", "b", "a"]),
+        (rendering.Order.alphabetical, True, ["a", "b", "c"]),
+        (rendering.Order.source, False, ["c", "b", "a"]),
+    ],
+)
+def test_ordering_members(order: rendering.Order, members_list: list[str | None], expected_names: list[str]) -> None:
+    """Assert the objects are correctly ordered.
+
+    Parameters:
+        order: The order to use (alphabetical or source).
+        members_list: The user specified members list.
+        expected_names: The expected ordered list of object names.
+    """
+
+    class Obj:
+        def __init__(self, name: str, lineno: int | None = None) -> None:
+            self.name = name
+            self.lineno = lineno
+
+    members = [Obj("a", 10), Obj("b", 9), Obj("c", 8)]
+    ordered = rendering.do_order_members(members, order, members_list)  # type: ignore[arg-type]
+    assert [obj.name for obj in ordered] == expected_names

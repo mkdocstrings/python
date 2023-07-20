@@ -109,7 +109,7 @@ def do_format_signature(
 def do_order_members(
     members: Sequence[Object | Alias],
     order: Order,
-    members_list: list[str] | None,
+    members_list: bool | list[str] | None,
 ) -> Sequence[Object | Alias]:
     """Order members given an ordering method.
 
@@ -121,7 +121,7 @@ def do_order_members(
     Returns:
         The same members, ordered.
     """
-    if members_list:
+    if isinstance(members_list, list) and members_list:
         sorted_members = []
         members_dict = {member.name: member for member in members}
         for name in members_list:
