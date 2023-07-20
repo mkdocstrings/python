@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.1](https://github.com/mkdocstrings/python/releases/tag/1.2.1) - 2023-07-20
+
+<small>[Compare with 1.2.0](https://github.com/mkdocstrings/python/compare/1.2.0...1.2.1)</small>
+
+### Bug Fixes
+
+- Fix members ordering when members are specified with a boolean ([c69f9c3](https://github.com/mkdocstrings/python/commit/c69f9c3b3ddde915619eded6620f7ddada977b00) by Timothée Mazzucotelli). [Issue #89](https://github.com/mkdocstrings/python/issues/89)
+
 ## [1.2.0](https://github.com/mkdocstrings/python/releases/tag/1.2.0) - 2023-07-14
 
 <small>[Compare with 1.1.2](https://github.com/mkdocstrings/python/compare/1.1.2...1.2.0)</small>
