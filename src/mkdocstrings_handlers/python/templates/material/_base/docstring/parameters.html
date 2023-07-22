@@ -60,6 +60,14 @@
         <div class="doc-md-description">
           {{ parameter.description|convert_markdown(heading_level, html_id) }}
         </div>
+        {% if parameter.default %}
+          <p>
+            <b>{{ lang.t("DEFAULT:") }}</b>
+            {% with expression = parameter.default %}
+              <code>{% include "expression.html" with context %}</code>
+            {% endwith %}
+          </p>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>
