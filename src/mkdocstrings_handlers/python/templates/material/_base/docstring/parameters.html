@@ -62,7 +62,7 @@
         </div>
         {% if parameter.default %}
           <p>
-            <b>{{ lang.t("DEFAULT:") }}</b>
+            <b>{{ lang.t("Default:") }}</b>
             {% with expression = parameter.default %}
               <code>{% include "expression.html" with context %}</code>
             {% endwith %}
