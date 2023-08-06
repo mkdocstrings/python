@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.3.0](https://github.com/mkdocstrings/python/releases/tag/1.3.0) - 2023-08-06
+
+<small>[Compare with 1.2.1](https://github.com/mkdocstrings/python/compare/1.2.1...1.3.0)</small>
+
+### Dependencies
+
+- Set upper bound on Griffe (0.33) ([ad8c2a3](https://github.com/mkdocstrings/python/commit/ad8c2a3ac8daf0b0c06579b6ba667e05feffa247) by Timothée Mazzucotelli). See https://github.com/mkdocstrings/griffe/discussions/195.
+
+### Features
+
+- Show parameter default values within the "list" section style too ([55f08f3](https://github.com/mkdocstrings/python/commit/55f08f3e2cece815dd79d35c82515ba8003ec64c) by Antoine Dechaume). [PR #92](https://github.com/mkdocstrings/python/pull/92), Co-authored-by: Timothée Mazzucotelli <pawamoy@pm.me>
+
 ## [1.2.1](https://github.com/mkdocstrings/python/releases/tag/1.2.1) - 2023-07-20
 
 <small>[Compare with 1.2.0](https://github.com/mkdocstrings/python/compare/1.2.0...1.2.1)</small>
