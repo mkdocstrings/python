@@ -142,7 +142,7 @@ def _warn_crossref() -> None:
 
 
 def do_crossref(path: str, *, brief: bool = True) -> Markup:
-    """Filter to create cross-references.
+    """Deprecated. Filter to create cross-references.
 
     Parameters:
         path: The path to link to.
@@ -168,7 +168,7 @@ def _warn_multi_crossref() -> None:
 
 
 def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
-    """Filter to create cross-references.
+    """Deprecated. Filter to create cross-references.
 
     Parameters:
         text: The text to scan.
