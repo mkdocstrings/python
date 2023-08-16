@@ -5,6 +5,7 @@ from __future__ import annotations
 import enum
 import re
 import sys
+import warnings
 from functools import lru_cache
 from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
 
@@ -131,6 +132,15 @@ def do_order_members(
     return sorted(members, key=order_map[order])
 
 
+@lru_cache
+def _warn_crossref() -> None:
+    warnings.warn(
+        "The `crossref` filter is deprecated and will be removed in a future version",
+        DeprecationWarning,
+        stacklevel=1,
+    )
+
+
 def do_crossref(path: str, *, brief: bool = True) -> Markup:
     """Filter to create cross-references.
 
@@ -141,10 +151,20 @@ def do_crossref(path: str, *, brief: bool = True) -> Markup:
     Returns:
         Markup text.
     """
+    _warn_crossref()
     full_path = path
     if brief:
         path = full_path.split(".")[-1]
     return Markup("<span data-autorefs-optional-hover={full_path}>{path}</span>").format(full_path=full_path, path=path)
+
+
+@lru_cache
+def _warn_multi_crossref() -> None:
+    warnings.warn(
+        "The `multi_crossref` filter is deprecated and will be removed in a future version",
+        DeprecationWarning,
+        stacklevel=1,
+    )
 
 
 def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
@@ -157,6 +177,7 @@ def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
     Returns:
         Markup text.
     """
+    _warn_multi_crossref()
     group_number = 0
     variables = {}
 
