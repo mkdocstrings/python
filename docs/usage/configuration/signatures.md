@@ -16,6 +16,10 @@ Possible values:
 - `source`: render annotations as written in the source. For example if you imported `typing` as `t`,
     it will render `typing.Sequence` as `t.Sequence`. Each part will cross-reference the relevant object:
     `t` will link to the `typing` module and `Sequence` will link to the `Sequence` type.
+- `full`: render annotations with their full path (the opposite of brief).
+    For example if you import `Sequence` and `Pattern` from `typing` and annoate something using
+    `Sequence[Pattern]`, it will render as `typing.Sequence[typing.Pattern]`, with each part
+    cross-referencing the corresponding object.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -32,6 +36,11 @@ plugins:
       annotations_path: source
 ```
 
+
+/// admonition | Preview
+    type: preview
+
+//// tab | Brief annotations
 ```python
 import markdown
 import markupsafe
@@ -47,13 +56,9 @@ def convert(text: str, md: markdown.Markdown) -> markupsafe.Markup:
     Returns:
         Converted markup.
     """
-    return Markup(md.convert(text))
+    return markupsafe.Markup(md.convert(text))
 ```
 
-/// admonition | Preview
-    type: preview
-
-//// tab | Brief annotations
 <h2><code>convert(text, md)</code></h2>
 <p>Convert text to Markdown.</p>
 <p><b>Parameters:</b></p>
@@ -71,6 +76,59 @@ def convert(text: str, md: markdown.Markdown) -> markupsafe.Markup:
 ////
 
 //// tab | Source annotations
+```python
+import markdown
+from markupsafe import Markup
+
+
+def convert(text: str, md: markdown.Markdown) -> Markup:
+    """Convert text to Markdown.
+
+    Parameters:
+        text: The text to convert.
+        md: A Markdown instance.
+
+    Returns:
+        Converted markup.
+    """
+    return Markup(md.convert(text))
+```
+
+<h2><code>convert(text, md)</code></h2>
+<p>Convert text to Markdown.</p>
+<p><b>Parameters:</b></p>
+
+**Type**   | **Description**          | **Default**
+---------- | ------------------------ | -----------
+[`str`][]  | The text to convert.     | *required*
+<code><a class="external" href="#ref-to-markdown">markdown</a>.<a class="external" href="#ref-to-Markdown" title="markdown.Markdown">Markdown</a></code> | A Markdown instance. | *required*
+
+<p><b>Returns:</b></p>
+
+**Type**   | **Name**    | **Description**
+---------- | ----------- | ---------------
+[`Markup`](#ref-to-markup){ .external title="markupsafe.Markup" } | `text` | Converted markup.
+////
+
+//// tab | Full annotations
+```python
+from markdown import Markdown
+from markupsafe import Markup
+
+
+def convert(text: str, md: Markdown) -> Markup:
+    """Convert text to Markdown.
+
+    Parameters:
+        text: The text to convert.
+        md: A Markdown instance.
+
+    Returns:
+        Converted markup.
+    """
+    return Markup(md.convert(text))
+```
+
 <h2><code>convert(text, md)</code></h2>
 <p>Convert text to Markdown.</p>
 <p><b>Parameters:</b></p>
