@@ -195,6 +195,28 @@ def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
     return Markup(text).format(**variables)
 
 
+def do_split_path(path: str, full_path: str) -> list[tuple[str, str]]:
+    """Split object paths for building cross-references.
+
+    Parameters:
+        path: The path to split.
+
+    Returns:
+        A list of pairs (title, full path).
+    """
+    if "." not in path:
+        return [(path, full_path)]
+    pairs = []
+    full_path = ""
+    for part in path.split("."):
+        if full_path:
+            full_path += f".{part}"
+        else:
+            full_path = part
+        pairs.append((part, full_path))
+    return pairs
+
+
 def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
     keep = None
     rules = set()

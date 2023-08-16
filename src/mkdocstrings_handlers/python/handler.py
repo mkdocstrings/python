@@ -340,6 +340,7 @@ class PythonHandler(BaseHandler):
         self.env.trim_blocks = True
         self.env.lstrip_blocks = True
         self.env.keep_trailing_newline = False
+        self.env.filters["split_path"] = rendering.do_split_path
         self.env.filters["crossref"] = rendering.do_crossref
         self.env.filters["multi_crossref"] = rendering.do_multi_crossref
         self.env.filters["order_members"] = rendering.do_order_members

@@ -1,14 +1,46 @@
-{%- set original_expression = expression -%}
-{%- if original_expression is iterable and original_expression is not string -%}
-  {%- for expression in original_expression -%}
-    {%- include "expression.html" with context -%}
-  {%- endfor -%}
-{%- elif original_expression is string -%}
-  {{ original_expression }}
-{%- else -%}
-  {%- with annotation = original_expression|attr(config.annotations_path) -%}
-    {%- filter stash_crossref(length=annotation|length) -%}
-      <span data-autorefs-optional{% if annotation != original_expression.full %}-hover{% endif %}="{{ original_expression.full }}">{{ annotation }}</span>
-    {%- endfilter -%}
+{%- macro crossref(name, annotation_path) -%}
+  {%- with full = name.canonical_path -%}
+    {%- if annotation_path == "brief" -%}
+      {%- set annotation = name.canonical_name -%}
+    {%- elif annotation_path == "source" -%}
+      {%- set annotation = name.name -%}
+    {%- elif annotation_path == "full" -%}
+      {%- set annotation = full -%}
+    {%- endif -%}
+    {%- for title, path in annotation|split_path(full) -%}
+      {%- filter stash_crossref(length=title|length) -%}
+        <span data-autorefs-optional{% if title != path %}-hover{% endif %}="{{ path }}">{{ title }}</span>
+      {%- endfilter -%}
+      {%- if not loop.last -%}.{%- endif -%}
+    {%- endfor -%}
   {%- endwith -%}
-{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render(expression, annotations_path) -%}
+  {%- if expression is string -%}
+    {%- if signature -%}{{ expression|safe }}{%- else -%}{{ expression }}{%- endif -%}
+  {%- elif expression.classname == "ExprName" -%}
+    {{ crossref(expression, annotations_path) }}
+  {%- elif expression.classname == "ExprAttribute" -%}
+    {%- if annotations_path == "brief" -%}
+      {{ render(expression.last, "brief") }}
+    {%- elif annotations_path == "full" -%}
+      {{ render(expression.first, "full") }}
+      {%- for element in expression -%}
+        {%- if not loop.first -%}
+          {{ render(element, "brief") }}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for element in expression -%}
+        {{ render(element, annotations_path) }}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- for element in expression -%}
+      {{ render(element, annotations_path) }}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endmacro -%}
+
+{{ render(expression, config.annotations_path) }}
