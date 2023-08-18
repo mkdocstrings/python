@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.4.0](https://github.com/mkdocstrings/python/releases/tag/1.4.0) - 2023-08-18
+
+<small>[Compare with 1.3.0](https://github.com/mkdocstrings/python/compare/1.3.0...1.4.0)</small>
+
+### Features
+
+- Support new Griffe expressions (in v0.33) ([9b8e1b1](https://github.com/mkdocstrings/python/commit/9b8e1b1604b978cf2d89b7abf826cf4407f92394) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Deprecate `crossref` and `multi_crossref` filters ([4fe3d20](https://github.com/mkdocstrings/python/commit/4fe3d2051047061780e20683da6513a7c8d91829) by Timothée Mazzucotelli).
+
 ## [1.3.0](https://github.com/mkdocstrings/python/releases/tag/1.3.0) - 2023-08-06
 
 <small>[Compare with 1.2.1](https://github.com/mkdocstrings/python/compare/1.2.1...1.3.0)</small>
