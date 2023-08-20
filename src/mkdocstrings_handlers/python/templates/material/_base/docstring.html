@@ -5,6 +5,12 @@
       {{ section.value|convert_markdown(heading_level, html_id) }}
     {% elif config.show_docstring_attributes and section.kind.value == "attributes" %}
       {% include "docstring/attributes.html" with context %}
+    {% elif config.show_docstring_functions and section.kind.value == "functions" %}
+      {% include "docstring/functions.html" with context %}
+    {% elif config.show_docstring_classes and section.kind.value == "classes" %}
+      {% include "docstring/classes.html" with context %}
+    {% elif config.show_docstring_modules and section.kind.value == "modules" %}
+      {% include "docstring/modules.html" with context %}
     {% elif config.show_docstring_parameters and section.kind.value == "parameters" %}
       {% include "docstring/parameters.html" with context %}
     {% elif config.show_docstring_other_parameters and section.kind.value == "other parameters" %}

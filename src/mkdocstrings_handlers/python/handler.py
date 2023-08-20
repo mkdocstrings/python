@@ -84,6 +84,9 @@ class PythonHandler(BaseHandler):
         "line_length": 60,
         "merge_init_into_class": False,
         "show_docstring_attributes": True,
+        "show_docstring_functions": True,
+        "show_docstring_classes": True,
+        "show_docstring_modules": True,
         "show_docstring_description": True,
         "show_docstring_examples": True,
         "show_docstring_other_parameters": True,
@@ -157,6 +160,9 @@ class PythonHandler(BaseHandler):
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
         show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
+        show_docstring_functions (bool): Whether to display the "Functions" or "Methods" sections in the object's docstring. Default: `True`.
+        show_docstring_classes (bool): Whether to display the "Classes" section in the object's docstring. Default: `True`.
+        show_docstring_modules (bool): Whether to display the "Modules" section in the object's docstring. Default: `True`.
         show_docstring_description (bool): Whether to display the textual block (including admonitions) in the object's docstring. Default: `True`.
         show_docstring_examples (bool): Whether to display the "Examples" section in the object's docstring. Default: `True`.
         show_docstring_other_parameters (bool): Whether to display the "Other Parameters" section in the object's docstring. Default: `True`.

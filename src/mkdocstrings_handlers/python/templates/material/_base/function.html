@@ -3,7 +3,7 @@
 {% import "language.html" as lang with context %}
 
 <div class="doc doc-object doc-function">
-{% with html_id = function.path %}
+{% with obj = function, html_id = function.path %}
 
   {% if root %}
     {% set show_full_path = config.show_root_full_path %}

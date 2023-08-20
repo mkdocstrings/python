@@ -1,0 +1,67 @@
+{{ log.debug("Rendering modules section") }}
+
+{% import "language.html" as lang with context %}
+
+{% if config.docstring_section_style == "table" %}
+  {% block table_style %}
+  <p><strong>{{ section.title or lang.t("Modules:") }}</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>{{ lang.t("Name") }}</th>
+        <th>{{ lang.t("Description") }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for module in section.value %}
+        <tr>
+          <td><code>{{ module.name }}</code></td>
+          <td>
+            <div class="doc-md-description">
+              {{ module.description|convert_markdown(heading_level, html_id) }}
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock table_style %}
+{% elif config.docstring_section_style == "list" %}
+  {% block list_style %}
+  <p>{{ section.title or lang.t("Modules:") }}</p>
+  <ul>
+    {% for module in section.value %}
+      <li class="field-body">
+        <b>{{ module.name }}</b>
+        –
+        <div class="doc-md-description">
+          {{ module.description|convert_markdown(heading_level, html_id) }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  {% endblock list_style %}
+{% elif config.docstring_section_style == "spacy" %}
+  {% block spacy_style %}
+  <table>
+    <thead>
+      <tr>
+        <th><b>{{ (section.title or lang.t("MODULE")).rstrip(":").upper() }}</b></th>
+        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for module in section.value %}
+        <tr>
+          <td><code>{{ module.name }}</code></td>
+          <td class="doc-module-details">
+            <div class="doc-md-description">
+              {{ module.description|convert_markdown(heading_level, html_id) }}
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock spacy_style %}
+{% endif %}

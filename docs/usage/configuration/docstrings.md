@@ -449,6 +449,195 @@ class Class:
 ////
 ///
 
+## `show_docstring_functions`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to render the "Functions" or "Methods" sections of docstrings.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_docstring_functions: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      show_docstring_functions: false
+```
+
+```python
+"""Summary.
+
+Functions:
+    foo: Some function.
+"""
+
+
+def foo():
+    ...
+
+
+class Class:
+    """Summary.
+
+    Methods:
+        bar: Some method.
+    """
+
+    def bar(self):
+        ...
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With functions
+<h2>module</h2>
+<p>Summary.</p>
+<p><b>Functions:</b></p>
+
+**Name** | **Description**
+-------- | ---------------
+`foo`    | Some function.
+
+<h3><code>Class</code></h3>
+<p>Summary.</p>
+<p><b>Methods:</b></p>
+
+**Name** | **Description**
+-------- | ---------------
+`bar`    | Some method.
+////
+
+//// tab | Without functions
+<h2>module</h2>
+<p>Summary.</p>
+<h3><code>Class</code></h3>
+<p>Summary.</p>
+////
+///
+
+
+## `show_docstring_classes`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to render the "Classes" sections of docstrings.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_docstring_classes: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      show_docstring_classes: false
+```
+
+```python
+"""Summary.
+
+Classes:
+    Class: Some class.
+"""
+
+
+class Class:
+    """Summary."""
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With classes
+<h2>module</h2>
+<p>Summary.</p>
+<p><b>Classes:</b></p>
+
+**Name** | **Description**
+-------- | ---------------
+`Class`  | Some class.
+
+<h3><code>Class</code></h3>
+<p>Summary.</p>
+////
+
+//// tab | Without classes
+<h2>module</h2>
+<p>Summary.</p>
+<h3><code>Class</code></h3>
+<p>Summary.</p>
+////
+///
+
+## `show_docstring_modules`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to render the "Modules" sections of docstrings.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_docstring_modules: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      show_docstring_modules: false
+```
+
+```tree
+module/
+    __init__.py
+    submodule.py
+```
+
+```python title="module/__init__.py"
+"""Summary.
+
+Modules:
+    submodule: Some module.
+"""
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With modules
+<h2>module</h2>
+<p>Summary.</p>
+<p><b>Modules:</b></p>
+
+**Name**    | **Description**
+----------- | ---------------
+`submodule` | Some module.
+
+////
+
+//// tab | Without modules
+<h2>module</h2>
+<p>Summary.</p>
+////
+///
+
 ## `show_docstring_description`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**

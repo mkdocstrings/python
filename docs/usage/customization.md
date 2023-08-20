@@ -151,7 +151,17 @@ Available context:
 
 #### Docstring sections
 
-In `docstring/attributes.html`, `docstring/other_parameters.html`, `docstring/parameters.html`, `docstring/raises.html`, `docstring/receives.html`, `docstring/returns.html`, `docstring/warns.html`, and `docstring/yields.html`:
+In `docstring/attributes.html`,
+`docstring/functions.html`, 
+`docstring/classes.html`, 
+`docstring/modules.html`, 
+`docstring/other_parameters.html`,
+`docstring/parameters.html`,
+`docstring/raises.html`,
+`docstring/receives.html`,
+`docstring/returns.html`,
+`docstring/warns.html`,
+and `docstring/yields.html`:
 
 - `table_style`: The section as a table.
 - `list_style`: The section as a list.
