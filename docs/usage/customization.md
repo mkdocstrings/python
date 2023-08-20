@@ -63,7 +63,11 @@ from pathlib import Path
 basedir = "src/mkdocstrings_handlers/python/templates/material"
 print("theme/")
 for filepath in sorted(path for path in Path(basedir).rglob("*") if "_base" not in str(path) and path.suffix != ".css"):
-    print("    " * (len(filepath.relative_to(basedir).parent.parts) + 1) + filepath.name + ("/" if filepath.is_dir() else ""))
+    print(
+        "    " * (len(filepath.relative_to(basedir).parent.parts) + 1)
+        + filepath.name
+        + ("/" if filepath.is_dir() else "")
+    )
 ```
 
 See them [in the repository](https://github.com/mkdocstrings/python/tree/master/src/mkdocstrings_handlers/python/templates/).

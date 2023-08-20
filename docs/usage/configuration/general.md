@@ -125,7 +125,8 @@ plugins:
     type: quote
 
 ```python linenums="1"
-def some_function(): ...
+def some_function():
+    ...
 ```
 /////
 ////

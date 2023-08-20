@@ -47,13 +47,17 @@ plugins:
 ```python title="package/module.py"
 """Module docstring."""
 
+
 def this_function():
     """Function docstring."""
 
+
 class ThisClass:
     """Class docstring."""
+
     def method(self):
         """Method docstring."""
+
 
 this_attribute = 0
 """Attribute docstring."""
@@ -207,6 +211,7 @@ plugins:
 ```python title="package/module.py"
 """Module docstring."""
 
+
 class Base:
     """Base class."""
 
@@ -283,11 +288,14 @@ plugins:
 ```python title="package/module.py"
 """Module docstring."""
 
+
 def function_b():
     """Function a."""
 
+
 def function_a():
     """Function b."""
+
 
 def function_c():
     """Function c."""
@@ -373,8 +381,12 @@ plugins:
 ```
 
 ```python title="package/module.py"
-def hello(): ...
-def _world(): ...
+def hello():
+    ...
+
+
+def _world():
+    ...
 ```
 
 /// admonition | Preview
@@ -437,10 +449,19 @@ plugins:
 ```
 
 ```python title="package/module.py"
-def function_a(): ...
-class ClassB: ...
+def function_a():
+    ...
+
+
+class ClassB:
+    ...
+
+
 attribute_C = 0
-def function_d(): ...
+
+
+def function_d():
+    ...
 ```
 
 /// admonition | Preview
