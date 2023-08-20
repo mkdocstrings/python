@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.5.0](https://github.com/mkdocstrings/python/releases/tag/1.5.0) - 2023-08-20
+
+<small>[Compare with 1.4.0](https://github.com/mkdocstrings/python/compare/1.4.0...1.5.0)</small>
+
+### Features
+
+- Add support for new Griffe docstring sections: modules, classes, and functions (methods) ([d5337af](https://github.com/mkdocstrings/python/commit/d5337afdf68fc492b34f749aa69d1da33b49f9c2) by Timothée Mazzucotelli).
+
 ## [1.4.0](https://github.com/mkdocstrings/python/releases/tag/1.4.0) - 2023-08-18
 
 <small>[Compare with 1.3.0](https://github.com/mkdocstrings/python/compare/1.3.0...1.4.0)</small>
