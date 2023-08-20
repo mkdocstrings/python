@@ -8,3 +8,9 @@ goals:
     - name: Symbol types in headings and table of contents
       ref: /usage/configuration/headings/#show_symbol_type_toc
       since: 2023/06/04
+  1000:
+    name: GraviFridge User Manual
+    features:
+    - name: Auto-summary of object members
+      ref: /usage/configuration/members/#summary
+      since: 2023/08/20
