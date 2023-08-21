@@ -357,11 +357,17 @@ class PythonHandler(BaseHandler):
         self.env.filters["get_template"] = rendering.do_get_template
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
-    def get_anchors(self, data: CollectorItem) -> set[str]:  # noqa: D102 (ignore missing docstring)
+    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
+        anchors = [data.path]
         try:
-            return {data.path, data.canonical_path, *data.aliases}
+            if data.canonical_path != data.path:
+                anchors.append(data.canonical_path)
+            for anchor in data.aliases:
+                if anchor not in anchors:
+                    anchors.append(anchor)
         except AliasResolutionError:
-            return {data.path}
+            return tuple(anchors)
+        return tuple(anchors)
 
 
 def get_handler(
