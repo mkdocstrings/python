@@ -13,6 +13,8 @@
     {% set show_full_path = config.show_object_full_path %}
   {% endif %}
 
+  {% set class_name = class.path if show_full_path else class.name %}
+
   {% if not root or config.show_root_heading %}
 
     {% filter heading(heading_level,
@@ -23,16 +25,15 @@
 
       {% block heading scoped %}
         {% if config.separate_signature %}
-          <span class="doc doc-object-name doc-class-name">{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</span>
+          <span class="doc doc-object-name doc-class-name">{{ class_name }}</span>
         {% elif config.merge_init_into_class and "__init__" in class.members %}
           {% with function = class.members["__init__"] %}
             {%+ filter highlight(language="python", inline=True) %}
-              {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
-              {% include "signature.html" with context %}
+              {{ class_name }}{% include "signature.html" with context %}
             {% endfilter %}
           {% endwith %}
         {% else %}
-          <code>{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+          <code>{{ class_name }}</code>
         {% endif %}
       {% endblock heading %}
 
@@ -112,11 +113,9 @@
       {% endblock source %}
 
       {% block children scoped %}
-        {% with obj = class %}
-          {% set root = False %}
-          {% set heading_level = heading_level + 1 %}
-          {% include "children.html" with context %}
-        {% endwith %}
+        {% set root = False %}
+        {% set heading_level = heading_level + 1 %}
+        {% include "children.html" with context %}
       {% endblock children %}
     {% endblock contents %}
   </div>

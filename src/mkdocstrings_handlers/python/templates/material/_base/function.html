@@ -15,6 +15,8 @@
     {% set show_full_path = config.show_object_full_path %}
   {% endif %}
 
+  {% set function_name = function.path if show_full_path else function.name %}
+
   {% if not root or config.show_root_heading %}
 
     {% filter heading(heading_level,
@@ -25,11 +27,10 @@
 
       {% block heading scoped %}
         {% if config.separate_signature %}
-          <span class="doc doc-object-name doc-function-name">{% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}</span>
+          <span class="doc doc-object-name doc-function-name">{{ function_name }}</span>
         {% else %}
           {%+ filter highlight(language="python", inline=True) %}
-            {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
-            {% include "signature.html" with context %}
+            {{ function_name }}{% include "signature.html" with context %}
           {% endfilter %}
         {% endif %}
       {% endblock heading %}

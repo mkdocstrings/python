@@ -13,6 +13,8 @@
     {% set show_full_path = config.show_object_full_path %}
   {% endif %}
 
+  {% set attribute_name = attribute.path if show_full_path else attribute.name %}
+
   {% if not root or config.show_root_heading %}
 
     {% filter heading(heading_level,
@@ -23,11 +25,10 @@
 
       {% block heading scoped %}
         {% if config.separate_signature %}
-          <span class="doc doc-object-name doc-attribute-name">{% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}</span>
+          <span class="doc doc-object-name doc-attribute-name">{{ attribute_name }}</span>
         {% else %}
           {%+ filter highlight(language="python", inline=True) %}
-            {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-            {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+            {{ attribute_name }}{% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
             {% if attribute.value %} = {{ attribute.value }}{% endif %}
           {% endfilter %}
         {% endif %}
@@ -45,8 +46,7 @@
       {% if config.separate_signature %}
         {% filter highlight(language="python", inline=False) %}
           {% filter format_code(config.line_length) %}
-            {{ attribute.name }}
-            {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
+            {{ attribute.name }}{% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
             {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
           {% endfilter %}
         {% endfilter %}

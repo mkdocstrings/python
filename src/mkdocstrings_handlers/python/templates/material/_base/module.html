@@ -13,6 +13,8 @@
     {% set show_full_path = config.show_object_full_path %}
   {% endif %}
 
+  {% set module_name = module.path if show_full_path else module.name %}
+
   {% if not root or config.show_root_heading %}
 
     {% filter heading(heading_level,
@@ -22,13 +24,11 @@
         toc_label=module.name) %}
 
       {% block heading scoped %}
-        {% with module_name = module.path if show_full_path else module.name %}
-          {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
-          {% else %}
-            <code>{{ module_name }}</code>
-          {% endif %}
-        {% endwith %}
+        {% if config.separate_signature %}
+          <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
+        {% else %}
+          <code>{{ module_name }}</code>
+        {% endif %}
       {% endblock heading %}
 
       {% block labels scoped %}
@@ -60,11 +60,9 @@
       {% endblock docstring %}
 
       {% block children scoped %}
-        {% with obj = module %}
-          {% set root = False %}
-          {% set heading_level = heading_level + 1 %}
-          {% include "children.html" with context %}
-        {% endwith %}
+        {% set root = False %}
+        {% set heading_level = heading_level + 1 %}
+        {% include "children.html" with context %}
       {% endblock children %}
     {% endblock contents %}
   </div>
