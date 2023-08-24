@@ -45,7 +45,7 @@
       {% if config.separate_signature %}
         {% filter highlight(language="python", inline=False) %}
           {% filter format_code(config.line_length) %}
-            {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
+            {{ attribute.name }}
             {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
             {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
           {% endfilter %}
