@@ -27,7 +27,7 @@
         {% if config.separate_signature %}
           <span class="doc doc-object-name doc-function-name">{% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}</span>
         {% else %}
-          {% filter highlight(language="python", inline=True) %}
+          {%+ filter highlight(language="python", inline=True) %}
             {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
             {% include "signature.html" with context %}
           {% endfilter %}
