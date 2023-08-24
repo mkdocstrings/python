@@ -62,7 +62,7 @@
       {% filter heading(heading_level,
           role="class",
           id=html_id,
-          toc_label=class.path if config.show_root_full_path else class.name,
+          toc_label=class.name,
           hidden=True) %}
       {% endfilter %}
     {% endif %}

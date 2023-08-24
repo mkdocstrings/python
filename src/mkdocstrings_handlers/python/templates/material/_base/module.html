@@ -44,7 +44,7 @@
       {% filter heading(heading_level,
           role="module",
           id=html_id,
-          toc_label=module.path if config.show_root_full_path else module.name,
+          toc_label=module.name,
           hidden=True) %}
       {% endfilter %}
     {% endif %}

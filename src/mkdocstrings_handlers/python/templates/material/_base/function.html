@@ -56,7 +56,7 @@
       {% filter heading(heading_level,
           role="function",
           id=html_id,
-          toc_label=function.path if config.show_root_full_path else function.name,
+          toc_label=function.name,
           hidden=True) %}
       {% endfilter %}
     {% endif %}
