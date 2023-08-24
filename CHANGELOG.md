@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.5.1](https://github.com/mkdocstrings/python/releases/tag/1.5.1) - 2023-08-24
+
+<small>[Compare with 1.5.0](https://github.com/mkdocstrings/python/compare/1.5.0...1.5.1)</small>
+
+### Code Refactoring
+
+- Never show full path in separate signature since it would appear in the heading already ([9e02049](https://github.com/mkdocstrings/python/commit/9e0204930cf4dc973ba8eb41c471fc0132e1631f) by Timothée Mazzucotelli).
+- Improve guessing whether an object is public ([35eb811](https://github.com/mkdocstrings/python/commit/35eb81162582d794f170cd7e8c68f10ecfd8ff9d) by Timothée Mazzucotelli).
+- Always sort modules alphabetically as source order wouldn't make sense ([70c81ce](https://github.com/mkdocstrings/python/commit/70c81cebb62366cbfc6124bc84d1563db176afb6) by Timothée Mazzucotelli).
+- Return anchors as a tuple, not a set, to preserve order ([736a2b5](https://github.com/mkdocstrings/python/commit/736a2b5e729d25bb184db8d42f2ad01025a5bc58) by Timothée Mazzucotelli). [Related-to #mkdocstrings/crystal#6](https://github.com/mkdocstrings/crystal/pull/6)
+
 ## [1.5.0](https://github.com/mkdocstrings/python/releases/tag/1.5.0) - 2023-08-20
 
 <small>[Compare with 1.4.0](https://github.com/mkdocstrings/python/compare/1.4.0...1.5.0)</small>
