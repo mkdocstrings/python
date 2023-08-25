@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.5.2](https://github.com/mkdocstrings/python/releases/tag/1.5.2) - 2023-08-25
+
+<small>[Compare with 1.5.1](https://github.com/mkdocstrings/python/compare/1.5.1...1.5.2)</small>
+
+### Bug Fixes
+
+- Regression in children template: fix condition for when members are specified ([beeebff](https://github.com/mkdocstrings/python/commit/beeebffa36288d1f71d122f78ecd9064b41a75d0) by Timothée Mazzucotelli). [Issue #100](https://github.com/mkdocstrings/python/issues/100)
+- Prevent whitespace removal before highlight filter ([c6f36c0](https://github.com/mkdocstrings/python/commit/c6f36c0c9e5141800f8c5c988c9b67720fccccb8) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Never show full object path in ToC entry ([9aa758b](https://github.com/mkdocstrings/python/commit/9aa758bcc42dfcf7c416d87b8f7cd407b7fdf148) by Timothée Mazzucotelli).
+- Sync templates with insiders, remove useless lines ([38b317f](https://github.com/mkdocstrings/python/commit/38b317f4fc74b583a4788721a5559c51a5a47d86) by Timothée Mazzucotelli).
+
 ## [1.5.1](https://github.com/mkdocstrings/python/releases/tag/1.5.1) - 2023-08-24
 
 <small>[Compare with 1.5.0](https://github.com/mkdocstrings/python/compare/1.5.0...1.5.1)</small>
