@@ -14,7 +14,7 @@ from markupsafe import Markup
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
-    from griffe.dataclasses import Alias, Function, Object
+    from griffe.dataclasses import Alias, Attribute, Function, Object
     from jinja2.runtime import Context
     from mkdocstrings.handlers.base import CollectorItem
 
@@ -105,6 +105,45 @@ def do_format_signature(
     signature = template.render(context.parent, function=function)
     signature = _format_signature(callable_path, signature, line_length)
     return str(env.filters["highlight"](signature, language="python", inline=False))
+
+
+@pass_context
+def do_format_attribute(
+    context: Context,
+    attribute_path: Markup,
+    attribute: Attribute,
+    line_length: int,
+    *,
+    crossrefs: bool = False,  # noqa: ARG001
+) -> str:
+    """Format an attribute using Black.
+
+    Parameters:
+        attribute_path: The path of the callable we render the signature of.
+        attribute: The attribute we render the signature of.
+        line_length: The line length to give to Black.
+        crossrefs: Whether to cross-reference types in the signature.
+
+    Returns:
+        The same code, formatted.
+    """
+    env = context.environment
+    annotations = context.parent["config"]["show_signature_annotations"]
+
+    signature = str(attribute_path).strip()
+    if annotations and attribute.annotation:
+        signature += f": {attribute.annotation}"
+    if attribute.value:
+        signature += f" = {attribute.value}"
+
+    signature = do_format_code(signature, line_length)
+    return str(
+        env.filters["highlight"](
+            Markup.escape(signature),
+            language="python",
+            inline=False,
+        ),
+    )
 
 
 def do_order_members(

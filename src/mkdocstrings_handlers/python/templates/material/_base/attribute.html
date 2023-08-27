@@ -44,11 +44,8 @@
 
     {% block signature scoped %}
       {% if config.separate_signature %}
-        {% filter highlight(language="python", inline=False) %}
-          {% filter format_code(config.line_length) %}
-            {{ attribute.name }}{% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
-            {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
-          {% endfilter %}
+        {% filter format_attribute(attribute, config.line_length, crossrefs=config.signature_crossrefs) %}
+          {{ attribute.name }}
         {% endfilter %}
       {% endif %}
     {% endblock signature %}

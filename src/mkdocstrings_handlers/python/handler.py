@@ -352,6 +352,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["order_members"] = rendering.do_order_members
         self.env.filters["format_code"] = rendering.do_format_code
         self.env.filters["format_signature"] = rendering.do_format_signature
+        self.env.filters["format_attribute"] = rendering.do_format_attribute
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = lambda ref, length: ref
         self.env.filters["get_template"] = rendering.do_get_template
