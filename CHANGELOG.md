@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.6.0](https://github.com/mkdocstrings/python/releases/tag/1.6.0) - 2023-08-27
+
+<small>[Compare with 1.5.2](https://github.com/mkdocstrings/python/compare/1.5.2...1.6.0)</small>
+
+### Features
+
+- Add `doc-signature` CSS class to separate signature code blocks ([b6c648f](https://github.com/mkdocstrings/python/commit/b6c648f554f2e0dce609afc2a2c1a3b27a4fbeba) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Add a `format_attribute` filter, preparing for cross-refs in attribute signatures ([8f0ade2](https://github.com/mkdocstrings/python/commit/8f0ade249638ee2f2d446f083c70b6c30799875a) by Timothée Mazzucotelli).
+
 ## [1.5.2](https://github.com/mkdocstrings/python/releases/tag/1.5.2) - 2023-08-25
 
 <small>[Compare with 1.5.1](https://github.com/mkdocstrings/python/compare/1.5.1...1.5.2)</small>
