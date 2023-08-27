@@ -104,7 +104,14 @@ def do_format_signature(
     template = env.get_template("signature.html")
     signature = template.render(context.parent, function=function)
     signature = _format_signature(callable_path, signature, line_length)
-    return str(env.filters["highlight"](signature, language="python", inline=False))
+    return str(
+        env.filters["highlight"](
+            signature,
+            language="python",
+            inline=False,
+            classes=["doc-signature"],
+        ),
+    )
 
 
 @pass_context
@@ -142,6 +149,7 @@ def do_format_attribute(
             Markup.escape(signature),
             language="python",
             inline=False,
+            classes=["doc-signature"],
         ),
     )
 
