@@ -44,7 +44,7 @@
         {% if receives.name %}<b>{{ receives.name }}</b>{% endif %}
         {% if receives.annotation %}
           {% with expression = receives.annotation %}
-            {% if receives.name %}({% endif %}
+            {% if receives.name %} ({% endif %}
             <code>{% include "expression.html" with context %}</code>
             {% if receives.name %}){% endif %}
           {% endwith %}

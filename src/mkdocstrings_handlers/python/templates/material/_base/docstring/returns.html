@@ -44,7 +44,7 @@
         {% if returns.name %}<b>{{ returns.name }}</b>{% endif %}
         {% if returns.annotation %}
           {% with expression = returns.annotation %}
-            {% if returns.name %}({% endif %}
+            {% if returns.name %} ({% endif %}
             <code>{% include "expression.html" with context %}</code>
             {% if returns.name %}){% endif %}
           {% endwith %}
