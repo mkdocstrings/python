@@ -66,7 +66,7 @@ class PythonHandler(BaseHandler):
     domain: str = "py"  # to match Sphinx's default domain
     enable_inventory: bool = True
     fallback_theme = "material"
-    fallback_config: ClassVar[dict] = {"fallback": True}  # type: ignore[misc]
+    fallback_config: ClassVar[dict] = {"fallback": True}
     default_config: ClassVar[dict] = {
         "docstring_style": "google",
         "docstring_options": {},
