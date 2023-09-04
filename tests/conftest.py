@@ -18,9 +18,6 @@ if TYPE_CHECKING:
     from mkdocstrings_handlers.python.handler import PythonHandler
 
 
-pytest_plugins = ["griffe.tests"]
-
-
 @pytest.fixture(name="mkdocs_conf")
 def fixture_mkdocs_conf(request: pytest.FixtureRequest, tmp_path: Path) -> Iterator[config.Config]:
     """Yield a MkDocs configuration object.
