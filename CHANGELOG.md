@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.6.1](https://github.com/mkdocstrings/python/releases/tag/1.6.1) - 2023-09-04
+
+<small>[Compare with 1.6.0](https://github.com/mkdocstrings/python/compare/1.6.0...1.6.1)</small>
+
+### Bug Fixes
+
+- Fix spacing for rendered named items in Yields, Receives and Returns sections (list style) ([e12688e](https://github.com/mkdocstrings/python/commit/e12688ecb7d868047f794300eb2638d052563e68) by Timothée Mazzucotelli).
+- Fix rendering Receives sections as lists ([9ff7e68](https://github.com/mkdocstrings/python/commit/9ff7e68b58e2ab0829c73e4e62254325a4f766ac) by Timothée Mazzucotelli).
+
 ## [1.6.0](https://github.com/mkdocstrings/python/releases/tag/1.6.0) - 2023-08-27
 
 <small>[Compare with 1.5.2](https://github.com/mkdocstrings/python/compare/1.5.2...1.6.0)</small>
