@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.6.2](https://github.com/mkdocstrings/python/releases/tag/1.6.2) - 2023-09-05
+
+<small>[Compare with 1.6.1](https://github.com/mkdocstrings/python/compare/1.6.1...1.6.2)</small>
+
+### Bug Fixes
+
+- Don't render cross-ref spans when they're not enabled ([eed51ee](https://github.com/mkdocstrings/python/commit/eed51ee14bd973a08395f95377f9bd4cd38febfc) by Timothée Mazzucotelli).
+
 ## [1.6.1](https://github.com/mkdocstrings/python/releases/tag/1.6.1) - 2023-09-04
 
 <small>[Compare with 1.6.0](https://github.com/mkdocstrings/python/compare/1.6.0...1.6.1)</small>
