@@ -148,6 +148,7 @@ plugins:
           docstring_options:
             ignore_init_summary: true
           docstring_section_style: list
+          filters: ["!^_"]
           heading_level: 1
           inherited_members: true
           merge_init_into_class: true
@@ -159,6 +160,7 @@ plugins:
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true
+          summary: true
 - git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/python
