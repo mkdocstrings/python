@@ -88,13 +88,17 @@ def do_format_signature(
     function: Function,
     line_length: int,
     *,
+    annotations: bool | None = None,  # noqa: ARG001
     crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
     """Format a signature using Black.
 
     Parameters:
+        context: Jinja context, passed automatically.
         callable_path: The path of the callable we render the signature of.
+        function: The function we render the signature of.
         line_length: The line length to give to Black.
+        annotations: Whether to show type annotations.
         crossrefs: Whether to cross-reference types in the signature.
 
     Returns:
@@ -126,6 +130,7 @@ def do_format_attribute(
     """Format an attribute using Black.
 
     Parameters:
+        context: Jinja context, passed automatically.
         attribute_path: The path of the callable we render the signature of.
         attribute: The attribute we render the signature of.
         line_length: The line length to give to Black.
