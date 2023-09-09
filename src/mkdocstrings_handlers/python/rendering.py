@@ -351,14 +351,17 @@ def do_filter_objects(
 @lru_cache(maxsize=1)
 def _get_black_formatter() -> Callable[[str, int], str]:
     try:
-        from black import Mode, format_str
+        from black import InvalidInput, Mode, format_str
     except ModuleNotFoundError:
         logger.info("Formatting signatures requires Black to be installed.")
         return lambda text, _: text
 
     def formatter(code: str, line_length: int) -> str:
         mode = Mode(line_length=line_length)
-        return format_str(code, mode=mode)
+        try:
+            return format_str(code, mode=mode)
+        except InvalidInput:
+            return code
 
     return formatter
 
