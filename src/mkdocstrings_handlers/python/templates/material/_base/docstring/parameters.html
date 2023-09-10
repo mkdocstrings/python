@@ -50,7 +50,7 @@
   <ul>
     {% for parameter in section.value %}
       <li class="field-body">
-        <b>{{ parameter.name }}</b>
+        <b><code>{{ parameter.name }}</code></b>
         {% if parameter.annotation %}
           {% with expression = parameter.annotation %}
             (<code>{% include "expression.html" with context %}</code>

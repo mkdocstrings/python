@@ -14,7 +14,7 @@
         <ul class="first simple">
           {% for attribute in section.value %}
             <li>
-              <b>{{ attribute.name }}</b>
+              <b><code>{{ attribute.name }}</code></b>
               {% if attribute.annotation %}
                 {% with expression = attribute.annotation %}
                   (<code>{% include "expression.html" with context %}</code>)

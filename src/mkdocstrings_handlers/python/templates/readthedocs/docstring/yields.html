@@ -14,7 +14,7 @@
         <ul class="first simple">
           {% for yields in section.value %}
             <li>
-              {% if yields.name %}<b>{{ yields.name }}</b>{% endif %}
+              {% if yields.name %}<b></code>{{ yields.name }}</code></b>{% endif %}
               {% if yields.annotation %}
                 {% with expression = yields.annotation %}
                   {% if yields.name %}({% endif %}

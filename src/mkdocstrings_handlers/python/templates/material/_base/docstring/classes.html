@@ -32,7 +32,7 @@
   <ul>
     {% for class in section.value %}
       <li class="field-body">
-        <b>{{ class.name }}</b>
+        <b><code>{{ class.name }}</code></b>
         –
         <div class="doc-md-description">
           {{ class.description|convert_markdown(heading_level, html_id) }}

@@ -14,7 +14,7 @@
         <ul class="first simple">
           {% for receives in section.value %}
             <li>
-              {% if receives.name %}<b>{{ receives.name }}</b>{% endif %}
+              {% if receives.name %}<b><code>{{ receives.name }}</code></b>{% endif %}
               {% if receives.annotation %}
                 {% with expression = receives.annotation %}
                   {% if receives.name %}({% endif %}

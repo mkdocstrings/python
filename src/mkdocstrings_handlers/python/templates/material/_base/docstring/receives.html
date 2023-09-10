@@ -41,7 +41,7 @@
   <ul>
     {% for receives in section.value %}
       <li class="field-body">
-        {% if receives.name %}<b>{{ receives.name }}</b>{% endif %}
+        {% if receives.name %}<b><code>{{ receives.name }}</code></b>{% endif %}
         {% if receives.annotation %}
           {% with expression = receives.annotation %}
             {% if receives.name %} ({% endif %}

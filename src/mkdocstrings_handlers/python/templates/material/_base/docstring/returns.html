@@ -41,7 +41,7 @@
   <ul>
     {% for returns in section.value %}
       <li class="field-body">
-        {% if returns.name %}<b>{{ returns.name }}</b>{% endif %}
+        {% if returns.name %}<b><code>{{ returns.name }}</code></b>{% endif %}
         {% if returns.annotation %}
           {% with expression = returns.annotation %}
             {% if returns.name %} ({% endif %}
