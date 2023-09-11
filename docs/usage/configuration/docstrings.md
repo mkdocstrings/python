@@ -88,20 +88,10 @@ def greet(name: str) -> str:
 
 The options for the docstring parser.
 
-Both Google and Numpy styles offer the following options:
-
-- `ignore_init_summary` ([`bool`][], default `False`): whether to discard
-    the one-line summary of `__init__` methods.
-    It is useful when combined with the [`merge_init_into_class`][] option.
-- `trim_doctest_flags` ([`bool`][], default `True`): remove the
-    [doctest flags](https://docs.python.org/3/library/doctest.html#option-flags){ .external }
-    written as comments in `pycon` snippets within a docstring. These flags are used
-    to alter the behavior of [`doctest`][] when testing docstrings,
-    and should not be visible in your docs.
+- [Google-style options](https://mkdocstrings.github.io/griffe/docstrings/#parser-options){ .external }
+- [Numpydoc-style options](https://mkdocstrings.github.io/griffe/docstrings/#parser-options_1){ .external }
 
 The Sphinx style does not offer any option.
-
-See the API documentation of the available parsers in [`griffe.docstrings`][].
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -112,7 +102,6 @@ plugins:
           docstring_options:
             ignore_init_summary: false
             trim_doctest_flags: true
-
 ```
 
 ```md title="or in docs/some_page.md (local configuration)"
