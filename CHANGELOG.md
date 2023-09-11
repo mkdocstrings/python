@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.6.3](https://github.com/mkdocstrings/python/releases/tag/1.6.3) - 2023-09-11
+
+<small>[Compare with 1.6.2](https://github.com/mkdocstrings/python/compare/1.6.2...1.6.3)</small>
+
+### Bug Fixes
+
+- Make `load_external_modules` a global-only option ([266f41f](https://github.com/mkdocstrings/python/commit/266f41f2033e034060001bc2bed376b4f3a8d7b8) by Timothée Mazzucotelli). [Issue #87](https://github.com/mkdocstrings/python/issues/87)
+- Never fail when trying to format code with Black ([df24bbc](https://github.com/mkdocstrings/python/commit/df24bbc640886e1da2d00a3b58c1aa7736cb1eeb) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Wrap docstring section elements (list style) in code tags to prevent spell checker errors ([1ae8dd8](https://github.com/mkdocstrings/python/commit/1ae8dd89cddd67c09d7d30c59b9013516cea2924) by Timothée Mazzucotelli).
+
 ## [1.6.2](https://github.com/mkdocstrings/python/releases/tag/1.6.2) - 2023-09-05
 
 <small>[Compare with 1.6.1](https://github.com/mkdocstrings/python/compare/1.6.1...1.6.2)</small>
