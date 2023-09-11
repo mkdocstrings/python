@@ -108,7 +108,6 @@ class PythonHandler(BaseHandler):
         "filters": ["!^_[^_]"],
         "annotations_path": "brief",
         "preload_modules": None,
-        "load_external_modules": False,
         "allow_inspection": True,
     }
     """
@@ -189,6 +188,7 @@ class PythonHandler(BaseHandler):
         config_file_path: str | None = None,
         paths: list[str] | None = None,
         locale: str = "en",
+        load_external_modules: bool = False,
         **kwargs: Any,
     ) -> None:
         """Initialize the handler.
@@ -198,10 +198,12 @@ class PythonHandler(BaseHandler):
             config_file_path: The MkDocs configuration file path.
             paths: A list of paths to use as Griffe search paths.
             locale: The locale to use when rendering content.
+            load_external_modules: Load external modules when resolving aliases.
             **kwargs: Same thing, but with keyword arguments.
         """
         super().__init__(*args, **kwargs)
         self._config_file_path = config_file_path
+        self._load_external_modules = load_external_modules
         paths = paths or []
         glob_base_dir = os.path.dirname(os.path.abspath(config_file_path)) if config_file_path else "."
         with chdir(glob_base_dir):
@@ -282,7 +284,7 @@ class PythonHandler(BaseHandler):
                 raise CollectionError(str(error)) from error
             unresolved, iterations = loader.resolve_aliases(
                 implicit=False,
-                external=final_config["load_external_modules"],
+                external=self._load_external_modules,
             )
             if unresolved:
                 logger.debug(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
@@ -372,11 +374,13 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
+    *,
     theme: str,
     custom_templates: str | None = None,
     config_file_path: str | None = None,
     paths: list[str] | None = None,
     locale: str = "en",
+    load_external_modules: bool = False,
     **config: Any,  # noqa: ARG001
 ) -> PythonHandler:
     """Simply return an instance of `PythonHandler`.
@@ -387,6 +391,7 @@ def get_handler(
         config_file_path: The MkDocs configuration file path.
         paths: A list of paths to use as Griffe search paths.
         locale: The locale to use when rendering content.
+        load_external_modules: Load external modules when resolving aliases.
         **config: Configuration passed to the handler.
 
     Returns:
@@ -399,4 +404,5 @@ def get_handler(
         config_file_path=config_file_path,
         paths=paths,
         locale=locale,
+        load_external_modules=load_external_modules,
     )
