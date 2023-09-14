@@ -331,3 +331,29 @@ function(param1, param2=None)
 <p>Function docstring.</p>
 ////
 ///
+
+
+## `unwrap_annotated`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to unwrap [`Annotated`](https://docs.python.org/3/library/typing.html#typing.Annotated){ .external }
+types to show only the type without the annotations.
+
+For example, unwrapping `Annotated[int, Gt(10)]` will render `int`.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          unwrap_annotated: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      unwrap_annotated: true
+```

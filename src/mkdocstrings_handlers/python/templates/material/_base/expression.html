@@ -25,6 +25,8 @@
     {%- if signature -%}{{ expression|safe }}{%- else -%}{{ expression }}{%- endif -%}
   {%- elif expression.classname == "ExprName" -%}
     {{ crossref(expression, annotations_path) }}
+  {%- elif config.unwrap_annotated and expression.classname == "ExprSubscript" and expression.canonical_path in ("typing.Annotated", "typing_extensions.Annotated") -%}
+    {{ render(expression.slice.elements[0], annotations_path) }}
   {%- elif expression.classname == "ExprAttribute" -%}
     {%- if annotations_path == "brief" -%}
       {{ render(expression.last, "brief") }}

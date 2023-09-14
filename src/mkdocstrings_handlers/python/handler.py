@@ -109,6 +109,7 @@ class PythonHandler(BaseHandler):
         "annotations_path": "brief",
         "preload_modules": None,
         "allow_inspection": True,
+        "unwrap_annotated": False,
     }
     """
     Attributes: General options:
@@ -180,6 +181,7 @@ class PythonHandler(BaseHandler):
         signature_crossrefs (bool): Whether to render cross-references for type annotations in signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading.
             If Black is installed, the signature is also formatted using it. Default: `False`.
+        unwrap_annotated (bool): Whether to unwrap `Annotated` types to show only the type without the annotations. Default: `False`.
     """
 
     def __init__(

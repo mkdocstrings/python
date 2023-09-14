@@ -161,6 +161,7 @@ plugins:
           show_symbol_type_toc: true
           signature_crossrefs: true
           summary: true
+          unwrap_annotated: true
 - git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/python
