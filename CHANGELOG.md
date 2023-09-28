@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.7.1](https://github.com/mkdocstrings/python/releases/tag/1.7.1) - 2023-09-28
+
+<small>[Compare with 1.7.0](https://github.com/mkdocstrings/python/compare/1.7.0...1.7.1)</small>
+
+### Bug Fixes
+
+- Stop propagation of annotation to next parameter in signature template ([3a760ac](https://github.com/mkdocstrings/python/commit/3a760acacfabaef5abc658ee579e1c205e674994) by Timothée Mazzucotelli). [Issue #110](https://github.com/mkdocstrings/python/issues/110)
+
+### Code Refactoring
+
+- Look into inherited members for `__init__` methods when merging docstrings ([b97d51f](https://github.com/mkdocstrings/python/commit/b97d51f67c2ee3d1edfe6975274ead50fcb3fa8f) by Timothée Mazzucotelli). [Issue #106](https://github.com/mkdocstrings/python/issues/106)
+
 ## [1.7.0](https://github.com/mkdocstrings/python/releases/tag/1.7.0) - 2023-09-14
 
 <small>[Compare with 1.6.3](https://github.com/mkdocstrings/python/compare/1.6.3...1.7.0)</small>
