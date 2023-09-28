@@ -26,8 +26,8 @@
       {% block heading scoped %}
         {% if config.separate_signature %}
           <span class="doc doc-object-name doc-class-name">{{ class_name }}</span>
-        {% elif config.merge_init_into_class and "__init__" in class.members %}
-          {% with function = class.members["__init__"] %}
+        {% elif config.merge_init_into_class and "__init__" in class.all_members %}
+          {% with function = class.all_members["__init__"] %}
             {%+ filter highlight(language="python", inline=True) %}
               {{ class_name }}{% include "signature.html" with context %}
             {% endfilter %}
@@ -47,8 +47,8 @@
 
     {% block signature scoped %}
       {% if config.separate_signature and config.merge_init_into_class %}
-        {% if "__init__" in class.members %}
-          {% with function = class.members["__init__"] %}
+        {% if "__init__" in class.all_members %}
+          {% with function = class.all_members["__init__"] %}
             {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
               {{ class.name }}
             {% endfilter %}
@@ -86,8 +86,8 @@
           {% include "docstring.html" with context %}
         {% endwith %}
         {% if config.merge_init_into_class %}
-          {% if "__init__" in class.members and class.members["__init__"].has_docstring %}
-            {% with docstring_sections = class.members["__init__"].docstring.parsed %}
+          {% if "__init__" in class.all_members and class.all_members["__init__"].has_docstring %}
+            {% with docstring_sections = class.all_members["__init__"].docstring.parsed %}
               {% include "docstring.html" with context %}
             {% endwith %}
           {% endif %}
@@ -97,10 +97,10 @@
       {% block source scoped %}
         {% if config.show_source %}
           {% if config.merge_init_into_class %}
-            {% if "__init__" in class.members and class.members["__init__"].source %}
+            {% if "__init__" in class.all_members and class.all_members["__init__"].source %}
               <details class="quote">
                 <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
-                {{ class.members["__init__"].source|highlight(language="python", linestart=class.members["__init__"].lineno, linenums=True) }}
+                {{ class.all_members["__init__"].source|highlight(language="python", linestart=class.all_members["__init__"].lineno, linenums=True) }}
               </details>
             {% endif %}
           {% elif class.source %}
