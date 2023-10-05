@@ -74,7 +74,13 @@
       {% block source scoped %}
         {% if config.show_source and function.source %}
           <details class="quote">
-            <summary>{{ lang.t("Source code in") }} <code>{{ function.relative_filepath }}</code></summary>
+            <summary>{{ lang.t("Source code in") }} <code>
+              {%- if function.relative_filepath.is_absolute() -%}
+                {{ function.relative_package_filepath }}
+              {%- else -%}
+                {{ function.relative_filepath }}
+              {%- endif -%}
+            </code></summary>
             {{ function.source|highlight(language="python", linestart=function.lineno, linenums=True) }}
           </details>
         {% endif %}

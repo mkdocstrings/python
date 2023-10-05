@@ -98,14 +98,28 @@
         {% if config.show_source %}
           {% if config.merge_init_into_class %}
             {% if "__init__" in class.all_members and class.all_members["__init__"].source %}
-              <details class="quote">
-                <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
-                {{ class.all_members["__init__"].source|highlight(language="python", linestart=class.all_members["__init__"].lineno, linenums=True) }}
-              </details>
+              {% with init = class.all_members["__init__"] %}
+                <details class="quote">
+                  <summary>Source code in <code>
+                    {%- if init.relative_filepath.is_absolute() -%}
+                      {{ init.relative_package_filepath }}
+                    {%- else -%}
+                      {{ init.relative_filepath }}
+                    {%- endif -%}
+                  </code></summary>
+                  {{ init.source|highlight(language="python", linestart=init.lineno, linenums=True) }}
+                </details>
+              {% endwith %}
             {% endif %}
           {% elif class.source %}
             <details class="quote">
-              <summary>Source code in <code>{{ class.relative_filepath }}</code></summary>
+              <summary>Source code in <code>
+                {%- if class.relative_filepath.is_absolute() -%}
+                  {{ class.relative_package_filepath }}
+                {%- else -%}
+                  {{ class.relative_filepath }}
+                {%- endif -%}
+              </code></summary>
               {{ class.source|highlight(language="python", linestart=class.lineno, linenums=True) }}
             </details>
           {% endif %}
