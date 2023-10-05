@@ -156,10 +156,12 @@ def test_ordering_members(order: rendering.Order, members_list: list[str | None]
     """
 
     class Obj:
-        def __init__(self, name: str, lineno: int | None = None) -> None:
+        def __init__(self, name: str, lineno: int | None = None, *, is_alias: bool = False) -> None:
             self.name = name
             self.lineno = lineno
+            self.alias_lineno = lineno
+            self.is_alias = is_alias
 
-    members = [Obj("a", 10), Obj("b", 9), Obj("c", 8)]
+    members = [Obj("a", 10, is_alias=True), Obj("b", 9, is_alias=False), Obj("c", 8, is_alias=True)]
     ordered = rendering.do_order_members(members, order, members_list)  # type: ignore[arg-type]
     assert [obj.name for obj in ordered] == expected_names

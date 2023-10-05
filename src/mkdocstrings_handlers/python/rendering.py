@@ -37,6 +37,8 @@ def _sort_key_alphabetical(item: CollectorItem) -> Any:
 
 def _sort_key_source(item: CollectorItem) -> Any:
     # if 'lineno' is none, the item will go to the start of the list.
+    if item.is_alias:
+        return item.alias_lineno if item.alias_lineno is not None else -1
     return item.lineno if item.lineno is not None else -1
 
 
