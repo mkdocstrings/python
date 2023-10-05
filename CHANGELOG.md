@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.7.2](https://github.com/mkdocstrings/python/releases/tag/1.7.2) - 2023-10-05
+
+<small>[Compare with 1.7.1](https://github.com/mkdocstrings/python/compare/1.7.1...1.7.2)</small>
+
+### Bug Fixes
+
+- Prevent alias resolution error when source-ordering members ([67df10c](https://github.com/mkdocstrings/python/commit/67df10cbb86225e1e3efc251325cbff883a1ef3c) by Timothée Mazzucotelli). [Issue griffe#213](https://github.com/mkdocstrings/griffe/issues/213)
+
+### Code Refactoring
+
+- Use package relative filepath if filepath is not relative ([aa5a3f7](https://github.com/mkdocstrings/python/commit/aa5a3f7b0928498ba9da10ed1211d1e55b7f6c4b) by Timothée Mazzucotelli). [Discussion mkdocstrings#622](https://github.com/mkdocstrings/mkdocstrings/discussions/622)
+
 ## [1.7.1](https://github.com/mkdocstrings/python/releases/tag/1.7.1) - 2023-09-28
 
 <small>[Compare with 1.7.0](https://github.com/mkdocstrings/python/compare/1.7.0...1.7.1)</small>
