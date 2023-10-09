@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import copy
 import glob
 import os
 import posixpath
@@ -260,9 +259,7 @@ class PythonHandler(BaseHandler):
         if config.get("fallback", False) and unknown_module:
             raise CollectionError("Not loading additional modules during fallback")
 
-        # See: https://github.com/python/typeshed/issues/8430
-        mutable_config = dict(copy.deepcopy(config))
-        final_config = ChainMap(mutable_config, self.default_config)
+        final_config = ChainMap(config, self.default_config)  # type: ignore[arg-type]
         parser_name = final_config["docstring_style"]
         parser_options = final_config["docstring_options"]
         parser = parser_name and Parser(parser_name)
@@ -308,9 +305,7 @@ class PythonHandler(BaseHandler):
         return doc_object
 
     def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:  # noqa: D102 (ignore missing docstring)
-        # See https://github.com/python/typeshed/issues/8430
-        mutabled_config = dict(copy.deepcopy(config))
-        final_config = ChainMap(mutabled_config, self.default_config)
+        final_config = ChainMap(config, self.default_config)  # type: ignore[arg-type]
 
         template_name = rendering.do_get_template(data)
         template = self.env.get_template(template_name)
