@@ -105,3 +105,34 @@ def test_expand_globs_without_changing_directory() -> None:
     )
     for path in list(glob(os.path.abspath(".") + "/*.md")):
         assert path in handler._paths
+
+
+def test_extension_paths(tmp_path: Path) -> None:
+    """Assert extension paths are resolved relative to config file."""
+    handler = get_handler(
+        theme="material",
+        config_file_path=str(tmp_path.joinpath("mkdocs.yml"))
+    )
+    extensions = [
+        "path/to/extension.py",
+        "path/to/extension.py:SomeExtension",
+        {"path/to/extension.py": {"option": "value"}},
+        {"path/to/extension.py:SomeExtension": {"option": "value"}},
+        "/absolute/path/to/extension.py",
+        "/absolute/path/to/extension.py:SomeExtension",
+        {"/absolute/path/to/extension.py": {"option": "value"}},
+        {"/absolute/path/to/extension.py:SomeExtension": {"option": "value"}},
+        "dot.notation.path.to.extension"
+    ]
+    result = handler.normalize_extension_paths(extensions)
+    assert result == [
+        str(tmp_path.joinpath("path/to/extension.py")),
+        str(tmp_path.joinpath("path/to/extension.py:SomeExtension")),
+        {str(tmp_path.joinpath("path/to/extension.py")): {"option": "value"}},
+        {str(tmp_path.joinpath("path/to/extension.py:SomeExtension")): {"option": "value"}},
+        "/absolute/path/to/extension.py",
+        "/absolute/path/to/extension.py:SomeExtension",
+        {"/absolute/path/to/extension.py": {"option": "value"}},
+        {"/absolute/path/to/extension.py:SomeExtension": {"option": "value"}},
+        "dot.notation.path.to.extension"
+    ]
