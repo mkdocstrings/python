@@ -263,9 +263,9 @@ class PythonHandler(BaseHandler):
         parser_name = final_config["docstring_style"]
         parser_options = final_config["docstring_options"]
         parser = parser_name and Parser(parser_name)
-        extensions = self.normalize_extension_paths(final_config.get("extensions", []))
 
         if unknown_module:
+            extensions = self.normalize_extension_paths(final_config.get("extensions", []))
             loader = GriffeLoader(
                 extensions=load_extensions(extensions),
                 search_paths=self._paths,
