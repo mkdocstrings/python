@@ -9,7 +9,7 @@ import re
 import sys
 from collections import ChainMap
 from contextlib import suppress
-from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterator, Mapping
+from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterator, Mapping, Sequence
 
 from griffe.collections import LinesCollection, ModulesCollection
 from griffe.docstrings.parsers import Parser
@@ -265,8 +265,9 @@ class PythonHandler(BaseHandler):
         parser = parser_name and Parser(parser_name)
 
         if unknown_module:
+            extensions = self.normalize_extension_paths(final_config.get("extensions", []))
             loader = GriffeLoader(
-                extensions=load_extensions(final_config.get("extensions", [])),
+                extensions=load_extensions(extensions),
                 search_paths=self._paths,
                 docstring_parser=parser,
                 docstring_options=parser_options,
@@ -368,6 +369,35 @@ class PythonHandler(BaseHandler):
         except AliasResolutionError:
             return tuple(anchors)
         return tuple(anchors)
+
+    def normalize_extension_paths(self, extensions: Sequence) -> Sequence:
+        """Resolve extension paths relative to config file."""
+        if self._config_file_path is None:
+            return extensions
+
+        base_path = os.path.dirname(self._config_file_path)
+        normalized = []
+
+        for ext in extensions:
+            if isinstance(ext, dict):
+                pth, options = next(iter(ext.items()))
+                pth = str(pth)
+            else:
+                pth = str(ext)
+                options = None
+
+            if pth.endswith(".py") or ".py:" in pth or "/" in pth or "\\" in pth:  # noqa: SIM102
+                # This is a sytem path. Normalize it.
+                if not os.path.isabs(pth):
+                    # Make path absolute relative to config file path.
+                    pth = os.path.normpath(os.path.join(base_path, pth))
+
+            if options is not None:
+                normalized.append({pth: options})
+            else:
+                normalized.append(pth)
+
+        return normalized
 
 
 def get_handler(
