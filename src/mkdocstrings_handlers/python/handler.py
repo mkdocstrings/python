@@ -371,11 +371,13 @@ class PythonHandler(BaseHandler):
         return tuple(anchors)
 
     def normalize_extension_paths(self, extensions: Sequence) -> Sequence:
-        """ Resolve paths relative to config file. """
+        """Resolve extension paths relative to config file."""
         if self._config_file_path is None:
             return extensions
+
         base_path = os.path.dirname(self._config_file_path)
         normalized = []
+
         for ext in extensions:
             if isinstance(ext, dict):
                 pth, options = next(iter(ext.items()))
@@ -384,7 +386,7 @@ class PythonHandler(BaseHandler):
                 pth = str(ext)
                 options = None
 
-            if '.py' in pth or '/' in pth or '\\' in pth:
+            if pth.endswith(".py") or ".py:" in pth or "/" in pth or "\\" in pth:  # noqa: SIM102
                 # This is a sytem path. Normalize it.
                 if not os.path.isabs(pth):
                     # Make path absolute relative to config file path.
@@ -394,6 +396,7 @@ class PythonHandler(BaseHandler):
                 normalized.append({pth: options})
             else:
                 normalized.append(pth)
+
         return normalized
 
 

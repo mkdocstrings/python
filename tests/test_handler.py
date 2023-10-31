@@ -107,32 +107,41 @@ def test_expand_globs_without_changing_directory() -> None:
         assert path in handler._paths
 
 
-def test_extension_paths(tmp_path: Path) -> None:
+@pytest.mark.parametrize(
+    ("expect_change", "extension"),
+    [
+        (True, "extension.py"),
+        (True, "extension.py:SomeExtension"),
+        (True, "path/to/extension.py"),
+        (True, "path/to/extension.py:SomeExtension"),
+        (True, {"extension.py": {"option": "value"}}),
+        (True, {"extension.py:SomeExtension": {"option": "value"}}),
+        (True, {"path/to/extension.py": {"option": "value"}}),
+        (True, {"path/to/extension.py:SomeExtension": {"option": "value"}}),
+        (False, "/absolute/path/to/extension.py"),
+        (False, "/absolute/path/to/extension.py:SomeExtension"),
+        (False, {"/absolute/path/to/extension.py": {"option": "value"}}),
+        (False, {"/absolute/path/to/extension.py:SomeExtension": {"option": "value"}}),
+        (False, "dot.notation.path.to.extension"),
+        (False, "dot.notation.path.to.pyextension"),
+        (False, {"dot.notation.path.to.extension": {"option": "value"}}),
+        (False, {"dot.notation.path.to.pyextension": {"option": "value"}}),
+    ],
+)
+def test_extension_paths(tmp_path: Path, expect_change: bool, extension: str | dict) -> None:
     """Assert extension paths are resolved relative to config file."""
     handler = get_handler(
         theme="material",
-        config_file_path=str(tmp_path.joinpath("mkdocs.yml"))
+        config_file_path=str(tmp_path.joinpath("mkdocs.yml")),
     )
-    extensions = [
-        "path/to/extension.py",
-        "path/to/extension.py:SomeExtension",
-        {"path/to/extension.py": {"option": "value"}},
-        {"path/to/extension.py:SomeExtension": {"option": "value"}},
-        "/absolute/path/to/extension.py",
-        "/absolute/path/to/extension.py:SomeExtension",
-        {"/absolute/path/to/extension.py": {"option": "value"}},
-        {"/absolute/path/to/extension.py:SomeExtension": {"option": "value"}},
-        "dot.notation.path.to.extension"
-    ]
-    result = handler.normalize_extension_paths(extensions)
-    assert result == [
-        str(tmp_path.joinpath("path/to/extension.py")),
-        str(tmp_path.joinpath("path/to/extension.py:SomeExtension")),
-        {str(tmp_path.joinpath("path/to/extension.py")): {"option": "value"}},
-        {str(tmp_path.joinpath("path/to/extension.py:SomeExtension")): {"option": "value"}},
-        "/absolute/path/to/extension.py",
-        "/absolute/path/to/extension.py:SomeExtension",
-        {"/absolute/path/to/extension.py": {"option": "value"}},
-        {"/absolute/path/to/extension.py:SomeExtension": {"option": "value"}},
-        "dot.notation.path.to.extension"
-    ]
+    normalized = handler.normalize_extension_paths([extension])[0]
+    if expect_change:
+        if isinstance(normalized, str) and isinstance(extension, str):
+            assert normalized == str(tmp_path.joinpath(extension))
+        elif isinstance(normalized, dict) and isinstance(extension, dict):
+            pth, options = next(iter(extension.items()))
+            assert normalized == {str(tmp_path.joinpath(pth)): options}
+        else:
+            raise ValueError("Normalization must not change extension items type")
+    else:
+        assert normalized == extension
