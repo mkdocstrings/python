@@ -278,8 +278,8 @@ class PythonHandler(BaseHandler):
             try:
                 for pre_loaded_module in final_config.get("preload_modules") or []:
                     if pre_loaded_module not in self._modules_collection:
-                        loader.load_module(pre_loaded_module)
-                loader.load_module(module_name)
+                        loader.load(pre_loaded_module)
+                loader.load(module_name)
             except ImportError as error:
                 raise CollectionError(str(error)) from error
             unresolved, iterations = loader.resolve_aliases(
