@@ -15,7 +15,7 @@
   <a href="https://gitpod.io/#https://github.com/mkdocstrings/python">
     <img alt="gitpod" src="https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat" />
   </a>
-  <a href="https://gitter.im/mkdocstrings/python">
+  <a href="https://app.gitter.im/#/room/#mkdocstrings_python:gitter.im">
     <img alt="gitter" src="https://badges.gitter.im/join%20chat.svg" />
   </a>
 </p>

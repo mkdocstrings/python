@@ -123,9 +123,6 @@ You can cancel your sponsorship anytime.[^5]
 
 <div id="sponsors"></div>
 
-<br>
-<br>
-
 <small>
   If you sponsor publicly, you're automatically added here with a link to
   your profile and avatar to show your support for *mkdocstrings-python*.

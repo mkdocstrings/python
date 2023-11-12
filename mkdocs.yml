@@ -109,11 +109,12 @@ markdown_extensions:
       kwds:
         case: lower
 - pymdownx.emoji:
-    emoji_index: !!python/name:materialx.emoji.twemoji
-    emoji_generator: !!python/name:materialx.emoji.to_svg
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
 - pymdownx.magiclink
 - pymdownx.snippets:
     auto_append: [docs/.glossary.md]
+    base_path: [!relative $config_dir]
     check_paths: true
 - pymdownx.superfences
 - pymdownx.tabbed:
@@ -134,7 +135,7 @@ plugins:
     scripts:
     - scripts/gen_ref_nav.py
 - literate-nav:
-    nav_file: SUMMARY.txt
+    nav_file: SUMMARY.md
 - coverage
 - mkdocstrings:
     handlers:
@@ -167,6 +168,10 @@ plugins:
     repository: mkdocstrings/python
 - minify:
     minify_html: !ENV [DEPLOY, false]
+- group:
+    enabled: !ENV [MATERIAL_INSIDERS, false]
+    plugins:
+    - typeset
 
 extra:
   social:
