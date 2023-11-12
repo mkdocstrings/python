@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.7.4](https://github.com/mkdocstrings/python/releases/tag/1.7.4) - 2023-11-12
+
+<small>[Compare with 1.7.3](https://github.com/mkdocstrings/python/compare/1.7.3...1.7.4)</small>
+
+### Bug Fixes
+
+- Make extension paths relative to config file ([5035e92](https://github.com/mkdocstrings/python/commit/5035e9269fe11664fd25e438ac8f746721b3de0a) by Waylan Limberg). [PR #112](https://github.com/mkdocstrings/python/pull/112), Co-authored-by: Timothée Mazzucotelli <pawamoy@pm.me>
+
+### Code Refactoring
+
+- Prepare for Griffe 0.37 ([b5bb8a9](https://github.com/mkdocstrings/python/commit/b5bb8a982e7a2ec97c73335e453d0033bf4987b6) by Timothée Mazzucotelli).
+
 ## [1.7.3](https://github.com/mkdocstrings/python/releases/tag/1.7.3) - 2023-10-09
 
 <small>[Compare with 1.7.2](https://github.com/mkdocstrings/python/compare/1.7.2...1.7.3)</small>
