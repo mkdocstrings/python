@@ -1,4 +1,0 @@
-* <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> mkdocstrings_handlers
-    * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> python](mkdocstrings_handlers/python/index.md)
-        * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> handler](mkdocstrings_handlers/python/handler.md)
-        * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> rendering](mkdocstrings_handlers/python/rendering.md)
