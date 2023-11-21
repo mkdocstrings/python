@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.7.5](https://github.com/mkdocstrings/python/releases/tag/1.7.5) - 2023-11-21
+
+<small>[Compare with 1.7.4](https://github.com/mkdocstrings/python/compare/1.7.4...1.7.5)</small>
+
+### Bug Fixes
+
+- Add missing translations (fallback theme) for ReadTheDocs ([2fb6513](https://github.com/mkdocstrings/python/commit/2fb651304d0a80fa9d6a8c77c16b3004bda22972) by Timothée Mazzucotelli). [Issue #115](https://github.com/mkdocstrings/python/issues/115)
+
 ## [1.7.4](https://github.com/mkdocstrings/python/releases/tag/1.7.4) - 2023-11-12
 
 <small>[Compare with 1.7.3](https://github.com/mkdocstrings/python/compare/1.7.3...1.7.4)</small>
