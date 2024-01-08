@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.8.0](https://github.com/mkdocstrings/python/releases/tag/1.8.0) - 2024-01-08
+
+<small>[Compare with 1.7.5](https://github.com/mkdocstrings/python/compare/1.7.5...1.8.0)</small>
+
+### Features
+
+- Release Insiders features of the $500/month funding goal ([bd30106](https://github.com/mkdocstrings/python/commit/bd301061fe9c647f9b91c2c9b4baa784c304eca7) by Timothée Mazzucotelli).
+    The features and projects related to *mkdocstrings-python* are:
+    
+    - [Cross-references for type annotations in signatures](https://mkdocstrings.github.io/python/usage/configuration/signatures/#signature_crossrefs)
+    - [Symbol types in headings and table of contents](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_toc)
+    - [`griffe-inherited-docstrings`](https://mkdocstrings.github.io/griffe-inherited-docstrings/), a Griffe extension for inheriting docstrings
+    - [`griffe2md`](https://mkdocstrings.github.io/griffe2md/), a tool to output API docs to Markdown using Griffe
+    
+    See the complete list of features and projects here:
+    https://pawamoy.github.io/insiders/#500-plasmavac-user-guide.
+
 ## [1.7.5](https://github.com/mkdocstrings/python/releases/tag/1.7.5) - 2023-11-21
 
 <small>[Compare with 1.7.4](https://github.com/mkdocstrings/python/compare/1.7.4...1.7.5)</small>
