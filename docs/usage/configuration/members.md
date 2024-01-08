@@ -545,3 +545,97 @@ package
 <p>Member docstring.</p>
 ////
 ///
+
+## `summary`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.2.0](../../insiders/changelog.md#1.2.0)
+
+- **:octicons-package-24: Type <code><span data-autorefs-optional="bool">bool</span> | <span data-autorefs-optional="dict">dict</span>[<span data-autorefs-optional="str">str</span>, <span data-autorefs-optional="bool">bool</span>]</code>  :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to render summaries of modules, classes, functions (methods) and attributes.
+
+This option accepts a boolean (`yes`, `true`, `no`, `false` in YAML)
+or a dictionary with one or more of the following keys: `attributes`, `functions`, `classes`, `modules`,
+with booleans as values. Class methods summary is (de)activated with the `functions` key.
+By default, `summary` is false, and by extension all values are false.
+
+Examples:
+
+```yaml
+summary: true
+```
+
+```yaml
+summary: false
+```
+
+```yaml
+summary:
+  attributes: false
+  functions: true
+  modules: false
+```
+
+Summaries will be rendered as the corresponding docstring sections.
+For example, the summary for attributes will be rendered as an Attributes docstring section.
+The section will be rendered in accordance with the [`docstring_section_style`][] option.
+If the objects appearing in the summary are also rendered on the page
+(or somewhere else on the site), their name will automatically link to their rendered documentation.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          summary: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      summary: false
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With all summaries
+```
+::: path.to.module.MyClass
+    options:
+      summary: true
+```
+<h2>MyClass</h2>
+<p>Class docstring.</p>
+<p>Methods:</p>
+<ul>
+  <li><a href="#my_method1">my_method1</a>: Summary of the method (first docstring line).</li>
+  <li><a href="#my_method2">my_method2</a>: Summary of the method (first docstring line).</li>
+</ul>
+<p>Attributes:</p>
+<ul>
+  <li><a href="#attr1">attr1</a>: Summary of the attribute (first docstring line).</li>
+  <li><a href="#attr2">attr2</a>: Summary of the attribute (first docstring line).</li>
+</ul>
+////
+
+//// tab | With methods summary only
+```
+::: path.to.module.MyClass
+    options:
+      summary:
+        functions: true
+```
+
+<h2>MyClass</h2>
+<p>Class docstring.</p>
+<p>Methods:</p>
+<ul>
+  <li><a href="#my_method1">my_method1</a>: Summary of the method (first docstring line).</li>
+  <li><a href="#my_method2">my_method2</a>: Summary of the method (first docstring line).</li>
+</ul>
+////
+///

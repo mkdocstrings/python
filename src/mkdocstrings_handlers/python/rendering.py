@@ -3,18 +3,26 @@
 from __future__ import annotations
 
 import enum
+import random
 import re
+import string
 import sys
 import warnings
-from functools import lru_cache
+from functools import lru_cache, partial
 from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
 
+from griffe.docstrings.dataclasses import (
+    DocstringSectionAttributes,
+    DocstringSectionClasses,
+    DocstringSectionFunctions,
+    DocstringSectionModules,
+)
 from jinja2 import pass_context
 from markupsafe import Markup
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
-    from griffe.dataclasses import Alias, Attribute, Function, Object
+    from griffe.dataclasses import Alias, Attribute, Class, Function, Module, Object
     from jinja2.runtime import Context
     from mkdocstrings.handlers.base import CollectorItem
 
@@ -25,7 +33,9 @@ class Order(enum.Enum):
     """Enumeration for the possible members ordering."""
 
     alphabetical = "alphabetical"
+    """Alphabetical order."""
     source = "source"
+    """Source code order."""
 
 
 def _sort_key_alphabetical(item: CollectorItem) -> Any:
@@ -65,6 +75,26 @@ def do_format_code(code: str, line_length: int) -> str:
     return formatter(code, line_length)
 
 
+_stash_key_alphabet = string.ascii_letters + string.digits
+
+
+def _gen_key(length: int) -> str:
+    return "_" + "".join(random.choice(_stash_key_alphabet) for _ in range(max(1, length - 1)))  # noqa: S311
+
+
+def _gen_stash_key(stash: dict[str, str], length: int) -> str:
+    key = _gen_key(length)
+    while key in stash:
+        key = _gen_key(length)
+    return key
+
+
+def _stash_crossref(stash: dict[str, str], crossref: str, *, length: int) -> str:
+    key = _gen_stash_key(stash, length)
+    stash[key] = crossref
+    return key
+
+
 def _format_signature(name: Markup, signature: str, line_length: int) -> str:
     name = str(name).strip()  # type: ignore[assignment]
     signature = signature.strip()
@@ -90,8 +120,8 @@ def do_format_signature(
     function: Function,
     line_length: int,
     *,
-    annotations: bool | None = None,  # noqa: ARG001
-    crossrefs: bool = False,  # noqa: ARG001
+    annotations: bool | None = None,
+    crossrefs: bool = False,
 ) -> str:
     """Format a signature using Black.
 
@@ -108,16 +138,39 @@ def do_format_signature(
     """
     env = context.environment
     template = env.get_template("signature.html")
-    signature = template.render(context.parent, function=function)
+    config_annotations = context.parent["config"]["show_signature_annotations"]
+    old_stash_ref_filter = env.filters["stash_crossref"]
+
+    stash: dict[str, str] = {}
+    if (annotations or config_annotations) and crossrefs:
+        env.filters["stash_crossref"] = partial(_stash_crossref, stash)
+
+    if annotations is None:
+        new_context = context.parent
+    else:
+        new_context = dict(context.parent)
+        new_context["config"] = dict(new_context["config"])
+        new_context["config"]["show_signature_annotations"] = annotations
+    try:
+        signature = template.render(new_context, function=function, signature=True)
+    finally:
+        env.filters["stash_crossref"] = old_stash_ref_filter
+
     signature = _format_signature(callable_path, signature, line_length)
-    return str(
+    signature = str(
         env.filters["highlight"](
-            signature,
+            Markup.escape(signature),
             language="python",
             inline=False,
             classes=["doc-signature"],
         ),
     )
+
+    if stash:
+        for key, value in stash.items():
+            signature = re.sub(rf"\b{key}\b", value, signature)
+
+    return signature
 
 
 @pass_context
@@ -127,7 +180,7 @@ def do_format_attribute(
     attribute: Attribute,
     line_length: int,
     *,
-    crossrefs: bool = False,  # noqa: ARG001
+    crossrefs: bool = False,
 ) -> str:
     """Format an attribute using Black.
 
@@ -142,16 +195,28 @@ def do_format_attribute(
         The same code, formatted.
     """
     env = context.environment
+    template = env.get_template("expression.html")
     annotations = context.parent["config"]["show_signature_annotations"]
+    separate_signature = context.parent["config"]["separate_signature"]
+    old_stash_ref_filter = env.filters["stash_crossref"]
 
-    signature = str(attribute_path).strip()
-    if annotations and attribute.annotation:
-        signature += f": {attribute.annotation}"
-    if attribute.value:
-        signature += f" = {attribute.value}"
+    stash: dict[str, str] = {}
+    if separate_signature and crossrefs:
+        env.filters["stash_crossref"] = partial(_stash_crossref, stash)
+
+    try:
+        signature = str(attribute_path).strip()
+        if annotations and attribute.annotation:
+            annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
+            signature += f": {annotation}"
+        if attribute.value:
+            value = template.render(context.parent, expression=attribute.value, signature=True)
+            signature += f" = {value}"
+    finally:
+        env.filters["stash_crossref"] = old_stash_ref_filter
 
     signature = do_format_code(signature, line_length)
-    return str(
+    signature = str(
         env.filters["highlight"](
             Markup.escape(signature),
             language="python",
@@ -159,6 +224,12 @@ def do_format_attribute(
             classes=["doc-signature"],
         ),
     )
+
+    if stash:
+        for key, value in stash.items():
+            signature = re.sub(rf"\b{key}\b", value, signature)
+
+    return signature
 
 
 def do_order_members(
@@ -379,3 +450,79 @@ def do_get_template(obj: Object) -> str:
     """
     extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
     return extra_data.get("template", "") or f"{obj.kind.value}.html"
+
+
+@pass_context
+def do_as_attributes_section(
+    context: Context,  # noqa: ARG001
+    attributes: Sequence[Attribute],  # noqa: ARG001
+    *,
+    check_public: bool = True,  # noqa: ARG001
+) -> DocstringSectionAttributes:
+    """Build an attributes section from a list of attributes.
+
+    Parameters:
+        attributes: The attributes to build the section from.
+        check_public: Whether to check if the attribute is public.
+
+    Returns:
+        An attributes docstring section.
+    """
+    return DocstringSectionAttributes([])
+
+
+@pass_context
+def do_as_functions_section(
+    context: Context,  # noqa: ARG001
+    functions: Sequence[Function],  # noqa: ARG001
+    *,
+    check_public: bool = True,  # noqa: ARG001
+) -> DocstringSectionFunctions:
+    """Build a functions section from a list of functions.
+
+    Parameters:
+        functions: The functions to build the section from.
+        check_public: Whether to check if the function is public.
+
+    Returns:
+        A functions docstring section.
+    """
+    return DocstringSectionFunctions([])
+
+
+@pass_context
+def do_as_classes_section(
+    context: Context,  # noqa: ARG001
+    classes: Sequence[Class],  # noqa: ARG001
+    *,
+    check_public: bool = True,  # noqa: ARG001
+) -> DocstringSectionClasses:
+    """Build a classes section from a list of classes.
+
+    Parameters:
+        classes: The classes to build the section from.
+        check_public: Whether to check if the class is public.
+
+    Returns:
+        A classes docstring section.
+    """
+    return DocstringSectionClasses([])
+
+
+@pass_context
+def do_as_modules_section(
+    context: Context,  # noqa: ARG001
+    modules: Sequence[Module],  # noqa: ARG001
+    *,
+    check_public: bool = True,  # noqa: ARG001
+) -> DocstringSectionModules:
+    """Build a modules section from a list of modules.
+
+    Parameters:
+        modules: The modules to build the section from.
+        check_public: Whether to check if the module is public.
+
+    Returns:
+        A modules docstring section.
+    """
+    return DocstringSectionModules([])

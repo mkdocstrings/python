@@ -387,3 +387,131 @@ plugins:
 <p>Docstring of the method.</p>
 ////
 ///
+
+## `show_symbol_type_heading`
+
+[:octicons-tag-24: Insiders 1.1.0](../../insiders/changelog.md#1.1.0)
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Show the symbol type in headings.
+
+This option will prefix headings with
+<code class="doc-symbol doc-symbol-attribute"></code>,
+<code class="doc-symbol doc-symbol-function"></code>,
+<code class="doc-symbol doc-symbol-method"></code>,
+<code class="doc-symbol doc-symbol-class"></code> or
+<code class="doc-symbol doc-symbol-module"></code> types.
+See also [`show_symbol_type_toc`][show_symbol_type_toc].
+
+To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_symbol_type_heading: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: package.module
+    options:
+      show_symbol_type_heading: false
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With symbol type in headings
+<h1><code class="doc-symbol doc-symbol-module"></code> <code>module</code></h1>
+<p>Docstring of the module.</p>
+<h2><code class="doc-symbol doc-symbol-attribute"></code> <code>attribute</code></h2>
+<p>Docstring of the module attribute.</p>
+<h2><code class="doc-symbol doc-symbol-function"></code> <code>function</code></h2>
+<p>Docstring of the function.</p>
+<h2><code class="doc-symbol doc-symbol-class"></code> <code>Class</code></h2>
+<p>Docstring of the class.</p>
+<h3><code class="doc-symbol doc-symbol-method"></code> <code>method</code></h3>
+<p>Docstring of the method.</p>
+////
+
+//// tab | Without symbol type in headings
+<h1><code>module</code></h1>
+<p>Docstring of the module.</p>
+<h2><code>attribute</code></h2>
+<p>Docstring of the module attribute.</p>
+<h2><code>function</code></h2>
+<p>Docstring of the function.</p>
+<h2><code>Class</code></h2>
+<p>Docstring of the class.</p>
+<h3><code>method</code></h3>
+<p>Docstring of the method.</p>
+////
+///
+
+## `show_symbol_type_toc`
+
+[:octicons-tag-24: Insiders 1.1.0](../../insiders/changelog.md#1.1.0)
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Show the symbol type in the Table of Contents.
+
+This option will prefix items in the ToC with
+<code class="doc-symbol doc-symbol-attribute"></code>,
+<code class="doc-symbol doc-symbol-function"></code>,
+<code class="doc-symbol doc-symbol-method"></code>,
+<code class="doc-symbol doc-symbol-class"></code> or
+<code class="doc-symbol doc-symbol-module"></code> types.
+See also [`show_symbol_type_heading`][show_symbol_type_heading].
+
+To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_symbol_type_toc: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: package.module
+    options:
+      show_symbol_type_toc: false
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With symbol type in ToC
+<ul style="list-style: none;">
+  <li><code class="doc-symbol doc-symbol-module"></code> module</li>
+  <li><code class="doc-symbol doc-symbol-attribute"></code> attribute</li>
+  <li><code class="doc-symbol doc-symbol-function"></code> function</li>
+  <li><code class="doc-symbol doc-symbol-class"></code> Class
+    <ul style="list-style: none;">
+      <li><code class="doc-symbol doc-symbol-method"></code> method</li>
+    </ul>
+  </li>
+</ul>
+////
+
+//// tab | Without symbol type in ToC
+<ul style="list-style: none;">
+  <li>module</li>
+  <li>attribute</li>
+  <li>function</li>
+  <li>Class
+    <ul style="list-style: none;">
+      <li>method</li>
+    </ul>
+  </li>
+</ul>
+////
+///

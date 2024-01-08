@@ -40,7 +40,7 @@ nav:
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
-  - Coverage report: coverage.md
+  # - Coverage report: coverage.md
 - Insiders:
   - insiders/index.md
   - Getting started:
@@ -136,7 +136,7 @@ plugins:
     - scripts/gen_ref_nav.py
 - literate-nav:
     nav_file: SUMMARY.md
-- coverage
+# - coverage
 - mkdocstrings:
     handlers:
       python:
@@ -158,6 +158,7 @@ plugins:
           show_root_heading: true
           show_root_full_path: false
           show_signature_annotations: true
+          show_source: false
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true

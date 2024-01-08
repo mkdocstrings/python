@@ -16,14 +16,16 @@
   {% set attribute_name = attribute.path if show_full_path else attribute.name %}
 
   {% if not root or config.show_root_heading %}
-
-    {% filter heading(heading_level,
+    {% filter heading(
+        heading_level,
         role="data" if attribute.parent.kind.value == "module" else "attr",
         id=html_id,
         class="doc doc-heading",
-        toc_label=attribute.name) %}
+        toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute.name,
+    ) %}
 
       {% block heading scoped %}
+        {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>{% endif %}
         {% if config.separate_signature %}
           <span class="doc doc-object-name doc-attribute-name">{{ attribute_name }}</span>
         {% else %}
@@ -51,12 +53,14 @@
     {% endblock signature %}
 
   {% else %}
+
     {% if config.show_root_toc_entry %}
       {% filter heading(heading_level,
           role="data" if attribute.parent.kind.value == "module" else "attr",
           id=html_id,
-          toc_label=attribute.name,
-          hidden=True) %}
+          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute.name,
+          hidden=True,
+      ) %}
       {% endfilter %}
     {% endif %}
     {% set heading_level = heading_level - 1 %}

@@ -28,7 +28,7 @@ and [how to use it](https://pawamoy.github.io/pypi-insiders/#usage).
 *mkdocstrings-python Insiders* can be installed with `pip` [using SSH][using ssh]:
 
 ```bash
-pip install git+ssh://git@github.com/pawamoy-insiders/python.git
+pip install git+ssh://git@github.com/pawamoy-insiders/mkdocstrings-python.git
 ```
 
   [using ssh]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
@@ -36,7 +36,7 @@ pip install git+ssh://git@github.com/pawamoy-insiders/python.git
 Or using HTTPS:
 
 ```bash
-pip install git+https://${GH_TOKEN}@github.com/pawamoy-insiders/python.git
+pip install git+https://${GH_TOKEN}@github.com/pawamoy-insiders/mkdocstrings-python.git
 ```
 
 >? NOTE: **How to get a GitHub personal access token**  
@@ -82,7 +82,7 @@ with [Twine]:
   [Artifactory]: https://jfrog.com/help/r/jfrog-artifactory-documentation/pypi-repositories
   [Google Cloud]: https://cloud.google.com/artifact-registry/docs/python
   [pypiserver]: https://pypi.org/project/pypiserver/
-  [Github Releases]: https://github.com/pawamoy-insiders/python/releases
+  [Github Releases]: https://github.com/pawamoy-insiders/mkdocstrings-python/releases
   [Twine]: https://pypi.org/project/twine/
 
 ```bash
@@ -142,7 +142,7 @@ as it is against our [Terms of use](index.md#terms).**
 >
 > ```bash
 > # clone the repository
-> git clone git@github.com:pawamoy-insiders/python
+> git clone git@github.com:pawamoy-insiders/mkdocstrings-python
 > cd python
 >
 > # install build
@@ -178,7 +178,7 @@ as it is against our [Terms of use](index.md#terms).**
 Of course, you can use *mkdocstrings-python Insiders* directly from `git`:
 
 ```
-git clone git@github.com:pawamoy-insiders/python
+git clone git@github.com:pawamoy-insiders/mkdocstrings-python
 ```
 
 When cloning from `git`, the package must be installed:

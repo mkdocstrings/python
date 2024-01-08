@@ -33,7 +33,6 @@ Sponsorships start as low as [**$10 a month**][sponsors].[^2]
     technical reasons. Such contributions are still very much welcome as
     they help ensuring the project's sustainability.
 
-
 ## What sponsorships achieve
 
 Sponsorships make this project sustainable, as they buy the maintainers of this
@@ -48,15 +47,21 @@ The biggest bottleneck in Open Source is time.[^3]
     you can be sure that bugs are fixed quickly and new features are added
     regularly.
 
-<!-- If you're unsure if you should sponsor this project, check out the list of
+If you're unsure if you should sponsor this project, check out the list of
 [completed funding goals][goals completed] to learn whether you're already using features that
-were developed with the help of sponsorships. You're most likely using at least
-a handful of them, [thanks to our awesome sponsors][sponsors]! -->
+were developed with the help of sponsorships.
+<!-- You're most likely using at least a handful of them,
+[thanks to our awesome sponsors][sponsors]! -->
 
 ## What's in it for me?
 
 ```python exec="1" session="insiders"
-data_source = "docs/insiders/goals.yml"
+data_source = [
+    "docs/insiders/goals.yml",
+    ("griffe-inherited-docstrings", "https://mkdocstrings.github.io/griffe-inherited-docstrings/", "insiders/goals.yml"),
+    ("griffe-pydantic", "https://mkdocstrings.github.io/griffe-pydantic/", "insiders/goals.yml"),
+    ("griffe-typing-deprecated", "https://mkdocstrings.github.io/griffe-typing-deprecated/", "insiders/goals.yml"),
+]
 ```
 
 <!-- blacken-docs:off -->

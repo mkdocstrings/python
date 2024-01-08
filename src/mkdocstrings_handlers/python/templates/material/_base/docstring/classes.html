@@ -15,7 +15,7 @@
     <tbody>
       {% for class in section.value %}
         <tr>
-          <td><code>{{ class.name }}</code></td>
+          <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ class.name }}">{{ class.name }}</span></code></td>
           <td>
             <div class="doc-md-description">
               {{ class.description|convert_markdown(heading_level, html_id) }}
@@ -32,7 +32,7 @@
   <ul>
     {% for class in section.value %}
       <li class="field-body">
-        <b><code>{{ class.name }}</code></b>
+        <b><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ class.name }}">{{ class.name }}</span></code></b>
         –
         <div class="doc-md-description">
           {{ class.description|convert_markdown(heading_level, html_id) }}
@@ -53,7 +53,7 @@
     <tbody>
       {% for class in section.value %}
         <tr>
-          <td><code>{{ class.name }}</code></td>
+          <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ class.name }}">{{ class.name }}</span></code></td>
           <td class="doc-class-details">
             <div class="doc-md-description">
               {{ class.description|convert_markdown(heading_level, html_id) }}

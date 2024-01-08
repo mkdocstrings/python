@@ -50,25 +50,21 @@ patch_loggers(get_logger)
 
 
 class PythonHandler(BaseHandler):
-    """The Python handler class.
-
-    Attributes:
-        domain: The cross-documentation domain/language for this handler.
-        enable_inventory: Whether this handler is interested in enabling the creation
-            of the `objects.inv` Sphinx inventory file.
-        fallback_theme: The fallback theme.
-        fallback_config: The configuration used to collect item during autorefs fallback.
-        default_config: The default rendering options,
-            see [`default_config`][mkdocstrings_handlers.python.handler.PythonHandler.default_config].
-    """
+    """The Python handler class."""
 
     domain: str = "py"  # to match Sphinx's default domain
+    """The cross-documentation domain/language for this handler."""
     enable_inventory: bool = True
+    """Whether this handler is interested in enabling the creation of the `objects.inv` Sphinx inventory file."""
     fallback_theme = "material"
+    """The fallback theme."""
     fallback_config: ClassVar[dict] = {"fallback": True}
+    """The configuration used to collect item during autorefs fallback."""
     default_config: ClassVar[dict] = {
         "docstring_style": "google",
         "docstring_options": {},
+        "show_symbol_type_heading": False,
+        "show_symbol_type_toc": False,
         "show_root_heading": False,
         "show_root_toc_entry": True,
         "show_root_full_path": True,
@@ -108,9 +104,11 @@ class PythonHandler(BaseHandler):
         "annotations_path": "brief",
         "preload_modules": None,
         "allow_inspection": True,
+        "summary": False,
         "unwrap_annotated": False,
     }
-    """
+    """Default handler configuration.
+
     Attributes: General options:
         allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
         show_bases (bool): Show the base classes of a class. Default: `True`.
@@ -134,6 +132,8 @@ class PythonHandler(BaseHandler):
         show_root_members_full_path (bool): Show the full Python path of the root members. Default: `False`.
         show_object_full_path (bool): Show the full Python path of every object. Default: `False`.
         show_category_heading (bool): When grouped by categories, show a heading for each category. Default: `False`.
+        show_symbol_type_heading (bool): Show the symbol type in headings (e.g. mod, class, meth, func and attr). Default: `False`.
+        show_symbol_type_toc (bool): Show the symbol type in the Table of Contents (e.g. mod, class, methd, func and attr). Default: `False`.
 
     Attributes: Members options:
         inherited_members (list[str] | bool | None): A boolean, or an explicit list of inherited members to render.
@@ -151,6 +151,7 @@ class PythonHandler(BaseHandler):
             to lower members in the hierarchy). Default: `["!^_[^_]"]`.
         group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
         show_submodules (bool): When rendering a module, show its submodules recursively. Default: `False`.
+        summary (bool | dict[str, bool]): Whether to render summaries of modules, classes, functions (methods) and attributes.
 
     Attributes: Docstrings options:
         docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
@@ -328,8 +329,28 @@ class PythonHandler(BaseHandler):
                 (re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in final_config["filters"]
             ]
 
-        # TODO: goal reached: remove once `signature_crossrefs` feature becomes public
-        final_config["signature_crossrefs"] = False
+        summary = final_config["summary"]
+        if summary is True:
+            final_config["summary"] = {
+                "attributes": True,
+                "functions": True,
+                "classes": True,
+                "modules": True,
+            }
+        elif summary is False:
+            final_config["summary"] = {
+                "attributes": False,
+                "functions": False,
+                "classes": False,
+                "modules": False,
+            }
+        else:
+            final_config["summary"] = {
+                "attributes": summary.get("attributes", False),
+                "functions": summary.get("functions", False),
+                "classes": summary.get("classes", False),
+                "modules": summary.get("modules", False),
+            }
 
         return template.render(
             **{
@@ -356,6 +377,10 @@ class PythonHandler(BaseHandler):
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = lambda ref, length: ref
         self.env.filters["get_template"] = rendering.do_get_template
+        self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
+        self.env.filters["as_functions_section"] = rendering.do_as_functions_section
+        self.env.filters["as_classes_section"] = rendering.do_as_classes_section
+        self.env.filters["as_modules_section"] = rendering.do_as_modules_section
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)

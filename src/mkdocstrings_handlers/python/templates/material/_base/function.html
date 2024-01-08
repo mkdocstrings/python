@@ -16,16 +16,19 @@
   {% endif %}
 
   {% set function_name = function.path if show_full_path else function.name %}
+  {% set symbol_type = "method" if function.parent.is_class else "function" %}
 
   {% if not root or config.show_root_heading %}
-
-    {% filter heading(heading_level,
+    {% filter heading(
+        heading_level,
         role="function",
         id=html_id,
         class="doc doc-heading",
-        toc_label=function.name ~ "()") %}
+        toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + function.name,
+    ) %}
 
       {% block heading scoped %}
+        {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-{{ symbol_type }}"></code>{% endif %}
         {% if config.separate_signature %}
           <span class="doc doc-object-name doc-function-name">{{ function_name }}</span>
         {% else %}
@@ -52,12 +55,15 @@
     {% endblock signature %}
 
   {% else %}
+
     {% if config.show_root_toc_entry %}
-      {% filter heading(heading_level,
+      {% filter heading(
+          heading_level,
           role="function",
           id=html_id,
-          toc_label=function.name,
-          hidden=True) %}
+          toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + function.name,
+          hidden=True,
+      ) %}
       {% endfilter %}
     {% endif %}
     {% set heading_level = heading_level - 1 %}

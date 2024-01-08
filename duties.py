@@ -237,7 +237,7 @@ def release(ctx: Context, version: str) -> None:
         version: The new version number to use.
     """
     origin = ctx.run("git config --get remote.origin.url", silent=True)
-    if "pawamoy-insiders/python" in origin:
+    if "pawamoy-insiders/mkdocstrings-python" in origin:
         ctx.run(
             lambda: False,
             title="Not releasing from insiders repository (do that from public repo instead!)",

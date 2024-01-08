@@ -15,7 +15,7 @@
     <tbody>
       {% for module in section.value %}
         <tr>
-          <td><code>{{ module.name }}</code></td>
+          <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ module.name }}">{{ module.name }}</span></code></td>
           <td>
             <div class="doc-md-description">
               {{ module.description|convert_markdown(heading_level, html_id) }}
@@ -32,7 +32,7 @@
   <ul>
     {% for module in section.value %}
       <li class="field-body">
-        <b><code>{{ module.name }}</code></b>
+        <b><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ module.name }}">{{ module.name }}</span></code></b>
         –
         <div class="doc-md-description">
           {{ module.description|convert_markdown(heading_level, html_id) }}
@@ -53,7 +53,7 @@
     <tbody>
       {% for module in section.value %}
         <tr>
-          <td><code>{{ module.name }}</code></td>
+          <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ module.name }}">{{ module.name }}</span></code></td>
           <td class="doc-module-details">
             <div class="doc-md-description">
               {{ module.description|convert_markdown(heading_level, html_id) }}

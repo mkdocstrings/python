@@ -108,6 +108,18 @@
               "type": "boolean",
               "default": false
             },
+            "show_symbol_type_heading": {
+              "title": "Show the symbol type in headings (e.g. mod, class, func and attr).",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_heading",
+              "type": "boolean",
+              "default": false
+            },
+            "show_symbol_type_toc": {
+              "title": "Show the symbol type in the Table of Contents (e.g. mod, class, func and attr).",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_toc",
+              "type": "boolean",
+              "default": false
+            },
             "show_category_heading": {
               "title": "When grouped by categories, show a heading for each category.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_category_heading",

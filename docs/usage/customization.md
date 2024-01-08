@@ -23,6 +23,10 @@ The following CSS classes are used in the generated HTML:
     - `doc-label`: on `small` elements containing a label
         - `doc-label-LABEL`: same, where `LABEL` is replaced by the actual label
 - `doc-md-description`: on `div`s containing HTML descriptions converted from Markdown docstrings
+- `doc-symbol`: on `code` tags of symbol types
+    - `doc-symbol-heading`: on symbol types in headings
+    - `doc-symbol-toc`: on symbol types in the ToC
+    - `doc-symbol-KIND`: specific to the kind of object (`module`, `class`, `function`, `method`, `attribute`)
 
 /// admonition | Example with colorful labels
     type: example
@@ -50,6 +54,173 @@ The following CSS classes are used in the generated HTML:
   </p>
 </h3>
 ////
+
+///
+
+## Symbol types
+
+### Colors
+
+You can customize the colors of the symbol types
+(see [`show_symbol_type_heading`][show_symbol_type_heading] and [`show_symbol_type_toc`][show_symbol_type_toc])
+by overriding the values of our CSS variables, for example:
+
+```css title="docs/css/mkdocstrings.css"
+[data-md-color-scheme="default"] {
+  --doc-symbol-attribute-fg-color: #0079ff;
+  --doc-symbol-function-fg-color: #00dfa2;
+  --doc-symbol-method-fg-color: #00dfa2;
+  --doc-symbol-class-fg-color: #d1b619;
+  --doc-symbol-module-fg-color: #ff0060;
+
+  --doc-symbol-attribute-bg-color: #0079ff1a;
+  --doc-symbol-function-bg-color: #00dfa21a;
+  --doc-symbol-method-bg-color: #00dfa21a;
+  --doc-symbol-class-bg-color: #d1b6191a;
+  --doc-symbol-module-bg-color: #ff00601a;
+}
+
+[data-md-color-scheme="slate"] {
+  --doc-symbol-attribute-fg-color: #963fb8;
+  --doc-symbol-function-fg-color: #6d67e4;
+  --doc-symbol-method-fg-color: #6d67e4;
+  --doc-symbol-class-fg-color: #46c2cb;
+  --doc-symbol-module-fg-color: #f2f7a1;
+
+  --doc-symbol-attribute-bg-color: #963fb81a;
+  --doc-symbol-function-bg-color: #6d67e41a;
+  --doc-symbol-method-bg-color: #6d67e41a;
+  --doc-symbol-class-bg-color: #46c2cb1a;
+  --doc-symbol-module-bg-color: #f2f7a11a;
+}
+```
+
+The `[data-md-color-scheme="*"]` selectors work with the [Material for MkDocs] theme.
+If you are using another theme, adapt the selectors to this theme
+if it supports light and dark themes,
+otherwise just override the variables at root level:
+
+```css title="docs/css/mkdocstrings.css"
+:root {
+  --doc-symbol-attribute-fg-color: #0079ff;
+  --doc-symbol-function-fg-color: #00dfa2;
+  --doc-symbol-method-fg-color: #00dfa2;
+  --doc-symbol-class-fg-color: #d1b619;
+  --doc-symbol-module-fg-color: #ff0060;
+
+  --doc-symbol-attribute-bg-color: #0079ff1a;
+  --doc-symbol-function-bg-color: #00dfa21a;
+  --doc-symbol-method-bg-color: #00dfa21a;
+  --doc-symbol-class-bg-color: #d1b6191a;
+  --doc-symbol-module-bg-color: #ff00601a;
+}
+```
+
+/// admonition | Preview
+    type: preview
+
+<div id="preview-symbol-colors">
+  <style>
+    [data-md-color-scheme="default"] #preview-symbol-colors {
+      --doc-symbol-attribute-fg-color: #0079ff;
+      --doc-symbol-function-fg-color: #00dfa2;
+      --doc-symbol-method-fg-color: #00dfa2;
+      --doc-symbol-class-fg-color: #d1b619;
+      --doc-symbol-module-fg-color: #ff0060;
+
+      --doc-symbol-attribute-bg-color: #0079ff1a;
+      --doc-symbol-function-bg-color: #00dfa21a;
+      --doc-symbol-method-bg-color: #00dfa21a;
+      --doc-symbol-class-bg-color: #d1b6191a;
+      --doc-symbol-module-bg-color: #ff00601a;
+    }
+
+    [data-md-color-scheme="slate"] #preview-symbol-colors {
+      --doc-symbol-attribute-fg-color: #963fb8;
+      --doc-symbol-function-fg-color: #6d67e4;
+      --doc-symbol-method-fg-color: #6d67e4;
+      --doc-symbol-class-fg-color: #46c2cb;
+      --doc-symbol-module-fg-color: #f2f7a1;
+
+      --doc-symbol-attribute-bg-color: #963fb81a;
+      --doc-symbol-function-bg-color: #6d67e41a;
+      --doc-symbol-method-bg-color: #6d67e41a;
+      --doc-symbol-class-bg-color: #46c2cb1a;
+      --doc-symbol-module-bg-color: #f2f7a11a;
+    }
+  </style>
+  <p>
+    Try cycling through the themes to see the colors for each theme:
+    <code class="doc-symbol doc-symbol-attribute"></code>
+    <code class="doc-symbol doc-symbol-function"></code>
+    <code class="doc-symbol doc-symbol-method"></code>
+    <code class="doc-symbol doc-symbol-class"></code>
+    <code class="doc-symbol doc-symbol-module"></code>
+  </p>
+</div>
+
+///
+
+### Names
+
+You can also change the actual symbol names.
+For example, to use single letters instead of truncated types:
+
+```css title="docs/css/mkdocstrings.css"
+.doc-symbol-attribute::after {
+  content: "A";
+}
+
+.doc-symbol-function::after {
+  content: "F";
+}
+
+.doc-symbol-method::after {
+  content: "M";
+}
+
+.doc-symbol-class::after {
+  content: "C";
+}
+
+.doc-symbol-module::after {
+  content: "M";
+}
+```
+
+/// admonition | Preview
+    type: preview
+
+<div id="preview-symbol-names">
+  <style>
+    #preview-symbol-names .doc-symbol-attribute::after {
+      content: "A";
+    }
+
+    #preview-symbol-names .doc-symbol-function::after {
+      content: "F";
+    }
+
+    #preview-symbol-names .doc-symbol-method::after {
+      content: "M";
+    }
+
+    #preview-symbol-names .doc-symbol-class::after {
+      content: "C";
+    }
+
+    #preview-symbol-names .doc-symbol-module::after {
+      content: "M";
+    }
+  </style>
+  <ul>
+    <li>Attribute: <code class="doc-symbol doc-symbol-attribute"></code></li>
+    <li>Function: <code class="doc-symbol doc-symbol-function"></code></li>
+    <li>Method: <code class="doc-symbol doc-symbol-method"></code></li>
+    <li>Class: <code class="doc-symbol doc-symbol-class"></code></li>
+    <li>Module: <code class="doc-symbol doc-symbol-module"></code></li>
+  </ul>
+</div>
 
 ///
 
@@ -103,6 +274,7 @@ and the Jinja context available in their scope.
 - `labels`: The module labels.
 - `contents`: The module contents: docstring and children blocks.
 - `docstring`: The module docstring.
+- `summary`: The automatic summaries of members.
 - `children`: The module children.
 
 Available context:
@@ -118,6 +290,7 @@ Available context:
 - `contents`: The class contents: bases, docstring, source and children blocks.
 - `bases`: The class bases.
 - `docstring`: The class docstring.
+- `summary`: The automatic summaries of members.
 - `source`: The class source code.
 - `children`: The class children.
 

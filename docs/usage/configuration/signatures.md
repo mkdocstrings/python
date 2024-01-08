@@ -332,6 +332,52 @@ function(param1, param2=None)
 ////
 ///
 
+## `signature_crossrefs`
+
+[:octicons-tag-24: Insiders 1.0.0](../../insiders/changelog.md#1.0.0)
+
+Whether to render cross-references for type annotations in signatures.
+
+When signatures are separated from headings with the [`separate_signature`][] option
+and type annotations are shown with the [`show_signature_annotations`][] option,
+this option will render a cross-reference (link) for each type annotation in the signature.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          separate_signature: true
+          show_signature_annotations: true
+          signature_crossrefs: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      separate_signature: true
+      show_signature_annotations: true
+      signature_crossrefs: true
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With signature cross-references
+<h2>do_format_code</h2>
+<div class="highlight"><pre><code><span class="n">do_format_code</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n">line_length</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span>
+</code></pre></div>
+<p>Function docstring.</p>
+////
+
+//// tab | Without signature cross-references
+<h2>do_format_code</h2>
+<div class="highlight"><pre><code><span class="n">do_format_code</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+<p>Function docstring.</p>
+////
+///
 
 ## `unwrap_annotated`
 
