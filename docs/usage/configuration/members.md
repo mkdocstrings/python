@@ -14,6 +14,8 @@ even if [`show_if_no_docstring`][] is set to false.
 
 The members will be rendered in the specified order,
 regardless of the value of [`members_order`][].
+**Note that members will still be grouped by category,
+according to the [`group_by_category`][] option.**
 
 Passing a falsy value (`no`, `false` in YAML) or an empty list (`[]`)
 will tell the Python handler not to render any member.
@@ -269,6 +271,8 @@ The members ordering to use. Possible values:
 
 The order applies for all members, recursively.
 The order will be ignored for members that are explicitely sorted using the [`members`][] option.
+**Note that members will still be grouped by category,
+according to the [`group_by_category`][] option.**
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
