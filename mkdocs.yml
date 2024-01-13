@@ -154,6 +154,7 @@ plugins:
           inherited_members: true
           merge_init_into_class: true
           preload_modules: [mkdocstrings]
+          relative_crossrefs: true
           separate_signature: true
           show_root_heading: true
           show_root_full_path: false
