@@ -3,7 +3,7 @@
 {% import "language.html" as lang with context %}
 
 {% if config.docstring_section_style == "table" %}
-  {% block table_style %}
+  {% block table_style scoped %}
   {% set name_column = section.value|selectattr("name")|any %}
   <p><strong>{{ section.title or lang.t("Yields:") }}</strong></p>
   <table>
@@ -36,7 +36,7 @@
   </table>
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
-  {% block list_style %}
+  {% block list_style scoped %}
   <p>{{ section.title or lang.t("Yields:") }}</p>
   <ul>
     {% for yields in section.value %}
@@ -58,7 +58,7 @@
   </ul>
   {% endblock list_style %}
 {% elif config.docstring_section_style == "spacy" %}
-  {% block spacy_style %}
+  {% block spacy_style scoped %}
   <table>
     <thead>
       <tr>

@@ -3,7 +3,7 @@
 {% import "language.html" as lang with context %}
 
 {% if config.docstring_section_style == "table" %}
-  {% block table_style %}
+  {% block table_style scoped %}
   <p><strong>{{ section.title or lang.t("Attributes:") }}</strong></p>
   <table>
     <thead>
@@ -35,7 +35,7 @@
   </table>
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
-  {% block list_style %}
+  {% block list_style scoped %}
   <p>{{ section.title or lang.t("Attributes:") }}</p>
   <ul>
     {% for attribute in section.value %}
@@ -55,7 +55,7 @@
   </ul>
   {% endblock list_style %}
 {% elif config.docstring_section_style == "spacy" %}
-  {% block spacy_style %}
+  {% block spacy_style scoped %}
   <table>
     <thead>
       <tr>
