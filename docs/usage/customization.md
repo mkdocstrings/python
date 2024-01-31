@@ -324,7 +324,7 @@ Available context:
 Available context:
 
 - `config`: The handler configuration (dictionary).
-- `function`: The [Attribute][griffe.dataclasses.Attribute] instance.
+- `attribute`: The [Attribute][griffe.dataclasses.Attribute] instance.
 
 #### Docstring sections
 
