@@ -191,3 +191,60 @@ __all__ = ["their_object"]
 <p>Docstring of your module.</p>
 ////
 ///
+
+## `find_stubs_package`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+When looking for documentation specified in [autodoc instructions][autodoc syntax] (`::: identifier`), also look for
+the stubs package as defined in [PEP 561](https://peps.python.org/pep-0561/) if it exists. This is useful when
+most of your documentation is separately provided by such a package and not inline in your main package.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          find_stubs_package: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: your_package.your_module.your_func
+    options:
+      find_stubs_package: true
+```
+
+```python title="your_package/your_module.py"
+
+def your_func(a, b):
+    # Function code
+    ...
+
+# rest of your code
+```
+
+```python title="your_package-stubs/your_module.pyi"
+
+def your_func(a: int, b: str):
+    """
+    <Function docstring>
+    """
+    ...
+
+# rest of your code
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With find_stubs_package
+<h2><code>your_func</code></h2>
+<p>Function docstring</p>
+////
+
+//// tab | Without find_stubs_package
+<h2><code>your_func</code></h2>
+////
+///
