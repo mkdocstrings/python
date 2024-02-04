@@ -643,3 +643,49 @@ plugins:
 </ul>
 ////
 ///
+
+## `show_labels`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to show labels of the members. Defaults to `True`.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_labels: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: package.module
+    options:
+      show_labels: false
+```
+
+```python title="package/module.py"
+class SomeClass:
+    some_attr: int
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | Show
+<h3 id="django_autotyping.stubbing.codemods.auth_functions_codemod.SomeClass.some_attr" class="doc doc-heading">
+  <code class="highlight language-python"><span class="n">some_attr</span><span class="p">:</span> <span class="nb">int</span></code>
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+</h3>
+////
+
+//// tab | Don't show
+<h3 id="django_autotyping.stubbing.codemods.auth_functions_codemod.SomeClass.some_attr" class="doc doc-heading">
+  <code class="highlight language-python"><span class="n">some_attr</span><span class="p">:</span> <span class="nb">int</span></code>
+</h3>
+////
+///

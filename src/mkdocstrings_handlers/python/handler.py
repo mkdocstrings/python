@@ -106,6 +106,7 @@ class PythonHandler(BaseHandler):
         "preload_modules": None,
         "allow_inspection": True,
         "summary": False,
+        "show_labels": True,
         "unwrap_annotated": False,
     }
     """Default handler configuration.
@@ -154,6 +155,7 @@ class PythonHandler(BaseHandler):
         group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
         show_submodules (bool): When rendering a module, show its submodules recursively. Default: `False`.
         summary (bool | dict[str, bool]): Whether to render summaries of modules, classes, functions (methods) and attributes.
+        show_labels (bool): Whether to show labels of the members. Default: `True`.
 
     Attributes: Docstrings options:
         docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
