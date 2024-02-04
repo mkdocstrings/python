@@ -111,7 +111,7 @@ class PythonHandler(BaseHandler):
     """Default handler configuration.
 
     Attributes: General options:
-        find_stubs_package (bool): Whether to load stubs package (package-stubs) when extracting docstrings.
+        find_stubs_package (bool): Whether to load stubs package (package-stubs) when extracting docstrings. Default `False`.
         allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
         show_bases (bool): Show the base classes of a class. Default: `True`.
         show_source (bool): Show the source code of this object. Default: `True`.
