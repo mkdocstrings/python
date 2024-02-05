@@ -674,18 +674,18 @@ class SomeClass:
 /// admonition | Preview
     type: preview
 
-//// tab | Show
-<h3 id="django_autotyping.stubbing.codemods.auth_functions_codemod.SomeClass.some_attr" class="doc doc-heading">
-  <code class="highlight language-python"><span class="n">some_attr</span><span class="p">:</span> <span class="nb">int</span></code>
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-</h3>
+//// tab | With labels
+<code class="highlight language-python">
+  <span class="n">some_attr</span><span class="p">:</span>
+  <span class="nb">int</span>
+</code>
+<small><code>instance-attribute</code></small>
 ////
 
-//// tab | Don't show
-<h3 id="django_autotyping.stubbing.codemods.auth_functions_codemod.SomeClass.some_attr" class="doc doc-heading">
-  <code class="highlight language-python"><span class="n">some_attr</span><span class="p">:</span> <span class="nb">int</span></code>
-</h3>
+//// tab | Without labels
+<code class="highlight language-python">
+  <span class="n">some_attr</span><span class="p">:</span>
+  <span class="nb">int</span>
+</code>
 ////
 ///
