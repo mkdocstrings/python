@@ -643,3 +643,49 @@ plugins:
 </ul>
 ////
 ///
+
+## `show_labels`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to show labels of the members.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_labels: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: package.module
+    options:
+      show_labels: false
+```
+
+```python title="package/module.py"
+class SomeClass:
+    some_attr: int
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With labels
+<code class="highlight language-python">
+  <span class="n">some_attr</span><span class="p">:</span>
+  <span class="nb">int</span>
+</code>
+<small><code>instance-attribute</code></small>
+////
+
+//// tab | Without labels
+<code class="highlight language-python">
+  <span class="n">some_attr</span><span class="p">:</span>
+  <span class="nb">int</span>
+</code>
+////
+///

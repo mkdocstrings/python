@@ -1,4 +1,4 @@
-{% if labels %}
+{% if config.show_labels and labels %}
   {{ log.debug("Rendering labels") }}
   <span class="doc doc-labels">
     {% for label in labels|sort %}
