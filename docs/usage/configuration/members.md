@@ -649,7 +649,7 @@ plugins:
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-Whether to show labels of the members. Defaults to `True`.
+Whether to show labels of the members.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
