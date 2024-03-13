@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier
-_commit: 1.2.6
-_src_path: gh:pawamoy/copier-pdm
+_commit: 0.1.0
+_src_path: gh:mkdocstrings/handler-template
 author_email: dev@pawamoy.fr
 author_fullname: Timothée Mazzucotelli
 author_username: pawamoy
@@ -20,4 +20,4 @@ python_package_import_name: mkdocstrings_handlers
 repository_name: python
 repository_namespace: mkdocstrings
 repository_provider: github.com
-
+language: Python
