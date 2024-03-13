@@ -143,7 +143,7 @@ as it is against our [Terms of use](index.md#terms).**
 > ```bash
 > # clone the repository
 > git clone git@github.com:pawamoy-insiders/mkdocstrings-python
-> cd python
+> cd mkdocstrings-python
 >
 > # install build
 > pip install --user build
@@ -184,7 +184,7 @@ git clone git@github.com:pawamoy-insiders/mkdocstrings-python
 When cloning from `git`, the package must be installed:
 
 ```
-pip install -e python
+pip install -e mkdocstrings-python
 ```
 
 ## Upgrading
