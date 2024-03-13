@@ -14,6 +14,7 @@ env:
   LANG: en_US.utf-8
   LC_ALL: en_US.utf-8
   PYTHONIOENCODING: UTF-8
+  PYTHON_VERSIONS: ""
 
 jobs:
 
@@ -28,28 +29,51 @@ jobs:
     - name: Fetch all tags
       run: git fetch --depth=1 --tags
 
-    - name: Set up PDM
-      uses: pdm-project/setup-pdm@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        python-version: "3.8"
+        python-version: "3.11"
 
-    - name: Resolving dependencies
-      run: pdm lock -v --no-cross-platform -G ci-quality
+    - name: Install uv
+      run: pip install uv
 
     - name: Install dependencies
-      run: pdm install -G ci-quality
+      run: make setup
 
     - name: Check if the documentation builds correctly
-      run: pdm run duty check-docs
+      run: make check-docs
 
     - name: Check the code quality
-      run: pdm run duty check-quality
+      run: make check-quality
 
     - name: Check if the code is correctly typed
-      run: pdm run duty check-types
+      run: make check-types
 
     - name: Check for vulnerabilities in dependencies
-      run: pdm run duty check-dependencies
+      run: make check-dependencies
+
+    - name: Check for breaking changes in the API
+      run: make check-api
+
+  exclude-test-jobs:
+    runs-on: ubuntu-latest
+    outputs:
+      jobs: ${{ steps.exclude-jobs.outputs.jobs }}
+    steps:
+    - id: exclude-jobs
+      run: |
+        if ${{ github.repository_owner == 'pawamoy-insiders' }}; then
+          echo 'jobs=[
+            {"os": "macos-latest"},
+            {"os": "windows-latest"},
+            {"python-version": "3.9"},
+            {"python-version": "3.10"},
+            {"python-version": "3.11"},
+            {"python-version": "3.12"}
+          ]' | tr -d '[:space:]' >> $GITHUB_OUTPUT
+        else
+          echo 'jobs=[]' >> $GITHUB_OUTPUT
+        fi
 
     - name: Check for breaking changes in the API
       run: pdm run duty check-api
@@ -98,17 +122,20 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set up PDM
-      uses: pdm-project/setup-pdm@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-        allow-python-prereleases: true
+        allow-prereleases: true
 
-    - name: Resolving dependencies
-      run: pdm lock -v --no-cross-platform -G ci-tests
+    - name: Install uv
+      run: pip install uv
 
     - name: Install dependencies
-      run: pdm install --no-editable -G ci-tests
+      run: |
+        uv venv
+        uv pip install -r devdeps.txt
+        uv pip install "mkdocstrings-python @ ."
 
     - name: Run the test suite
-      run: pdm run duty test
+      run: make test

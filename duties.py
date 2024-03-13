@@ -22,7 +22,7 @@ PY_SRC = " ".join(PY_SRC_LIST)
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
 WINDOWS = os.name == "nt"
 PTY = not WINDOWS and not CI
-MULTIRUN = os.environ.get("PDM_MULTIRUN", "0") == "1"
+MULTIRUN = os.environ.get("MULTIRUN", "0") == "1"
 
 
 def pyprefix(title: str) -> str:  # noqa: D103
@@ -72,7 +72,6 @@ def check_quality(ctx: Context) -> None:
     Parameters:
         ctx: The context instance (passed automatically).
     """
-    os.environ["MYPYPATH"] = "src"
     ctx.run(
         ruff.check(*PY_SRC_LIST, config="config/ruff.toml"),
         title=pyprefix("Checking code quality"),
@@ -89,15 +88,15 @@ def check_dependencies(ctx: Context) -> None:
     """
     # retrieve the list of dependencies
     requirements = ctx.run(
-        ["pdm", "export", "-f", "requirements", "--without-hashes"],
-        title="Exporting dependencies as requirements",
+        ["uv", "pip", "freeze"],
+        silent=True,
         allow_overrides=False,
     )
 
     ctx.run(
         safety.check(requirements),
         title="Checking dependencies",
-        command="pdm export -f requirements --without-hashes | safety check --stdin",
+        command="uv pip freeze | safety check --stdin",
     )
 
 
@@ -144,9 +143,9 @@ def check_api(ctx: Context) -> None:
 
     griffe_check = lazy(g_check, name="griffe.check")
     ctx.run(
-        griffe_check("mkdocstrings_handlers", search_paths=["src"], color=True),
+        griffe_check("mkdocstrings_handlers.python", search_paths=["src"], color=True),
         title="Checking for API breaking changes",
-        command="griffe check -ssrc mkdocstrings_handlers",
+        command="griffe check -ssrc mkdocstrings_handlers.python",
         nofail=True,
     )
 
@@ -201,7 +200,11 @@ def docs_deploy(ctx: Context) -> None:
             ctx.run(lambda: False, title="Not deploying docs without Material for MkDocs Insiders!")
         origin = ctx.run("git config --get remote.origin.url", silent=True)
         if "pawamoy-insiders/mkdocstrings-python" in origin:
-            ctx.run("git remote add upstream git@github.com:mkdocstrings/python", silent=True, nofail=True)
+            ctx.run(
+                "git remote add upstream git@github.com:mkdocstrings/python",
+                silent=True,
+                nofail=True,
+            )
             ctx.run(
                 mkdocs.gh_deploy(remote_name="upstream", force=True),
                 title="Deploying documentation",
@@ -247,7 +250,7 @@ def release(ctx: Context, version: str) -> None:
     ctx.run(f"git tag {version}", title="Tagging commit", pty=PTY)
     ctx.run("git push", title="Pushing commits", pty=False)
     ctx.run("git push --tags", title="Pushing tags", pty=False)
-    ctx.run("pdm build", title="Building dist/wheel", pty=PTY)
+    ctx.run("pyproject-build", title="Building dist/wheel", pty=PTY)
     ctx.run("twine upload --skip-existing dist/*", title="Publishing version", pty=PTY)
 
 

@@ -60,7 +60,7 @@ def fixture_plugin(mkdocs_conf: config.Config) -> MkdocstringsPlugin:
     """Return a plugin instance.
 
     Parameters:
-        mkdocs_conf: Pytest fixture: [tests.conftest.fixture_mkdocs_conf][].
+        mkdocs_conf: Pytest fixture (see conftest.py).
 
     Returns:
         mkdocstrings plugin instance.
@@ -73,7 +73,7 @@ def fixture_ext_markdown(mkdocs_conf: config.Config) -> Markdown:
     """Return a Markdown instance with MkdocstringsExtension.
 
     Parameters:
-        mkdocs_conf: Pytest fixture: [tests.conftest.fixture_mkdocs_conf][].
+        mkdocs_conf: Pytest fixture (see conftest.py).
 
     Returns:
         A Markdown instance.
@@ -86,7 +86,7 @@ def fixture_handler(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> Pytho
     """Return a handler instance.
 
     Parameters:
-        plugin: Pytest fixture: [tests.conftest.fixture_plugin][].
+        plugin: Pytest fixture (see conftest.py).
 
     Returns:
         A handler instance.

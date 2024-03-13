@@ -78,9 +78,16 @@ class Goal:
 
     def render(self, rel_base: str = "..") -> None:  # noqa: D102
         print(f"#### $ {self.human_readable_amount} — {self.name}\n")
-        for feature in self.features:
-            feature.render(rel_base)
-        print("")
+        if self.features:
+            for feature in self.features:
+                feature.render(rel_base)
+            print("")
+        else:
+            print("There are no features in this goal for this project.  ")
+            print(
+                "[See the features in this goal **for all Insiders projects.**]"
+                f"(https://pawamoy.github.io/insiders/#{self.amount}-{self.name.lower().replace(' ', '-')})",
+            )
 
 
 def load_goals(data: str, funding: int = 0, project: Project | None = None) -> dict[int, Goal]:
@@ -104,8 +111,7 @@ def load_goals(data: str, funding: int = 0, project: Project | None = None) -> d
                 Feature(
                     name=feature_data["name"],
                     ref=feature_data.get("ref"),
-                    since=feature_data.get("since")
-                    and datetime.strptime(feature_data["since"], "%Y/%m/%d").date(),  # noqa: DTZ007
+                    since=feature_data.get("since") and datetime.strptime(feature_data["since"], "%Y/%m/%d").date(),  # noqa: DTZ007
                     project=project,
                 )
                 for feature_data in goal_data["features"]

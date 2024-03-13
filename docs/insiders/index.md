@@ -49,9 +49,8 @@ The biggest bottleneck in Open Source is time.[^3]
 
 If you're unsure if you should sponsor this project, check out the list of
 [completed funding goals][goals completed] to learn whether you're already using features that
-were developed with the help of sponsorships.
-<!-- You're most likely using at least a handful of them,
-[thanks to our awesome sponsors][sponsors]! -->
+were developed with the help of sponsorships. You're most likely using at least
+a handful of them, [thanks to our awesome sponsors][sponsors]!
 
 ## What's in it for me?
 
@@ -173,7 +172,7 @@ This section lists all funding goals that were previously completed, which means
 that those features were part of Insiders, but are now generally available and
 can be used by all users.
 
-```python exec="1" session="insiders"
+```python exec="1" session="insiders" idprefix=""
 for goal in goals.values():
     if goal.complete:
         goal.render()

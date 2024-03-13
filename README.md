@@ -2,23 +2,11 @@
 
 <p align="center">A Python handler for <a href="https://github.com/mkdocstrings/mkdocstrings"><i>mkdocstrings</i></a>.</p>
 
-<p align="center">
-  <a href="https://github.com/mkdocstrings/python/actions?query=workflow%3Aci">
-    <img alt="ci" src="https://github.com/mkdocstrings/python/workflows/ci/badge.svg" />
-  </a>
-  <a href="https://mkdocstrings.github.io/python/">
-    <img alt="documentation" src="https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat" />
-  </a>
-  <a href="https://pypi.org/project/mkdocstrings-python/">
-    <img alt="pypi version" src="https://img.shields.io/pypi/v/mkdocstrings-python.svg" />
-  </a>
-  <a href="https://gitpod.io/#https://github.com/mkdocstrings/python">
-    <img alt="gitpod" src="https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat" />
-  </a>
-  <a href="https://app.gitter.im/#/room/#mkdocstrings_python:gitter.im">
-    <img alt="gitter" src="https://badges.gitter.im/join%20chat.svg" />
-  </a>
-</p>
+[![ci](https://github.com/mkdocstrings/python/workflows/ci/badge.svg)](https://github.com/mkdocstrings/python/actions?query=workflow%3Aci)
+[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/python/)
+[![pypi version](https://img.shields.io/pypi/v/mkdocstrings-python.svg)](https://pypi.org/project/mkdocstrings-python/)
+[![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/python)
+[![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#python:gitter.im)
 
 ---
 

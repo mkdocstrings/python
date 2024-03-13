@@ -9,10 +9,16 @@ goals:
       ref: /usage/configuration/headings/#show_symbol_type_toc
       since: 2023/06/04
   1000:
-    name: GraviFridge User Manual
+    name: GraviFridge Fluid Renewal
     features:
     - name: Auto-summary of object members
       ref: /usage/configuration/members/#summary
       since: 2023/08/20
     - name: Automatic rendering of function signature overloads
       since: 2023/09/05
+  1500:
+    name: HyperLamp Navigation Tips
+    features: []
+  2000:
+    name: FusionDrive Ejection Configuration
+    features: []
