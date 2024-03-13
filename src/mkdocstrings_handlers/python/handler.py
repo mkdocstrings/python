@@ -61,6 +61,7 @@ class PythonHandler(BaseHandler):
     fallback_config: ClassVar[dict] = {"fallback": True}
     """The configuration used to collect item during autorefs fallback."""
     default_config: ClassVar[dict] = {
+        "find_stubs_package": False,
         "docstring_style": "google",
         "docstring_options": {},
         "show_symbol_type_heading": False,
@@ -105,11 +106,13 @@ class PythonHandler(BaseHandler):
         "preload_modules": None,
         "allow_inspection": True,
         "summary": False,
+        "show_labels": True,
         "unwrap_annotated": False,
     }
     """Default handler configuration.
 
     Attributes: General options:
+        find_stubs_package (bool): Whether to load stubs package (package-stubs) when extracting docstrings. Default `False`.
         allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
         show_bases (bool): Show the base classes of a class. Default: `True`.
         show_source (bool): Show the source code of this object. Default: `True`.
@@ -152,6 +155,7 @@ class PythonHandler(BaseHandler):
         group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
         show_submodules (bool): When rendering a module, show its submodules recursively. Default: `False`.
         summary (bool | dict[str, bool]): Whether to render summaries of modules, classes, functions (methods) and attributes.
+        show_labels (bool): Whether to show labels of the members. Default: `True`.
 
     Attributes: Docstrings options:
         docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
@@ -279,8 +283,8 @@ class PythonHandler(BaseHandler):
             try:
                 for pre_loaded_module in final_config.get("preload_modules") or []:
                     if pre_loaded_module not in self._modules_collection:
-                        loader.load(pre_loaded_module)
-                loader.load(module_name)
+                        loader.load(pre_loaded_module, find_stubs_package=final_config["find_stubs_package"])
+                loader.load(module_name, find_stubs_package=final_config["find_stubs_package"])
             except ImportError as error:
                 raise CollectionError(str(error)) from error
             unresolved, iterations = loader.resolve_aliases(
