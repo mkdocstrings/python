@@ -111,6 +111,10 @@ markdown_extensions:
 - pymdownx.emoji:
     emoji_index: !!python/name:material.extensions.emoji.twemoji
     emoji_generator: !!python/name:material.extensions.emoji.to_svg
+- pymdownx.highlight:
+    pygments_lang_class: true
+- pymdownx.inlinehilite:
+    style_plain_text: py3
 - pymdownx.magiclink
 - pymdownx.snippets:
     auto_append: [docs/.glossary.md]
