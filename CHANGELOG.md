@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.9.0](https://github.com/mkdocstrings/python/releases/tag/1.9.0) - 2024-03-13
+
+<small>[Compare with 1.8.0](https://github.com/mkdocstrings/python/compare/1.8.0...1.9.0)</small>
+
+### Dependencies
+
+- Add upper bound on Python-Markdown 3.6 to temporarily prevent breaking changes ([cd93ee3](https://github.com/mkdocstrings/python/commit/cd93ee31418a2752667d43bb5a05d22284522c24) by Timothée Mazzucotelli).
+
+### Features
+
+- Add `show_labels` option to show/hide labels ([eaf9b82](https://github.com/mkdocstrings/python/commit/eaf9b8240069f7369f401fe048892043c8b173d3) by Viicos). [Issue #120](https://github.com/mkdocstrings/python/issues/120), [PR #130](https://github.com/mkdocstrings/python/pull/130)
+- Add option to search for stubs packages ([0c6aa32](https://github.com/mkdocstrings/python/commit/0c6aa323c9e57b8348765a5daa11c79d0c5edb07) by Romain). [PR #128](https://github.com/mkdocstrings/python/pull/128), PR griffe#221: : https://github.com/mkdocstrings/griffe/pull/221
+
+### Code Refactoring
+
+- Mark all Jinja blocks as scoped ([548bdad](https://github.com/mkdocstrings/python/commit/548bdaddd66ffc99b3b9a5a62228a2ff4ff0dd00) by Timothée Mazzucotelli).
+
 ## [1.8.0](https://github.com/mkdocstrings/python/releases/tag/1.8.0) - 2024-01-08
 
 <small>[Compare with 1.7.5](https://github.com/mkdocstrings/python/compare/1.7.5...1.8.0)</small>
