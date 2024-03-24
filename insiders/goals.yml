@@ -30,6 +30,9 @@ goals:
     - name: Class inheritance diagrams with Mermaid
       ref: /usage/configuration/general/#show_inheritance_diagram
       since: 2024/03/24
+    - name: Annotations modernization
+      ref: /usage/configuration/signatures/#modernize_annotations
+      since: 2024/03/24
   2000:
     name: FusionDrive Ejection Configuration
     features: []
