@@ -166,6 +166,15 @@ def do_format_signature(
         ),
     )
 
+    # Since we highlight the signature without `def`,
+    # Pygments sees it as a function call and not a function definition.
+    # The result is that the function name is not parsed as such,
+    # but instead as a regular name: `n` CSS class instead of `nf`.
+    # To fix it, we replace the first occurrence of an `n` CSS class
+    # with an `nf` one, unless we found `nf` already.
+    if signature.find('class="nf"') == -1:
+        signature = signature.replace('class="n"', 'class="nf"', 1)
+
     if stash:
         for key, value in stash.items():
             signature = re.sub(rf"\b{key}\b", value, signature)
