@@ -348,10 +348,36 @@ Available context:
 
 - `section`: The [DocstringSection][griffe.docstrings.dataclasses.DocstringSection] instance (see `DocstringSection*` subclasses).
 
+### Syntax highlight in signatures
+
+You can customize the colors in syntax highlighted signatures.
+If you are using the [Material for MkDocs] theme,
+here are some customization examples:
+
+```css
+/* Fancier color for operators such as * and |. */
+.doc-signature .o {
+  color: var(--md-code-hl-special-color);
+}
+
+/* Fancier color for constants such as None, True, and False. */
+.doc-signature .kc {
+  color: var(--md-code-hl-constant-color);
+}
+
+/* Fancier color for built-in types (only useful when cross-references are used). */
+.doc-signature .n > a[href^="https://docs.python.org/"][href*="/functions.html#"],
+.doc-signature .n > a[href^="https://docs.python.org/"][href*="/stdtypes.html#"] {
+  color: var(--md-code-hl-constant-color);
+}
+```
+
+For other themes, use their own CSS variables,
+or use plain colors such as `violet` or `#2987f2`.
+
 ## Style recommendations
 
-<a id="recommended-style-material"></a>
-
+[](){#recommended-style-material}
 ### Material
 
 Here are some CSS rules for the [Material for MkDocs] theme:
@@ -360,8 +386,7 @@ Here are some CSS rules for the [Material for MkDocs] theme:
 --8<-- "docs/css/mkdocstrings.css"
 ```
 
-<a id="recommended-style-readthedocs"></a>
-
+[](){#recommended-style-readthedocs}
 ### ReadTheDocs
 
 Here are some CSS rules for the built-in ReadTheDocs theme:
