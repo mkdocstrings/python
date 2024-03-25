@@ -1,5 +1,5 @@
 <!-- Import translations for given language and fallback -->
-{% set lang_pth = "languages/" ~ locale ~ ".html" %}
+{% set lang_pth = "languages/" ~ language ~ ".html" %}
 {% if lang_pth is existing_template %}
     {% import lang_pth as lang %}
     {% import "languages/en.html" as fallback %}
