@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.9.2](https://github.com/mkdocstrings/python/releases/tag/1.9.2) - 2024-04-02
+
+<small>[Compare with 1.9.1](https://github.com/mkdocstrings/python/compare/1.9.1...1.9.2)</small>
+
+### Dependencies
+
+- Remove cap on Python-Markdown 3.6 now that ToC labels are fixed by mkdocstrings ([0c1e2c1](https://github.com/mkdocstrings/python/commit/0c1e2c15b2497d99974cbb9bd68f25056bb8451b) by Timothée Mazzucotelli).
+
 ## [1.9.1](https://github.com/mkdocstrings/python/releases/tag/1.9.1) - 2024-04-02
 
 <small>[Compare with 1.9.0](https://github.com/mkdocstrings/python/compare/1.9.0...1.9.1)</small>
