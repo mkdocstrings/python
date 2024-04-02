@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.9.1](https://github.com/mkdocstrings/python/releases/tag/1.9.1) - 2024-04-02
+
+<small>[Compare with 1.9.0](https://github.com/mkdocstrings/python/compare/1.9.0...1.9.1)</small>
+
+### Bug Fixes
+
+- Don't try loading packages from relative paths ([bd73497](https://github.com/mkdocstrings/python/commit/bd7349714059afb1295e743dbc82380fa797a032) by Timothée Mazzucotelli). [Issue-145](https://github.com/mkdocstrings/python/issues/145)
+
+### Code Refactoring
+
+- Allow first name in a separate signature to be highlighted as a function name ([f798a1e](https://github.com/mkdocstrings/python/commit/f798a1e19dbac548420dcbe1172e9a49232b615b) by Timothée Mazzucotelli).
+- Maintain original Pygments color for cross-refs in signatures ([7c8b885](https://github.com/mkdocstrings/python/commit/7c8b885fa2b704e719016acb35791723ea3a496a) by Timothée Mazzucotelli).
+
 ## [1.9.0](https://github.com/mkdocstrings/python/releases/tag/1.9.0) - 2024-03-13
 
 <small>[Compare with 1.8.0](https://github.com/mkdocstrings/python/compare/1.8.0...1.9.0)</small>
