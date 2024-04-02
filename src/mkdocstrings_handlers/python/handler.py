@@ -283,8 +283,16 @@ class PythonHandler(BaseHandler):
             try:
                 for pre_loaded_module in final_config.get("preload_modules") or []:
                     if pre_loaded_module not in self._modules_collection:
-                        loader.load(pre_loaded_module, find_stubs_package=final_config["find_stubs_package"])
-                loader.load(module_name, find_stubs_package=final_config["find_stubs_package"])
+                        loader.load(
+                            pre_loaded_module,
+                            try_relative_path=False,
+                            find_stubs_package=final_config["find_stubs_package"],
+                        )
+                loader.load(
+                    module_name,
+                    try_relative_path=False,
+                    find_stubs_package=final_config["find_stubs_package"],
+                )
             except ImportError as error:
                 raise CollectionError(str(error)) from error
             unresolved, iterations = loader.resolve_aliases(
