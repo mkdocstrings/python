@@ -21,7 +21,7 @@
         role="data" if attribute.parent.kind.value == "module" else "attr",
         id=html_id,
         class="doc doc-heading",
-        toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute.name,
+        toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute_name,
     ) %}
 
       {% block heading scoped %}
@@ -58,7 +58,7 @@
       {% filter heading(heading_level,
           role="data" if attribute.parent.kind.value == "module" else "attr",
           id=html_id,
-          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute.name,
+          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute_name,
           hidden=True,
       ) %}
       {% endfilter %}
