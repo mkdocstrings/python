@@ -4,7 +4,7 @@
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
-  <p><strong>{{ section.title or lang.t("Raises:") }}</strong></p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Raises:") }}</span></p>
   <table>
     <thead>
       <tr>
@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {% for raises in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           <td>
             {% if raises.annotation %}
               {% with expression = raises.annotation %}
@@ -34,10 +34,10 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
-  <p>{{ lang.t(section.title) or lang.t("Raises:") }}</p>
+  <p><span class="doc-section-title">{{ lang.t(section.title) or lang.t("Raises:") }}</span></p>
   <ul>
     {% for raises in section.value %}
-      <li class="field-body">
+      <li class="doc-section-item field-body">
         {% if raises.annotation %}
           {% with expression = raises.annotation %}
             <code>{% include "expression.html" with context %}</code>
@@ -56,13 +56,13 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or lang.t("RAISES")).rstrip(":").upper() }}</b></th>
-        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
+        <th><span class="doc-section-title">{{ (section.title or lang.t("RAISES")).rstrip(":").upper() }}</span></th>
+        <th><span>{{ lang.t("DESCRIPTION") }}</span></th>
       </tr>
     </thead>
     <tbody>
       {% for raises in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           <td>
             <span class="doc-raises-annotation">
               {% with expression = raises.annotation %}

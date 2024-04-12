@@ -4,7 +4,7 @@
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
-  <p><strong>{{ section.title or lang.t("Other Parameters:") }}</strong></p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Other Parameters:") }}</span></p>
   <table>
     <thead>
       <tr>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       {% for parameter in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           <td><code>{{ parameter.name }}</code></td>
           <td>
             {% if parameter.annotation %}
@@ -36,10 +36,10 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
-  <p>{{ section.title or lang.t("Other Parameters:") }}</p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Other Parameters:") }}</span></p>
   <ul>
     {% for parameter in section.value %}
-      <li class="field-body">
+      <li class="doc-section-item field-body">
         <b><code>{{ parameter.name }}</code></b>
         {% if parameter.annotation %}
           {% with expression = parameter.annotation %}
@@ -59,13 +59,13 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or lang.t("PARAMETER")).rstrip(":").upper() }}</b></th>
-        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
+        <th><span class="doc-section-title">{{ (section.title or lang.t("PARAMETER")).rstrip(":").upper() }}</span></th>
+        <th><span>{{ lang.t("DESCRIPTION") }}</span></th>
       </tr>
     </thead>
     <tbody>
       {% for parameter in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           <td><code>{{ parameter.name }}</code></td>
           <td class="doc-param-details">
             <div class="doc-md-description">

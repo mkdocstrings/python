@@ -4,7 +4,7 @@
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
-  <p><strong>{{ section.title or lang.t("Methods:") if obj.is_class else lang.t("Functions:") }}</strong></p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Methods:") if obj.is_class else lang.t("Functions:") }}</span></p>
   <table>
     <thead>
       <tr>
@@ -15,7 +15,7 @@
     <tbody>
       {% for function in section.value %}
         {% if not function.name == "__init__" or not config.merge_init_into_class %}
-          <tr>
+          <tr class="doc-section-item">
             <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ function.name }}">{{ function.name }}</span></code></td>
             <td>
               <div class="doc-md-description">
@@ -30,11 +30,11 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
-  <p>{{ section.title or lang.t("Methods:") if obj.is_class else lang.t("Functions:") }}</p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Methods:") if obj.is_class else lang.t("Functions:") }}</span></p>
   <ul>
     {% for function in section.value %}
       {% if not function.name == "__init__" or not config.merge_init_into_class %}
-        <li class="field-body">
+        <li class="doc-section-item field-body">
           <b><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ function.name }}">{{ function.name }}</span></code></b>
           –
           <div class="doc-md-description">
@@ -50,14 +50,14 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or lang.t("METHOD") if obj.is_class else lang.t("FUNCTION")).rstrip(":").upper() }}</b></th>
-        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
+        <th><span class="doc-section-title">{{ (section.title or lang.t("METHOD") if obj.is_class else lang.t("FUNCTION")).rstrip(":").upper() }}</span></th>
+        <th><span>{{ lang.t("DESCRIPTION") }}</span></th>
       </tr>
     </thead>
     <tbody>
       {% for function in section.value %}
         {% if not function.name == "__init__" or not config.merge_init_into_class %}
-          <tr>
+          <tr class="doc-section-item">
             <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ function.name }}">{{ function.name }}</span></code></td>
             <td class="doc-function-details">
               <div class="doc-md-description">

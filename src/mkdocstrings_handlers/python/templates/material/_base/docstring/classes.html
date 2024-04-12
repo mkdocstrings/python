@@ -4,7 +4,7 @@
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
-  <p><strong>{{ section.title or lang.t("Classes:") }}</strong></p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Classes:") }}</span></p>
   <table>
     <thead>
       <tr>
@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {% for class in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ class.name }}">{{ class.name }}</span></code></td>
           <td>
             <div class="doc-md-description">
@@ -28,10 +28,10 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
-  <p>{{ section.title or lang.t("Classes:") }}</p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Classes:") }}</span></p>
   <ul>
     {% for class in section.value %}
-      <li class="field-body">
+      <li class="doc-section-item field-body">
         <b><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ class.name }}">{{ class.name }}</span></code></b>
         –
         <div class="doc-md-description">
@@ -46,13 +46,13 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or lang.t("CLASS")).rstrip(":").upper() }}</b></th>
-        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
+        <th><span class="doc-section-title">{{ (section.title or lang.t("CLASS")).rstrip(":").upper() }}</span></th>
+        <th><span>{{ lang.t("DESCRIPTION") }}</span></th>
       </tr>
     </thead>
     <tbody>
       {% for class in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ class.name }}">{{ class.name }}</span></code></td>
           <td class="doc-class-details">
             <div class="doc-md-description">

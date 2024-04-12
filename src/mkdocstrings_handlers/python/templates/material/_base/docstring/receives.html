@@ -5,7 +5,7 @@
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
   {% set name_column = section.value|selectattr("name")|any %}
-  <p><strong>{{ section.title or lang.t("Receives:") }}</strong></p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Receives:") }}</span></p>
   <table>
     <thead>
       <tr>
@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       {% for receives in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           {% if name_column %}<td>{% if receives.name %}<code>{{ receives.name }}</code>{% endif %}</td>{% endif %}
           <td>
             {% if receives.annotation %}
@@ -37,10 +37,10 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
-  <p>{{ section.title or lang.t("Receives:") }}</p>
+  <p><span class="doc-section-title">{{ section.title or lang.t("Receives:") }}</span></p>
   <ul>
     {% for receives in section.value %}
-      <li class="field-body">
+      <li class="doc-section-item field-body">
         {% if receives.name %}<b><code>{{ receives.name }}</code></b>{% endif %}
         {% if receives.annotation %}
           {% with expression = receives.annotation %}
@@ -62,13 +62,13 @@
   <table>
     <thead>
       <tr>
-        <th><b>{{ (section.title or lang.t("RECEIVES")).rstrip(":").upper() }}</b></th>
-        <th><b>{{ lang.t("DESCRIPTION") }}</b></th>
+        <th><span class="doc-section-title">{{ (section.title or lang.t("RECEIVES")).rstrip(":").upper() }}</span></th>
+        <th><span>{{ lang.t("DESCRIPTION") }}</span></th>
       </tr>
     </thead>
     <tbody>
       {% for receives in section.value %}
-        <tr>
+        <tr class="doc-section-item">
           <td>
             {% if receives.name %}
               <code>{{ receives.name }}</code>

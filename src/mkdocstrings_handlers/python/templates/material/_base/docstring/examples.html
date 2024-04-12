@@ -2,7 +2,7 @@
 
 {% import "language.html" as lang with context %}
 
-<p><strong>{{ section.title or lang.t("Examples:") }}</strong></p>
+<p><span class="doc-section-title">{{ section.title or lang.t("Examples:") }}</span></p>
 {% for section_type, sub_section in section.value %}
   {% if section_type.value == "text" %}
     {{ sub_section|convert_markdown(heading_level, html_id) }}
