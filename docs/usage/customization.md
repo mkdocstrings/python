@@ -5,6 +5,26 @@ and/or by overriding templates.
 
 ## CSS classes
 
+Our templates add [CSS](https://www.w3schools.com/Css/) classes to many HTML elements
+to make it possible for users to customize the resulting look and feel.
+
+To add CSS rules and style mkdocstrings' output,
+put them in a CSS file in your docs folder, for example in `docs/css/mkdocstrings.css`,
+and reference this file in [MkDocs' `extra_css` configuration option](https://www.mkdocs.org/user-guide/configuration/#extra_css):
+
+```yaml title="mkdocs.yml"
+extra_css:
+- css/mkdocstrings.css
+```
+
+Example:
+
+```css title="docs/css/mkdocstrings.css"
+.doc-section-title {
+  font-weight: bold;
+}
+```
+
 The following CSS classes are used in the generated HTML:
 
 - `doc`: on all the following elements
@@ -22,6 +42,8 @@ The following CSS classes are used in the generated HTML:
 - `doc-labels`: on `span`s wrapping the object's labels
     - `doc-label`: on `small` elements containing a label
         - `doc-label-LABEL`: same, where `LABEL` is replaced by the actual label
+- `doc-section-title`: on section titles (depend on the [selected style for section rendering][docstring_style])
+- `doc-section-item`: on section items (depend on the [selected style for section rendering][docstring_style])
 - `doc-md-description`: on `div`s containing HTML descriptions converted from Markdown docstrings
 - `doc-symbol`: on `code` tags of symbol types
     - `doc-symbol-heading`: on symbol types in headings
