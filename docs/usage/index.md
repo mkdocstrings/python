@@ -58,6 +58,18 @@ with the `handler` option:
     handler: python
 ```
 
+## Internationalization (i18n)
+
+The Python handler of *mkdocstrings* supports changing the output language.
+
+The following languages can be used by enabling in [mkdocstrings configuration](https://mkdocstrings.github.io/usage/#internationalization-i18n):
+
+Currently supported languages:
+
+- :flag_us: `en`: English (default) 
+- :flag_cn: `zh`: Chinese (Simplified) 
+- :flag_jp: `ja`: Japanese 
+
 ## Configuration
 
 When installed, the Python handler becomes the default *mkdocstrings* handler.
