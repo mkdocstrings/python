@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.0](https://github.com/mkdocstrings/python/releases/tag/1.10.0) - 2024-04-19
+
+<small>[Compare with 1.9.2](https://github.com/mkdocstrings/python/compare/1.9.2...1.10.0)</small>
+
+### Features
+
+- Add CSS classes `doc-section-title` and `doc-section-item` in docstring sections ([d6e1d68](https://github.com/mkdocstrings/python/commit/d6e1d68c099e61c3bd6d93e583708335d84158f5) by Timothée Mazzucotelli). [Issue-17](https://github.com/mkdocstrings/python/issues/17)
+
+### Bug Fixes
+
+- Render enumeration instance name instead of just "value", allowing proper cross-reference ([11d81d8](https://github.com/mkdocstrings/python/commit/11d81d8e056b7c074eb3a1c47606867156a338fa) by Timothée Mazzucotelli). [Issue-124](https://github.com/mkdocstrings/python/issues/124)
+
 ## [1.9.2](https://github.com/mkdocstrings/python/releases/tag/1.9.2) - 2024-04-02
 
 <small>[Compare with 1.9.1](https://github.com/mkdocstrings/python/compare/1.9.1...1.9.2)</small>
