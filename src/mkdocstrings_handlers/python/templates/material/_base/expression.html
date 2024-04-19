@@ -29,7 +29,11 @@
     {{ render(expression.slice.elements[0], annotations_path) }}
   {%- elif expression.classname == "ExprAttribute" -%}
     {%- if annotations_path == "brief" -%}
-      {{ render(expression.last, "brief") }}
+      {%- if expression.last.is_enum_value -%}
+        {{ crossref(expression.last.parent, "brief") }}.value
+      {%- else -%}
+        {{ render(expression.last, "brief") }}
+      {%- endif -%}
     {%- elif annotations_path == "full" -%}
       {{ render(expression.first, "full") }}
       {%- for element in expression -%}
