@@ -9,27 +9,27 @@
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">{{ section.title or lang.t("Returns:") }}</th>
-    <td class="field-body">
-      <ul class="first simple">
-        {% for returns in section.value %}
-          <li>
-            {% if returns.name %}<b><code>{{ returns.name }}</code></b>{% endif %}
-            {% if returns.annotation %}
-              {% with expression = returns.annotation %}
-                {% if returns.name %}({% endif %}
-                <code>{% include "expression.html" with context %}</code>
-                {% if returns.name %}){% endif %}
-              {% endwith %}
-            {% endif %}
-            –
-            <div class="doc-md-description">
-              {{ returns.description|convert_markdown(heading_level, html_id) }}
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-    </td>
+      <th class="field-name">{{ section.title or lang.t("Returns:") }}</th>
+      <td class="field-body">
+        <ul class="first simple">
+          {% for returns in section.value %}
+            <li>
+              {% if returns.name %}<b><code>{{ returns.name }}</code></b>{% endif %}
+              {% if returns.annotation %}
+                {% with expression = returns.annotation %}
+                  {% if returns.name %}({% endif %}
+                  <code>{% include "expression.html" with context %}</code>
+                  {% if returns.name %}){% endif %}
+                {% endwith %}
+              {% endif %}
+              –
+              <div class="doc-md-description">
+                {{ returns.description|convert_markdown(heading_level, html_id) }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>
