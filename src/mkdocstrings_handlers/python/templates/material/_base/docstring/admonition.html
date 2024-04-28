@@ -1,5 +1,11 @@
-{{ log.debug("Rendering admonition") }}
-<details class="{{ section.value.kind }}" open>
-  <summary>{{ section.title|convert_markdown(heading_level, html_id, strip_paragraph=True) }}</summary>
-  {{ section.value.contents|convert_markdown(heading_level, html_id) }}
-</details>
+{% extends "_base/docstring/admonition.html.jinja" %}
+
+{% block logs scoped %}
+  {{ super() }}
+  {# TODO: Switch to a warning after some time. #}
+  {{ log.info(
+        "DeprecationWarning: Extending '_base/docstring/admonition.html' is deprecated, extend '_base/docstring/admonition.html.jinja' instead. " ~
+        "After some time, this message will be logged as a warning, causing strict builds to fail.",
+        once=True,
+      ) }}
+{% endblock logs %}

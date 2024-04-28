@@ -1,73 +1,11 @@
-{{ log.debug("Rendering functions section") }}
+{% extends "_base/docstring/functions.html.jinja" %}
 
-{% import "language.html" as lang with context %}
-
-{% if config.docstring_section_style == "table" %}
-  {% block table_style scoped %}
-    <p><span class="doc-section-title">{{ section.title or lang.t("Methods:") if obj.is_class else lang.t("Functions:") }}</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>{{ lang.t("Name") }}</th>
-          <th>{{ lang.t("Description") }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for function in section.value %}
-          {% if not function.name == "__init__" or not config.merge_init_into_class %}
-            <tr class="doc-section-item">
-              <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ function.name }}">{{ function.name }}</span></code></td>
-              <td>
-                <div class="doc-md-description">
-                  {{ function.description|convert_markdown(heading_level, html_id) }}
-                </div>
-              </td>
-            </tr>
-          {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
-  {% endblock table_style %}
-{% elif config.docstring_section_style == "list" %}
-  {% block list_style scoped %}
-    <p><span class="doc-section-title">{{ section.title or lang.t("Methods:") if obj.is_class else lang.t("Functions:") }}</span></p>
-    <ul>
-      {% for function in section.value %}
-        {% if not function.name == "__init__" or not config.merge_init_into_class %}
-          <li class="doc-section-item field-body">
-            <b><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ function.name }}">{{ function.name }}</span></code></b>
-            –
-            <div class="doc-md-description">
-              {{ function.description|convert_markdown(heading_level, html_id) }}
-            </div>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  {% endblock list_style %}
-{% elif config.docstring_section_style == "spacy" %}
-  {% block spacy_style scoped %}
-    <table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">{{ (section.title or lang.t("METHOD") if obj.is_class else lang.t("FUNCTION")).rstrip(":").upper() }}</span></th>
-          <th><span>{{ lang.t("DESCRIPTION") }}</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for function in section.value %}
-          {% if not function.name == "__init__" or not config.merge_init_into_class %}
-            <tr class="doc-section-item">
-              <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ function.name }}">{{ function.name }}</span></code></td>
-              <td class="doc-function-details">
-                <div class="doc-md-description">
-                  {{ function.description|convert_markdown(heading_level, html_id) }}
-                </div>
-              </td>
-            </tr>
-          {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
-  {% endblock spacy_style %}
-{% endif %}
+{% block logs scoped %}
+  {{ super() }}
+  {# TODO: Switch to a warning after some time. #}
+  {{ log.info(
+        "DeprecationWarning: Extending '_base/docstring/functions.html' is deprecated, extend '_base/docstring/functions.html.jinja' instead. " ~
+        "After some time, this message will be logged as a warning, causing strict builds to fail.",
+        once=True,
+      ) }}
+{% endblock logs %}
