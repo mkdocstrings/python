@@ -3,10 +3,10 @@
 This template renders a Python class.
 
 Context:
-    class (griffe.dataclasses.Class): The class to render.
-    root (bool): Whether this is the root object, injected with `:::` in a Markdown page.
-    heading_level (int): The HTML heading level to use.
-    config (dict): The configuration options.
+  class (griffe.dataclasses.Class): The class to render.
+  root (bool): Whether this is the root object, injected with `:::` in a Markdown page.
+  heading_level (int): The HTML heading level to use.
+  config (dict): The configuration options.
 -#}
 
 {% block logs scoped %}
@@ -42,6 +42,10 @@ Context:
         ) %}
 
         {% block heading scoped %}
+          {#- Heading block.
+          
+          This block renders the heading for the class.
+          -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>{% endif %}
           {% if config.separate_signature %}
             <span class="doc doc-object-name doc-class-name">{{ class_name }}</span>
@@ -57,6 +61,10 @@ Context:
         {% endblock heading %}
 
         {% block labels scoped %}
+          {#- Labels block.
+          
+          This block renders the labels for the class.
+          -#}
           {% with labels = class.labels %}
             {% include "labels"|get_template with context %}
           {% endwith %}
@@ -65,6 +73,10 @@ Context:
       {% endfilter %}
 
       {% block signature scoped %}
+        {#- Signature block.
+        
+        This block renders the signature for the class.
+        -#}
         {% if config.separate_signature and config.merge_init_into_class %}
           {% if "__init__" in class.all_members %}
             {% with function = class.all_members["__init__"] %}
@@ -91,7 +103,17 @@ Context:
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
       {% block contents scoped %}
+        {#- Contents block.
+        
+        This block renders the contents of the class.
+        It contains other blocks that users can override.
+        Overriding the contents block allows to rearrange the order of the blocks.
+        -#}
         {% block bases scoped %}
+          {#- Class bases block.
+          
+          This block renders the bases for the class.
+          -#}
           {% if config.show_bases and class.bases %}
             <p class="doc doc-class-bases">
               Bases: {% for expression in class.bases -%}
@@ -102,6 +124,10 @@ Context:
         {% endblock bases %}
 
         {% block docstring scoped %}
+          {#- Docstring block.
+          
+          This block renders the docstring for the class.
+          -#}
           {% with docstring_sections = class.docstring.parsed %}
             {% include "docstring"|get_template with context %}
           {% endwith %}
@@ -115,6 +141,10 @@ Context:
         {% endblock docstring %}
 
         {% block source scoped %}
+          {#- Source block.
+          
+          This block renders the source code for the class.
+          -#}
           {% if config.show_source %}
             {% if config.merge_init_into_class %}
               {% if "__init__" in class.all_members and class.all_members["__init__"].source %}
@@ -147,6 +177,10 @@ Context:
         {% endblock source %}
 
         {% block children scoped %}
+          {#- Children block.
+          
+          This block renders the children (members) of the class.
+          -#}
           {% set root = False %}
           {% set heading_level = heading_level + 1 %}
           {% include "children"|get_template with context %}
@@ -155,5 +189,4 @@ Context:
     </div>
 
   {% endwith %}
-
 </div>

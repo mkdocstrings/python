@@ -1,3 +1,14 @@
+{#- Template for Python functions.
+
+This template renders a Python function or method.
+
+Context:
+  function (griffe.dataclasses.Function): The function to render.
+  root (bool): Whether this is the root object, injected with `:::` in a Markdown page.
+  heading_level (int): The HTML heading level to use.
+  config (dict): The configuration options.
+-#}
+
 {% block logs scoped %}
   {#- Logging block.
   
@@ -7,6 +18,7 @@
 {% endblock logs %}
 
 {% import "language"|get_template as lang with context %}
+{#- Language module providing the `t` translation method. -#}
 
 <div class="doc doc-object doc-function">
   {% with obj = function, html_id = function.path %}
@@ -22,7 +34,9 @@
     {% endif %}
 
     {% set function_name = function.path if show_full_path else function.name %}
+    {#- Brief or full function name depending on configuration. -#}
     {% set symbol_type = "method" if function.parent.is_class else "function" %}
+    {#- Symbol type: method when parent is a class, function otherwise. -#}
 
     {% if not root or config.show_root_heading %}
       {% filter heading(
@@ -34,6 +48,10 @@
         ) %}
 
         {% block heading scoped %}
+          {#- Heading block.
+          
+          This block renders the heading for the function.
+          -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-{{ symbol_type }}"></code>{% endif %}
           {% if config.separate_signature %}
             <span class="doc doc-object-name doc-function-name">{{ function_name }}</span>
@@ -45,6 +63,10 @@
         {% endblock heading %}
 
         {% block labels scoped %}
+          {#- Labels block.
+          
+          This block renders the labels for the function.
+          -#}
           {% with labels = function.labels %}
             {% include "labels"|get_template with context %}
           {% endwith %}
@@ -53,6 +75,10 @@
       {% endfilter %}
 
       {% block signature scoped %}
+        {#- Signature block.
+        
+        This block renders the signature for the function.
+        -#}
         {% if config.separate_signature %}
           {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
             {{ function.name }}
@@ -77,13 +103,27 @@
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
       {% block contents scoped %}
+        {#- Contents block.
+        
+        This block renders the contents of the function.
+        It contains other blocks that users can override.
+        Overriding the contents block allows to rearrange the order of the blocks.
+        -#}
         {% block docstring scoped %}
+          {#- Docstring block.
+          
+          This block renders the docstring for the function.
+          -#}
           {% with docstring_sections = function.docstring.parsed %}
             {% include "docstring"|get_template with context %}
           {% endwith %}
         {% endblock docstring %}
 
         {% block source scoped %}
+          {#- Source block.
+          
+          This block renders the source code for the function.
+          -#}
           {% if config.show_source and function.source %}
             <details class="quote">
               <summary>{{ lang.t("Source code in") }} <code>
