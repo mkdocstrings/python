@@ -16,6 +16,7 @@ Context:
 {% endblock logs %}
 
 {% import "language"|get_template as lang with context %}
+{#- Language module providing the `t` translation method. -#}
 
 <p><span class="doc-section-title">{{ section.title or lang.t("Examples:") }}</span></p>
 {% for section_type, sub_section in section.value %}

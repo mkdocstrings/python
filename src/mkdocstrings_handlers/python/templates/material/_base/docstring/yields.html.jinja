@@ -16,6 +16,7 @@ Context:
 {% endblock logs %}
 
 {% import "language"|get_template as lang with context %}
+{#- Language module providing the `t` translation method. -#}
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}

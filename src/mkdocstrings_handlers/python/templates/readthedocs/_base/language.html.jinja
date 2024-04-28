@@ -1,6 +1,12 @@
+{#- Import translation macros for the given language and fallback language. -#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
 {% endblock logs %}
-<!-- Import translations for given language and fallback -->
+
 {% set lang_pth = "languages/" ~ locale | get_template %}
 {% if lang_pth is existing_template %}
     {% import lang_pth as lang %}
