@@ -9,6 +9,7 @@ import re
 import sys
 from collections import ChainMap
 from contextlib import suppress
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterator, Mapping, Sequence
 
 from griffe.collections import LinesCollection, ModulesCollection
@@ -208,6 +209,17 @@ class PythonHandler(BaseHandler):
             **kwargs: Same thing, but with keyword arguments.
         """
         super().__init__(*args, **kwargs)
+
+        # Warn if user overrides base templates.
+        if custom_templates := kwargs.get("custom_templates", ()):
+            config_dir = Path(config_file_path or "./mkdocs.yml").parent
+            for theme_dir in config_dir.joinpath(custom_templates, "python").iterdir():
+                if theme_dir.joinpath("_base").is_dir():
+                    logger.warning(
+                        f"Overriding base template '{theme_dir.name}/_base/<template>.html.jinja' is not supported, "
+                        f"override '{theme_dir.name}/<template>.html.jinja' instead",
+                    )
+
         self._config_file_path = config_file_path
         self._load_external_modules = load_external_modules
         paths = paths or []
