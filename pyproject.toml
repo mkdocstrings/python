@@ -28,7 +28,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "mkdocstrings>=0.24.2",
+    "mkdocstrings>=0.25",
     "griffe>=0.44",
 ]
 
