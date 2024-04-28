@@ -333,7 +333,7 @@ class PythonHandler(BaseHandler):
     def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:  # noqa: D102 (ignore missing docstring)
         final_config = ChainMap(config, self.default_config)  # type: ignore[arg-type]
 
-        template_name = rendering.do_get_template(data)
+        template_name = rendering.do_get_template(self.env, data)
         template = self.env.get_template(template_name)
 
         # Heading level is a "state" variable, that will change at each step

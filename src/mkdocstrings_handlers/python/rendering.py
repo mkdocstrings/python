@@ -9,20 +9,23 @@ import string
 import sys
 import warnings
 from functools import lru_cache, partial
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
 
+from griffe.dataclasses import Alias, Object
 from griffe.docstrings.dataclasses import (
     DocstringSectionAttributes,
     DocstringSectionClasses,
     DocstringSectionFunctions,
     DocstringSectionModules,
 )
-from jinja2 import pass_context
+from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
-    from griffe.dataclasses import Alias, Attribute, Class, Function, Module, Object
+    from griffe.dataclasses import Attribute, Class, Function, Module
+    from jinja2 import Environment, Template
     from jinja2.runtime import Context
     from mkdocstrings.handlers.base import CollectorItem
 
@@ -137,7 +140,8 @@ def do_format_signature(
         The same code, formatted.
     """
     env = context.environment
-    template = env.get_template("signature.html")
+    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    template = env.get_template(do_get_template(env, "signature"))
     config_annotations = context.parent["config"]["show_signature_annotations"]
     old_stash_ref_filter = env.filters["stash_crossref"]
 
@@ -204,7 +208,8 @@ def do_format_attribute(
         The same code, formatted.
     """
     env = context.environment
-    template = env.get_template("expression.html")
+    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    template = env.get_template(do_get_template(env, "expression"))
     annotations = context.parent["config"]["show_signature_annotations"]
     separate_signature = context.parent["config"]["separate_signature"]
     old_stash_ref_filter = env.filters["stash_crossref"]
@@ -448,17 +453,46 @@ def _get_black_formatter() -> Callable[[str, int], str]:
     return formatter
 
 
-def do_get_template(obj: Object) -> str:
+@pass_environment
+def do_get_template(env: Environment, obj: str | Object) -> str | Template:
     """Get the template name used to render an object.
 
     Parameters:
-        obj: A Griffe object.
+        env: The Jinja environment, passed automatically.
+        obj: A Griffe object, or a template name.
 
     Returns:
         A template name.
     """
-    extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
-    return extra_data.get("template", "") or f"{obj.kind.value}.html"
+    name = obj
+    if isinstance(obj, (Alias, Object)):
+        extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
+        if name := extra_data.get("template", ""):
+            return name
+        name = obj.kind.value
+    try:
+        template = env.get_template(f"{name}.html")
+    except TemplateNotFound:
+        return f"{name}.html.jinja"
+    else:
+        # TODO: Remove once support for Python 3.8 is dropped.
+        if sys.version_info < (3, 9):
+            try:
+                Path(template.filename).relative_to(Path(__file__).parent)  # type: ignore[arg-type]
+            except ValueError:
+                our_template = False
+            else:
+                our_template = True
+        else:
+            our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
+        if not our_template:
+            # TODO: Switch to a warning log after some time.
+            logger.info(
+                f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. "
+                "After some time, this message will be logged as a warning, causing strict builds to fail.",
+                once=True,
+            )
+        return f"{name}.html"
 
 
 @pass_context
