@@ -158,6 +158,7 @@ plugins:
           heading_level: 1
           inherited_members: true
           merge_init_into_class: true
+          parameter_headings: true
           preload_modules: [mkdocstrings]
           separate_signature: true
           show_root_heading: true
