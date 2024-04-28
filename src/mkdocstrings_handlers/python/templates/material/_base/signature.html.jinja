@@ -10,13 +10,13 @@ Context:
 -#}
 
 {%- if config.show_signature -%}
-  {% block logs scoped %}
+  {%- block logs scoped -%}
     {#- Logging block.
     
     This block can be used to log debug messages, deprecation messages, warnings, etc.
     -#}
     {{ log.debug("Rendering signature") }}
-  {% endblock logs %}
+  {%- endblock logs -%}
   {%- with -%}
 
     {%- set ns = namespace(
@@ -31,6 +31,7 @@ Context:
     {%- for parameter in function.parameters -%}
       {%- if parameter.name not in ("self", "cls") or loop.index0 > 0 or not (function.parent and function.parent.is_class) -%}
 
+        {#- Handle parameter kind. -#}
         {%- if parameter.kind.value == "positional-only" -%}
           {%- set ns.has_pos_only = True -%}
         {%- else -%}
@@ -42,6 +43,7 @@ Context:
           {%- endif -%}
         {%- endif -%}
 
+        {#- Prepare type annotation. -#}
         {%- if config.show_signature_annotations and parameter.annotation is not none -%}
           {%- set ns.equal = " = " -%}
           {%- if config.separate_signature and config.signature_crossrefs -%}
@@ -56,14 +58,17 @@ Context:
           {%- set ns.annotation = "" -%}
         {%- endif -%}
 
+        {#- Prepare default value. -#}
         {%- if parameter.default is not none and parameter.kind.value != "variadic positional" and parameter.kind.value != "variadic keyword" -%}
           {%- set default = ns.equal + parameter.default|safe -%}
         {%- endif -%}
 
+        {#- TODO: Move inside kind handling above? -#}
         {%- if parameter.kind.value == "variadic positional" -%}
           {%- set ns.render_kw_only_separator = False -%}
         {%- endif -%}
 
+        {#- Render name, annotation and default. -#}
         {% if parameter.kind.value == "variadic positional" %}*{% elif parameter.kind.value == "variadic keyword" %}**{% endif -%}
         {{ parameter.name }}{{ ns.annotation }}{{ default }}
         {%- if not loop.last %}, {% endif -%}
@@ -71,6 +76,8 @@ Context:
       {%- endif -%}
     {%- endfor -%}
     )
+
+    {#- Render return type. -#}
     {%- if config.show_signature_annotations
         and function.annotation
         and not (config.merge_init_into_class and function.name == "__init__" )
