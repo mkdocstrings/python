@@ -1,0 +1,10 @@
+{% if config.show_labels and labels %}
+  {% block logs scoped %}
+    {{ log.debug("Rendering labels") }}
+  {% endblock logs %}
+  <span class="doc doc-labels">
+    {% for label in labels|sort %}
+      <small class="doc doc-label doc-label-{{ label }}"><code>{{ label }}</code></small>
+    {% endfor %}
+  </span>
+{% endif %}
