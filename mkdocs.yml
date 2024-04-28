@@ -149,6 +149,7 @@ plugins:
         - https://docs.python.org/3/objects.inv
         - https://mkdocstrings.github.io/objects.inv
         - https://mkdocstrings.github.io/griffe/objects.inv
+        - https://python-markdown.github.io/objects.inv
         options:
           docstring_options:
             ignore_init_summary: true
