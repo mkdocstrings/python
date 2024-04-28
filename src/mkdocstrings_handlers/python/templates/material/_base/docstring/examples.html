@@ -1,12 +1,11 @@
-{{ log.debug("Rendering examples section") }}
+{% extends "_base/docstring/examples.html.jinja" %}
 
-{% import "language.html" as lang with context %}
-
-<p><span class="doc-section-title">{{ section.title or lang.t("Examples:") }}</span></p>
-{% for section_type, sub_section in section.value %}
-  {% if section_type.value == "text" %}
-    {{ sub_section|convert_markdown(heading_level, html_id) }}
-  {% elif section_type.value == "examples" %}
-    {{ sub_section|highlight(language="pycon", linenums=False) }}
-  {% endif %}
-{% endfor %}
+{% block logs scoped %}
+  {{ super() }}
+  {# TODO: Switch to a warning after some time. #}
+  {{ log.info(
+        "DeprecationWarning: Extending '_base/docstring/examples.html' is deprecated, extend '_base/docstring/examples.html.jinja' instead. " ~
+        "After some time, this message will be logged as a warning, causing strict builds to fail.",
+        once=True,
+      ) }}
+{% endblock logs %}
