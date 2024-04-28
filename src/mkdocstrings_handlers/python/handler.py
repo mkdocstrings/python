@@ -398,7 +398,13 @@ class PythonHandler(BaseHandler):
             },
         )
 
-    def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
+    def update_env(self, md: Markdown, config: dict) -> None:
+        """Update the Jinja environment with custom filters and tests.
+
+        Parameters:
+            md: The Markdown instance.
+            config: The configuration dictionary.
+        """
         super().update_env(md, config)
         self.env.trim_blocks = True
         self.env.lstrip_blocks = True
