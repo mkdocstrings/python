@@ -1,5 +1,22 @@
+{#- Template for docstrings.
+
+This template renders Python docstrings.
+Griffe parses docstrings into a list of sections, each with a `kind` and a `value`.
+This template can then iterate on these sections and render them according to the configuration.
+
+Context:
+    docstring_sections (list[griffe.docstrings.dataclasses.DocstringSection]): The list of docstring sections.
+    config (dict): The configuration dictionary.
+    heading_level (int): The heading level to use for Markdown conversion.
+    html_id (str): The HTML ID to use for Markdown conversion.
+-#}
+
 {% if docstring_sections %}
   {% block logs scoped %}
+    {#- Logging block.
+    
+    This block can be used to log debug messages, deprecation messages, warnings, etc.
+    -#}
     {{ log.debug("Rendering docstring") }}
   {% endblock logs %}
   {% for section in docstring_sections %}

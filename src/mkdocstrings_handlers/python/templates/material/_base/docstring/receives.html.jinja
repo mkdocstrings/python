@@ -1,4 +1,17 @@
+{#- Template for "Receives" sections in docstrings.
+
+This template renders a list of documented received values (generators) in the format
+specified with the [`docstring_section_style`][] configuration option.
+
+Context:
+    section (griffe.docstrings.dataclasses.DocstringSectionAttributes): The section to render.
+-#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
   {{ log.debug("Rendering receives section") }}
 {% endblock logs %}
 
@@ -6,6 +19,7 @@
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
+    {#- Block for the `table` section style. -#}
     {% set name_column = section.value|selectattr("name")|any %}
     <p><span class="doc-section-title">{{ section.title or lang.t("Receives:") }}</span></p>
     <table>
@@ -39,6 +53,7 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
+    {#- Block for the `list` section style. -#}
     <p><span class="doc-section-title">{{ section.title or lang.t("Receives:") }}</span></p>
     <ul>
       {% for receives in section.value %}
@@ -61,6 +76,7 @@
   {% endblock list_style %}
 {% elif config.docstring_section_style == "spacy" %}
   {% block spacy_style scoped %}
+    {#- Block for the `spacy` section style. -#}
     <table>
       <thead>
         <tr>

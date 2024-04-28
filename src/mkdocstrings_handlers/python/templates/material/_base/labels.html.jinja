@@ -1,5 +1,9 @@
 {% if config.show_labels and labels %}
   {% block logs scoped %}
+    {#- Logging block.
+    
+    This block can be used to log debug messages, deprecation messages, warnings, etc.
+    -#}
     {{ log.debug("Rendering labels") }}
   {% endblock logs %}
   <span class="doc doc-labels">

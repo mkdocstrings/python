@@ -1,6 +1,12 @@
-<!-- Translations: Chinese -->
+{#- Macro for Chinese translations. -#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
 {% endblock logs %}
+
 {% macro t(key) %}{{ {
   "ATTRIBUTE": "属性",
   "Attributes:": "属性：",

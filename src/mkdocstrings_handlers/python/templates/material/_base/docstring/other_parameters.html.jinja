@@ -1,4 +1,17 @@
+{#- Template for "Other parameters" sections in docstrings.
+
+This template renders a list of documented other parameters in the format
+specified with the [`docstring_section_style`][] configuration option.
+
+Context:
+    section (griffe.docstrings.dataclasses.DocstringSectionAttributes): The section to render.
+-#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
   {{ log.debug("Rendering other parameters section") }}
 {% endblock logs %}
 
@@ -6,6 +19,7 @@
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
+    {#- Block for the `table` section style. -#}
     <p><span class="doc-section-title">{{ section.title or lang.t("Other Parameters:") }}</span></p>
     <table>
       <thead>
@@ -38,6 +52,7 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
+    {#- Block for the `list` section style. -#}
     <p><span class="doc-section-title">{{ section.title or lang.t("Other Parameters:") }}</span></p>
     <ul>
       {% for parameter in section.value %}
@@ -58,6 +73,7 @@
   {% endblock list_style %}
 {% elif config.docstring_section_style == "spacy" %}
   {% block spacy_style scoped %}
+    {#- Block for the `spacy` section style. -#}
     <table>
       <thead>
         <tr>

@@ -1,4 +1,17 @@
+{#- Template for "Examples" sections in docstrings.
+
+This template renders a list of documented examples.
+It alternates between rendering text and code examples.
+
+Context:
+    section (griffe.docstrings.dataclasses.DocstringSectionAttributes): The section to render.
+-#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
   {{ log.debug("Rendering examples section") }}
 {% endblock logs %}
 

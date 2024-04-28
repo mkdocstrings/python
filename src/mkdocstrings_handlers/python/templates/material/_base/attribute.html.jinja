@@ -1,4 +1,20 @@
+{#- Template for Python attributes.
+
+This template renders a Python attribute (or variable).
+This can be a module attribute or a class attribute.
+
+Context:
+    attribute (griffe.dataclasses.Attribute): The attribute to render.
+    root (bool): Whether this is the root object, injected with `:::` in a Markdown page.
+    heading_level (int): The HTML heading level to use.
+    config (dict): The configuration options.
+-#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
   {{ log.debug("Rendering " + attribute.path) }}
 {% endblock logs %}
 
