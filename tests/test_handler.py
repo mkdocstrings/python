@@ -62,7 +62,7 @@ def test_render_docstring_examples_section(handler: PythonHandler) -> None:
             (DocstringSectionKind.examples, ">>> print('Hello')\nHello"),
         ],
     )
-    template = handler.env.get_template("docstring/examples.html")
+    template = handler.env.get_template("docstring/examples.html.jinja")
     rendered = template.render(section=section, locale="en")
     template.render(section=section, locale="not_existing")
     assert "<p>This is an example.</p>" in rendered
