@@ -53,6 +53,8 @@ patch_loggers(get_logger)
 class PythonHandler(BaseHandler):
     """The Python handler class."""
 
+    name = "python"
+    """The handler's name."""
     domain: str = "py"  # to match Sphinx's default domain
     """The cross-documentation domain/language for this handler."""
     enable_inventory: bool = True
