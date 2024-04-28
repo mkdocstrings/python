@@ -223,18 +223,28 @@ class PythonHandler(BaseHandler):
         self._config_file_path = config_file_path
         self._load_external_modules = load_external_modules
         paths = paths or []
+
+        # Expand paths with glob patterns.
         glob_base_dir = os.path.dirname(os.path.abspath(config_file_path)) if config_file_path else "."
         with chdir(glob_base_dir):
             resolved_globs = [glob.glob(path) for path in paths]
         paths = [path for glob_list in resolved_globs for path in glob_list]
+
+        # By default, add the directory of the config file to the search paths.
         if not paths and config_file_path:
             paths.append(os.path.dirname(config_file_path))
-        search_paths = [path for path in sys.path if path]  # eliminate empty path
+
+        # Initialize search paths from `sys.path`, eliminating empty paths.
+        search_paths = [path for path in sys.path if path]
+
         for path in reversed(paths):
+            # If it's not absolute, make path relative to the config file path, then make it absolute.
             if not os.path.isabs(path) and config_file_path:
                 path = os.path.abspath(os.path.join(os.path.dirname(config_file_path), path))  # noqa: PLW2901
+            # Don't add duplicates.
             if path not in search_paths:
                 search_paths.insert(0, path)
+
         self._paths = search_paths
         self._modules_collection: ModulesCollection = ModulesCollection()
         self._lines_collection: LinesCollection = LinesCollection()
