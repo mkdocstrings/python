@@ -1,4 +1,19 @@
+{#- Template for Python modules.
+
+This template renders a Python module.
+
+Context:
+  module (griffe.dataclasses.Module): The module to render.
+  root (bool): Whether this is the root object, injected with `:::` in a Markdown page.
+  heading_level (int): The HTML heading level to use.
+  config (dict): The configuration options.
+-#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
   {{ log.debug("Rendering " + module.path) }}
 {% endblock logs %}
 
@@ -27,6 +42,10 @@
         ) %}
 
         {% block heading scoped %}
+          {#- Heading block.
+          
+          This block renders the heading for the module.
+          -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>{% endif %}
           {% if config.separate_signature %}
             <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
@@ -36,6 +55,10 @@
         {% endblock heading %}
 
         {% block labels scoped %}
+          {#- Labels block.
+          
+          This block renders the labels for the module.
+          -#}
           {% with labels = module.labels %}
             {% include "labels"|get_template with context %}
           {% endwith %}
@@ -58,13 +81,27 @@
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
       {% block contents scoped %}
+        {#- Contents block.
+        
+        This block renders the contents of the module.
+        It contains other blocks that users can override.
+        Overriding the contents block allows to rearrange the order of the blocks.
+        -#}
         {% block docstring scoped %}
+          {#- Docstring block.
+          
+          This block renders the docstring for the module.
+          -#}
           {% with docstring_sections = module.docstring.parsed %}
             {% include "docstring"|get_template with context %}
           {% endwith %}
         {% endblock docstring %}
 
         {% block children scoped %}
+          {#- Children block.
+          
+          This block renders the children (members) of the module.
+          -#}
           {% set root = False %}
           {% set heading_level = heading_level + 1 %}
           {% include "children"|get_template with context %}

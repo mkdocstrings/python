@@ -1,11 +1,26 @@
+{#- Template for "Classes" sections in docstrings.
+
+This template renders a list of documented classes in the format
+specified with the [`docstring_section_style`][] configuration option.
+
+Context:
+  section (griffe.docstrings.dataclasses.DocstringSectionAttributes): The section to render.
+-#}
+
 {% block logs scoped %}
+  {#- Logging block.
+  
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
   {{ log.debug("Rendering classes section") }}
 {% endblock logs %}
 
 {% import "language"|get_template as lang with context %}
+{#- Language module providing the `t` translation method. -#}
 
 {% if config.docstring_section_style == "table" %}
   {% block table_style scoped %}
+    {#- Block for the `table` section style. -#}
     <p><span class="doc-section-title">{{ section.title or lang.t("Classes:") }}</span></p>
     <table>
       <thead>
@@ -30,6 +45,7 @@
   {% endblock table_style %}
 {% elif config.docstring_section_style == "list" %}
   {% block list_style scoped %}
+    {#- Block for the `list` section style. -#}
     <p><span class="doc-section-title">{{ section.title or lang.t("Classes:") }}</span></p>
     <ul>
       {% for class in section.value %}
@@ -45,6 +61,7 @@
   {% endblock list_style %}
 {% elif config.docstring_section_style == "spacy" %}
   {% block spacy_style scoped %}
+    {#- Block for the `spacy` section style. -#}
     <table>
       <thead>
         <tr>
