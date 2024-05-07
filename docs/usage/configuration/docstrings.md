@@ -120,7 +120,7 @@ class PrintOK:
         """Initialize the instance.
 
         Examples:
-            >>> Class()  # doctest: +NORMALIZE_WHITESPACE
+            >>> PrintOK()  # doctest: +NORMALIZE_WHITESPACE
             ok
         """
         print("ok")
@@ -136,7 +136,7 @@ class PrintOK:
 <p>Examples:</p>
 
 ```pycon
->>> Class()
+>>> PrintOK()
 ok
 ```
 ////
@@ -149,7 +149,7 @@ ok
 <p>Examples:</p>
 
 ```pycon
->>> Class()  # doctest: +NORMALIZE_WHITESPACE
+>>> PrintOK()  # doctest: +NORMALIZE_WHITESPACE
 ok
 ```
 ////
