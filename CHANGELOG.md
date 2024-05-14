@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.1](https://github.com/mkdocstrings/python/releases/tag/1.10.1) - 2024-05-14
+
+<small>[Compare with 1.10.0](https://github.com/mkdocstrings/python/compare/1.10.0...1.10.1)</small>
+
+### Build
+
+- Depend on mkdocstrings 0.25 which adds support for parameter `once` when logging messages ([2bc156b](https://github.com/mkdocstrings/python/commit/2bc156bd6f231ae13066651f4490d1e9c2ce3ca2) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Set handler's name ([a71ab12](https://github.com/mkdocstrings/python/commit/a71ab12c8e52efe76e5c0a5e54065926a47cc0d2) by Timothée Mazzucotelli).
+- Update `*.html` top-level templates to extend the `*.html.jinja` base templates ([a8c540e](https://github.com/mkdocstrings/python/commit/a8c540e95693e8500da884c32ad159b3bbaaa7ba) by Timothée Mazzucotelli). [Issue-151](https://github.com/mkdocstrings/python/issues/151)
+- Update `*.html` base templates to extend their `*.html.jinja` counterpart, while overriding the `logs` block to issue a logging message (info) stating that extending `*.html` templates is deprecated ([e6f1b9c](https://github.com/mkdocstrings/python/commit/e6f1b9caf13754eca9dbb2f112727bef50876ed7) by Timothée Mazzucotelli). [Issue-151](https://github.com/mkdocstrings/python/issues/151)
+- Add `*.html.jinja` top-level (overridable) templates, extending their base counterpart ([7c14924](https://github.com/mkdocstrings/python/commit/7c14924c406d7b5f4f1c22d03019d4c566018d2d) by Timothée Mazzucotelli). [Issue-151](https://github.com/mkdocstrings/python/issues/151)
+- Add `*.html.jinja` base templates, which are copies of `*.html` templates, with an additional `logs` block, and using the updated `get_template` filter ([eced9a5](https://github.com/mkdocstrings/python/commit/eced9a54fc8a559b686cb1b1180a0d2e04ba452d) by Timothée Mazzucotelli). [Issue-151](https://github.com/mkdocstrings/python/issues/151)
+- Update `get_template` filter to support both `*.html` and `*.html.jinja` templates, logging a message (info) when `*.html` templates are overridden by users ([3546fd7](https://github.com/mkdocstrings/python/commit/3546fd70b2d4e45f77b166b2e67c333acc8af0d2) by Timothée Mazzucotelli). [Issue-151](https://github.com/mkdocstrings/python/issues/151)
+- Log a warning when base templates are overridden ([26e3d66](https://github.com/mkdocstrings/python/commit/26e3d66f5334a5aaff75bda030afe6dfa1cc94d7) by Timothée Mazzucotelli). [Issue-151](https://github.com/mkdocstrings/python/issues/151)
+
 ## [1.10.0](https://github.com/mkdocstrings/python/releases/tag/1.10.0) - 2024-04-19
 
 <small>[Compare with 1.9.2](https://github.com/mkdocstrings/python/compare/1.9.2...1.10.0)</small>
