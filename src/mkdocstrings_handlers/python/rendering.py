@@ -474,25 +474,25 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
         template = env.get_template(f"{name}.html")
     except TemplateNotFound:
         return f"{name}.html.jinja"
-    else:
-        # TODO: Remove once support for Python 3.8 is dropped.
-        if sys.version_info < (3, 9):
-            try:
-                Path(template.filename).relative_to(Path(__file__).parent)  # type: ignore[arg-type]
-            except ValueError:
-                our_template = False
-            else:
-                our_template = True
+    # TODO: Remove once support for Python 3.8 is dropped.
+    if sys.version_info < (3, 9):
+        try:
+            Path(template.filename).relative_to(Path(__file__).parent)  # type: ignore[arg-type]
+        except ValueError:
+            our_template = False
         else:
-            our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
-        if not our_template:
-            # TODO: Switch to a warning log after some time.
-            logger.info(
-                f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. "
-                "After some time, this message will be logged as a warning, causing strict builds to fail.",
-                once=True,
-            )
-        return f"{name}.html"
+            our_template = True
+    else:
+        our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
+    if our_template:
+        return f"{name}.html.jinja"
+    # TODO: Switch to a warning log after some time.
+    logger.info(
+        f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. "
+        "After some time, this message will be logged as a warning, causing strict builds to fail.",
+        once=True,
+    )
+    return f"{name}.html"
 
 
 @pass_context
