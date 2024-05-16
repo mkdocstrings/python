@@ -35,4 +35,5 @@ goals:
       since: 2024/03/24
   2000:
     name: FusionDrive Ejection Configuration
-    features: []
+    features:
+    - name: Relative cross-references
