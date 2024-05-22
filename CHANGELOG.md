@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.3](https://github.com/mkdocstrings/python/releases/tag/1.10.3) - 2024-05-22
+
+<small>[Compare with 1.10.2](https://github.com/mkdocstrings/python/compare/1.10.2...1.10.3)</small>
+
+### Bug Fixes
+
+- Don't crash when rendering the source of an object whose lineno is none ([64df00b](https://github.com/mkdocstrings/python/commit/64df00b9b757e9642d65cf425d32f5a2e0d75f38) by Timothée Mazzucotelli). [Issue-163](https://github.com/mkdocstrings/python/issues/163)
+
 ## [1.10.2](https://github.com/mkdocstrings/python/releases/tag/1.10.2) - 2024-05-16
 
 <small>[Compare with 1.10.1](https://github.com/mkdocstrings/python/compare/1.10.1...1.10.2)</small>
