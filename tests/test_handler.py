@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import os
 from glob import glob
+from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pytest
 from griffe.docstrings.dataclasses import DocstringSectionExamples, DocstringSectionKind
+from griffe.tests import temporary_visited_module
 
 from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler, get_handler
 
@@ -145,3 +147,29 @@ def test_extension_paths(tmp_path: Path, expect_change: bool, extension: str | d
             raise ValueError("Normalization must not change extension items type")
     else:
         assert normalized == extension
+
+
+def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
+    """Test rendering objects without a line number."""
+    code = dedent(
+        """
+        '''Module docstring.'''
+
+        class Class:
+            '''Class docstring.'''
+
+            def function(self):
+                '''Function docstring.'''
+
+        attribute = 0
+        '''Attribute docstring.'''
+        """,
+    )
+    with temporary_visited_module(code) as module:
+        # TODO: Remove once Griffe does that automatically.
+        module.lines_collection[module.filepath] = code.splitlines()  # type: ignore[index]
+
+        module["Class"].lineno = None
+        module["Class.function"].lineno = None
+        module["attribute"].lineno = None
+        assert handler.render(module, {"show_source": True})

@@ -157,7 +157,7 @@ Context:
                         {{ init.relative_filepath }}
                       {%- endif -%}
                     </code></summary>
-                    {{ init.source|highlight(language="python", linestart=init.lineno, linenums=True) }}
+                    {{ init.source|highlight(language="python", linestart=init.lineno or 0, linenums=True) }}
                   </details>
                 {% endwith %}
               {% endif %}
@@ -170,7 +170,7 @@ Context:
                     {{ class.relative_filepath }}
                   {%- endif -%}
                 </code></summary>
-                {{ class.source|highlight(language="python", linestart=class.lineno, linenums=True) }}
+                {{ class.source|highlight(language="python", linestart=class.lineno or 0, linenums=True) }}
               </details>
             {% endif %}
           {% endif %}

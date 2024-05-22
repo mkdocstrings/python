@@ -133,7 +133,7 @@ Context:
                   {{ function.relative_filepath }}
                 {%- endif -%}
               </code></summary>
-              {{ function.source|highlight(language="python", linestart=function.lineno, linenums=True) }}
+              {{ function.source|highlight(language="python", linestart=function.lineno or 0, linenums=True) }}
             </details>
           {% endif %}
         {% endblock source %}
