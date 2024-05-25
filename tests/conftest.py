@@ -93,4 +93,4 @@ def fixture_handler(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> Pytho
     """
     handler = plugin.handlers.get_handler("python")
     handler._update_env(ext_markdown, plugin.handlers._config)
-    return handler
+    return handler  # type: ignore[return-value]
