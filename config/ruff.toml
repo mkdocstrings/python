@@ -3,8 +3,7 @@ line-length = 120
 
 [lint]
 exclude = [
-    "fixtures",
-    "site",
+    "tests/fixtures/*.py",
 ]
 select = [
     "A", "ANN", "ARG",
@@ -78,5 +77,8 @@ known-first-party = ["mkdocstrings_handlers.python"]
 convention = "google"
 
 [format]
+exclude = [
+    "tests/fixtures/*.py",
+]
 docstring-code-format = true
 docstring-code-line-length = 80

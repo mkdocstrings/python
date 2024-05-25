@@ -22,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Documentation",
     "Topic :: Software Development",
     "Topic :: Utilities",
@@ -49,3 +50,9 @@ version = {source = "scm"}
 package-dir = "src"
 includes = ["src/mkdocstrings_handlers"]
 editable-backend = "editables"
+source-includes = ["share"]
+
+[tool.pdm.build.wheel-data]
+data = [
+    {path = "share/**/*", relative-to = "."},
+]
