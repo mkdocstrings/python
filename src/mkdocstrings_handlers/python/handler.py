@@ -296,7 +296,7 @@ class PythonHandler(BaseHandler):
         if unknown_module:
             extensions = self.normalize_extension_paths(final_config.get("extensions", []))
             loader = GriffeLoader(
-                extensions=load_extensions(extensions),
+                extensions=load_extensions(*extensions),
                 search_paths=self._paths,
                 docstring_parser=parser,
                 docstring_options=parser_options,
