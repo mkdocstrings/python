@@ -197,7 +197,7 @@ class PythonHandler(BaseHandler):
         config_file_path: str | None = None,
         paths: list[str] | None = None,
         locale: str = "en",
-        load_external_modules: bool = False,
+        load_external_modules: bool | None = None,
         **kwargs: Any,
     ) -> None:
         """Initialize the handler.
@@ -474,7 +474,7 @@ def get_handler(
     config_file_path: str | None = None,
     paths: list[str] | None = None,
     locale: str = "en",
-    load_external_modules: bool = False,
+    load_external_modules: bool | None = None,
     **config: Any,  # noqa: ARG001
 ) -> PythonHandler:
     """Simply return an instance of `PythonHandler`.

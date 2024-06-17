@@ -141,8 +141,11 @@ More details at [Finding modules](#finding-modules).
 This option allows resolving aliases (imports) to any external module.
 Modules are considered external when they are not part
 of the package your are injecting documentation for.
-Enabling this option will tell the handler to resolve aliases recursively
+Setting this option to `True` will tell the handler to resolve aliases recursively
 when they are made public through the [`__all__`][__all__] variable.
+By default, the handler will only resolve aliases when they point at a private sibling
+of the source package, for example aliases going from `ast` to `_ast`.
+Set `load_external_modules` to `False` to prevent even that.
 
 WARNING: **Use with caution**
 This can load a *lot* of modules through [Griffe],
