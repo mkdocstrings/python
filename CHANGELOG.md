@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.5](https://github.com/mkdocstrings/python/releases/tag/1.10.5) - 2024-06-19
+
+<small>[Compare with 1.10.4](https://github.com/mkdocstrings/python/compare/1.10.4...1.10.5)</small>
+
+### Bug Fixes
+
+- Mix both previous checks for displaying objects: not imported or public ([587963b](https://github.com/mkdocstrings/python/commit/587963ba53f765c9d7eefbc2fb80bdbb11164850) by Timothée Mazzucotelli). [Issue-294](https://github.com/mkdocstrings/griffe/issues/294)
+
 ## [1.10.4](https://github.com/mkdocstrings/python/releases/tag/1.10.4) - 2024-06-18
 
 <small>[Compare with 1.10.3](https://github.com/mkdocstrings/python/compare/1.10.3...1.10.4)</small>
