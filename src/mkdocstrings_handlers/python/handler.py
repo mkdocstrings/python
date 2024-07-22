@@ -162,7 +162,7 @@ class PythonHandler(BaseHandler):
 
     Attributes: Docstrings options:
         docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
-        docstring_options (dict): The options for the docstring parser. See parsers under [`griffe.docstrings`][].
+        docstring_options (dict): The options for the docstring parser. See parsers under [`griffe.Parser`][].
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `"table"`.
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
