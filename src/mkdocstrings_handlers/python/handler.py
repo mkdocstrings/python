@@ -12,12 +12,15 @@ from contextlib import suppress
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterator, Mapping, Sequence
 
-from griffe.collections import LinesCollection, ModulesCollection
-from griffe.docstrings.parsers import Parser
-from griffe.exceptions import AliasResolutionError
-from griffe.extensions import load_extensions
-from griffe.loader import GriffeLoader
-from griffe.logger import patch_loggers
+from griffe import (
+    AliasResolutionError,
+    GriffeLoader,
+    LinesCollection,
+    ModulesCollection,
+    Parser,
+    load_extensions,
+    patch_logger,
+)
 from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem
 from mkdocstrings.inventory import Inventory
@@ -47,7 +50,7 @@ else:
 
 logger = get_logger(__name__)
 
-patch_loggers(get_logger)
+patch_logger(get_logger)
 
 
 class PythonHandler(BaseHandler):

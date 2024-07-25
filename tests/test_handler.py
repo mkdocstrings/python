@@ -8,8 +8,7 @@ from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pytest
-from griffe.docstrings.dataclasses import DocstringSectionExamples, DocstringSectionKind
-from griffe.tests import temporary_visited_module
+from griffe import DocstringSectionExamples, DocstringSectionKind, temporary_visited_module
 
 from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler, get_handler
 

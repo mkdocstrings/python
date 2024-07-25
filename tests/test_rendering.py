@@ -7,8 +7,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any
 
 import pytest
-from griffe.collections import ModulesCollection
-from griffe.tests import temporary_visited_module
+from griffe import ModulesCollection, temporary_visited_module
 
 from mkdocstrings_handlers.python import rendering
 

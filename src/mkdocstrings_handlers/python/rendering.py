@@ -12,19 +12,20 @@ from functools import lru_cache, partial
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
 
-from griffe.dataclasses import Alias, Object
-from griffe.docstrings.dataclasses import (
+from griffe import (
+    Alias,
     DocstringSectionAttributes,
     DocstringSectionClasses,
     DocstringSectionFunctions,
     DocstringSectionModules,
+    Object,
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
-    from griffe.dataclasses import Attribute, Class, Function, Module
+    from griffe import Attribute, Class, Function, Module
     from jinja2 import Environment, Template
     from jinja2.runtime import Context
     from mkdocstrings.handlers.base import CollectorItem
@@ -364,11 +365,9 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
         if regex.search(name):
             keep = not exclude
     if keep is None:
-        if rules == {False}:
-            # only included stuff, no match = reject
-            return False
-        # only excluded stuff, or included and excluded stuff, no match = keep
-        return True
+        # When we only include stuff, no match = reject.
+        # When we only exclude stuff, or include and exclude stuff, no match = keep.
+        return rules != {False}
     return keep
 
 
