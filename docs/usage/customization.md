@@ -302,7 +302,7 @@ and the Jinja context available in their scope.
 Available context:
 
 - `config`: The handler configuration (dictionary).
-- `module`: The [Module][griffe.dataclasses.Module] instance.
+- `module`: The [Module][griffe.Module] instance.
 
 #### `class.html`
 
@@ -319,7 +319,7 @@ Available context:
 Available context:
 
 - `config`: The handler configuration (dictionary).
-- `class`: The [Class][griffe.dataclasses.Class] instance.
+- `class`: The [Class][griffe.Class] instance.
 
 #### `function.html`
 
@@ -333,7 +333,7 @@ Available context:
 Available context:
 
 - `config`: The handler configuration (dictionary).
-- `function`: The [Function][griffe.dataclasses.Function] instance.
+- `function`: The [Function][griffe.Function] instance.
 
 #### `attribute.html`
 
@@ -346,7 +346,7 @@ Available context:
 Available context:
 
 - `config`: The handler configuration (dictionary).
-- `attribute`: The [Attribute][griffe.dataclasses.Attribute] instance.
+- `attribute`: The [Attribute][griffe.Attribute] instance.
 
 #### Docstring sections
 
@@ -368,7 +368,7 @@ and `docstring/yields.html`:
 
 Available context:
 
-- `section`: The [DocstringSection][griffe.docstrings.dataclasses.DocstringSection] instance (see `DocstringSection*` subclasses).
+- `section`: The [DocstringSection][griffe.DocstringSection] instance (see `DocstringSection*` subclasses).
 
 ### Syntax highlight in signatures
 
