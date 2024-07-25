@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.7](https://github.com/mkdocstrings/python/releases/tag/1.10.7) - 2024-07-25
+
+<small>[Compare with 1.10.6](https://github.com/mkdocstrings/python/compare/1.10.6...1.10.7)</small>
+
+### Packaging
+
+- Include tests and all relevant files for downstream packaging in source distribution
+
 ## [1.10.6](https://github.com/mkdocstrings/python/releases/tag/1.10.6) - 2024-07-25
 
 <small>[Compare with 1.10.5](https://github.com/mkdocstrings/python/compare/1.10.5...1.10.6)</small>
