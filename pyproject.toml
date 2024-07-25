@@ -50,7 +50,19 @@ version = {source = "scm"}
 package-dir = "src"
 includes = ["src/mkdocstrings_handlers"]
 editable-backend = "editables"
-source-includes = ["share"]
+excludes = ["**/.pytest_cache"]
+source-includes = [
+    "config",
+    "docs",
+    "scripts",
+    "share",
+    "tests",
+    "devdeps.txt",
+    "duties.py",
+    "mkdocs.yml",
+    "*.md",
+    "LICENSE",
+]
 
 [tool.pdm.build.wheel-data]
 data = [
