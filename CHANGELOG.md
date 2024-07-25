@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.6](https://github.com/mkdocstrings/python/releases/tag/1.10.6) - 2024-07-25
+
+<small>[Compare with 1.10.5](https://github.com/mkdocstrings/python/compare/1.10.5...1.10.6)</small>
+
+### Bug Fixes
+
+- Fix condition to display members (check all members, not just non-inherited ones) ([3d838a9](https://github.com/mkdocstrings/python/commit/3d838a96f77fa128cd6f2afa5ed0cb151ab225fd) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Update code for Griffe 0.48 (removing deprecation warnings) ([eff10cc](https://github.com/mkdocstrings/python/commit/eff10ccf0fa1b2e73df912048a15c2d6406a2c8b) by Timothée Mazzucotelli). [Issue-173](https://github.com/mkdocstrings/python/issues/173)
+
 ## [1.10.5](https://github.com/mkdocstrings/python/releases/tag/1.10.5) - 2024-06-19
 
 <small>[Compare with 1.10.4](https://github.com/mkdocstrings/python/compare/1.10.4...1.10.5)</small>
