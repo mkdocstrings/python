@@ -7,8 +7,7 @@ from typing import TYPE_CHECKING
 import pytest
 
 if TYPE_CHECKING:
-    from markdown import Markdown
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings.handlers.python import PythonHandler
 
 
 @pytest.mark.parametrize(
@@ -32,15 +31,12 @@ if TYPE_CHECKING:
         "mkdocstrings_handlers.python",
     ],
 )
-def test_render_themes_templates_python(identifier: str, plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> None:
+def test_render_themes_templates_python(identifier: str, handler: PythonHandler) -> None:
     """Test rendering of a given theme's templates.
 
     Parameters:
         identifier: Parametrized identifier.
-        plugin: Pytest fixture (see conftest.py).
-        ext_markdown: Pytest fixture (see conftest.py).
+        handler: Python handler (fixture).
     """
-    handler = plugin.handlers.get_handler("python")
-    handler._update_env(ext_markdown, plugin.handlers._config)
     data = handler.collect(identifier, {})
     handler.render(data, {})

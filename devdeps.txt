@@ -9,6 +9,8 @@ twine>=5.0; python_version < '3.13'
 # ci
 duty>=1.4
 ruff>=0.4
+beautifulsoup4>=4.12
+inline-snapshot>=0.8
 pytest>=8.2
 pytest-cov>=5.0
 pytest-randomly>=3.15
