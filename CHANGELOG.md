@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.8](https://github.com/mkdocstrings/python/releases/tag/1.10.8) - 2024-08-14
+
+<small>[Compare with 1.10.7](https://github.com/mkdocstrings/python/compare/1.10.7...1.10.8)</small>
+
+### Build
+
+- Depend on Griffe 0.49 ([a87dcad](https://github.com/mkdocstrings/python/commit/a87dcad36065dc3171512e166ec632ee3e5b0a64) by Timothée Mazzucotelli).
+
 ## [1.10.7](https://github.com/mkdocstrings/python/releases/tag/1.10.7) - 2024-07-25
 
 <small>[Compare with 1.10.6](https://github.com/mkdocstrings/python/compare/1.10.6...1.10.7)</small>
