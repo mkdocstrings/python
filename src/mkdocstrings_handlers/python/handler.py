@@ -19,7 +19,7 @@ from griffe import (
     ModulesCollection,
     Parser,
     load_extensions,
-    patch_logger,
+    patch_loggers,
 )
 from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem
@@ -50,7 +50,7 @@ else:
 
 logger = get_logger(__name__)
 
-patch_logger(get_logger)
+patch_loggers(get_logger)
 
 
 class PythonHandler(BaseHandler):
