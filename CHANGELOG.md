@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.10.9](https://github.com/mkdocstrings/python/releases/tag/1.10.9) - 2024-08-30
+
+<small>[Compare with 1.10.8](https://github.com/mkdocstrings/python/compare/1.10.8...1.10.9)</small>
+
+### Build
+
+- Explicitly depend on mkdocs-autorefs to be able to specify lower bound ([2299ab5](https://github.com/mkdocstrings/python/commit/2299ab55641585d65babe0e116a6465b4736dcd9) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Use new autorefs syntax ([68cb72f](https://github.com/mkdocstrings/python/commit/68cb72f62253f54146ece621345b36c90d712913) by Timothée Mazzucotelli).
+
 ## [1.10.8](https://github.com/mkdocstrings/python/releases/tag/1.10.8) - 2024-08-14
 
 <small>[Compare with 1.10.7](https://github.com/mkdocstrings/python/compare/1.10.7...1.10.8)</small>
