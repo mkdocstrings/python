@@ -295,7 +295,10 @@ def do_crossref(path: str, *, brief: bool = True) -> Markup:
     full_path = path
     if brief:
         path = full_path.split(".")[-1]
-    return Markup("<span data-autorefs-optional-hover={full_path}>{path}</span>").format(full_path=full_path, path=path)
+    return Markup("<autoref identifier={full_path} optional hover>{path}</autoref>").format(
+        full_path=full_path,
+        path=path,
+    )
 
 
 @lru_cache
@@ -327,7 +330,7 @@ def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
         path = match.group()
         path_var = f"path{group_number}"
         variables[path_var] = path
-        return f"<span data-autorefs-optional-hover={{{path_var}}}>{{{path_var}}}</span>"
+        return f"<autoref identifier={{{path_var}}} optional hover>{{{path_var}}}</autoref>"
 
     text = re.sub(r"([\w.]+)", repl, text)
     if code:

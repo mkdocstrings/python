@@ -139,7 +139,7 @@ def some_function():
 
 ## `preload_modules`
 
-- **:octicons-package-24: Type <code><span data-autorefs-optional="list">list</span>[<span data-autorefs-optional="str">str</span>] | None</code>  :material-equal: `None`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `None`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 Pre-load modules that are not specified directly in [autodoc instructions][autodoc syntax] (`::: identifier`).

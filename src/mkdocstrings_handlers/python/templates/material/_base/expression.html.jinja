@@ -21,7 +21,7 @@ which is a tree-like structure representing a Python expression.
       annotation_path (str): Either "brief", "source", or "full".
 
   Returns:
-      Either a cross-reference (using an autorefs span) or the name itself.
+      Either a cross-reference (using an autoref element) or the name itself.
   -#}
   {%- with full = name.canonical_path -%}
     {%- if annotation_path == "brief" -%}
@@ -34,7 +34,7 @@ which is a tree-like structure representing a Python expression.
     {%- for title, path in annotation|split_path(full) -%}
       {%- if not signature or config.signature_crossrefs -%}
         {%- filter stash_crossref(length=title|length) -%}
-          <span data-autorefs-optional{% if title != path %}-hover{% endif %}="{{ path }}">{{ title }}</span>
+          <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
         {%- endfilter -%}
       {%- else -%}
         {{ title }}

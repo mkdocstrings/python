@@ -32,7 +32,7 @@ Context:
       <tbody>
         {% for module in section.value %}
           <tr class="doc-section-item">
-            <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ module.name }}">{{ module.name }}</span></code></td>
+            <td><code><autoref identifier="{{ obj.path }}.{{ module.name }}" optional hover>{{ module.name }}</autoref></code></td>
             <td>
               <div class="doc-md-description">
                 {{ module.description|convert_markdown(heading_level, html_id) }}
@@ -50,7 +50,7 @@ Context:
     <ul>
       {% for module in section.value %}
         <li class="doc-section-item field-body">
-          <b><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ module.name }}">{{ module.name }}</span></code></b>
+          <b><code><autoref identifier="{{ obj.path }}.{{ module.name }}" optional hover>{{ module.name }}</autoref></code></b>
           –
           <div class="doc-md-description">
             {{ module.description|convert_markdown(heading_level, html_id) }}
@@ -72,7 +72,7 @@ Context:
       <tbody>
         {% for module in section.value %}
           <tr class="doc-section-item">
-            <td><code><span data-autorefs-optional-hover="{{ obj.path }}.{{ module.name }}">{{ module.name }}</span></code></td>
+            <td><code><autoref identifier="{{ obj.path }}.{{ module.name }}" optional hover>{{ module.name }}</autoref></code></td>
             <td class="doc-module-details">
               <div class="doc-md-description">
                 {{ module.description|convert_markdown(heading_level, html_id) }}

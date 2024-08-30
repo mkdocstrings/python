@@ -2,8 +2,8 @@
 
 ## `members`
 
-- **:octicons-package-24: Type <code><span data-autorefs-optional="list">list</span>[<span data-autorefs-optional="str">str</span>] |
-    <span data-autorefs-optional="bool">bool</span> | None</code>  :material-equal: `None`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
+    <autoref identifier="bool" optional>bool</autoref> | None</code>  :material-equal: `None`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 An explicit list of members to render.
@@ -97,8 +97,8 @@ INFO: **The default behavior (with unspecified `members` or `members: null`) is 
 
 ## `inherited_members`
 
-- **:octicons-package-24: Type <code><span data-autorefs-optional="list">list</span>[<span data-autorefs-optional="str">str</span>] |
-    <span data-autorefs-optional="bool">bool</span></code>  :material-equal: `False`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
+    <autoref identifier="bool" optional>bool</autoref></code>  :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 An explicit list of inherited members (for classes) to render.
@@ -331,7 +331,7 @@ def function_c():
 
 ## `filters`
 
-- **:octicons-package-24: Type <code><span data-autorefs-optional="list">list</span>[<span data-autorefs-optional="str">str</span>] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 A list of filters applied to filter objects based on their name.
@@ -555,7 +555,7 @@ package
 [:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
 [:octicons-tag-24: Insiders 1.2.0](../../insiders/changelog.md#1.2.0)
 
-- **:octicons-package-24: Type <code><span data-autorefs-optional="bool">bool</span> | <span data-autorefs-optional="dict">dict</span>[<span data-autorefs-optional="str">str</span>, <span data-autorefs-optional="bool">bool</span>]</code>  :material-equal: `False`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="bool" optional>bool</autoref> | <autoref identifier="dict" optional>dict</autoref>[<autoref identifier="str" optional>str</autoref>, <autoref identifier="bool" optional>bool</autoref>]</code>  :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 Whether to render summaries of modules, classes, functions (methods) and attributes.
