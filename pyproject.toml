@@ -30,6 +30,7 @@ classifiers = [
 ]
 dependencies = [
     "mkdocstrings>=0.25",
+    "mkdocs-autorefs>=1.0",
     "griffe>=0.49",
 ]
 
