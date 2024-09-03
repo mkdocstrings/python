@@ -57,6 +57,129 @@ plugins:
 ////
 ///
 
+## `parameter_headings`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.6.0](../../insiders/changelog.md#1.6.0)
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to render headings for function/method parameters.
+
+With this option enabled, each function/method parameter
+(including parameters of `__init__` methods merged in their parent class
+with the [`merge_init_into_class`][] option)
+gets a permalink, an entry in the Table of Contents,
+and an entry in the generated objects inventory.
+The permalink and inventory entry allow cross-references
+from internal and external pages.
+
+The identifier used in the permalink and inventory is of the following form:
+`path.to.function(param_name)`. To manually cross-reference a parameter,
+you can therefore use this Markdown syntax:
+
+```md
+- Class parameter: [`param`][package.module.Class(param)]
+- Method parameter: [`param`][package.module.Class.method(param)]
+- Function parameter: [`param`][package.module.function(param)]
+- Variadic positional parameters: [`*args`][package.module.function(*args)]
+- Variadic keyword parameters: [`**kwargs`][package.module.function(**kwargs)]
+```
+
+Enabling this option along with [`signature_crossrefs`][] will automatically
+render cross-references to parameters in class/function/method signatures
+and attributes values.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          parameter_headings: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      parameter_headings: true
+```
+
+/// admonition | Preview: Cross-references
+    type: preview
+
+```md exec="on"
+::: package.get_version
+    options:
+      heading_level: 3
+      parameter_headings: true
+      docstring_section_style: list
+
+::: package.current_version
+    options:
+      heading_level: 3
+      line_length: 100
+```
+
+///
+
+/// admonition | Preview: Parameter sections
+    type: preview
+
+//// tab | Table style
+```md exec="on"
+::: package.get_version
+    options:
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: table
+      show_docstring_returns: false
+      show_docstring_description: false
+```
+////
+
+//// tab | List style
+```md exec="on"
+::: package.get_version
+    options:
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: list
+      show_docstring_returns: false
+      show_docstring_description: false
+```
+////
+
+//// tab | Spacy style
+```md exec="on"
+::: package.get_version
+    options:
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: spacy
+      show_docstring_returns: false
+      show_docstring_description: false
+```
+////
+///
+
+/// admonition | Preview: Table of contents (with symbol types)
+    type: preview
+
+<code class="doc-symbol doc-symbol-toc doc-symbol-function"></code> get_version<br>
+<code class="doc-symbol doc-symbol-toc doc-symbol-parameter" style="margin-left: 16px;"></code> dist
+
+To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+
+///
+
 ## `show_root_heading`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**

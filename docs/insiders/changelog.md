@@ -2,6 +2,32 @@
 
 ## mkdocstrings-python Insiders
 
+### 1.8.3 <small>June 19, 2024</small> { id="1.8.3" }
+
+- Update code for Griffe 0.46+ to avoid deprecation warnings
+
+### 1.8.2 <small>May 09, 2024</small> { id="1.8.2" }
+
+- Don't render cross-refs for default values when signatures aren't separated
+
+### 1.8.1 <small>April 19, 2024</small> { id="1.8.1" }
+
+- Render enumeration instance name instead of just "value", allowing proper cross-reference
+
+### 1.8.0 <small>March 24, 2024</small> { id="1.8.0" }
+
+- [Annotations modernization][modernize_annotations]
+
+### 1.7.0 <small>March 24, 2024</small> { id="1.7.0" }
+
+- [Class inheritance diagrams with Mermaid][show_inheritance_diagram]
+
+### 1.6.0 <small>January 30, 2024</small> { id="1.6.0" }
+
+- Render cross-references to parameters documentation in signatures and attribute values.
+- Add [`parameter_headings`][parameter_headings] option to render headings for parameters (enabling permalinks and ToC/inventory entries).
+- Render cross-references for default parameter values in signatures.
+
 ### 1.5.1 <small>September 12, 2023</small> { id="1.5.1" }
 
 - Prevent empty auto-summarized Methods section.

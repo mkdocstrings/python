@@ -193,6 +193,93 @@ plugins:
 ////
 ///
 
+## `modernize_annotations`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.8.0](../../insiders/changelog.md#1.8.0) &mdash;
+**This feature also requires 
+[Griffe Insiders](https://mkdocstrings.github.io/griffe/insiders/)
+to be installed.**
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+Modernize annotations with latest features and PEPs of the Python language.
+
+The Python language keeps evolving, and often library developers
+must continue to support a few minor versions of Python.
+Therefore they cannot use some features that were introduced
+in the latest versions.
+
+Yet this doesn't mean they can't enjoy latest features in their docs:
+Griffe allows to "modernize" expressions, for example
+by replacing `typing.Union` with [PEP 604][pep-604] type unions `|`.
+Thanks to this, mkdocstrings' Python handler
+can automatically transform type annotations into their modern equivalent.
+This improves consistency in your docs, and shows users
+how to use your code with the latest features of the language.
+
+[pep-604]: https://peps.python.org/pep-0604/
+
+Modernizations applied:
+
+- `typing.Dict[A, B]` becomes `dict[A, B]`
+- `typing.List[A]` becomes `list[A]`
+- `typing.Set[A]` becomes `set[A]`
+- `typing.Tuple[A]` becomes `tuple[A]`
+- `typing.Union[A, B]` becomes `A | B`
+- `typing.Optional[A]` becomes `A | None`
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          modernize_annotations: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      modernize_annotations: false
+```
+
+/// admonition | Preview
+    type: preview
+
+```python
+--8<-- "docs/snippets/package/modern.py"
+```
+
+//// tab | Unchanged annotations
+
+```md exec="on"
+::: package.modern.example
+    options:
+      modernize_annotations: false
+      show_symbol_type_heading: false
+      show_labels: false
+```
+
+////
+
+//// tab | Modernized annotations
+
+```md exec="on"
+::: package.modern.example
+    options:
+      modernize_annotations: true
+      show_symbol_type_heading: false
+      show_labels: false
+```
+
+////
+
+///
+
+
+
 ## `show_signature`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**

@@ -92,6 +92,91 @@ plugins:
 ////
 ///
 
+## `show_inheritance_diagram`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.7.0](../../insiders/changelog.md#1.7.0)
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+Show the inheritance diagram of a class using [Mermaid](https://mermaid.js.org/).
+
+With this option enabled, an inheritance diagram (as a flowchart)
+will be displayed after a class signature.
+Each node will act as a cross-reference
+and will bring you to the relevant class' documentation
+when clicking on it.
+
+It should work out of the box with [Material for MkDocs][].
+For other themes, you must include Mermaid's Javascript code manually:
+
+```yaml title="mkdocs.yml"
+extra_javascript:
+- https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js
+```
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_inheritance_diagram: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      show_inheritance_diagram: false
+```
+
+/// admonition | Preview
+    type: preview
+
+With the following classes:
+
+```python
+class SuperAbstract:
+    """Super abstract class."""
+class Mixin1:
+    """Mixin 1."""
+class Abstract(SuperAbstract, Mixin1):
+    """Abstract class."""
+class Mixin2A:
+    """Mixin 2A."""
+class Mixin2B(Mixin2A):
+    """Mixin 2B."""
+class Concrete(Abstract, Mixin2B):
+    """Concrete class."""
+class SuperConcrete(Concrete):
+    """Super concrete class."""
+```
+
+The diagram for `SuperConcrete` will look like this:
+
+```mermaid
+flowchart TD
+SuperConcrete[SuperConcrete]
+Concrete[Concrete]
+Abstract[Abstract]
+SuperAbstract[SuperAbstract]
+Mixin1[Mixin1]
+Mixin2B[Mixin2B]
+Mixin2A[Mixin2A]
+
+Concrete --> SuperConcrete
+Abstract --> Concrete
+SuperAbstract --> Abstract
+Mixin1 --> Abstract
+Mixin2B --> Concrete
+Mixin2A --> Mixin2B
+```
+
+*Nodes are not clickable in this example
+because these classes do not exist in our documentation.*
+///
+
 ## `show_source`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**

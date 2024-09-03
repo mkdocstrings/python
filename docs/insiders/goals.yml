@@ -16,9 +16,24 @@ goals:
       since: 2023/08/20
     - name: Automatic rendering of function signature overloads
       since: 2023/09/05
+    - name: Parameter headings
+      ref: /usage/configuration/headings/#parameter_headings
+      since: 2024/01/30
+    - name: Automatic cross-references to parameters
+      ref: /usage/configuration/headings/#parameter_headings
+      since: 2024/01/30
+    - name: Automatic cross-references for default parameter values in signatures
+      since: 2024/01/30
   1500:
     name: HyperLamp Navigation Tips
-    features: []
+    features:
+    - name: Class inheritance diagrams with Mermaid
+      ref: /usage/configuration/general/#show_inheritance_diagram
+      since: 2024/03/24
+    - name: Annotations modernization
+      ref: /usage/configuration/signatures/#modernize_annotations
+      since: 2024/03/24
   2000:
     name: FusionDrive Ejection Configuration
-    features: []
+    features:
+    - name: Relative cross-references

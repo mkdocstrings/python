@@ -116,14 +116,16 @@ markdown_extensions:
     emoji_generator: !!python/name:material.extensions.emoji.to_svg
 - pymdownx.highlight:
     pygments_lang_class: true
-- pymdownx.inlinehilite:
-    style_plain_text: py3
 - pymdownx.magiclink
 - pymdownx.snippets:
     auto_append: [docs/.glossary.md]
     base_path: [!relative $config_dir]
     check_paths: true
-- pymdownx.superfences
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format
 - pymdownx.tabbed:
     alternate_style: true
     slugify: !!python/object/apply:pymdownx.slugs.slugify
@@ -147,10 +149,11 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        paths: [src]
+        paths: [src, docs/snippets]
         import:
         - https://docs.python.org/3/objects.inv
         - https://mkdocstrings.github.io/objects.inv
+        - https://mkdocstrings.github.io/autorefs/objects.inv
         - https://mkdocstrings.github.io/griffe/objects.inv
         - https://python-markdown.github.io/objects.inv
         options:
@@ -163,7 +166,11 @@ plugins:
           merge_init_into_class: true
           parameter_headings: true
           preload_modules: [mkdocstrings]
+          relative_crossrefs: true
+          scoped_crossrefs: true
           separate_signature: true
+          show_bases: false
+          show_inheritance_diagram: true
           show_root_heading: true
           show_root_full_path: false
           show_signature_annotations: true
