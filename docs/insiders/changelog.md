@@ -2,6 +2,11 @@
 
 ## mkdocstrings-python Insiders
 
+### 1.9.0 <small>September 03, 2024</small> { id="1.9.0" }
+
+- [Relative cross-references][relative_crossrefs]
+- [Scoped cross-references][scoped_crossrefs]
+
 ### 1.8.3 <small>June 19, 2024</small> { id="1.8.3" }
 
 - Update code for Griffe 0.46+ to avoid deprecation warnings

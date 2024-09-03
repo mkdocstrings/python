@@ -37,3 +37,8 @@ goals:
     name: FusionDrive Ejection Configuration
     features:
     - name: Relative cross-references
+      ref: /usage/configuration/docstrings/#relative_crossrefs
+      since: 2024/09/03
+    - name: Scoped cross-references
+      ref: /usage/configuration/docstrings/#scoped_crossrefs
+      since: 2024/09/03

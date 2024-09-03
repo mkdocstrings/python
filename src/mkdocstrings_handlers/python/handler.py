@@ -85,6 +85,8 @@ class PythonHandler(BaseHandler):
         "separate_signature": False,
         "line_length": 60,
         "merge_init_into_class": False,
+        "relative_crossrefs": False,
+        "scoped_crossrefs": False,
         "show_docstring_attributes": True,
         "show_docstring_functions": True,
         "show_docstring_classes": True,
@@ -168,6 +170,8 @@ class PythonHandler(BaseHandler):
         docstring_options (dict): The options for the docstring parser. See [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/) and their options in Griffe docs.
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `"table"`.
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
+        relative_crossrefs (bool): Whether to enable the relative crossref syntax. Default: `False`.
+        scoped_crossrefs (bool): Whether to enable the scoped crossref ability. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
         show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
         show_docstring_functions (bool): Whether to display the "Functions" or "Methods" sections in the object's docstring. Default: `True`.
