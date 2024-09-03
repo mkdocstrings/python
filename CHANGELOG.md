@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.11.0](https://github.com/mkdocstrings/python/releases/tag/1.11.0) - 2024-09-03
+
+<small>[Compare with 1.10.9](https://github.com/mkdocstrings/python/compare/1.10.9...1.11.0)</small>
+
+### Features
+
+- Hook into autorefs to provide context around cross-ref errors ([bb4be5b](https://github.com/mkdocstrings/python/commit/bb4be5be1b85be50f46c7889231a2d4a3bd05165) by Timothée Mazzucotelli).
+
 ## [1.10.9](https://github.com/mkdocstrings/python/releases/tag/1.10.9) - 2024-08-30
 
 <small>[Compare with 1.10.8](https://github.com/mkdocstrings/python/compare/1.10.8...1.10.9)</small>
