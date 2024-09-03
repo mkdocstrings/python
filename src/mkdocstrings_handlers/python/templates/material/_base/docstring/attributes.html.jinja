@@ -43,7 +43,7 @@ Context:
             </td>
             <td>
               <div class="doc-md-description">
-                {{ attribute.description|convert_markdown(heading_level, html_id) }}
+                {{ attribute.description|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
               </div>
             </td>
           </tr>
@@ -66,7 +66,7 @@ Context:
           {% endif %}
           –
           <div class="doc-md-description">
-            {{ attribute.description|convert_markdown(heading_level, html_id) }}
+            {{ attribute.description|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
           </div>
         </li>
       {% endfor %}
@@ -88,7 +88,7 @@ Context:
             <td><code><autoref identifier="{{ obj.path }}.{{ attribute.name }}" optional hover>{{ attribute.name }}</autoref></code></td>
             <td class="doc-attribute-details">
               <div class="doc-md-description">
-                {{ attribute.description|convert_markdown(heading_level, html_id) }}
+                {{ attribute.description|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
               </div>
               <p>
                 {% if attribute.annotation %}

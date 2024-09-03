@@ -40,7 +40,7 @@ Context:
               {% endif %}
               –
               <div class="doc-md-description">
-                {{ receives.description|convert_markdown(heading_level, html_id) }}
+                {{ receives.description|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
               </div>
             </li>
           {% endfor %}

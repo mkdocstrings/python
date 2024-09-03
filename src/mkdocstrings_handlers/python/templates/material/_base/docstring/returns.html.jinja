@@ -44,7 +44,7 @@ Context:
             </td>
             <td>
               <div class="doc-md-description">
-                {{ returns.description|convert_markdown(heading_level, html_id) }}
+                {{ returns.description|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
               </div>
             </td>
           </tr>
@@ -69,7 +69,7 @@ Context:
           {% endif %}
           –
           <div class="doc-md-description">
-            {{ returns.description|convert_markdown(heading_level, html_id) }}
+            {{ returns.description|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
           </div>
         </li>
       {% endfor %}
@@ -101,7 +101,7 @@ Context:
             </td>
             <td class="doc-returns-details">
               <div class="doc-md-description">
-                {{ returns.description|convert_markdown(heading_level, html_id) }}
+                {{ returns.description|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
               </div>
               {% if returns.name and returns.annotation %}
                 <p>

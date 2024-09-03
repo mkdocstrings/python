@@ -426,6 +426,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section
         self.env.filters["as_classes_section"] = rendering.do_as_classes_section
         self.env.filters["as_modules_section"] = rendering.do_as_modules_section
+        self.env.globals["AutorefsHook"] = rendering.AutorefsHook
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)

@@ -22,6 +22,7 @@ from griffe import (
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
+from mkdocs_autorefs.references import AutorefsHookInterface
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
@@ -571,3 +572,60 @@ def do_as_modules_section(
         A modules docstring section.
     """
     return DocstringSectionModules([])
+
+
+class AutorefsHook(AutorefsHookInterface):
+    """Autorefs hook.
+
+    With this hook, we're able to add context to autorefs (cross-references),
+    such as originating file path and line number, to improve error reporting.
+    """
+
+    def __init__(self, current_object: Object | Alias, config: dict[str, Any]) -> None:
+        """Initialize the hook.
+
+        Parameters:
+            current_object: The object being rendered.
+            config: The configuration dictionary.
+        """
+        self.current_object = current_object
+        self.config = config
+
+    def expand_identifier(self, identifier: str) -> str:
+        """Expand an identifier.
+
+        Parameters:
+            identifier: The identifier to expand.
+
+        Returns:
+            The expanded identifier.
+        """
+        return identifier
+
+    def get_context(self) -> AutorefsHookInterface.Context:
+        """Get the context for the current object.
+
+        Returns:
+            The context.
+        """
+        role = {
+            "attribute": "data" if self.current_object.parent and self.current_object.parent.is_module else "attr",
+            "class": "class",
+            "function": "meth" if self.current_object.parent and self.current_object.parent.is_class else "func",
+            "module": "mod",
+        }.get(self.current_object.kind.value.lower(), "obj")
+        origin = self.current_object.path
+        try:
+            filepath = self.current_object.docstring.parent.filepath  # type: ignore[union-attr]
+            lineno = self.current_object.docstring.lineno or 0  # type: ignore[union-attr]
+        except AttributeError:
+            filepath = self.current_object.filepath
+            lineno = 0
+
+        return AutorefsHookInterface.Context(
+            domain="py",
+            role=role,
+            origin=origin,
+            filepath=str(filepath),
+            lineno=lineno,
+        )
