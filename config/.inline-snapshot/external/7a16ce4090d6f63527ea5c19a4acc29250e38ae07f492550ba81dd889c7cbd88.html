@@ -1,0 +1,341 @@
+<!--
+{
+  "annotations_path": "source",
+  "separate_signature": false,
+  "show_signature": false,
+  "show_signature_annotations": true,
+  "signature_crossrefs": false
+}
+-->
+
+<div class="doc doc-object doc-module">
+ <a id="pkg">
+ </a>
+ <div class="doc doc-contents first">
+  <div class="doc doc-children">
+   <div class="doc doc-object doc-attribute">
+    <h2 class="doc doc-heading" id="pkg.baz">
+     <code class="highlight language-python">
+      <span class="n">
+       baz
+      </span>
+      <span class="p">
+       :
+      </span>
+      <span class="nb">
+       int
+      </span>
+      <span class="o">
+       =
+      </span>
+      <span class="mi">
+       42
+      </span>
+     </code>
+     <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute">
+       <code>
+        module-attribute
+       </code>
+      </small>
+     </span>
+    </h2>
+    <div class="doc doc-contents">
+     <p>
+      Docstring for
+      <code>
+       baz
+      </code>
+      .
+     </p>
+    </div>
+   </div>
+   <div class="doc doc-object doc-class">
+    <h2 class="doc doc-heading" id="pkg.Bar">
+     <code>
+      Bar
+     </code>
+    </h2>
+    <div class="doc doc-contents">
+     <p>
+      Docstring for
+      <code>
+       Bar
+      </code>
+      .
+     </p>
+     <details class="quote">
+      <summary>
+       Source code in
+       <code>
+        pkg/__init__.py
+       </code>
+      </summary>
+      <div class="highlight">
+       <table class="highlighttable">
+        <tr>
+         <td class="linenos">
+          <div class="linenodiv">
+           <pre><span></span><span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre>
+          </div>
+         </td>
+         <td class="code">
+          <div>
+           <pre><span></span><code><span class="k">class</span> <span class="nc">Bar</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">'''Docstring for `Bar`.'''</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">'''Docstring for `Bar.__init__`.'''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="w">        </span><span class="sd">'''Docstring for `Bar.c`.'''</span>
+
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">'''Docstring.'''</span>
+</code></pre>
+          </div>
+         </td>
+        </tr>
+       </table>
+      </div>
+     </details>
+     <div class="doc doc-children">
+      <div class="doc doc-object doc-attribute">
+       <h3 class="doc doc-heading" id="pkg.Bar.c">
+        <code class="highlight language-python">
+         <span class="n">
+          c
+         </span>
+         <span class="o">
+          =
+         </span>
+         <span class="n">
+          a
+         </span>
+         <span class="o">
+          +
+         </span>
+         <span class="n">
+          b
+         </span>
+        </code>
+        <span class="doc doc-labels">
+         <small class="doc doc-label doc-label-instance-attribute">
+          <code>
+           instance-attribute
+          </code>
+         </small>
+        </span>
+       </h3>
+       <div class="doc doc-contents">
+        <p>
+         Docstring for
+         <code>
+          Bar.c
+         </code>
+         .
+        </p>
+       </div>
+      </div>
+      <div class="doc doc-object doc-function">
+       <h3 class="doc doc-heading" id="pkg.Bar.__init__">
+        <code class="highlight language-python">
+         <span class="fm">
+          __init__
+         </span>
+        </code>
+       </h3>
+       <div class="doc doc-contents">
+        <p>
+         Docstring for
+         <code>
+          Bar.__init__
+         </code>
+         .
+        </p>
+        <details class="quote">
+         <summary>
+          Source code in
+          <code>
+           pkg/__init__.py
+          </code>
+         </summary>
+         <div class="highlight">
+          <table class="highlighttable">
+           <tr>
+            <td class="linenos">
+             <div class="linenodiv">
+              <pre><span></span><span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre>
+             </div>
+            </td>
+            <td class="code">
+             <div>
+              <pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">'''Docstring for `Bar.__init__`.'''</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="w">    </span><span class="sd">'''Docstring for `Bar.c`.'''</span>
+</code></pre>
+             </div>
+            </td>
+           </tr>
+          </table>
+         </div>
+        </details>
+       </div>
+      </div>
+      <div class="doc doc-object doc-function">
+       <h3 class="doc doc-heading" id="pkg.Bar.foo">
+        <code class="highlight language-python">
+         <span class="n">
+          foo
+         </span>
+        </code>
+       </h3>
+       <div class="doc doc-contents">
+        <p>
+         Docstring.
+        </p>
+        <details class="quote">
+         <summary>
+          Source code in
+          <code>
+           pkg/__init__.py
+          </code>
+         </summary>
+         <div class="highlight">
+          <table class="highlighttable">
+           <tr>
+            <td class="linenos">
+             <div class="linenodiv">
+              <pre><span></span><span class="normal">13</span>
+<span class="normal">14</span></pre>
+             </div>
+            </td>
+            <td class="code">
+             <div>
+              <pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">'''Docstring.'''</span>
+</code></pre>
+             </div>
+            </td>
+           </tr>
+          </table>
+         </div>
+        </details>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="doc doc-object doc-class">
+    <h2 class="doc doc-heading" id="pkg.Qux">
+     <code>
+      Qux
+     </code>
+    </h2>
+    <div class="doc doc-contents">
+     <p class="doc doc-class-bases">
+      Bases:
+      <code>
+       <span data-autorefs-optional-hover="pkg.Bar">
+        Bar
+       </span>
+      </code>
+     </p>
+     <p>
+      Docstring for
+      <code>
+       Qux
+      </code>
+      .
+     </p>
+     <details class="quote">
+      <summary>
+       Source code in
+       <code>
+        pkg/__init__.py
+       </code>
+      </summary>
+      <div class="highlight">
+       <table class="highlighttable">
+        <tr>
+         <td class="linenos">
+          <div class="linenodiv">
+           <pre><span></span><span class="normal">19</span>
+<span class="normal">20</span></pre>
+          </div>
+         </td>
+         <td class="code">
+          <div>
+           <pre><span></span><code><span class="k">class</span> <span class="nc">Qux</span><span class="p">(</span><span class="n">Bar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''Docstring for `Qux`.'''</span>
+</code></pre>
+          </div>
+         </td>
+        </tr>
+       </table>
+      </div>
+     </details>
+     <div class="doc doc-children">
+     </div>
+    </div>
+   </div>
+   <div class="doc doc-object doc-function">
+    <h2 class="doc doc-heading" id="pkg.foo">
+     <code class="highlight language-python">
+      <span class="n">
+       foo
+      </span>
+     </code>
+    </h2>
+    <div class="doc doc-contents">
+     <p>
+      Docstring for
+      <code>
+       foo
+      </code>
+      .
+     </p>
+     <details class="quote">
+      <summary>
+       Source code in
+       <code>
+        pkg/__init__.py
+       </code>
+      </summary>
+      <div class="highlight">
+       <table class="highlighttable">
+        <tr>
+         <td class="linenos">
+          <div class="linenodiv">
+           <pre><span></span><span class="normal">2</span>
+<span class="normal">3</span></pre>
+          </div>
+         </td>
+         <td class="code">
+          <div>
+           <pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">'''Docstring for `foo`.'''</span>
+</code></pre>
+          </div>
+         </td>
+        </tr>
+       </table>
+      </div>
+     </details>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
