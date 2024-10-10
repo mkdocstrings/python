@@ -127,7 +127,7 @@ if it supports light and dark themes,
 otherwise just override the variables at root level:
 
 ```css title="docs/css/mkdocstrings.css"
-:root, :host {
+:root {
   --doc-symbol-parameter-fg-color: #df50af;
   --doc-symbol-attribute-fg-color: #0079ff;
   --doc-symbol-function-fg-color: #00dfa2;
