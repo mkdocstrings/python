@@ -6,3 +6,21 @@
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
 {% endblock logs %}
+
+{% with members_list = config.members if root_members else None %}
+  {% if config.summary.modules %}
+    {% include "summary/modules"|get_template with context %}
+  {% endif %}
+
+  {% if config.summary.classes %}
+    {% include "summary/classes"|get_template with context %}
+  {% endif %}
+
+  {% if config.summary.functions %}
+    {% include "summary/functions"|get_template with context %}
+  {% endif %}
+
+  {% if config.summary.attributes %}
+    {% include "summary/attributes"|get_template with context %}
+  {% endif %}
+{% endwith %}

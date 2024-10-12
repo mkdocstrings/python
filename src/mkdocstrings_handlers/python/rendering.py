@@ -8,13 +8,17 @@ import re
 import string
 import sys
 import warnings
-from functools import lru_cache, partial
+from functools import lru_cache
 from pathlib import Path
 from re import Match, Pattern
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any, Callable, ClassVar
 
 from griffe import (
     Alias,
+    DocstringAttribute,
+    DocstringClass,
+    DocstringFunction,
+    DocstringModule,
     DocstringSectionAttributes,
     DocstringSectionClasses,
     DocstringSectionFunctions,
@@ -481,9 +485,9 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
 @pass_context
 def do_as_attributes_section(
     context: Context,  # noqa: ARG001
-    attributes: Sequence[Attribute],  # noqa: ARG001
+    attributes: Sequence[Attribute],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionAttributes:
     """Build an attributes section from a list of attributes.
 
@@ -494,15 +498,26 @@ def do_as_attributes_section(
     Returns:
         An attributes docstring section.
     """
-    return DocstringSectionAttributes([])
+    return DocstringSectionAttributes(
+        [
+            DocstringAttribute(
+                name=attribute.name,
+                description=attribute.docstring.value.split("\n", 1)[0] if attribute.docstring else "",
+                annotation=attribute.annotation,
+                value=attribute.value,  # type: ignore[arg-type]
+            )
+            for attribute in attributes
+            if not check_public or attribute.is_public
+        ],
+    )
 
 
 @pass_context
 def do_as_functions_section(
-    context: Context,  # noqa: ARG001
-    functions: Sequence[Function],  # noqa: ARG001
+    context: Context,
+    functions: Sequence[Function],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionFunctions:
     """Build a functions section from a list of functions.
 
@@ -513,15 +528,25 @@ def do_as_functions_section(
     Returns:
         A functions docstring section.
     """
-    return DocstringSectionFunctions([])
+    keep_init_method = not context.parent["config"]["merge_init_into_class"]
+    return DocstringSectionFunctions(
+        [
+            DocstringFunction(
+                name=function.name,
+                description=function.docstring.value.split("\n", 1)[0] if function.docstring else "",
+            )
+            for function in functions
+            if (not check_public or function.is_public) and (function.name != "__init__" or keep_init_method)
+        ],
+    )
 
 
 @pass_context
 def do_as_classes_section(
     context: Context,  # noqa: ARG001
-    classes: Sequence[Class],  # noqa: ARG001
+    classes: Sequence[Class],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionClasses:
     """Build a classes section from a list of classes.
 
@@ -532,15 +557,24 @@ def do_as_classes_section(
     Returns:
         A classes docstring section.
     """
-    return DocstringSectionClasses([])
+    return DocstringSectionClasses(
+        [
+            DocstringClass(
+                name=cls.name,
+                description=cls.docstring.value.split("\n", 1)[0] if cls.docstring else "",
+            )
+            for cls in classes
+            if not check_public or cls.is_public
+        ],
+    )
 
 
 @pass_context
 def do_as_modules_section(
     context: Context,  # noqa: ARG001
-    modules: Sequence[Module],  # noqa: ARG001
+    modules: Sequence[Module],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionModules:
     """Build a modules section from a list of modules.
 
@@ -551,7 +585,16 @@ def do_as_modules_section(
     Returns:
         A modules docstring section.
     """
-    return DocstringSectionModules([])
+    return DocstringSectionModules(
+        [
+            DocstringModule(
+                name=module.name,
+                description=module.docstring.value.split("\n", 1)[0] if module.docstring else "",
+            )
+            for module in modules
+            if not check_public or module
+        ],
+    )
 
 
 class AutorefsHook(AutorefsHookInterface):

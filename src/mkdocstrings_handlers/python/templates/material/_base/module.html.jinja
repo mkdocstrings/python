@@ -97,6 +97,14 @@ Context:
           {% endwith %}
         {% endblock docstring %}
 
+        {% block summary scoped %}
+          {#- Summary block.
+          
+          This block renders auto-summaries for classes, methods, and attributes.
+          -#}
+          {% include "summary"|get_template with context %}
+        {% endblock summary %}
+
         {% block children scoped %}
           {#- Children block.
           
