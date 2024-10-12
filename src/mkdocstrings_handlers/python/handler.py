@@ -104,6 +104,7 @@ class PythonHandler(BaseHandler):
         "show_docstring_yields": True,
         "show_source": True,
         "show_bases": True,
+        "show_inheritance_diagram": False,
         "show_submodules": False,
         "group_by_category": True,
         "heading_level": 2,
@@ -119,6 +120,7 @@ class PythonHandler(BaseHandler):
         "show_labels": True,
         "unwrap_annotated": False,
         "parameter_headings": False,
+        "modernize_annotations": False,
     }
     """Default handler configuration.
 
@@ -126,6 +128,7 @@ class PythonHandler(BaseHandler):
         find_stubs_package (bool): Whether to load stubs package (package-stubs) when extracting docstrings. Default `False`.
         allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
         show_bases (bool): Show the base classes of a class. Default: `True`.
+        show_inheritance_diagram (bool): Show the inheritance diagram of a class using Mermaid. Default: `False`.
         show_source (bool): Show the source code of this object. Default: `True`.
         preload_modules (list[str] | None): Pre-load modules that are
             not specified directly in autodoc instructions (`::: identifier`).
@@ -200,6 +203,7 @@ class PythonHandler(BaseHandler):
         separate_signature (bool): Whether to put the whole signature in a code block below the heading.
             If Black is installed, the signature is also formatted using it. Default: `False`.
         unwrap_annotated (bool): Whether to unwrap `Annotated` types to show only the type without the annotations. Default: `False`.
+        modernize_annotations (bool): Whether to modernize annotations, for example `Optional[str]` into `str | None`. Default: `False`.
     """
 
     def __init__(
@@ -274,7 +278,7 @@ class PythonHandler(BaseHandler):
     ) -> Iterator[tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
-        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][mkdocstrings.plugin]).
+        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][]).
 
         Arguments:
             in_file: The binary file-like object to read the inventory from.

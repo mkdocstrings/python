@@ -59,7 +59,6 @@ plugins:
 
 ## `parameter_headings`
 
-[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
 [:octicons-tag-24: Insiders 1.6.0](../../insiders/changelog.md#1.6.0)
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**

@@ -612,7 +612,9 @@ class AutorefsHook(AutorefsHookInterface):
             config: The configuration dictionary.
         """
         self.current_object = current_object
+        """The current object being rendered."""
         self.config = config
+        """The configuration options."""
 
     def expand_identifier(self, identifier: str) -> str:
         """Expand an identifier.
