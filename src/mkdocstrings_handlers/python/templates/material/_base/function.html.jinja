@@ -77,8 +77,18 @@ Context:
       {% block signature scoped %}
         {#- Signature block.
         
-        This block renders the signature for the function.
+        This block renders the signature for the function,
+        as well as its overloaded signatures if any.
         -#}
+        {% if function.overloads %}
+          <div class="doc-overloads">
+            {% for overload in function.overloads %}
+              {% filter format_signature(overload, config.line_length, annotations=True, crossrefs=config.signature_crossrefs) %}
+                {{ overload.name }}
+              {% endfilter %}
+            {% endfor %}
+          </div>
+        {% endif %}
         {% if config.separate_signature %}
           {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
             {{ function.name }}
