@@ -118,6 +118,7 @@ class PythonHandler(BaseHandler):
         "summary": False,
         "show_labels": True,
         "unwrap_annotated": False,
+        "parameter_headings": False,
     }
     """Default handler configuration.
 
@@ -138,6 +139,7 @@ class PythonHandler(BaseHandler):
 
     Attributes: Headings options:
         heading_level (int): The initial heading level to use. Default: `2`.
+        parameter_headings (bool): Whether to render headings for parameters (therefore showing parameters in the ToC). Default: `False`.
         show_root_heading (bool): Show the heading of the object at the root of the documentation tree
             (i.e. the object referenced by the identifier after `:::`). Default: `False`.
         show_root_toc_entry (bool): If the root heading is not shown, at least add a ToC entry for it. Default: `True`.
@@ -426,7 +428,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["format_signature"] = rendering.do_format_signature
         self.env.filters["format_attribute"] = rendering.do_format_attribute
         self.env.filters["filter_objects"] = rendering.do_filter_objects
-        self.env.filters["stash_crossref"] = lambda ref, length: ref
+        self.env.filters["stash_crossref"] = rendering.do_stash_crossref
         self.env.filters["get_template"] = rendering.do_get_template
         self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section

@@ -25,6 +25,7 @@ Context:
         render_kw_only_separator=True,
         annotation="",
         equal="=",
+        default=False,
       ) -%}
 
     (
@@ -60,7 +61,9 @@ Context:
 
         {#- Prepare default value. -#}
         {%- if parameter.default is not none and parameter.kind.value != "variadic positional" and parameter.kind.value != "variadic keyword" -%}
-          {%- set default = ns.equal + parameter.default|safe -%}
+          {%- set ns.default = True -%}
+        {%- else -%}
+          {%- set ns.default = False -%}
         {%- endif -%}
 
         {#- TODO: Move inside kind handling above? -#}
@@ -68,9 +71,45 @@ Context:
           {%- set ns.render_kw_only_separator = False -%}
         {%- endif -%}
 
-        {#- Render name, annotation and default. -#}
-        {% if parameter.kind.value == "variadic positional" %}*{% elif parameter.kind.value == "variadic keyword" %}**{% endif -%}
-        {{ parameter.name }}{{ ns.annotation }}{{ default }}
+        {#- Prepare name. -#}
+        {%- set param_name -%}
+          {%- if parameter.kind.value == "variadic positional" -%}
+            *
+          {%- elif parameter.kind.value == "variadic keyword" -%}
+            **
+          {%- endif -%}
+          {{ parameter.name }}
+        {%- endset -%}
+
+        {#- Render parameter name with optional cross-reference to its heading. -#}
+        {%- if config.separate_signature and config.parameter_headings and config.signature_crossrefs -%}
+          {%- filter stash_crossref(length=param_name|length) -%}
+            {%- with func_path = function.path -%}
+              {%- if config.merge_init_into_class and func_path.endswith(".__init__") -%}
+                {%- set func_path = func_path[:-9] -%}
+              {%- endif -%}
+              <autoref identifier="{{ func_path }}({{ param_name }})" optional>{{ param_name }}</autoref>
+            {%- endwith -%}
+          {%- endfilter -%}
+        {%- else -%}
+          {{ param_name }}
+        {%- endif -%}
+
+        {#- Render parameter annotation. -#}
+        {{ ns.annotation }}
+
+        {#- Render parameter default value. -#}
+        {%- if ns.default -%}
+          {{ ns.equal }}
+          {%- if config.signature_crossrefs and config.separate_signature -%}
+            {%- with expression = parameter.default -%}
+              {%- include "expression"|get_template with context -%}
+            {%- endwith -%}
+          {%- else -%}
+            {{ parameter.default }}
+          {%- endif -%}
+        {%- endif -%}
+
         {%- if not loop.last %}, {% endif -%}
 
       {%- endif -%}

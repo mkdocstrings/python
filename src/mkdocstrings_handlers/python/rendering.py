@@ -83,24 +83,26 @@ def do_format_code(code: str, line_length: int) -> str:
     return formatter(code, line_length)
 
 
-_stash_key_alphabet = string.ascii_letters + string.digits
+class _StashCrossRefFilter:
+    stash: ClassVar[dict[str, str]] = {}
+
+    @staticmethod
+    def _gen_key(length: int) -> str:
+        return "_" + "".join(random.choice(string.ascii_letters + string.digits) for _ in range(max(1, length - 1)))  # noqa: S311
+
+    def _gen_stash_key(self, length: int) -> str:
+        key = self._gen_key(length)
+        while key in self.stash:
+            key = self._gen_key(length)
+        return key
+
+    def __call__(self, crossref: str, *, length: int) -> str:
+        key = self._gen_stash_key(length)
+        self.stash[key] = crossref
+        return key
 
 
-def _gen_key(length: int) -> str:
-    return "_" + "".join(random.choice(_stash_key_alphabet) for _ in range(max(1, length - 1)))  # noqa: S311
-
-
-def _gen_stash_key(stash: dict[str, str], length: int) -> str:
-    key = _gen_key(length)
-    while key in stash:
-        key = _gen_key(length)
-    return key
-
-
-def _stash_crossref(stash: dict[str, str], crossref: str, *, length: int) -> str:
-    key = _gen_stash_key(stash, length)
-    stash[key] = crossref
-    return key
+do_stash_crossref = _StashCrossRefFilter()
 
 
 def _format_signature(name: Markup, signature: str, line_length: int) -> str:
@@ -129,7 +131,7 @@ def do_format_signature(
     line_length: int,
     *,
     annotations: bool | None = None,
-    crossrefs: bool = False,
+    crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
     """Format a signature using Black.
 
@@ -147,12 +149,6 @@ def do_format_signature(
     env = context.environment
     # TODO: Stop using `do_get_template` when `*.html` templates are removed.
     template = env.get_template(do_get_template(env, "signature"))
-    config_annotations = context.parent["config"]["show_signature_annotations"]
-    old_stash_ref_filter = env.filters["stash_crossref"]
-
-    stash: dict[str, str] = {}
-    if (annotations or config_annotations) and crossrefs:
-        env.filters["stash_crossref"] = partial(_stash_crossref, stash)
 
     if annotations is None:
         new_context = context.parent
@@ -160,11 +156,8 @@ def do_format_signature(
         new_context = dict(context.parent)
         new_context["config"] = dict(new_context["config"])
         new_context["config"]["show_signature_annotations"] = annotations
-    try:
-        signature = template.render(new_context, function=function, signature=True)
-    finally:
-        env.filters["stash_crossref"] = old_stash_ref_filter
 
+    signature = template.render(new_context, function=function, signature=True)
     signature = _format_signature(callable_path, signature, line_length)
     signature = str(
         env.filters["highlight"](
@@ -184,9 +177,10 @@ def do_format_signature(
     if signature.find('class="nf"') == -1:
         signature = signature.replace('class="n"', 'class="nf"', 1)
 
-    if stash:
+    if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
             signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
 
     return signature
 
@@ -198,7 +192,7 @@ def do_format_attribute(
     attribute: Attribute,
     line_length: int,
     *,
-    crossrefs: bool = False,
+    crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
     """Format an attribute using Black.
 
@@ -216,23 +210,14 @@ def do_format_attribute(
     # TODO: Stop using `do_get_template` when `*.html` templates are removed.
     template = env.get_template(do_get_template(env, "expression"))
     annotations = context.parent["config"]["show_signature_annotations"]
-    separate_signature = context.parent["config"]["separate_signature"]
-    old_stash_ref_filter = env.filters["stash_crossref"]
 
-    stash: dict[str, str] = {}
-    if separate_signature and crossrefs:
-        env.filters["stash_crossref"] = partial(_stash_crossref, stash)
-
-    try:
-        signature = str(attribute_path).strip()
-        if annotations and attribute.annotation:
-            annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
-            signature += f": {annotation}"
-        if attribute.value:
-            value = template.render(context.parent, expression=attribute.value, signature=True)
-            signature += f" = {value}"
-    finally:
-        env.filters["stash_crossref"] = old_stash_ref_filter
+    signature = str(attribute_path).strip()
+    if annotations and attribute.annotation:
+        annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
+        signature += f": {annotation}"
+    if attribute.value:
+        value = template.render(context.parent, expression=attribute.value, signature=True)
+        signature += f" = {value}"
 
     signature = do_format_code(signature, line_length)
     signature = str(
@@ -244,9 +229,10 @@ def do_format_attribute(
         ),
     )
 
-    if stash:
+    if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
             signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
 
     return signature
 

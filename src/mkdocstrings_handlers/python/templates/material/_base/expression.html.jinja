@@ -32,16 +32,42 @@ which is a tree-like structure representing a Python expression.
       {%- set annotation = full -%}
     {%- endif -%}
     {%- for title, path in annotation|split_path(full) -%}
-      {%- if not signature or config.signature_crossrefs -%}
-        {%- filter stash_crossref(length=title|length) -%}
+      {%- if config.signature_crossrefs -%}
+        {%- if signature -%}
+          {%- filter stash_crossref(length=title|length) -%}
+            <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
+          {%- endfilter -%}
+        {%- else -%}
           <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
-        {%- endfilter -%}
+        {%- endif -%}
       {%- else -%}
         {{ title }}
       {%- endif -%}
       {%- if not loop.last -%}.{%- endif -%}
     {%- endfor -%}
   {%- endwith -%}
+{%- endmacro -%}
+
+{%- macro param_crossref(expression) -%}
+  {#- Render a cross-reference to a parameter heading.
+
+  Parameters:
+      expression (griffe.expressions.Expr): The expression to render.
+
+  Returns:
+      The autorefs cross-reference, or the parameter name.
+  -#}
+  {%- if config.signature_crossrefs -%}
+    {%- if signature -%}
+      {%- filter stash_crossref(length=expression.name|length) -%}
+        <autoref identifier="{{ expression.canonical_path }}" optional hover>{{ expression.name }}</autoref>
+      {%- endfilter -%}
+    {%- else -%}
+      <autoref identifier="{{ expression.canonical_path }}" optional hover>{{ expression.name }}</autoref>
+    {%- endif -%}
+  {%- else -%}
+    {{ expression.name }}
+  {%- endif -%}
 {%- endmacro -%}
 
 {%- macro render(expression, annotations_path) -%}
@@ -79,6 +105,8 @@ which is a tree-like structure representing a Python expression.
         {{ render(element, annotations_path) }}
       {%- endfor -%}
     {%- endif -%}
+  {%- elif expression.classname == "ExprKeyword" -%}
+    {{ param_crossref(expression) }}={{ render(expression.value, annotations_path) }}
   {%- else -%}
     {%- for element in expression -%}
       {{ render(element, annotations_path) }}
