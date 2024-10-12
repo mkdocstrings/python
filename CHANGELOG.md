@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.12.0](https://github.com/mkdocstrings/python/releases/tag/1.12.0) - 2024-10-12
+
+<small>[Compare with 1.11.1](https://github.com/mkdocstrings/python/compare/1.11.1...1.12.0)</small>
+
+### Build
+
+- Drop support for Python 3.8 ([6615c91](https://github.com/mkdocstrings/python/commit/6615c91cdc035bc0c2fdd12f3952ff84f5e1c04e) by Timothée Mazzucotelli).
+
+### Features
+
+- Auto-summary of members ([7f9757d](https://github.com/mkdocstrings/python/commit/7f9757d1584555edebc56f1aefe6cc8242e6c8bb) by Timothée Mazzucotelli).
+- Render function overloads ([0f2c25c](https://github.com/mkdocstrings/python/commit/0f2c25c9ed7f6c5c93ff13df214f02edfd3a4cb1) by Timothée Mazzucotelli).
+- Parameter headings, more automatic cross-references ([0176b83](https://github.com/mkdocstrings/python/commit/0176b83f21ae02d345489c93cca3baf51f8bc58c) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Declare default CSS symbol colors under :host as well ([3b9dba2](https://github.com/mkdocstrings/python/commit/3b9dba2709a8668e379c6ce1536cb1714971b3f4) by James McDonnell). [PR-186](https://github.com/mkdocstrings/python/pull/186)
+
 ## [1.11.1](https://github.com/mkdocstrings/python/releases/tag/1.11.1) - 2024-09-03
 
 <small>[Compare with 1.11.0](https://github.com/mkdocstrings/python/compare/1.11.0...1.11.1)</small>
