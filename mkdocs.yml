@@ -180,9 +180,10 @@ plugins:
           signature_crossrefs: true
           summary: true
           unwrap_annotated: true
-- git-committers:
+- git-revision-date-localized:
     enabled: !ENV [DEPLOY, false]
-    repository: mkdocstrings/python
+    enable_creation_date: true
+    type: timeago
 - minify:
     minify_html: !ENV [DEPLOY, false]
 - group:
