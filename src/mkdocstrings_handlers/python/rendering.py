@@ -10,7 +10,8 @@ import sys
 import warnings
 from functools import lru_cache, partial
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
+from re import Match, Pattern
+from typing import TYPE_CHECKING, Any, Callable
 
 from griffe import (
     Alias,
@@ -26,6 +27,8 @@ from mkdocs_autorefs.references import AutorefsHookInterface
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from griffe import Attribute, Class, Function, Module
     from jinja2 import Environment, Template
     from jinja2.runtime import Context
@@ -477,16 +480,7 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
         template = env.get_template(f"{name}.html")
     except TemplateNotFound:
         return f"{name}.html.jinja"
-    # TODO: Remove once support for Python 3.8 is dropped.
-    if sys.version_info < (3, 9):
-        try:
-            Path(template.filename).relative_to(Path(__file__).parent)  # type: ignore[arg-type]
-        except ValueError:
-            our_template = False
-        else:
-            our_template = True
-    else:
-        our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
+    our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
     if our_template:
         return f"{name}.html.jinja"
     # TODO: Switch to a warning log after some time.

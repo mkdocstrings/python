@@ -10,7 +10,7 @@ import sys
 from collections import ChainMap
 from contextlib import suppress
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterator, Mapping, Sequence
+from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar
 
 from griffe import (
     AliasResolutionError,
@@ -29,6 +29,8 @@ from mkdocstrings.loggers import get_logger
 from mkdocstrings_handlers.python import rendering
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator, Mapping, Sequence
+
     from markdown import Markdown
 
 
