@@ -31,7 +31,7 @@
 }
 
 /* Symbols in Navigation and ToC. */
-:root,
+:root, :host,
 [data-md-color-scheme="default"] {
   --doc-symbol-attribute-fg-color: #953800;
   --doc-symbol-function-fg-color: #8250df;
