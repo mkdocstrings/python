@@ -106,7 +106,7 @@ Context:
               {%- include "expression"|get_template with context -%}
             {%- endwith -%}
           {%- else -%}
-            {{ parameter.default }}
+            {{ parameter.default|safe }}
           {%- endif -%}
         {%- endif -%}
 
