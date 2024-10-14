@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING, Any, Callable, ClassVar
 
 from griffe import (
     Alias,
+    Docstring,
     DocstringAttribute,
     DocstringClass,
     DocstringFunction,
@@ -367,6 +368,57 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
         return rules != {False}
     return keep
 
+def _get_docstring_from_parents(name: str, obj: Object | Alias) -> Docstring | None:
+    """Get the docstring of a member in its parents. This only works for members that are the overwrites of their parents.
+
+    Parameters:
+        name: The name of the object to check.
+        obj: The object to check.
+
+    Returns:
+        The docstring of the member in its parents or None.
+    """
+    for parent in obj.mro():
+        if parent.members and name in parent.members and parent.members[name].docstring:
+            return parent.members[name].docstring
+    return None
+
+def do_optional_inherit_docstrings(
+    objects: dict[str, Object | Alias],
+    *,
+    inherit_docstring_if_not_present: bool = False,
+    overwrite_from_parent: bool = False,
+) -> dict[str, Object | Alias]:
+    """Inherit docstrings from parent classes.
+
+    Parameters:
+        objects: The objects to inherit docstrings from.
+        inherit_docstring_if_not_present: Whether to inherit docstrings if not present.
+
+    Returns:
+        A dictionary of objects with inherited docstrings.
+    """
+    for obj in objects.values():
+
+        for name, member in obj.members.items():
+
+
+            docstring = _get_docstring_from_parents(name, obj)
+            print(f"Docstring for {obj.name}: {docstring}")
+
+            if not docstring:
+                continue
+
+            if member.docstring and overwrite_from_parent:
+                member.docstring = docstring
+                print("Overwriting docstring")
+                continue
+
+            if not member.docstring and inherit_docstring_if_not_present:
+                member.docstring = docstring
+                continue
+
+    return objects
 
 def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],

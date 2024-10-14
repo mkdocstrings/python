@@ -13,7 +13,6 @@ Context:
 {% if obj.all_members %}
   {% block logs scoped %}
     {#- Logging block.
-    
     This block can be used to log debug messages, deprecation messages, warnings, etc.
     -#}
     {{ log.debug("Rendering children of " + obj.path) }}
@@ -37,7 +36,10 @@ Context:
           {% set extra_level = 0 %}
         {% endif %}
 
-        {% with attributes = obj.attributes|filter_objects(
+        {% with attributes = obj.attributes|optional_inherit_docstring(
+          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+          )
+          |filter_objects(
             filters=config.filters,
             members_list=members_list,
             inherited_members=config.inherited_members,
@@ -57,7 +59,10 @@ Context:
           {% endif %}
         {% endwith %}
 
-        {% with classes = obj.classes|filter_objects(
+        {% with classes = obj.classes|optional_inherit_docstring(
+          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+          )
+          |filter_objects(
             filters=config.filters,
             members_list=members_list,
             inherited_members=config.inherited_members,
@@ -77,7 +82,10 @@ Context:
           {% endif %}
         {% endwith %}
 
-        {% with functions = obj.functions|filter_objects(
+        {% with functions = obj.functions|optional_inherit_docstring(
+          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+          )
+          |filter_objects(
             filters=config.filters,
             members_list=members_list,
             inherited_members=config.inherited_members,
@@ -126,6 +134,9 @@ Context:
     {% else %}
 
       {% for child in obj.all_members
+          |optional_inherit_docstring(
+          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+          )
           |filter_objects(
             filters=config.filters,
             members_list=members_list,

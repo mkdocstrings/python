@@ -112,6 +112,7 @@ class PythonHandler(BaseHandler):
         "docstring_section_style": "table",
         "members": None,
         "inherited_members": False,
+        "inherit_docstring_if_not_present": True,
         "filters": ["!^_[^_]"],
         "annotations_path": "brief",
         "preload_modules": None,
@@ -432,6 +433,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["format_signature"] = rendering.do_format_signature
         self.env.filters["format_attribute"] = rendering.do_format_attribute
         self.env.filters["filter_objects"] = rendering.do_filter_objects
+        self.env.filters["optional_inherit_docstring"] = rendering.do_optional_inherit_docstrings
         self.env.filters["stash_crossref"] = rendering.do_stash_crossref
         self.env.filters["get_template"] = rendering.do_get_template
         self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
