@@ -8,6 +8,7 @@ import re
 import string
 import sys
 import warnings
+from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
 from re import Match, Pattern
@@ -49,6 +50,16 @@ class Order(enum.Enum):
     """Alphabetical order."""
     source = "source"
     """Source code order."""
+
+class DocstringInheritStrategy(str, enum.Enum):
+    """Enumeration for the possible docstring inheritance strategies."""
+
+    default = "default"
+    """Do not inherit docstrings. If a method is overriden and no docstring is present, it will stay empty in the rendered docs."""
+    if_not_present = "if_not_present"
+    """Inherit docstrings of members if not present. This takes the first docstring of a member according to the MRO."""
+    merge = "merge"
+    """Merge docstrings of members in parent classes with given docstring. This proceeds down the inheritance tree, going from general docstrings to more specific ones."""
 
 
 def _sort_key_alphabetical(item: CollectorItem) -> Any:
@@ -368,57 +379,86 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
         return rules != {False}
     return keep
 
-def _get_docstring_from_parents(name: str, obj: Object | Alias) -> Docstring | None:
-    """Get the docstring of a member in its parents. This only works for members that are the overwrites of their parents.
+def _construct_docstring_according_to_strategy(name: str, obj: Object | Alias, strategy: DocstringInheritStrategy, merge_delimiter: str = "\n") -> Docstring | None:
+    """
+    Construct a docstring object according to the strategy.
 
     Parameters:
-        name: The name of the object to check.
-        obj: The object to check.
+        name: The name of the member. Needed to lookup the member in the parent classes.
+        obj: The object that contains the member. Needed to access parent classes.
+        strategy: The strategy to use: default, if_not_present, merge.
+        merge_delimiter: The delimiter to use when merging docstrings.
 
     Returns:
-        The docstring of the member in its parents or None.
+        A new docstring object.
     """
-    for parent in obj.mro():
-        if parent.members and name in parent.members and parent.members[name].docstring:
-            return parent.members[name].docstring
-    return None
 
-def do_optional_inherit_docstrings(
+    if strategy == DocstringInheritStrategy.default:
+        # Base case: we don't want to inherit docstrings
+        return None
+
+    if strategy == DocstringInheritStrategy.if_not_present:
+        for parent in list(obj.mro()):
+            # this traverses the parents in the order of the MRO, i.e. the first entry is the most direct parent
+            if parent.members and name in parent.members and parent.members[name].docstring:
+                return deepcopy(parent.members[name].docstring)
+        return None
+
+    if strategy == DocstringInheritStrategy.merge:
+        docstrings = []
+        for parent in list(reversed(obj.mro())) + [obj]:
+            # Here we traverse the parents in the reverse order to build the docstring from the most general to the most specific annotations
+            # Addtionally, we include the object itself because we don't want to miss the docstring of the object itself if present
+            if parent.members and name in parent.members and parent.members[name].docstring:
+                docstrings.append(parent.members[name].docstring.value)
+
+        if not docstrings:
+            # This guarantees that no empty docstring is constructed for a member that shouldn't have one at all
+            return None
+
+        return Docstring(merge_delimiter.join(docstrings))
+
+    raise ValueError(f"Unknown docstring inherit strategy: {strategy}")
+
+
+def do_optionally_inherit_docstrings(
     objects: dict[str, Object | Alias],
     *,
-    inherit_docstring_if_not_present: bool = False,
-    overwrite_from_parent: bool = False,
+    docstring_inherit_strategy: str = DocstringInheritStrategy.default.value,
+    docstring_merge_delimiter: str = "\n",
 ) -> dict[str, Object | Alias]:
-    """Inherit docstrings from parent classes.
+    """Optionally inherit docstrings for members in the given .
 
     Parameters:
         objects: The objects to inherit docstrings from.
-        inherit_docstring_if_not_present: Whether to inherit docstrings if not present.
-
-    Returns:
-        A dictionary of objects with inherited docstrings.
     """
-    for obj in objects.values():
+    strategy = DocstringInheritStrategy(docstring_inherit_strategy)
 
-        for name, member in obj.members.items():
+    if strategy == DocstringInheritStrategy.default:
+        return objects
 
+    new_objects = deepcopy(objects)
+    # It is important to operate on the original objects while modifying the new ones
+    # otherwise, this would lead to inconsistencies due to side-effects during the merging process
 
-            docstring = _get_docstring_from_parents(name, obj)
-            print(f"Docstring for {obj.name}: {docstring}")
+    for obj, new_obj in zip(objects.values(), new_objects.values()):
+        for member_name, new_member in new_obj.members.items():
+            docstring = _construct_docstring_according_to_strategy(member_name, obj, strategy=strategy, merge_delimiter=docstring_merge_delimiter)
 
             if not docstring:
                 continue
 
-            if member.docstring and overwrite_from_parent:
-                member.docstring = docstring
-                print("Overwriting docstring")
+            if not new_member.docstring and strategy == DocstringInheritStrategy.if_not_present:
+                new_member.docstring = docstring
                 continue
 
-            if not member.docstring and inherit_docstring_if_not_present:
-                member.docstring = docstring
+            if strategy == DocstringInheritStrategy.merge:
+                # This is also applied when the docstring is given as we want to merge it with the parents' docstrings.
+                # The merging process takes care of integrating the existing docstring into the new one.
+                new_member.docstring = docstring
                 continue
 
-    return objects
+    return new_objects
 
 def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
