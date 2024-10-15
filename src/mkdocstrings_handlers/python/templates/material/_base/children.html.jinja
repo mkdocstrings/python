@@ -36,8 +36,9 @@ Context:
           {% set extra_level = 0 %}
         {% endif %}
 
-        {% with attributes = obj.attributes|optional_inherit_docstring(
-          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+        {% with attributes = obj.attributes|optionally_inherit_docstring(
+            docstring_inherit_strategy=config.docstring_inherit_strategy,
+            docstring_merge_delimiter=config.docstring_merge_delimiter
           )
           |filter_objects(
             filters=config.filters,
@@ -59,8 +60,9 @@ Context:
           {% endif %}
         {% endwith %}
 
-        {% with classes = obj.classes|optional_inherit_docstring(
-          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+        {% with classes = obj.classes|optionally_inherit_docstring(
+            docstring_inherit_strategy=config.docstring_inherit_strategy,
+            docstring_merge_delimiter=config.docstring_merge_delimiter
           )
           |filter_objects(
             filters=config.filters,
@@ -82,8 +84,9 @@ Context:
           {% endif %}
         {% endwith %}
 
-        {% with functions = obj.functions|optional_inherit_docstring(
-          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+        {% with functions = obj.functions|optionally_inherit_docstring(
+            docstring_inherit_strategy=config.docstring_inherit_strategy,
+            docstring_merge_delimiter=config.docstring_merge_delimiter
           )
           |filter_objects(
             filters=config.filters,
@@ -134,8 +137,9 @@ Context:
     {% else %}
 
       {% for child in obj.all_members
-          |optional_inherit_docstring(
-          inherit_docstring_if_not_present=config.inherit_docstring_if_not_present
+          |optionally_inherit_docstring(
+            docstring_inherit_strategy=config.docstring_inherit_strategy,
+            docstring_merge_delimiter=config.docstring_merge_delimiter
           )
           |filter_objects(
             filters=config.filters,
