@@ -166,27 +166,37 @@ def test_ordering_members(order: rendering.Order, members_list: list[str | None]
     assert [obj.name for obj in ordered] == expected_names
 
 
-
-
 @pytest.mark.parametrize(
     ("strategy", "docstrings_list", "expected_docstrings_list"),
     [
-        (rendering.DocstringInheritStrategy.default, ['"""base"""', '', ''], ['base', None, None]),
-        (rendering.DocstringInheritStrategy.if_not_present, ['"""base"""', '"""main"""', ''], ['base', 'main', 'main']), # main: stays the same (no merge); sub: main is taken (not base)
-        (rendering.DocstringInheritStrategy.merge, ['"""base"""', '"""main"""', ''], ['base', 'base+main', 'base+main']), # main: is merged with base; sub: empty is merged with base+main (not base+main+)
-        (rendering.DocstringInheritStrategy.merge, ['', '"""main"""', ''], [None, 'main', 'main']), # Base class has no docstring after merging (as opposed to an empty one)
+        (rendering.DocstringInheritStrategy.default, ['"""base"""', "", ""], ["base", None, None]),
+        (
+            rendering.DocstringInheritStrategy.if_not_present,
+            ['"""base"""', '"""main"""', ""],
+            ["base", "main", "main"],
+        ),  # main: stays the same (no merge); sub: main is taken (not base)
+        (
+            rendering.DocstringInheritStrategy.merge,
+            ['"""base"""', '"""main"""', ""],
+            ["base", "base+main", "base+main"],
+        ),  # main: is merged with base; sub: empty is merged with base+main (not base+main+)
+        (
+            rendering.DocstringInheritStrategy.merge,
+            ["", '"""main"""', ""],
+            [None, "main", "main"],
+        ),  # Base class has no docstring after merging (as opposed to an empty one)
     ],
 )
-def test_do_optionally_inherit_docstrings(strategy: rendering.DocstringInheritStrategy, docstrings_list: list[str], expected_docstrings_list: list[str]) -> None:
-    """
-    Test the inheritance strategies of docstrings for members.
+def test_do_optionally_inherit_docstrings(
+    strategy: rendering.DocstringInheritStrategy, docstrings_list: list[str], expected_docstrings_list: list[str]
+) -> None:
+    """Test the inheritance strategies of docstrings for members.
 
     Parameters:
         strategy: The docstring inheritance strategy to use.
         docstrings_list: The list of docstrings for the base, main, and sub classes. Needs triple quotes.
         expected_docstrings_list: The expected list of docstrings for the base, main, and sub classes. Just the content, i.e. without triple quotes. None for no docstring at all.
     """
-
     docstring_base, docstring_main, docstring_sub = docstrings_list
 
     collection = ModulesCollection()
@@ -221,10 +231,7 @@ def test_do_optionally_inherit_docstrings(strategy: rendering.DocstringInheritSt
         docstring_inherit_strategy=strategy,
         docstring_merge_delimiter="+",
     )
-    docstrings = [
-        result[class_].members["base"].docstring
-        for class_ in classes
-    ]
+    docstrings = [result[class_].members["base"].docstring for class_ in classes]
     docstring_values = [docstring.value if docstring else None for docstring in docstrings]
 
     assert docstring_values == expected_docstrings_list

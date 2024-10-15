@@ -51,6 +51,7 @@ class Order(enum.Enum):
     source = "source"
     """Source code order."""
 
+
 class DocstringInheritStrategy(str, enum.Enum):
     """Enumeration for the possible docstring inheritance strategies."""
 
@@ -379,9 +380,11 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
         return rules != {False}
     return keep
 
-def _construct_docstring_according_to_strategy(name: str, obj: Object | Alias, strategy: DocstringInheritStrategy, merge_delimiter: str = "\n") -> Docstring | None:
-    """
-    Construct a docstring object according to the strategy.
+
+def _construct_docstring_according_to_strategy(
+    name: str, obj: Object | Alias, strategy: DocstringInheritStrategy, merge_delimiter: str = "\n"
+) -> Docstring | None:
+    """Construct a docstring object according to the strategy.
 
     Parameters:
         name: The name of the member. Needed to lookup the member in the parent classes.
@@ -392,7 +395,6 @@ def _construct_docstring_according_to_strategy(name: str, obj: Object | Alias, s
     Returns:
         A new docstring object that just contains the docstring content.
     """
-
     if strategy == DocstringInheritStrategy.default:
         # Base case: we don't want to inherit docstrings
         return None
@@ -435,7 +437,9 @@ def do_optionally_inherit_docstrings(
     try:
         strategy = DocstringInheritStrategy(docstring_inherit_strategy)
     except ValueError as e:
-        raise ValueError(f"Unknown docstring inherit strategy: '{docstring_inherit_strategy}', allowed options are: {', '.join(strategy.value for strategy in DocstringInheritStrategy)}") from e
+        raise ValueError(
+            f"Unknown docstring inherit strategy: '{docstring_inherit_strategy}', allowed options are: {', '.join(strategy.value for strategy in DocstringInheritStrategy)}"
+        ) from e
 
     if strategy == DocstringInheritStrategy.default:
         return objects
@@ -446,7 +450,9 @@ def do_optionally_inherit_docstrings(
 
     for obj, new_obj in zip(objects.values(), new_objects.values()):
         for member_name, new_member in new_obj.members.items():
-            docstring = _construct_docstring_according_to_strategy(member_name, obj, strategy=strategy, merge_delimiter=docstring_merge_delimiter)
+            docstring = _construct_docstring_according_to_strategy(
+                member_name, obj, strategy=strategy, merge_delimiter=docstring_merge_delimiter
+            )
 
             if not docstring:
                 continue
@@ -462,6 +468,7 @@ def do_optionally_inherit_docstrings(
                 continue
 
     return new_objects
+
 
 def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
