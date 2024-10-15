@@ -382,7 +382,7 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
 
 
 def _construct_docstring_according_to_strategy(
-    name: str, obj: Object | Alias, strategy: DocstringInheritStrategy, merge_delimiter: str = "\n",
+    name: str, obj: Class | Alias, strategy: DocstringInheritStrategy, merge_delimiter: str = "\n",
 ) -> Docstring | None:
     """Construct a docstring object according to the strategy.
 
@@ -403,16 +403,18 @@ def _construct_docstring_according_to_strategy(
         for parent in list(obj.mro()):
             # this traverses the parents in the order of the MRO, i.e. the first entry is the most direct parent
             if parent.members and name in parent.members and parent.members[name].docstring:
-                return Docstring(value=parent.members[name].docstring.value)
+                return Docstring(value=parent.members[name].docstring.value) # type: ignore[union-attr]
         return None
 
     if strategy == DocstringInheritStrategy.merge:
         docstrings = []
-        for parent in [*list(reversed(obj.mro())), obj]:
-            # Here we traverse the parents in the reverse order to build the docstring from the most general to the most specific annotations
-            # Addtionally, we include the object itself because we don't want to miss the docstring of the object itself if present
+        traversal_order: list[Class | Alias] = [*list(reversed(obj.mro())), obj]
+        # Here we traverse the parents in the reverse order to build the docstring from the most general to the most specific annotations
+        # Addtionally, we include the object itself because we don't want to miss the docstring of the object itself if present
+
+        for parent in traversal_order: # type: ignore[assignment]
             if parent.members and name in parent.members and parent.members[name].docstring:
-                docstrings.append(parent.members[name].docstring.value)
+                docstrings.append(parent.members[name].docstring.value) # type: ignore[union-attr]
 
         if not docstrings:
             # This guarantees that no empty docstring is constructed for a member that shouldn't have one at all
@@ -424,11 +426,11 @@ def _construct_docstring_according_to_strategy(
 
 
 def do_optionally_inherit_docstrings(
-    objects: dict[str, Object | Alias],
+    objects: dict[str, Class | Alias],
     *,
     docstring_inherit_strategy: str = DocstringInheritStrategy.default.value,
     docstring_merge_delimiter: str = "\n\n",
-) -> dict[str, Object | Alias]:
+) -> dict[str, Class | Alias]:
     """Optionally inherit docstrings for members in the given .
 
     Parameters:
