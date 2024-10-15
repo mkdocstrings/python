@@ -432,7 +432,10 @@ def do_optionally_inherit_docstrings(
     Parameters:
         objects: The objects to inherit docstrings from.
     """
-    strategy = DocstringInheritStrategy(docstring_inherit_strategy)
+    try:
+        strategy = DocstringInheritStrategy(docstring_inherit_strategy)
+    except ValueError as e:
+        raise ValueError(f"Unknown docstring inherit strategy: '{docstring_inherit_strategy}', allowed options are: {', '.join(strategy.value for strategy in DocstringInheritStrategy)}") from e
 
     if strategy == DocstringInheritStrategy.default:
         return objects
