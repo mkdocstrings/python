@@ -390,7 +390,7 @@ def _construct_docstring_according_to_strategy(name: str, obj: Object | Alias, s
         merge_delimiter: The delimiter to use when merging docstrings.
 
     Returns:
-        A new docstring object.
+        A new docstring object that just contains the docstring content.
     """
 
     if strategy == DocstringInheritStrategy.default:
@@ -401,7 +401,7 @@ def _construct_docstring_according_to_strategy(name: str, obj: Object | Alias, s
         for parent in list(obj.mro()):
             # this traverses the parents in the order of the MRO, i.e. the first entry is the most direct parent
             if parent.members and name in parent.members and parent.members[name].docstring:
-                return deepcopy(parent.members[name].docstring)
+                return Docstring(value=parent.members[name].docstring.value)
         return None
 
     if strategy == DocstringInheritStrategy.merge:
