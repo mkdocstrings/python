@@ -606,6 +606,128 @@ class ClassWithoutDocstring:
 ////
 ///
 
+
+## `docstring_inherit_strategy`
+
+- **:octicons-package-24: Type [`str`][] :material-equal: `"default"`{ title="default value" } | `"if_not_present"` | `"merge"`**
+
+This setting controls how docstrings from parent classes are handled in the auto-generated API documentation when subclass methods override parent methods.
+
+- `default`: The default behavior, where the subclass docstring is used if present. If the subclass does not provide a docstring, no docstring is inherited from the parent class. This option is useful if you want to document each method independently, even when subclassing. The default behavior is also the fastest, as it does not require any traversal of the class hierarchy.
+- `if_not_present`: This option allows the docstring of the parent method to be inherited if the subclass method does not provide its own docstring. It ensures that a method without documentation in a subclass still displays useful inherited information from its parent.
+- `merge`: This setting merges the docstrings from parent methods with overriding subclass methods, concatenating all parent classes' docstrings with any additional text provided by the subclass. This is useful for methods where the subclass adds supplementary notes or overrides part of the behavior but still shares the general purpose of the parent method. To control the concatenation delimiter, you can use the `docstring_inherit_delimiter` option.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+            docstring_inherit_strategy: default
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | default
+```python
+class Shape:
+    contour: list[Point]
+    def surface_area(self):
+        """Return the surface area in square meters."""
+        return numerical_integration(self.contour)
+
+class Rectange(Shape)
+    def surface_area(self):
+        return distance(self.cotour[2], self.contour[0]) * distance(self.contour[3], self.contour[1])
+```
+
+Should output a documentation like this:
+```
+Shape
+    surface_area
+        Return the surface area in square meters.
+    ...
+
+Rectangle
+    ...
+```
+////
+
+
+//// tab | if_not_present
+```python
+class Shape:
+    contour: list[Point]
+    def surface_area(self):
+        """Return the surface area in square meters."""
+        return numerical_integration(self.contour)
+
+class Rectange(Shape)
+    def surface_area(self):
+        return distance(self.cotour[2], self.contour[0]) * distance(self.contour[3], self.contour[1])
+```
+
+Should output a documentation like this:
+```
+Shape
+    surface_area
+        Return the surface area in square meters.
+    ...
+
+Rectangle
+    surface_area
+        Return the surface area in square meters.
+    ...
+```
+////
+
+//// tab | merge
+```python
+class Shape:
+    contour: list[Point]
+    def surface_area(self):
+        """Return the surface area in square meters."""
+        return numerical_integration(self.contour)
+
+class Rectange(Shape)
+    def surface_area(self):
+		"""Note: This is way faster than the calculation for general shapes!"""
+        return distance(self.cotour[2], self.contour[0]) * distance(self.contour[3], self.contour[1])
+```
+
+Should output a documentation like this:
+```
+Shape
+    surface_area
+        Return the surface area in square meters.
+    ...
+
+Rectangle
+    surface_area
+        Return the surface area in square meters.
+        Note: This is way faster than the calculation for general shapes!
+    ...
+```
+////
+///
+
+## `docstring_merge_delimiter`
+
+- **:octicons-package-24: Type [`str`][] :material-equal: `"\n\n"`{ title="default value" }**
+
+The delimiter is used to join docstrings when the `docstring_inherit_strategy` is set to `merge`.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          docstring_merge_delimiter: "\n\n"
+```
+
+
 ## `show_docstring_attributes`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
