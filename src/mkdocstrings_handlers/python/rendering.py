@@ -382,7 +382,7 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
 
 
 def _construct_docstring_according_to_strategy(
-    name: str, obj: Object | Alias, strategy: DocstringInheritStrategy, merge_delimiter: str = "\n"
+    name: str, obj: Object | Alias, strategy: DocstringInheritStrategy, merge_delimiter: str = "\n",
 ) -> Docstring | None:
     """Construct a docstring object according to the strategy.
 
@@ -408,7 +408,7 @@ def _construct_docstring_according_to_strategy(
 
     if strategy == DocstringInheritStrategy.merge:
         docstrings = []
-        for parent in list(reversed(obj.mro())) + [obj]:
+        for parent in [*list(reversed(obj.mro())), obj]:
             # Here we traverse the parents in the reverse order to build the docstring from the most general to the most specific annotations
             # Addtionally, we include the object itself because we don't want to miss the docstring of the object itself if present
             if parent.members and name in parent.members and parent.members[name].docstring:
@@ -438,7 +438,7 @@ def do_optionally_inherit_docstrings(
         strategy = DocstringInheritStrategy(docstring_inherit_strategy)
     except ValueError as e:
         raise ValueError(
-            f"Unknown docstring inherit strategy: '{docstring_inherit_strategy}', allowed options are: {', '.join(strategy.value for strategy in DocstringInheritStrategy)}"
+            f"Unknown docstring inherit strategy: '{docstring_inherit_strategy}', allowed options are: {', '.join(strategy.value for strategy in DocstringInheritStrategy)}",
         ) from e
 
     if strategy == DocstringInheritStrategy.default:
@@ -451,7 +451,7 @@ def do_optionally_inherit_docstrings(
     for obj, new_obj in zip(objects.values(), new_objects.values()):
         for member_name, new_member in new_obj.members.items():
             docstring = _construct_docstring_according_to_strategy(
-                member_name, obj, strategy=strategy, merge_delimiter=docstring_merge_delimiter
+                member_name, obj, strategy=strategy, merge_delimiter=docstring_merge_delimiter,
             )
 
             if not docstring:

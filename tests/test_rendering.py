@@ -188,7 +188,7 @@ def test_ordering_members(order: rendering.Order, members_list: list[str | None]
     ],
 )
 def test_do_optionally_inherit_docstrings(
-    strategy: rendering.DocstringInheritStrategy, docstrings_list: list[str], expected_docstrings_list: list[str]
+    strategy: rendering.DocstringInheritStrategy, docstrings_list: list[str], expected_docstrings_list: list[str],
 ) -> None:
     """Test the inheritance strategies of docstrings for members.
 
