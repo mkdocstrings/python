@@ -181,6 +181,8 @@ class PythonHandler(BaseHandler):
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
         relative_crossrefs (bool): Whether to enable the relative crossref syntax. Default: `False`.
         scoped_crossrefs (bool): Whether to enable the scoped crossref ability. Default: `False`.
+        docstring_inherit_strategy (str): The strategy to inherit docstrings of members from their implementation in parent classes. Options: `default`, `if_not_present`, `merge`. Default: `"default"`.
+        docstring_merge_delimiter (str): The delimiter used to merge docstrings, only applies when `docstring_inherit_strategy` is set to `merge`. Default: `"\n\n"`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
         show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
         show_docstring_functions (bool): Whether to display the "Functions" or "Methods" sections in the object's docstring. Default: `True`.
