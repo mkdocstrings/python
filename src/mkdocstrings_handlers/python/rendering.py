@@ -425,7 +425,7 @@ def do_optionally_inherit_docstrings(
     objects: dict[str, Object | Alias],
     *,
     docstring_inherit_strategy: str = DocstringInheritStrategy.default.value,
-    docstring_merge_delimiter: str = "\n",
+    docstring_merge_delimiter: str = "\n\n",
 ) -> dict[str, Object | Alias]:
     """Optionally inherit docstrings for members in the given .
 

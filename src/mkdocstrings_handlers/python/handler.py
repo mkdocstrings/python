@@ -113,7 +113,7 @@ class PythonHandler(BaseHandler):
         "members": None,
         "inherited_members": False,
         "docstring_inherit_strategy": rendering.DocstringInheritStrategy.default.value,
-        "docstring_merge_delimiter": "\n",
+        "docstring_merge_delimiter": "\n\n",
         "filters": ["!^_[^_]"],
         "annotations_path": "brief",
         "preload_modules": None,
