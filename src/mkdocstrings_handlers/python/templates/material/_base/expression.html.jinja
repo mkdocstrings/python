@@ -32,15 +32,16 @@ which is a tree-like structure representing a Python expression.
       {%- set annotation = full -%}
     {%- endif -%}
     {%- for title, path in annotation|split_path(full) -%}
-      {%- if config.signature_crossrefs -%}
-        {%- if signature -%}
-          {%- filter stash_crossref(length=title|length) -%}
-            <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
-          {%- endfilter -%}
-        {%- else -%}
+      {%- if not signature -%}
+        {#- Always render cross-references outside of signatures. We don't need to stash them. -#}
+        <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
+      {%- elif config.signature_crossrefs -%}
+        {#- We're in a signature and cross-references are enabled, we must render one and stash it. -#}
+        {%- filter stash_crossref(length=title|length) -%}
           <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
-        {%- endif -%}
+        {%- endfilter -%}
       {%- else -%}
+        {#- We're in a signature but cross-references are disabled, we just render the title. -#}
         {{ title }}
       {%- endif -%}
       {%- if not loop.last -%}.{%- endif -%}
