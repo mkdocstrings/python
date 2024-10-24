@@ -192,7 +192,7 @@ Context:
             {% if config.merge_init_into_class %}
               {% if "__init__" in all_members and all_members["__init__"].source %}
                 {% with init = all_members["__init__"] %}
-                  <details class="quote">
+                  <details class="mkdocstrings-source">
                     <summary>Source code in <code>
                       {%- if init.relative_filepath.is_absolute() -%}
                         {{ init.relative_package_filepath }}
@@ -205,7 +205,7 @@ Context:
                 {% endwith %}
               {% endif %}
             {% elif class.source %}
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>
                   {%- if class.relative_filepath.is_absolute() -%}
                     {{ class.relative_package_filepath }}
