@@ -18,7 +18,7 @@ Context:
 {% endblock logs %}
 
 <div class="doc doc-object doc-class">
-  {% with obj = class, html_id = class.path %}
+  {% with obj = class, html_id = class.path, all_members = class.all_members %}
 
     {% if root %}
       {% set show_full_path = config.show_root_full_path %}
@@ -49,8 +49,8 @@ Context:
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>{% endif %}
           {% if config.separate_signature %}
             <span class="doc doc-object-name doc-class-name">{{ class_name }}</span>
-          {% elif config.merge_init_into_class and "__init__" in class.all_members %}
-            {% with function = class.all_members["__init__"] %}
+          {% elif config.merge_init_into_class and "__init__" in all_members %}
+            {% with function = all_members["__init__"] %}
               {%+ filter highlight(language="python", inline=True) %}
                 {{ class_name }}{% include "signature"|get_template with context %}
               {% endfilter %}
@@ -78,8 +78,8 @@ Context:
         This block renders the signature for the class.
         -#}
         {% if config.separate_signature and config.merge_init_into_class %}
-          {% if "__init__" in class.all_members %}
-            {% with function = class.all_members["__init__"] %}
+          {% if "__init__" in all_members %}
+            {% with function = all_members["__init__"] %}
               {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
                 {{ class.name }}
               {% endfilter %}
@@ -132,8 +132,8 @@ Context:
             {% include "docstring"|get_template with context %}
           {% endwith %}
           {% if config.merge_init_into_class %}
-            {% if "__init__" in class.all_members and class.all_members["__init__"].has_docstring %}
-              {% with function = class.all_members["__init__"] %}
+            {% if "__init__" in all_members and all_members["__init__"].has_docstring %}
+              {% with function = all_members["__init__"] %}
                 {% with obj = function, docstring_sections = function.docstring.parsed %}
                   {% include "docstring"|get_template with context %}
                 {% endwith %}
@@ -157,8 +157,8 @@ Context:
           -#}
           {% if config.show_source %}
             {% if config.merge_init_into_class %}
-              {% if "__init__" in class.all_members and class.all_members["__init__"].source %}
-                {% with init = class.all_members["__init__"] %}
+              {% if "__init__" in all_members and all_members["__init__"].source %}
+                {% with init = all_members["__init__"] %}
                   <details class="quote">
                     <summary>Source code in <code>
                       {%- if init.relative_filepath.is_absolute() -%}
