@@ -469,11 +469,9 @@ class PythonHandler(BaseHandler):
                 pth = str(ext)
                 options = None
 
-            if pth.endswith(".py") or ".py:" in pth or "/" in pth or "\\" in pth:  # noqa: SIM102
-                # This is a sytem path. Normalize it.
-                if not os.path.isabs(pth):
-                    # Make path absolute relative to config file path.
-                    pth = os.path.normpath(os.path.join(base_path, pth))
+            if pth.endswith(".py") or ".py:" in pth or "/" in pth or "\\" in pth:
+                # This is a system path. Normalize it, make it absolute relative to config file path.
+                pth = os.path.abspath(os.path.join(base_path, pth))
 
             if options is not None:
                 normalized.append({pth: options})
