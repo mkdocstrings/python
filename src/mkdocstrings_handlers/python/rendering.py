@@ -169,6 +169,7 @@ def do_format_signature(
             language="python",
             inline=False,
             classes=["doc-signature"],
+            linenums=False,
         ),
     )
 
@@ -230,6 +231,7 @@ def do_format_attribute(
             language="python",
             inline=False,
             classes=["doc-signature"],
+            linenums=False,
         ),
     )
 
