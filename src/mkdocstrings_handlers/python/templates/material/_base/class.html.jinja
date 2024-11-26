@@ -132,13 +132,17 @@ Context:
             {% include "docstring"|get_template with context %}
           {% endwith %}
           {% if config.merge_init_into_class %}
-            {% if "__init__" in all_members and all_members["__init__"].has_docstring %}
-              {% with function = all_members["__init__"] %}
-                {% with obj = function, docstring_sections = function.docstring.parsed %}
-                  {% include "docstring"|get_template with context %}
+            {# We don't want to merge the inherited `__init__` method docstring into the class docstring #}
+            {# if such inherited method was not selected through `inherited_members`. #}
+            {% with check_members = all_members if (config.inherited_members is true or (config.inherited_members is iterable and "__init__" in config.inherited_members)) else class.members %}
+              {% if "__init__" in check_members and check_members["__init__"].has_docstring %}
+                {% with function = check_members["__init__"] %}
+                  {% with obj = function, docstring_sections = function.docstring.parsed %}
+                    {% include "docstring"|get_template with context %}
+                  {% endwith %}
                 {% endwith %}
-              {% endwith %}
-            {% endif %}
+              {% endif %}
+            {% endwith %}
           {% endif %}
         {% endblock docstring %}
 
