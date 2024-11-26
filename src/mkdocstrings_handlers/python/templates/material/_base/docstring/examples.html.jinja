@@ -23,6 +23,6 @@ Context:
   {% if section_type.value == "text" %}
     {{ sub_section|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
   {% elif section_type.value == "examples" %}
-    {{ sub_section|highlight(language="pycon", linenums=False) }}
+    {{ sub_section|highlight(language="pycon") }}
   {% endif %}
 {% endfor %}
