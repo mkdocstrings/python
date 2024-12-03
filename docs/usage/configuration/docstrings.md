@@ -427,6 +427,7 @@ class Class:
 
 ///
 
+INFO: **There is an alternative, third-party Python handler that handles relative references: [mkdocstrings-python-xref](https://github.com/analog-garage/mkdocstrings-python-xref).**
 
 ## `scoped_crossrefs`
 
