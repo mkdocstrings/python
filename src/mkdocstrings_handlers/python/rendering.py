@@ -594,7 +594,7 @@ def do_as_modules_section(
                 description=module.docstring.value.split("\n", 1)[0] if module.docstring else "",
             )
             for module in modules
-            if not check_public or module
+            if not check_public or module.is_public
         ],
     )
 
