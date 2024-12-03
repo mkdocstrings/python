@@ -76,13 +76,26 @@ Context:
         {#- Signature block.
         
         This block renders the signature for the class.
+        Overloads of the `__init__` method are rendered if `merge_init_into_class` is enabled.
+        The actual `__init__` method signature is only rendered if `separate_signature` is also enabled.
         -#}
-        {% if config.separate_signature and config.merge_init_into_class %}
+        {% if config.merge_init_into_class %}
           {% if "__init__" in all_members %}
             {% with function = all_members["__init__"] %}
-              {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
-                {{ class.name }}
-              {% endfilter %}
+              {% if function.overloads %}
+                <div class="doc-overloads">
+                  {% for overload in function.overloads %}
+                    {% filter format_signature(overload, config.line_length, annotations=True, crossrefs=config.signature_crossrefs) %}
+                      {{ class.name }}
+                    {% endfilter %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% if config.separate_signature %}
+                {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
+                  {{ class.name }}
+                {% endfilter %}
+              {% endif %}
             {% endwith %}
           {% endif %}
         {% endif %}
