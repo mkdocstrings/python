@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import enum
-import importlib
 import random
 import re
 import string
@@ -448,18 +447,25 @@ def _get_formatter() -> Callable[[str, int], str]:
     return lambda text, _: text
 
 
-@lru_cache(maxsize=1)
 def _get_ruff_formatter() -> Callable[[str, int], str] | None:
-    if importlib.util.find_spec("ruff") is None:
+    try:
+        from ruff.__main__ import find_ruff_bin
+    except ImportError:
         return None
+
+    try:
+        ruff_bin = find_ruff_bin()
+    except FileNotFoundError:
+        ruff_bin = "ruff"
 
     def formatter(code: str, line_length: int) -> str:
         try:
             completed_process = subprocess.run(  # noqa: S603
                 [  # noqa: S607
-                    "ruff",
+                    ruff_bin,
                     "format",
-                    f'--config "line-length={line_length}"',
+                    "--config",
+                    f"line-length={line_length}",
                     "--stdin-filename",
                     "file.py",
                     "-",
@@ -477,7 +483,6 @@ def _get_ruff_formatter() -> Callable[[str, int], str] | None:
     return formatter
 
 
-@lru_cache(maxsize=1)
 def _get_black_formatter() -> Callable[[str, int], str] | None:
     try:
         from black import InvalidInput, Mode, format_str
