@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import enum
+import importlib
 import random
 import re
 import string
+import subprocess
 import sys
 import warnings
 from functools import lru_cache
@@ -83,7 +85,7 @@ def do_format_code(code: str, line_length: int) -> str:
     code = code.strip()
     if len(code) < line_length:
         return code
-    formatter = _get_black_formatter()
+    formatter = _get_formatter()
     return formatter(code, line_length)
 
 
@@ -118,7 +120,7 @@ def _format_signature(name: Markup, signature: str, line_length: int) -> str:
     # Black cannot format names with dots, so we replace
     # the whole name with a string of equal length
     name_length = len(name)
-    formatter = _get_black_formatter()
+    formatter = _get_formatter()
     formatable = f"def {'x' * name_length}{signature}: pass"
     formatted = formatter(formatable, line_length)
 
@@ -434,12 +436,53 @@ def do_filter_objects(
 
 
 @lru_cache(maxsize=1)
-def _get_black_formatter() -> Callable[[str, int], str]:
+def _get_formatter() -> Callable[[str, int], str]:
+    for formatter_function in [
+        _get_black_formatter,
+        _get_ruff_formatter,
+    ]:
+        if (formatter := formatter_function()) is not None:
+            return formatter
+
+    logger.info("Formatting signatures requires either Black or ruff to be installed.")
+    return lambda text, _: text
+
+
+@lru_cache(maxsize=1)
+def _get_ruff_formatter() -> Callable[[str, int], str] | None:
+    if importlib.util.find_spec("ruff") is None:
+        return None
+
+    def formatter(code: str, line_length: int) -> str:
+        try:
+            completed_process = subprocess.run(  # noqa: S603
+                [  # noqa: S607
+                    "ruff",
+                    "format",
+                    f'--config "line-length={line_length}"',
+                    "--stdin-filename",
+                    "file.py",
+                    "-",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                input=code,
+            )
+        except subprocess.CalledProcessError:
+            return code
+        else:
+            return completed_process.stdout
+
+    return formatter
+
+
+@lru_cache(maxsize=1)
+def _get_black_formatter() -> Callable[[str, int], str] | None:
     try:
         from black import InvalidInput, Mode, format_str
     except ModuleNotFoundError:
-        logger.info("Formatting signatures requires Black to be installed.")
-        return lambda text, _: text
+        return None
 
     def formatter(code: str, line_length: int) -> str:
         mode = Mode(line_length=line_length)
