@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Callable
 
 import pytest
 from griffe import ModulesCollection, temporary_visited_module
@@ -22,14 +22,22 @@ if TYPE_CHECKING:
         "aaaaa(bbbbb, ccccc=1) + ddddd.eeeee[ffff] or {ggggg: hhhhh, iiiii: jjjjj}",
     ],
 )
-def test_format_code(code: str) -> None:
-    """Assert code can be Black-formatted.
+@pytest.mark.parametrize(
+    "formatter",
+    [
+        rendering._get_black_formatter(),
+        rendering._get_ruff_formatter(),
+        rendering._get_formatter(),
+    ],
+)
+def test_format_code(code: str, formatter: Callable[[str, int], str]) -> None:
+    """Assert code can be formatted.
 
     Parameters:
         code: Code to format.
     """
     for length in (5, 100):
-        assert rendering.do_format_code(code, length)
+        assert formatter(code, length)
 
 
 @pytest.mark.parametrize(
@@ -37,7 +45,7 @@ def test_format_code(code: str) -> None:
     [("Class.method", "(param: str = 'hello') -> 'OtherClass'")],
 )
 def test_format_signature(name: Markup, signature: str) -> None:
-    """Assert signatures can be Black-formatted.
+    """Assert signatures can be formatted.
 
     Parameters:
         signature: Signature to format.
