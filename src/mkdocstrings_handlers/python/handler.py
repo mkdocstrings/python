@@ -201,7 +201,7 @@ class PythonHandler(BaseHandler):
         show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
         signature_crossrefs (bool): Whether to render cross-references for type annotations in signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading.
-            If Black is installed, the signature is also formatted using it. Default: `False`.
+            If a formatter (Black or Ruff) is installed, the signature is also formatted using it. Default: `False`.
         unwrap_annotated (bool): Whether to unwrap `Annotated` types to show only the type without the annotations. Default: `False`.
         modernize_annotations (bool): Whether to modernize annotations, for example `Optional[str]` into `str | None`. Default: `False`.
     """

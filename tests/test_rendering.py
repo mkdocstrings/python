@@ -31,7 +31,7 @@ if TYPE_CHECKING:
     ],
 )
 def test_format_code(code: str, formatter: Callable[[str, int], str]) -> None:
-    """Assert code can be Black-formatted.
+    """Assert code can be formatted.
 
     Parameters:
         code: Code to format.
@@ -45,7 +45,7 @@ def test_format_code(code: str, formatter: Callable[[str, int], str]) -> None:
     [("Class.method", "(param: str = 'hello') -> 'OtherClass'")],
 )
 def test_format_signature(name: Markup, signature: str) -> None:
-    """Assert signatures can be Black-formatted.
+    """Assert signatures can be formatted.
 
     Parameters:
         signature: Signature to format.

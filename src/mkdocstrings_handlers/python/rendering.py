@@ -72,11 +72,11 @@ order_map = {
 
 
 def do_format_code(code: str, line_length: int) -> str:
-    """Format code using Black.
+    """Format code.
 
     Parameters:
         code: The code to format.
-        line_length: The line length to give to Black.
+        line_length: The line length.
 
     Returns:
         The same code, formatted.
@@ -138,13 +138,13 @@ def do_format_signature(
     annotations: bool | None = None,
     crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
-    """Format a signature using Black.
+    """Format a signature.
 
     Parameters:
         context: Jinja context, passed automatically.
         callable_path: The path of the callable we render the signature of.
         function: The function we render the signature of.
-        line_length: The line length to give to Black.
+        line_length: The line length.
         annotations: Whether to show type annotations.
         crossrefs: Whether to cross-reference types in the signature.
 
@@ -200,13 +200,13 @@ def do_format_attribute(
     *,
     crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
-    """Format an attribute using Black.
+    """Format an attribute.
 
     Parameters:
         context: Jinja context, passed automatically.
         attribute_path: The path of the callable we render the signature of.
         attribute: The attribute we render the signature of.
-        line_length: The line length to give to Black.
+        line_length: The line length.
         crossrefs: Whether to cross-reference types in the signature.
 
     Returns:
@@ -443,7 +443,7 @@ def _get_formatter() -> Callable[[str, int], str]:
         if (formatter := formatter_function()) is not None:
             return formatter
 
-    logger.info("Formatting signatures requires either Black or ruff to be installed.")
+    logger.info("Formatting signatures requires either Black or Ruff to be installed.")
     return lambda text, _: text
 
 
@@ -461,7 +461,7 @@ def _get_ruff_formatter() -> Callable[[str, int], str] | None:
     def formatter(code: str, line_length: int) -> str:
         try:
             completed_process = subprocess.run(  # noqa: S603
-                [  # noqa: S607
+                [
                     ruff_bin,
                     "format",
                     "--config",
