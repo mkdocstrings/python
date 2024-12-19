@@ -72,27 +72,27 @@ Context:
         {%- endif -%}
 
         {#- Prepare name. -#}
-        {%- set param_name -%}
+        {%- set param_prefix -%}
           {%- if parameter.kind.value == "variadic positional" -%}
             *
           {%- elif parameter.kind.value == "variadic keyword" -%}
             **
           {%- endif -%}
-          {{ parameter.name }}
         {%- endset -%}
 
         {#- Render parameter name with optional cross-reference to its heading. -#}
+        {{ param_prefix }}
         {%- if config.separate_signature and config.parameter_headings and config.signature_crossrefs -%}
-          {%- filter stash_crossref(length=param_name|length) -%}
+          {%- filter stash_crossref(length=parameter.name|length) -%}
             {%- with func_path = function.path -%}
               {%- if config.merge_init_into_class and func_path.endswith(".__init__") -%}
                 {%- set func_path = func_path[:-9] -%}
               {%- endif -%}
-              <autoref identifier="{{ func_path }}({{ param_name }})" optional>{{ param_name }}</autoref>
+              <autoref identifier="{{ func_path }}({{ param_prefix }}{{ parameter.name }})" optional>{{ parameter.name }}</autoref>
             {%- endwith -%}
           {%- endfilter -%}
         {%- else -%}
-          {{ param_name }}
+          {{ parameter.name }}
         {%- endif -%}
 
         {#- Render parameter annotation. -#}
