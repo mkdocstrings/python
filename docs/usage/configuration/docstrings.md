@@ -208,8 +208,8 @@ In that case, the Spacy tables can help.
 
 **Type**   | **Name**    | **Description**          | **Default**
 ---------- | ----------- | ------------------------ | -----------
-<code><span data-autorefs-optional="list">list</span>[<span data-autorefs-optional="int">int</span> \| <span data-autorefs-optional="float">float</span>]</code> | `gravity_forces` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. | *required*
-<code><span data-autorefs-optional="VacuumType">VacuumType</span> \| <span data-autorefs-optional="typing.Literal">Literal</span>["regular"]</code> | `vacuum_type` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. | `VacuumType.PLASMA`
+<code><autoref identifier="list" optional>list</autoref>[<autoref identifier="int" optional>int</autoref> \| <autoref identifier="float" optional>float</autoref>]</code> | `gravity_forces` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. | *required*
+<code><autoref identifier="VacuumType" optional>VacuumType</autoref> \| <autoref identifier="typing.Literal" optional>Literal</autoref>["regular"]</code> | `vacuum_type` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. | `VacuumType.PLASMA`
 ////
 
 //// tab | List
@@ -222,8 +222,8 @@ Lists work well whatever the length of names, type annotations, descriptions, et
 
 **Other Parameters:**
 
-- `gravity_forces` (<code><span data-autorefs-optional="list">list</span>[<span data-autorefs-optional="int">int</span> \| <span data-autorefs-optional="float">float</span>]</code>) &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-- `vacuum_type` (<code><span data-autorefs-optional="VacuumType">VacuumType</span> \| <span data-autorefs-optional="typing.Literal">Literal</span>["regular"]</code>) &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- `gravity_forces` (<code><autoref identifier="list" optional>list</autoref>[<autoref identifier="int" optional>int</autoref> \| <autoref identifier="float" optional>float</autoref>]</code>) &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- `vacuum_type` (<code><autoref identifier="VacuumType" optional>VacuumType</autoref> \| <autoref identifier="typing.Literal" optional>Literal</autoref>["regular"]</code>) &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ////
 
 //// tab | Spacy
@@ -241,8 +241,8 @@ by reserving more horizontal space on the second column.
 
 **Name**    | **Description**
 ----------- | ---------------
-`gravity_forces` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>**TYPE:** <code><span data-autorefs-optional="list">list</span>[<span data-autorefs-optional="int">int</span> \| <span data-autorefs-optional="float">float</span>]</code> <span style="float: right;"><b>DEFAULT:</b> <i>required</i></span>
-`vacuum_type` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>**TYPE:**<code><span data-autorefs-optional="VacuumType">VacuumType</span> \| <span data-autorefs-optional="typing.Literal">Literal</span>["regular"]</code> <span style="float: right;"><b>DEFAULT:</b> <code>VacuumType.PLASMA</code></span>
+`gravity_forces` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>**TYPE:** <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="int" optional>int</autoref> \| <autoref identifier="float" optional>float</autoref>]</code> <span style="float: right;"><b>DEFAULT:</b> <i>required</i></span>
+`vacuum_type` | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>**TYPE:**<code><autoref identifier="VacuumType" optional>VacuumType</autoref> \| <autoref identifier="typing.Literal" optional>Literal</autoref>["regular"]</code> <span style="float: right;"><b>DEFAULT:</b> <code>VacuumType.PLASMA</code></span>
 ////
 ///
 
@@ -315,6 +315,227 @@ class Thing:
 --------- | -------- | ------------------ | -----------
 [`int`][] | `value`  | The thing's value. | `0`
 ////
+///
+
+## `relative_crossrefs`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.9.0](../../insiders/changelog.md#1.9.0)
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to enable the relative-crossref syntax.
+
+The relative-crossref syntax lets you reference the current object or its parent by prefixing a crossref identifier with dots. For example, to cross-reference the current object's `name` member, you can write `[link to name attribute][.name]`. The "current object" is the object containing the docstring being rendered.
+
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          relative_crossrefs: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      relative_crossrefs: true
+```
+
+/// admonition | Examples
+    type: preview
+
+```python title="pkg/module.py"
+"""Summary.
+
+- Link to [`module`][.].
+- Link to [`module_attribute`][.module_attribute].
+- Link to [`Class`][.Class].
+- Link to [`class_attribute`][.Class.class_attribute].
+- Link to [`instance_attribute`][.Class.instance_attribute].
+- Link to [`method`][.Class.method].
+"""
+
+module_attribute = 0
+"""Summary.
+
+- Link to [`module`][..].
+- Link to [`module_attribute`][.].
+- Link to [`Class`][..Class].
+- Link to [`class_attribute`][..Class.class_attribute].
+- Link to [`instance_attribute`][..Class.instance_attribute].
+- Link to [`method`][..Class.method].
+"""
+
+class Class:
+    """Summary.
+
+    - Link to [`module`][..].
+    - Link to [`module_attribute`][..module_attribute].
+    - Link to [`Class`][.].
+    - Link to [`class_attribute`][.class_attribute].
+    - Link to [`instance_attribute`][.instance_attribute].
+    - Link to [`method`][.method].
+    """
+
+    class_attribute = 0
+    """Summary.
+
+    - Link to [`module`][...].
+    - Link to [`module_attribute`][...module_attribute].
+    - Link to [`Class`][..].
+    - Link to [`class_attribute`][.].
+    - Link to [`instance_attribute`][..instance_attribute].
+    - Link to [`method`][..method].
+    """
+
+    def __init__(self):
+        """Summary.
+
+        - Link to [`module`][...].
+        - Link to [`module_attribute`][...module_attribute].
+        - Link to [`Class`][..].
+        - Link to [`class_attribute`][..class_attribute].
+        - Link to [`instance_attribute`][..instance_attribute].
+        - Link to [`method`][..method].
+        """
+        self.instance_attribute = 0
+        """Summary.
+
+        - Link to [`module`][...].
+        - Link to [`module_attribute`][...module_attribute].
+        - Link to [`Class`][..].
+        - Link to [`class_attribute`][..class_attribute].
+        - Link to [`instance_attribute`][.].
+        - Link to [`method`][..method].
+        """
+
+    def method(self):
+        """Summary.
+
+        - Link to [`module`][...].
+        - Link to [`module_attribute`][...module_attribute].
+        - Link to [`Class`][..].
+        - Link to [`class_attribute`][..class_attribute].
+        - Link to [`instance_attribute`][..instance_attribute].
+        - Link to [`method`][.].
+        """
+```
+
+///
+
+INFO: **There is an alternative, third-party Python handler that handles relative references: [mkdocstrings-python-xref](https://github.com/analog-garage/mkdocstrings-python-xref).**
+
+## `scoped_crossrefs`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.9.0](../../insiders/changelog.md#1.9.0)
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to enable scoped cross-references.
+
+With scoped cross-references, you can write identifiers as if you wanted to access them from the current object's scope. The scoping rules do not exactly match Python's: you can reference members and siblings too, without prefixing with `self.` or `cls.`.
+
+The following order is applied when resolving a name in a given scope:
+
+1. member of the current object
+2. parent class
+3. repeat 1-2 within parent's scope
+
+In practice, it means that the name is first looked up in members, then it is compared against the parent name (only if it's a class), then it is looked up in siblings. It continues climbing up the object tree until there's no parent, in which case it raises a name resolution error.
+
+Cross-referencing an imported object will directly link to this object if the objects inventory of the project it comes from was [loaded][import]. You won't be able to cross-reference it within your own documentation with scoped references, if you happen to be rendering this external object too. In that case, you can use an absolute reference or a [relative][relative_crossrefs] one instead.
+
+Another limitation is that you won't be able to reference an external package if its name can be resolved in the current object's scope.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          scoped_crossrefs: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      scoped_crossrefs: true
+```
+
+/// admonition | Examples
+    type: preview
+
+```python title="pkg/module.py"
+"""Summary.
+
+- Link to [`module_attribute`][module_attribute].
+- Link to [`Class`][Class].
+- Link to [`class_attribute`][Class.class_attribute].
+- Link to [`instance_attribute`][Class.instance_attribute].
+- Link to [`method`][Class.method].
+"""
+
+module_attribute = 0
+"""Summary.
+
+- Link to [`Class`][Class].
+- Link to [`class_attribute`][Class.class_attribute].
+- Link to [`instance_attribute`][Class.instance_attribute].
+- Link to [`method`][Class.method].
+"""
+
+class Class:
+    """Summary.
+
+    - Link to [`module_attribute`][module_attribute].
+    - Link to [`class_attribute`][class_attribute].
+    - Link to [`instance_attribute`][instance_attribute].
+    - Link to [`method`][method].
+    """
+
+    class_attribute = 0
+    """Summary.
+
+    - Link to [`module_attribute`][module_attribute].
+    - Link to [`Class`][Class].
+    - Link to [`instance_attribute`][instance_attribute].
+    - Link to [`method`][method].
+    """
+
+    def __init__(self):
+        """Summary.
+
+        - Link to [`module_attribute`][module_attribute].
+        - Link to [`Class`][Class].
+        - Link to [`class_attribute`][class_attribute].
+        - Link to [`instance_attribute`][instance_attribute].
+        - Link to [`method`][method].
+        """
+        self.instance_attribute = 0
+        """Summary.
+
+        - Link to [`module_attribute`][module_attribute].
+        - Link to [`Class`][Class].
+        - Link to [`class_attribute`][class_attribute].
+        - Link to [`method`][method].
+        """
+
+    def method(self):
+        """Summary.
+
+        - Link to [`module_attribute`][module_attribute].
+        - Link to [`Class`][Class].
+        - Link to [`class_attribute`][class_attribute].
+        - Link to [`instance_attribute`][instance_attribute].
+        """
+```
+
 ///
 
 ## `show_if_no_docstring`

@@ -5,6 +5,68 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.12.2](https://github.com/mkdocstrings/python/releases/tag/1.12.2) - 2024-10-19
+
+<small>[Compare with 1.12.1](https://github.com/mkdocstrings/python/compare/1.12.1...1.12.2)</small>
+
+### Bug Fixes
+
+- Always render cross-references outside of signatures ([73f11dc](https://github.com/mkdocstrings/python/commit/73f11dcc584a672af7e17738cba08a50f119176a) by Timothée Mazzucotelli). [Issue-mkdocstrings#700](https://github.com/mkdocstrings/mkdocstrings/issues/700)
+
+## [1.12.1](https://github.com/mkdocstrings/python/releases/tag/1.12.1) - 2024-10-14
+
+<small>[Compare with 1.12.0](https://github.com/mkdocstrings/python/compare/1.12.0...1.12.1)</small>
+
+### Bug Fixes
+
+- Don't escape parameter default values ([9dee4d4](https://github.com/mkdocstrings/python/commit/9dee4d4f8e1258e99c19dc7b2b18d3e9090de79b) by Timothée Mazzucotelli). [Issue-191](https://github.com/mkdocstrings/python/issues/191)
+
+## [1.12.0](https://github.com/mkdocstrings/python/releases/tag/1.12.0) - 2024-10-12
+
+<small>[Compare with 1.11.1](https://github.com/mkdocstrings/python/compare/1.11.1...1.12.0)</small>
+
+### Build
+
+- Drop support for Python 3.8 ([6615c91](https://github.com/mkdocstrings/python/commit/6615c91cdc035bc0c2fdd12f3952ff84f5e1c04e) by Timothée Mazzucotelli).
+
+### Features
+
+- Auto-summary of members ([7f9757d](https://github.com/mkdocstrings/python/commit/7f9757d1584555edebc56f1aefe6cc8242e6c8bb) by Timothée Mazzucotelli).
+- Render function overloads ([0f2c25c](https://github.com/mkdocstrings/python/commit/0f2c25c9ed7f6c5c93ff13df214f02edfd3a4cb1) by Timothée Mazzucotelli).
+- Parameter headings, more automatic cross-references ([0176b83](https://github.com/mkdocstrings/python/commit/0176b83f21ae02d345489c93cca3baf51f8bc58c) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Declare default CSS symbol colors under :host as well ([3b9dba2](https://github.com/mkdocstrings/python/commit/3b9dba2709a8668e379c6ce1536cb1714971b3f4) by James McDonnell). [PR-186](https://github.com/mkdocstrings/python/pull/186)
+
+## [1.11.1](https://github.com/mkdocstrings/python/releases/tag/1.11.1) - 2024-09-03
+
+<small>[Compare with 1.11.0](https://github.com/mkdocstrings/python/compare/1.11.0...1.11.1)</small>
+
+### Code Refactoring
+
+- Prepare `relative_crossrefs` and `scoped_crossrefs` insiders features ([dd8b014](https://github.com/mkdocstrings/python/commit/dd8b014a8ab3decc31d4b08bc22fe68577e1a02c) by Timothée Mazzucotelli).
+
+## [1.11.0](https://github.com/mkdocstrings/python/releases/tag/1.11.0) - 2024-09-03
+
+<small>[Compare with 1.10.9](https://github.com/mkdocstrings/python/compare/1.10.9...1.11.0)</small>
+
+### Features
+
+- Hook into autorefs to provide context around cross-ref errors ([bb4be5b](https://github.com/mkdocstrings/python/commit/bb4be5be1b85be50f46c7889231a2d4a3bd05165) by Timothée Mazzucotelli).
+
+## [1.10.9](https://github.com/mkdocstrings/python/releases/tag/1.10.9) - 2024-08-30
+
+<small>[Compare with 1.10.8](https://github.com/mkdocstrings/python/compare/1.10.8...1.10.9)</small>
+
+### Build
+
+- Explicitly depend on mkdocs-autorefs to be able to specify lower bound ([2299ab5](https://github.com/mkdocstrings/python/commit/2299ab55641585d65babe0e116a6465b4736dcd9) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Use new autorefs syntax ([68cb72f](https://github.com/mkdocstrings/python/commit/68cb72f62253f54146ece621345b36c90d712913) by Timothée Mazzucotelli).
+
 ## [1.10.8](https://github.com/mkdocstrings/python/releases/tag/1.10.8) - 2024-08-14
 
 <small>[Compare with 1.10.7](https://github.com/mkdocstrings/python/compare/1.10.7...1.10.8)</small>

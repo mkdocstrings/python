@@ -52,7 +52,7 @@ Context:
             <span class="doc doc-object-name doc-attribute-name">{{ attribute_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) %}
-              {{ attribute_name }}{% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+              {{ attribute_name }}{% if attribute.annotation and config.show_signature_annotations %}: {{ attribute.annotation }}{% endif %}
               {% if attribute.value %} = {{ attribute.value }}{% endif %}
             {% endfilter %}
           {% endif %}

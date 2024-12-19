@@ -89,12 +89,14 @@ by overriding the values of our CSS variables, for example:
 
 ```css title="docs/css/mkdocstrings.css"
 [data-md-color-scheme="default"] {
+  --doc-symbol-parameter-fg-color: #df50af;
   --doc-symbol-attribute-fg-color: #0079ff;
   --doc-symbol-function-fg-color: #00dfa2;
   --doc-symbol-method-fg-color: #00dfa2;
   --doc-symbol-class-fg-color: #d1b619;
   --doc-symbol-module-fg-color: #ff0060;
 
+  --doc-symbol-parameter-bg-color: #df50af1a;
   --doc-symbol-attribute-bg-color: #0079ff1a;
   --doc-symbol-function-bg-color: #00dfa21a;
   --doc-symbol-method-bg-color: #00dfa21a;
@@ -103,12 +105,14 @@ by overriding the values of our CSS variables, for example:
 }
 
 [data-md-color-scheme="slate"] {
+  --doc-symbol-parameter-fg-color: #ffa8cc;
   --doc-symbol-attribute-fg-color: #963fb8;
   --doc-symbol-function-fg-color: #6d67e4;
   --doc-symbol-method-fg-color: #6d67e4;
   --doc-symbol-class-fg-color: #46c2cb;
   --doc-symbol-module-fg-color: #f2f7a1;
 
+  --doc-symbol-parameter-bg-color: #ffa8cc1a;
   --doc-symbol-attribute-bg-color: #963fb81a;
   --doc-symbol-function-bg-color: #6d67e41a;
   --doc-symbol-method-bg-color: #6d67e41a;
@@ -124,12 +128,14 @@ otherwise just override the variables at root level:
 
 ```css title="docs/css/mkdocstrings.css"
 :root {
+  --doc-symbol-parameter-fg-color: #df50af;
   --doc-symbol-attribute-fg-color: #0079ff;
   --doc-symbol-function-fg-color: #00dfa2;
   --doc-symbol-method-fg-color: #00dfa2;
   --doc-symbol-class-fg-color: #d1b619;
   --doc-symbol-module-fg-color: #ff0060;
 
+  --doc-symbol-parameter-bg-color: #df50af1a;
   --doc-symbol-attribute-bg-color: #0079ff1a;
   --doc-symbol-function-bg-color: #00dfa21a;
   --doc-symbol-method-bg-color: #00dfa21a;
@@ -144,12 +150,14 @@ otherwise just override the variables at root level:
 <div id="preview-symbol-colors">
   <style>
     [data-md-color-scheme="default"] #preview-symbol-colors {
+      --doc-symbol-parameter-fg-color: #df50af;
       --doc-symbol-attribute-fg-color: #0079ff;
       --doc-symbol-function-fg-color: #00dfa2;
       --doc-symbol-method-fg-color: #00dfa2;
       --doc-symbol-class-fg-color: #d1b619;
       --doc-symbol-module-fg-color: #ff0060;
 
+      --doc-symbol-parameter-bg-color: #df50af1a;
       --doc-symbol-attribute-bg-color: #0079ff1a;
       --doc-symbol-function-bg-color: #00dfa21a;
       --doc-symbol-method-bg-color: #00dfa21a;
@@ -158,12 +166,14 @@ otherwise just override the variables at root level:
     }
 
     [data-md-color-scheme="slate"] #preview-symbol-colors {
+      --doc-symbol-parameter-fg-color: #ffa8cc;
       --doc-symbol-attribute-fg-color: #963fb8;
       --doc-symbol-function-fg-color: #6d67e4;
       --doc-symbol-method-fg-color: #6d67e4;
       --doc-symbol-class-fg-color: #46c2cb;
       --doc-symbol-module-fg-color: #f2f7a1;
 
+      --doc-symbol-parameter-bg-color: #ffa8cc1a;
       --doc-symbol-attribute-bg-color: #963fb81a;
       --doc-symbol-function-bg-color: #6d67e41a;
       --doc-symbol-method-bg-color: #6d67e41a;
@@ -173,6 +183,7 @@ otherwise just override the variables at root level:
   </style>
   <p>
     Try cycling through the themes to see the colors for each theme:
+    <code class="doc-symbol doc-symbol-parameter"></code>
     <code class="doc-symbol doc-symbol-attribute"></code>
     <code class="doc-symbol doc-symbol-function"></code>
     <code class="doc-symbol doc-symbol-method"></code>
@@ -189,6 +200,10 @@ You can also change the actual symbol names.
 For example, to use single letters instead of truncated types:
 
 ```css title="docs/css/mkdocstrings.css"
+.doc-symbol-parameter::after {
+  content: "P";
+}
+
 .doc-symbol-attribute::after {
   content: "A";
 }
@@ -215,6 +230,10 @@ For example, to use single letters instead of truncated types:
 
 <div id="preview-symbol-names">
   <style>
+    #preview-symbol-names .doc-symbol-parameter::after {
+      content: "P";
+    }
+
     #preview-symbol-names .doc-symbol-attribute::after {
       content: "A";
     }
@@ -236,6 +255,7 @@ For example, to use single letters instead of truncated types:
     }
   </style>
   <ul>
+    <li>Parameter: <code class="doc-symbol doc-symbol-parameter"></code></li>
     <li>Attribute: <code class="doc-symbol doc-symbol-attribute"></code></li>
     <li>Function: <code class="doc-symbol doc-symbol-function"></code></li>
     <li>Method: <code class="doc-symbol doc-symbol-method"></code></li>

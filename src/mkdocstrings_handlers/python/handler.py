@@ -10,7 +10,7 @@ import sys
 from collections import ChainMap
 from contextlib import suppress
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterator, Mapping, Sequence
+from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar
 
 from griffe import (
     AliasResolutionError,
@@ -29,6 +29,8 @@ from mkdocstrings.loggers import get_logger
 from mkdocstrings_handlers.python import rendering
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator, Mapping, Sequence
+
     from markdown import Markdown
 
 
@@ -85,6 +87,8 @@ class PythonHandler(BaseHandler):
         "separate_signature": False,
         "line_length": 60,
         "merge_init_into_class": False,
+        "relative_crossrefs": False,
+        "scoped_crossrefs": False,
         "show_docstring_attributes": True,
         "show_docstring_functions": True,
         "show_docstring_classes": True,
@@ -100,6 +104,7 @@ class PythonHandler(BaseHandler):
         "show_docstring_yields": True,
         "show_source": True,
         "show_bases": True,
+        "show_inheritance_diagram": False,
         "show_submodules": False,
         "group_by_category": True,
         "heading_level": 2,
@@ -114,6 +119,8 @@ class PythonHandler(BaseHandler):
         "summary": False,
         "show_labels": True,
         "unwrap_annotated": False,
+        "parameter_headings": False,
+        "modernize_annotations": False,
     }
     """Default handler configuration.
 
@@ -121,6 +128,7 @@ class PythonHandler(BaseHandler):
         find_stubs_package (bool): Whether to load stubs package (package-stubs) when extracting docstrings. Default `False`.
         allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
         show_bases (bool): Show the base classes of a class. Default: `True`.
+        show_inheritance_diagram (bool): Show the inheritance diagram of a class using Mermaid. Default: `False`.
         show_source (bool): Show the source code of this object. Default: `True`.
         preload_modules (list[str] | None): Pre-load modules that are
             not specified directly in autodoc instructions (`::: identifier`).
@@ -134,6 +142,7 @@ class PythonHandler(BaseHandler):
 
     Attributes: Headings options:
         heading_level (int): The initial heading level to use. Default: `2`.
+        parameter_headings (bool): Whether to render headings for parameters (therefore showing parameters in the ToC). Default: `False`.
         show_root_heading (bool): Show the heading of the object at the root of the documentation tree
             (i.e. the object referenced by the identifier after `:::`). Default: `False`.
         show_root_toc_entry (bool): If the root heading is not shown, at least add a ToC entry for it. Default: `True`.
@@ -168,6 +177,8 @@ class PythonHandler(BaseHandler):
         docstring_options (dict): The options for the docstring parser. See [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/) and their options in Griffe docs.
         docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `"table"`.
         merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
+        relative_crossrefs (bool): Whether to enable the relative crossref syntax. Default: `False`.
+        scoped_crossrefs (bool): Whether to enable the scoped crossref ability. Default: `False`.
         show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
         show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
         show_docstring_functions (bool): Whether to display the "Functions" or "Methods" sections in the object's docstring. Default: `True`.
@@ -190,8 +201,9 @@ class PythonHandler(BaseHandler):
         show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
         signature_crossrefs (bool): Whether to render cross-references for type annotations in signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading.
-            If Black is installed, the signature is also formatted using it. Default: `False`.
+            If a formatter (Black or Ruff) is installed, the signature is also formatted using it. Default: `False`.
         unwrap_annotated (bool): Whether to unwrap `Annotated` types to show only the type without the annotations. Default: `False`.
+        modernize_annotations (bool): Whether to modernize annotations, for example `Optional[str]` into `str | None`. Default: `False`.
     """
 
     def __init__(
@@ -266,7 +278,7 @@ class PythonHandler(BaseHandler):
     ) -> Iterator[tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
-        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][mkdocstrings.plugin]).
+        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][]).
 
         Arguments:
             in_file: The binary file-like object to read the inventory from.
@@ -420,12 +432,13 @@ class PythonHandler(BaseHandler):
         self.env.filters["format_signature"] = rendering.do_format_signature
         self.env.filters["format_attribute"] = rendering.do_format_attribute
         self.env.filters["filter_objects"] = rendering.do_filter_objects
-        self.env.filters["stash_crossref"] = lambda ref, length: ref
+        self.env.filters["stash_crossref"] = rendering.do_stash_crossref
         self.env.filters["get_template"] = rendering.do_get_template
         self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section
         self.env.filters["as_classes_section"] = rendering.do_as_classes_section
         self.env.filters["as_modules_section"] = rendering.do_as_modules_section
+        self.env.globals["AutorefsHook"] = rendering.AutorefsHook
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
@@ -456,11 +469,9 @@ class PythonHandler(BaseHandler):
                 pth = str(ext)
                 options = None
 
-            if pth.endswith(".py") or ".py:" in pth or "/" in pth or "\\" in pth:  # noqa: SIM102
-                # This is a sytem path. Normalize it.
-                if not os.path.isabs(pth):
-                    # Make path absolute relative to config file path.
-                    pth = os.path.normpath(os.path.join(base_path, pth))
+            if pth.endswith(".py") or ".py:" in pth or "/" in pth or "\\" in pth:
+                # This is a system path. Normalize it, make it absolute relative to config file path.
+                pth = os.path.abspath(os.path.join(base_path, pth))
 
             if options is not None:
                 normalized.append({pth: options})

@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, Iterator
+from collections import ChainMap
+from typing import TYPE_CHECKING, Any
 
 import pytest
 
 from tests import helpers
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
     from pathlib import Path
 
     from markdown.core import Markdown

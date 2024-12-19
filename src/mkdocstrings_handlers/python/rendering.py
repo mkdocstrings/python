@@ -6,14 +6,20 @@ import enum
 import random
 import re
 import string
+import subprocess
 import sys
 import warnings
-from functools import lru_cache, partial
+from functools import lru_cache
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
+from re import Match, Pattern
+from typing import TYPE_CHECKING, Any, Callable, ClassVar
 
 from griffe import (
     Alias,
+    DocstringAttribute,
+    DocstringClass,
+    DocstringFunction,
+    DocstringModule,
     DocstringSectionAttributes,
     DocstringSectionClasses,
     DocstringSectionFunctions,
@@ -22,9 +28,12 @@ from griffe import (
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
+from mkdocs_autorefs.references import AutorefsHookInterface
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from griffe import Attribute, Class, Function, Module
     from jinja2 import Environment, Template
     from jinja2.runtime import Context
@@ -63,11 +72,11 @@ order_map = {
 
 
 def do_format_code(code: str, line_length: int) -> str:
-    """Format code using Black.
+    """Format code.
 
     Parameters:
         code: The code to format.
-        line_length: The line length to give to Black.
+        line_length: The line length.
 
     Returns:
         The same code, formatted.
@@ -75,28 +84,30 @@ def do_format_code(code: str, line_length: int) -> str:
     code = code.strip()
     if len(code) < line_length:
         return code
-    formatter = _get_black_formatter()
+    formatter = _get_formatter()
     return formatter(code, line_length)
 
 
-_stash_key_alphabet = string.ascii_letters + string.digits
+class _StashCrossRefFilter:
+    stash: ClassVar[dict[str, str]] = {}
+
+    @staticmethod
+    def _gen_key(length: int) -> str:
+        return "_" + "".join(random.choice(string.ascii_letters + string.digits) for _ in range(max(1, length - 1)))  # noqa: S311
+
+    def _gen_stash_key(self, length: int) -> str:
+        key = self._gen_key(length)
+        while key in self.stash:
+            key = self._gen_key(length)
+        return key
+
+    def __call__(self, crossref: str, *, length: int) -> str:
+        key = self._gen_stash_key(length)
+        self.stash[key] = crossref
+        return key
 
 
-def _gen_key(length: int) -> str:
-    return "_" + "".join(random.choice(_stash_key_alphabet) for _ in range(max(1, length - 1)))  # noqa: S311
-
-
-def _gen_stash_key(stash: dict[str, str], length: int) -> str:
-    key = _gen_key(length)
-    while key in stash:
-        key = _gen_key(length)
-    return key
-
-
-def _stash_crossref(stash: dict[str, str], crossref: str, *, length: int) -> str:
-    key = _gen_stash_key(stash, length)
-    stash[key] = crossref
-    return key
+do_stash_crossref = _StashCrossRefFilter()
 
 
 def _format_signature(name: Markup, signature: str, line_length: int) -> str:
@@ -108,7 +119,7 @@ def _format_signature(name: Markup, signature: str, line_length: int) -> str:
     # Black cannot format names with dots, so we replace
     # the whole name with a string of equal length
     name_length = len(name)
-    formatter = _get_black_formatter()
+    formatter = _get_formatter()
     formatable = f"def {'x' * name_length}{signature}: pass"
     formatted = formatter(formatable, line_length)
 
@@ -125,15 +136,15 @@ def do_format_signature(
     line_length: int,
     *,
     annotations: bool | None = None,
-    crossrefs: bool = False,
+    crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
-    """Format a signature using Black.
+    """Format a signature.
 
     Parameters:
         context: Jinja context, passed automatically.
         callable_path: The path of the callable we render the signature of.
         function: The function we render the signature of.
-        line_length: The line length to give to Black.
+        line_length: The line length.
         annotations: Whether to show type annotations.
         crossrefs: Whether to cross-reference types in the signature.
 
@@ -143,12 +154,6 @@ def do_format_signature(
     env = context.environment
     # TODO: Stop using `do_get_template` when `*.html` templates are removed.
     template = env.get_template(do_get_template(env, "signature"))
-    config_annotations = context.parent["config"]["show_signature_annotations"]
-    old_stash_ref_filter = env.filters["stash_crossref"]
-
-    stash: dict[str, str] = {}
-    if (annotations or config_annotations) and crossrefs:
-        env.filters["stash_crossref"] = partial(_stash_crossref, stash)
 
     if annotations is None:
         new_context = context.parent
@@ -156,11 +161,8 @@ def do_format_signature(
         new_context = dict(context.parent)
         new_context["config"] = dict(new_context["config"])
         new_context["config"]["show_signature_annotations"] = annotations
-    try:
-        signature = template.render(new_context, function=function, signature=True)
-    finally:
-        env.filters["stash_crossref"] = old_stash_ref_filter
 
+    signature = template.render(new_context, function=function, signature=True)
     signature = _format_signature(callable_path, signature, line_length)
     signature = str(
         env.filters["highlight"](
@@ -168,6 +170,7 @@ def do_format_signature(
             language="python",
             inline=False,
             classes=["doc-signature"],
+            linenums=False,
         ),
     )
 
@@ -180,9 +183,10 @@ def do_format_signature(
     if signature.find('class="nf"') == -1:
         signature = signature.replace('class="n"', 'class="nf"', 1)
 
-    if stash:
+    if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
             signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
 
     return signature
 
@@ -194,15 +198,15 @@ def do_format_attribute(
     attribute: Attribute,
     line_length: int,
     *,
-    crossrefs: bool = False,
+    crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
-    """Format an attribute using Black.
+    """Format an attribute.
 
     Parameters:
         context: Jinja context, passed automatically.
         attribute_path: The path of the callable we render the signature of.
         attribute: The attribute we render the signature of.
-        line_length: The line length to give to Black.
+        line_length: The line length.
         crossrefs: Whether to cross-reference types in the signature.
 
     Returns:
@@ -212,23 +216,14 @@ def do_format_attribute(
     # TODO: Stop using `do_get_template` when `*.html` templates are removed.
     template = env.get_template(do_get_template(env, "expression"))
     annotations = context.parent["config"]["show_signature_annotations"]
-    separate_signature = context.parent["config"]["separate_signature"]
-    old_stash_ref_filter = env.filters["stash_crossref"]
 
-    stash: dict[str, str] = {}
-    if separate_signature and crossrefs:
-        env.filters["stash_crossref"] = partial(_stash_crossref, stash)
-
-    try:
-        signature = str(attribute_path).strip()
-        if annotations and attribute.annotation:
-            annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
-            signature += f": {annotation}"
-        if attribute.value:
-            value = template.render(context.parent, expression=attribute.value, signature=True)
-            signature += f" = {value}"
-    finally:
-        env.filters["stash_crossref"] = old_stash_ref_filter
+    signature = str(attribute_path).strip()
+    if annotations and attribute.annotation:
+        annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
+        signature += f": {annotation}"
+    if attribute.value:
+        value = template.render(context.parent, expression=attribute.value, signature=True)
+        signature += f" = {value}"
 
     signature = do_format_code(signature, line_length)
     signature = str(
@@ -237,12 +232,14 @@ def do_format_attribute(
             language="python",
             inline=False,
             classes=["doc-signature"],
+            linenums=False,
         ),
     )
 
-    if stash:
+    if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
             signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
 
     return signature
 
@@ -295,7 +292,10 @@ def do_crossref(path: str, *, brief: bool = True) -> Markup:
     full_path = path
     if brief:
         path = full_path.split(".")[-1]
-    return Markup("<span data-autorefs-optional-hover={full_path}>{path}</span>").format(full_path=full_path, path=path)
+    return Markup("<autoref identifier={full_path} optional hover>{path}</autoref>").format(
+        full_path=full_path,
+        path=path,
+    )
 
 
 @lru_cache
@@ -327,7 +327,7 @@ def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
         path = match.group()
         path_var = f"path{group_number}"
         variables[path_var] = path
-        return f"<span data-autorefs-optional-hover={{{path_var}}}>{{{path_var}}}</span>"
+        return f"<autoref identifier={{{path_var}}} optional hover>{{{path_var}}}</autoref>"
 
     text = re.sub(r"([\w.]+)", repl, text)
     if code:
@@ -435,12 +435,59 @@ def do_filter_objects(
 
 
 @lru_cache(maxsize=1)
-def _get_black_formatter() -> Callable[[str, int], str]:
+def _get_formatter() -> Callable[[str, int], str]:
+    for formatter_function in [
+        _get_black_formatter,
+        _get_ruff_formatter,
+    ]:
+        if (formatter := formatter_function()) is not None:
+            return formatter
+
+    logger.info("Formatting signatures requires either Black or Ruff to be installed.")
+    return lambda text, _: text
+
+
+def _get_ruff_formatter() -> Callable[[str, int], str] | None:
+    try:
+        from ruff.__main__ import find_ruff_bin
+    except ImportError:
+        return None
+
+    try:
+        ruff_bin = find_ruff_bin()
+    except FileNotFoundError:
+        ruff_bin = "ruff"
+
+    def formatter(code: str, line_length: int) -> str:
+        try:
+            completed_process = subprocess.run(  # noqa: S603
+                [
+                    ruff_bin,
+                    "format",
+                    "--config",
+                    f"line-length={line_length}",
+                    "--stdin-filename",
+                    "file.py",
+                    "-",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                input=code,
+            )
+        except subprocess.CalledProcessError:
+            return code
+        else:
+            return completed_process.stdout
+
+    return formatter
+
+
+def _get_black_formatter() -> Callable[[str, int], str] | None:
     try:
         from black import InvalidInput, Mode, format_str
     except ModuleNotFoundError:
-        logger.info("Formatting signatures requires Black to be installed.")
-        return lambda text, _: text
+        return None
 
     def formatter(code: str, line_length: int) -> str:
         mode = Mode(line_length=line_length)
@@ -473,16 +520,7 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
         template = env.get_template(f"{name}.html")
     except TemplateNotFound:
         return f"{name}.html.jinja"
-    # TODO: Remove once support for Python 3.8 is dropped.
-    if sys.version_info < (3, 9):
-        try:
-            Path(template.filename).relative_to(Path(__file__).parent)  # type: ignore[arg-type]
-        except ValueError:
-            our_template = False
-        else:
-            our_template = True
-    else:
-        our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
+    our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
     if our_template:
         return f"{name}.html.jinja"
     # TODO: Switch to a warning log after some time.
@@ -497,9 +535,9 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
 @pass_context
 def do_as_attributes_section(
     context: Context,  # noqa: ARG001
-    attributes: Sequence[Attribute],  # noqa: ARG001
+    attributes: Sequence[Attribute],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionAttributes:
     """Build an attributes section from a list of attributes.
 
@@ -510,15 +548,26 @@ def do_as_attributes_section(
     Returns:
         An attributes docstring section.
     """
-    return DocstringSectionAttributes([])
+    return DocstringSectionAttributes(
+        [
+            DocstringAttribute(
+                name=attribute.name,
+                description=attribute.docstring.value.split("\n", 1)[0] if attribute.docstring else "",
+                annotation=attribute.annotation,
+                value=attribute.value,  # type: ignore[arg-type]
+            )
+            for attribute in attributes
+            if not check_public or attribute.is_public
+        ],
+    )
 
 
 @pass_context
 def do_as_functions_section(
-    context: Context,  # noqa: ARG001
-    functions: Sequence[Function],  # noqa: ARG001
+    context: Context,
+    functions: Sequence[Function],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionFunctions:
     """Build a functions section from a list of functions.
 
@@ -529,15 +578,25 @@ def do_as_functions_section(
     Returns:
         A functions docstring section.
     """
-    return DocstringSectionFunctions([])
+    keep_init_method = not context.parent["config"]["merge_init_into_class"]
+    return DocstringSectionFunctions(
+        [
+            DocstringFunction(
+                name=function.name,
+                description=function.docstring.value.split("\n", 1)[0] if function.docstring else "",
+            )
+            for function in functions
+            if (not check_public or function.is_public) and (function.name != "__init__" or keep_init_method)
+        ],
+    )
 
 
 @pass_context
 def do_as_classes_section(
     context: Context,  # noqa: ARG001
-    classes: Sequence[Class],  # noqa: ARG001
+    classes: Sequence[Class],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionClasses:
     """Build a classes section from a list of classes.
 
@@ -548,15 +607,24 @@ def do_as_classes_section(
     Returns:
         A classes docstring section.
     """
-    return DocstringSectionClasses([])
+    return DocstringSectionClasses(
+        [
+            DocstringClass(
+                name=cls.name,
+                description=cls.docstring.value.split("\n", 1)[0] if cls.docstring else "",
+            )
+            for cls in classes
+            if not check_public or cls.is_public
+        ],
+    )
 
 
 @pass_context
 def do_as_modules_section(
     context: Context,  # noqa: ARG001
-    modules: Sequence[Module],  # noqa: ARG001
+    modules: Sequence[Module],
     *,
-    check_public: bool = True,  # noqa: ARG001
+    check_public: bool = True,
 ) -> DocstringSectionModules:
     """Build a modules section from a list of modules.
 
@@ -567,4 +635,72 @@ def do_as_modules_section(
     Returns:
         A modules docstring section.
     """
-    return DocstringSectionModules([])
+    return DocstringSectionModules(
+        [
+            DocstringModule(
+                name=module.name,
+                description=module.docstring.value.split("\n", 1)[0] if module.docstring else "",
+            )
+            for module in modules
+            if not check_public or module.is_public
+        ],
+    )
+
+
+class AutorefsHook(AutorefsHookInterface):
+    """Autorefs hook.
+
+    With this hook, we're able to add context to autorefs (cross-references),
+    such as originating file path and line number, to improve error reporting.
+    """
+
+    def __init__(self, current_object: Object | Alias, config: dict[str, Any]) -> None:
+        """Initialize the hook.
+
+        Parameters:
+            current_object: The object being rendered.
+            config: The configuration dictionary.
+        """
+        self.current_object = current_object
+        """The current object being rendered."""
+        self.config = config
+        """The configuration options."""
+
+    def expand_identifier(self, identifier: str) -> str:
+        """Expand an identifier.
+
+        Parameters:
+            identifier: The identifier to expand.
+
+        Returns:
+            The expanded identifier.
+        """
+        return identifier
+
+    def get_context(self) -> AutorefsHookInterface.Context:
+        """Get the context for the current object.
+
+        Returns:
+            The context.
+        """
+        role = {
+            "attribute": "data" if self.current_object.parent and self.current_object.parent.is_module else "attr",
+            "class": "class",
+            "function": "meth" if self.current_object.parent and self.current_object.parent.is_class else "func",
+            "module": "mod",
+        }.get(self.current_object.kind.value.lower(), "obj")
+        origin = self.current_object.path
+        try:
+            filepath = self.current_object.docstring.parent.filepath  # type: ignore[union-attr]
+            lineno = self.current_object.docstring.lineno or 0  # type: ignore[union-attr]
+        except AttributeError:
+            filepath = self.current_object.filepath
+            lineno = 0
+
+        return AutorefsHookInterface.Context(
+            domain="py",
+            role=role,
+            origin=origin,
+            filepath=str(filepath),
+            lineno=lineno,
+        )

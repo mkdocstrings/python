@@ -154,10 +154,15 @@ def convert(text: str, md: Markdown) -> Markup:
 Maximum line length when formatting code/signatures.
 
 When separating signatures from headings with the [`separate_signature`][] option,
-the Python handler will try to format the signatures using [Black] and
+the Python handler will try to format the signatures using a formatter and
 the specified line length.
 
-If Black is not installed, the handler issues an INFO log once.
+The handler will automatically try to format using :
+
+1. [Black]
+2. [Ruff]
+
+If a formatter is not found, the handler issues an INFO log once.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -192,6 +197,93 @@ plugins:
 <pre><code>long_function_name(long_parameter_1="hello", long_parameter_2="world")</code></pre>
 ////
 ///
+
+## `modernize_annotations`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.8.0](../../insiders/changelog.md#1.8.0) &mdash;
+**This feature also requires 
+[Griffe Insiders](https://mkdocstrings.github.io/griffe/insiders/)
+to be installed.**
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+Modernize annotations with latest features and PEPs of the Python language.
+
+The Python language keeps evolving, and often library developers
+must continue to support a few minor versions of Python.
+Therefore they cannot use some features that were introduced
+in the latest versions.
+
+Yet this doesn't mean they can't enjoy latest features in their docs:
+Griffe allows to "modernize" expressions, for example
+by replacing `typing.Union` with [PEP 604][pep-604] type unions `|`.
+Thanks to this, mkdocstrings' Python handler
+can automatically transform type annotations into their modern equivalent.
+This improves consistency in your docs, and shows users
+how to use your code with the latest features of the language.
+
+[pep-604]: https://peps.python.org/pep-0604/
+
+Modernizations applied:
+
+- `typing.Dict[A, B]` becomes `dict[A, B]`
+- `typing.List[A]` becomes `list[A]`
+- `typing.Set[A]` becomes `set[A]`
+- `typing.Tuple[A]` becomes `tuple[A]`
+- `typing.Union[A, B]` becomes `A | B`
+- `typing.Optional[A]` becomes `A | None`
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          modernize_annotations: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      modernize_annotations: false
+```
+
+/// admonition | Preview
+    type: preview
+
+```python
+--8<-- "docs/snippets/package/modern.py"
+```
+
+//// tab | Unchanged annotations
+
+```md exec="on"
+::: package.modern.example
+    options:
+      modernize_annotations: false
+      show_symbol_type_heading: false
+      show_labels: false
+```
+
+////
+
+//// tab | Modernized annotations
+
+```md exec="on"
+::: package.modern.example
+    options:
+      modernize_annotations: true
+      show_symbol_type_heading: false
+      show_labels: false
+```
+
+////
+
+///
+
+
 
 ## `show_signature`
 
@@ -293,10 +385,15 @@ function(param1, param2=None)
 Whether to put the whole signature in a code block below the heading.
 
 When separating signatures from headings,
-the Python handler will try to format the signatures using [Black] and
+the Python handler will try to format the signatures using a formatter and
 the specified [line length][line_length].
 
-If Black is not installed, the handler issues an INFO log once.
+The handler will automatically try to format using :
+
+1. [Black]
+2. [Ruff]
+
+If a formatter is not found, the handler issues an INFO log once.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
