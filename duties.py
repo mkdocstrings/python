@@ -217,7 +217,7 @@ def coverage(ctx: Context) -> None:
 
 
 @duty
-def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "") -> None:
+def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "report") -> None:
     """Run the test suite.
 
     Parameters:
@@ -226,15 +226,11 @@ def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "") -> N
     """
     py_version = f"{sys.version_info.major}{sys.version_info.minor}"
     os.environ["COVERAGE_FILE"] = f".coverage.{py_version}"
-    if py_version in ("38", "39", "310"):
-        snapshot = "disable"
     args = list(cli_args)
-    if snapshot == "disable":
+    if snapshot == "disable" or not snapshot:
         args = ["-n", "auto", "--inline-snapshot=disable"]
-    elif snapshot:
-        args = [f"--inline-snapshot={snapshot}"]
     else:
-        args = ["-n", "auto"]
+        args = [f"--inline-snapshot={snapshot}"]
     ctx.run(
         tools.pytest(
             "tests",

@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from collections import ChainMap
 from contextlib import contextmanager
-from typing import TYPE_CHECKING, Any, Iterator
+from typing import TYPE_CHECKING, Any
 
 from markdown.core import Markdown
 from mkdocs.config.defaults import MkDocsConfig
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
     from pathlib import Path
 
     import pytest
