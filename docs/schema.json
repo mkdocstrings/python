@@ -145,7 +145,7 @@
               "default": false
             },
             "separate_signature": {
-              "title": "Whether to put the whole signature in a code block below the heading. If Black is installed, the signature is also formatted using it.",
+              "title": "Whether to put the whole signature in a code block below the heading. If a formatter (Black or Ruff) is installed, the signature is also formatted using it.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#separate_signature",
               "type": "boolean",
               "default": false

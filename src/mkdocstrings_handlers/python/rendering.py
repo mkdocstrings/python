@@ -6,6 +6,7 @@ import enum
 import random
 import re
 import string
+import subprocess
 import sys
 import warnings
 from functools import lru_cache
@@ -71,11 +72,11 @@ order_map = {
 
 
 def do_format_code(code: str, line_length: int) -> str:
-    """Format code using Black.
+    """Format code.
 
     Parameters:
         code: The code to format.
-        line_length: The line length to give to Black.
+        line_length: The line length.
 
     Returns:
         The same code, formatted.
@@ -83,7 +84,7 @@ def do_format_code(code: str, line_length: int) -> str:
     code = code.strip()
     if len(code) < line_length:
         return code
-    formatter = _get_black_formatter()
+    formatter = _get_formatter()
     return formatter(code, line_length)
 
 
@@ -118,7 +119,7 @@ def _format_signature(name: Markup, signature: str, line_length: int) -> str:
     # Black cannot format names with dots, so we replace
     # the whole name with a string of equal length
     name_length = len(name)
-    formatter = _get_black_formatter()
+    formatter = _get_formatter()
     formatable = f"def {'x' * name_length}{signature}: pass"
     formatted = formatter(formatable, line_length)
 
@@ -137,13 +138,13 @@ def do_format_signature(
     annotations: bool | None = None,
     crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
-    """Format a signature using Black.
+    """Format a signature.
 
     Parameters:
         context: Jinja context, passed automatically.
         callable_path: The path of the callable we render the signature of.
         function: The function we render the signature of.
-        line_length: The line length to give to Black.
+        line_length: The line length.
         annotations: Whether to show type annotations.
         crossrefs: Whether to cross-reference types in the signature.
 
@@ -199,13 +200,13 @@ def do_format_attribute(
     *,
     crossrefs: bool = False,  # noqa: ARG001
 ) -> str:
-    """Format an attribute using Black.
+    """Format an attribute.
 
     Parameters:
         context: Jinja context, passed automatically.
         attribute_path: The path of the callable we render the signature of.
         attribute: The attribute we render the signature of.
-        line_length: The line length to give to Black.
+        line_length: The line length.
         crossrefs: Whether to cross-reference types in the signature.
 
     Returns:
@@ -434,12 +435,59 @@ def do_filter_objects(
 
 
 @lru_cache(maxsize=1)
-def _get_black_formatter() -> Callable[[str, int], str]:
+def _get_formatter() -> Callable[[str, int], str]:
+    for formatter_function in [
+        _get_black_formatter,
+        _get_ruff_formatter,
+    ]:
+        if (formatter := formatter_function()) is not None:
+            return formatter
+
+    logger.info("Formatting signatures requires either Black or Ruff to be installed.")
+    return lambda text, _: text
+
+
+def _get_ruff_formatter() -> Callable[[str, int], str] | None:
+    try:
+        from ruff.__main__ import find_ruff_bin
+    except ImportError:
+        return None
+
+    try:
+        ruff_bin = find_ruff_bin()
+    except FileNotFoundError:
+        ruff_bin = "ruff"
+
+    def formatter(code: str, line_length: int) -> str:
+        try:
+            completed_process = subprocess.run(  # noqa: S603
+                [
+                    ruff_bin,
+                    "format",
+                    "--config",
+                    f"line-length={line_length}",
+                    "--stdin-filename",
+                    "file.py",
+                    "-",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                input=code,
+            )
+        except subprocess.CalledProcessError:
+            return code
+        else:
+            return completed_process.stdout
+
+    return formatter
+
+
+def _get_black_formatter() -> Callable[[str, int], str] | None:
     try:
         from black import InvalidInput, Mode, format_str
     except ModuleNotFoundError:
-        logger.info("Formatting signatures requires Black to be installed.")
-        return lambda text, _: text
+        return None
 
     def formatter(code: str, line_length: int) -> str:
         mode = Mode(line_length=line_length)

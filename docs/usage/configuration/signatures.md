@@ -154,10 +154,15 @@ def convert(text: str, md: Markdown) -> Markup:
 Maximum line length when formatting code/signatures.
 
 When separating signatures from headings with the [`separate_signature`][] option,
-the Python handler will try to format the signatures using [Black] and
+the Python handler will try to format the signatures using a formatter and
 the specified line length.
 
-If Black is not installed, the handler issues an INFO log once.
+The handler will automatically try to format using :
+
+1. [Black]
+2. [Ruff]
+
+If a formatter is not found, the handler issues an INFO log once.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -380,10 +385,15 @@ function(param1, param2=None)
 Whether to put the whole signature in a code block below the heading.
 
 When separating signatures from headings,
-the Python handler will try to format the signatures using [Black] and
+the Python handler will try to format the signatures using a formatter and
 the specified [line length][line_length].
 
-If Black is not installed, the handler issues an INFO log once.
+The handler will automatically try to format using :
+
+1. [Black]
+2. [Ruff]
+
+If a formatter is not found, the handler issues an INFO log once.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
