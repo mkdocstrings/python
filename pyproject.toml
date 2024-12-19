@@ -107,3 +107,6 @@ dev-dependencies = [
     # YORE: EOL 3.10: Remove line.
     "tomli>=2.0; python_version < '3.11'",
 ]
+
+[tool.inline-snapshot]
+snapshot-dir = "tests/snapshots"
