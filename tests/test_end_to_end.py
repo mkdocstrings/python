@@ -35,10 +35,10 @@ options: dict[str, Any] = {
     "show_symbol_type_heading": (True, False),
     "show_symbol_type_toc": (True, False),
     # Members options.
-    "inherited_members": ((), ("a", "b"), True, False),
-    "members": ((), ("a", "b"), True, False, None),
+    "inherited_members": ((), ("method1",), True, False),
+    "members": ((), ("module_attribute",), True, False, None),
     "members_order": ("source", "alphabetical"),
-    "filters": ((), ("!a",), ("a",), None),
+    "filters": ((), ("!module_attribute",), ("module_attribute",), None),
     "group_by_category": (True, False),
     "show_submodules": (True, False),
     "summary": (True, False),  # TODO: Test dict.
@@ -63,8 +63,8 @@ options: dict[str, Any] = {
     "show_docstring_warns": (True, False),
     "show_docstring_yields": (True, False),
     # Signature options.
-    "annotations_path": ("brief", "source"),
-    "line_length": (1, 10, 60, 120, 1000),
+    "annotations_path": ("brief", "source", "full"),
+    "line_length": (0, 1, 10, 60, 120, 1000),
     "show_signature": (True, False),
     "show_signature_annotations": (True, False),
     "signature_crossrefs": (True, False),
@@ -73,25 +73,34 @@ options: dict[str, Any] = {
 }
 
 code = """
-    def foo(a: int, b: str) -> None:
-        '''Docstring for `foo`.'''
+    def module_function(a: int, b: str) -> None:
+        '''Docstring for `module_function`.'''
 
-    class Bar:
-        '''Docstring for `Bar`.'''
+    class Class:
+        '''Docstring for `Class`.'''
+
+        class NestedClass:
+            '''Docstring for `NestedClass`.'''
+
+        class_attribute: int = 42
+        '''Docstring for `Class.class_attribute`.'''
 
         def __init__(self, a: int, b: str) -> None:
-            '''Docstring for `Bar.__init__`.'''
-            self.c = a + b
-            '''Docstring for `Bar.c`.'''
+            '''Docstring for `Class.__init__`.'''
+            self.instance_attribute = a + b
+            '''Docstring for `Class.instance_attribute`.'''
 
-        def foo(self, a: int, b: str) -> None:
-            '''Docstring.'''
+        def method1(self, a: int, b: str) -> None:
+            '''Docstring for `Class.method1`.'''
 
-    baz: int = 42
-    '''Docstring for `baz`.'''
+        def method2(self, a: int, b: str) -> None:
+            '''Docstring for `Class.method2`.'''
 
-    class Qux(Bar):
-        '''Docstring for `Qux`.'''
+    module_attribute: int = 42
+    '''Docstring for `module_attribute`.'''
+
+    class Subclass(Class):
+        '''Docstring for `Subclass`.'''
 """
 
 
