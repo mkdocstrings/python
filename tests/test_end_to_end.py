@@ -72,37 +72,6 @@ options: dict[str, Any] = {
     "unwrap_annotated": (True, False),
 }
 
-code = """
-    def module_function(a: int, b: str) -> None:
-        '''Docstring for `module_function`.'''
-
-    class Class:
-        '''Docstring for `Class`.'''
-
-        class NestedClass:
-            '''Docstring for `NestedClass`.'''
-
-        class_attribute: int = 42
-        '''Docstring for `Class.class_attribute`.'''
-
-        def __init__(self, a: int, b: str) -> None:
-            '''Docstring for `Class.__init__`.'''
-            self.instance_attribute = a + b
-            '''Docstring for `Class.instance_attribute`.'''
-
-        def method1(self, a: int, b: str) -> None:
-            '''Docstring for `Class.method1`.'''
-
-        def method2(self, a: int, b: str) -> None:
-            '''Docstring for `Class.method2`.'''
-
-    module_attribute: int = 42
-    '''Docstring for `module_attribute`.'''
-
-    class Subclass(Class):
-        '''Docstring for `Subclass`.'''
-"""
-
 
 def _normalize_html(html: str) -> str:
     soup = bs4.BeautifulSoup(html, features="html.parser")
@@ -114,10 +83,16 @@ def _normalize_html(html: str) -> str:
     return html  # noqa: RET504
 
 
-def _render(handler: PythonHandler, final_options: dict[str, Any]) -> str:
+def _render(handler: PythonHandler, code: str, final_options: dict[str, Any]) -> str:
     final_options.pop("handler", None)
     final_options.pop("session_handler", None)
     handler_options = final_options.copy()
+
+    # Some default options to make snapshots easier to review.
+    handler_options.setdefault("heading_level", 1)
+    handler_options.setdefault("show_root_heading", True)
+    handler_options.setdefault("show_source", False)
+
     with temporary_pypackage("pkg", {"__init__.py": code}) as tmppkg:
         handler._paths.insert(0, tmppkg.tmpdir)
         data = handler.collect("pkg", handler_options)
@@ -150,7 +125,20 @@ def test_end_to_end_for_signatures(
         "signature_crossrefs": signature_crossrefs,
         "separate_signature": separate_signature,
     }
-    html = _render_options(final_options) + _render(session_handler, final_options)
+    code = """
+        def module_function(a: int, b: str) -> None:
+            '''Docstring for `module_function`.'''
+
+        class Class:
+            '''Docstring for `Class`.'''
+
+            def __init__(self, a: int, b: str) -> None:
+                '''Docstring for `Class.__init__.'''
+
+            def method1(self, a: int, b: str) -> None:
+                '''Docstring for `Class.method1`.'''
+    """
+    html = _render_options(final_options) + _render(session_handler, code, final_options)
     snapshot_key = tuple(sorted(final_options.items()))
     assert outsource(html, suffix=".html") == snapshots_signatures[snapshot_key]
 
@@ -176,6 +164,38 @@ def test_end_to_end_for_members(
         "members": members,
         "filters": filters,
     }
-    html = _render_options(final_options) + _render(session_handler, final_options)
+    code = """
+        '''Docstring for the package.'''
+
+        def module_function(a: int, b: str) -> None:
+            '''Docstring for `module_function`.'''
+
+        class Class:
+            '''Docstring for `Class`.'''
+
+            class NestedClass:
+                '''Docstring for `NestedClass`.'''
+
+            class_attribute: int = 42
+            '''Docstring for `Class.class_attribute`.'''
+
+            def __init__(self, a: int, b: str) -> None:
+                '''Docstring for `Class.__init__`.'''
+                self.instance_attribute = a + b
+                '''Docstring for `Class.instance_attribute`.'''
+
+            def method1(self, a: int, b: str) -> None:
+                '''Docstring for `Class.method1`.'''
+
+            def method2(self, a: int, b: str) -> None:
+                '''Docstring for `Class.method2`.'''
+
+        module_attribute: int = 42
+        '''Docstring for `module_attribute`.'''
+
+        class Subclass(Class):
+            '''Docstring for `Subclass`.'''
+    """
+    html = _render_options(final_options) + _render(session_handler, code, final_options)
     snapshot_key = tuple(sorted(final_options.items()))
     assert outsource(html, suffix=".html") == snapshots_members[snapshot_key]
