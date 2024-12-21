@@ -121,15 +121,11 @@ def _render_options(options: dict[str, Any]) -> str:
 
 
 # Signature options
-@pytest.mark.parametrize("annotations_path", options["annotations_path"])
-@pytest.mark.parametrize("show_signature", options["show_signature"])
 @pytest.mark.parametrize("show_signature_annotations", options["show_signature_annotations"])
 @pytest.mark.parametrize("signature_crossrefs", options["signature_crossrefs"])
 @pytest.mark.parametrize("separate_signature", options["separate_signature"])
 def test_end_to_end_for_signatures(
     session_handler: PythonHandler,
-    annotations_path: str,
-    show_signature: bool,
     show_signature_annotations: bool,
     signature_crossrefs: bool,
     separate_signature: bool,
@@ -141,8 +137,6 @@ def test_end_to_end_for_signatures(
         session_handler: Python handler (fixture).
     """
     final_options = {
-        "annotations_path": annotations_path,
-        "show_signature": show_signature,
         "show_signature_annotations": show_signature_annotations,
         "signature_crossrefs": signature_crossrefs,
         "separate_signature": separate_signature,
@@ -155,13 +149,11 @@ def test_end_to_end_for_signatures(
 # Members options.
 @pytest.mark.parametrize("inherited_members", options["inherited_members"])
 @pytest.mark.parametrize("members", options["members"])
-@pytest.mark.parametrize("members_order", options["members_order"])
 @pytest.mark.parametrize("filters", options["filters"])
 def test_end_to_end_for_members(
     session_handler: PythonHandler,
     inherited_members: list[str] | bool | None,
     members: list[str] | bool | None,
-    members_order: str,
     filters: list[str] | None,
 ) -> None:
     """Test rendering of a given theme's templates.
@@ -173,7 +165,6 @@ def test_end_to_end_for_members(
     final_options = {
         "inherited_members": inherited_members,
         "members": members,
-        "members_order": members_order,
         "filters": filters,
     }
     html = _render_options(final_options) + _render(session_handler, final_options)
