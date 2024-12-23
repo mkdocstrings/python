@@ -217,20 +217,26 @@ def coverage(ctx: Context) -> None:
 
 
 @duty
-def test(ctx: Context, *cli_args: str, match: str = "") -> None:
+def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "report") -> None:
     """Run the test suite.
 
     Parameters:
         match: A pytest expression to filter selected tests.
+        snapshot: Whether to "create", "fix", "trim", or "update" snapshots.
     """
     py_version = f"{sys.version_info.major}{sys.version_info.minor}"
     os.environ["COVERAGE_FILE"] = f".coverage.{py_version}"
+    args = list(cli_args)
+    if snapshot == "disable" or not snapshot:
+        args = ["-n", "auto", "--inline-snapshot=disable"]
+    else:
+        args = [f"--inline-snapshot={snapshot}"]
     ctx.run(
         tools.pytest(
             "tests",
             config_file="config/pytest.ini",
             select=match,
             color="yes",
-        ).add_args("-n", "auto", *cli_args),
+        ).add_args(*args),
         title=pyprefix("Running tests"),
     )

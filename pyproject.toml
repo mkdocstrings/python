@@ -90,6 +90,8 @@ dev = [
     "pytest-cov>=5.0",
     "pytest-randomly>=3.15",
     "pytest-xdist>=3.6",
+    "beautifulsoup4>=4.12.3",
+    "inline-snapshot>=0.18",
     "mypy>=1.10",
     "types-markdown>=3.6",
     "types-pyyaml>=6.0",
@@ -108,3 +110,6 @@ dev = [
     # YORE: EOL 3.10: Remove line.
     "tomli>=2.0; python_version < '3.11'",
 ]
+
+[tool.inline-snapshot]
+storage-dir = "tests/snapshots"
