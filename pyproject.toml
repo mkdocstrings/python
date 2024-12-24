@@ -45,8 +45,9 @@ Discussions = "https://github.com/mkdocstrings/python/discussions"
 Gitter = "https://gitter.im/mkdocstrings/python"
 Funding = "https://github.com/sponsors/pawamoy"
 
-[tool.pdm]
-version = {source = "scm"}
+[tool.pdm.version]
+source = "call"
+getter = "scripts.get_version:get_version"
 
 [tool.pdm.build]
 package-dir = "src"
@@ -74,12 +75,6 @@ source-includes = [
 data = [
     {path = "share/**/*", relative-to = "."},
 ]
-
-[tool.uv]
-# Tell uv to ignore constraints on the main package.
-# This is needed when the current project doesn't have Git tags (fork, CI).
-override-dependencies = ["mkdocstrings-python"]
-sources = { mkdocstrings-python = { workspace = true } }
 
 [dependency-groups]
 dev = [
