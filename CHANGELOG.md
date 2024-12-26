@@ -5,6 +5,28 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.13.0](https://github.com/mkdocstrings/python/releases/tag/1.13.0) - 2024-12-26
+
+<small>[Compare with 1.12.2](https://github.com/mkdocstrings/python/compare/1.12.2...1.13.0)</small>
+
+### Features
+
+- Allow using Ruff to format signatures and attribute values ([d67215c](https://github.com/mkdocstrings/python/commit/d67215c976938ef1e169f16dd0b6166067ebd7bc) by dm). [PR-216](https://github.com/mkdocstrings/python/pull/216)
+
+### Bug Fixes
+
+- Respect `show_signature_annotations` option for attribute signatures in headings ([e93d166](https://github.com/mkdocstrings/python/commit/e93d166a14d0944d30ff2f28f21f2262ac396bff) by Timothée Mazzucotelli). [Issue-griffe-pydantic#9](https://github.com/mkdocstrings/griffe-pydantic/issues/9)
+- Handle `__init__` overloads when merging into class ([af6fab3](https://github.com/mkdocstrings/python/commit/af6fab31142204872ace716392dcb314b2cb5d0f) by Timothée Mazzucotelli). [Issue-212](https://github.com/mkdocstrings/python/issues/212)
+- Actually check if a module is public when rendering auto-generated summary table for modules ([3bf55b2](https://github.com/mkdocstrings/python/commit/3bf55b22ce9a841242c55b2efcedbd8f3a99ccc9) by Timothée Mazzucotelli). [Issue-203](https://github.com/mkdocstrings/python/issues/203)
+- Never render line numbers for signatures and attribute values ([a669f1c](https://github.com/mkdocstrings/python/commit/a669f1caefbd54305cc4610bdd57a529aa1208cf) by Timothée Mazzucotelli). [Issue-192](https://github.com/mkdocstrings/python/issues/192)
+- Respect highlight's `linenums` config for `pycon` examples in docstrings ([53eb82a](https://github.com/mkdocstrings/python/commit/53eb82a21bbcaa959306e909bf0d4ac468f87580) by Timothée Mazzucotelli). [Related-to-#192](https://github.com/mkdocstrings/python/issues/192)
+- Fix normalization of extension paths on the annoying operating system and Python 3.13 ([101a6dc](https://github.com/mkdocstrings/python/commit/101a6dc428da59a512da617a0a2453f2b6ef4387) by Timothée Mazzucotelli).
+- Don't merge parent `__init__` docstring into class docstring if such inherited method wasn't selected through the `inherited_members` configuration option ([6c5b5c3](https://github.com/mkdocstrings/python/commit/6c5b5c341940af9425b3de0672ac400794b3f6e5) by Timothée Mazzucotelli). [Issue-189](https://github.com/mkdocstrings/python/issues/189)
+
+### Code Refactoring
+
+- Render `*` and `**` outside of cross-references in signatures ([c4506f0](https://github.com/mkdocstrings/python/commit/c4506f080e0c75cd32d6512c80f5016e82fc12bc) by Timothée Mazzucotelli). [Needed-for-PR-216](https://github.com/mkdocstrings/python/pull/216)
+
 ## [1.12.2](https://github.com/mkdocstrings/python/releases/tag/1.12.2) - 2024-10-19
 
 <small>[Compare with 1.12.1](https://github.com/mkdocstrings/python/compare/1.12.1...1.12.2)</small>
