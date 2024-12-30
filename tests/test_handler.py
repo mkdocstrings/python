@@ -167,7 +167,7 @@ def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
     )
     with temporary_visited_module(code) as module:
         # TODO: Remove once Griffe does that automatically.
-        module.lines_collection[module.filepath] = code.splitlines()  # type: ignore[index]
+        module.lines_collection[module.filepath] = code.splitlines()
 
         module["Class"].lineno = None
         module["Class.function"].lineno = None

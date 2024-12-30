@@ -56,7 +56,9 @@ Context:
               {% endfilter %}
             {% endwith %}
           {% else %}
-            <code>{{ class_name }}</code>
+            {%+ filter highlight(language="python", inline=True) %}
+              {{ class_name }}
+            {% endfilter %}
           {% endif %}
         {% endblock heading %}
 

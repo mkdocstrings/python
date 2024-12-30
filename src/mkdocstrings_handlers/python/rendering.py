@@ -554,7 +554,7 @@ def do_as_attributes_section(
                 name=attribute.name,
                 description=attribute.docstring.value.split("\n", 1)[0] if attribute.docstring else "",
                 annotation=attribute.annotation,
-                value=attribute.value,  # type: ignore[arg-type]
+                value=attribute.value,
             )
             for attribute in attributes
             if not check_public or attribute.is_public
@@ -691,8 +691,8 @@ class AutorefsHook(AutorefsHookInterface):
         }.get(self.current_object.kind.value.lower(), "obj")
         origin = self.current_object.path
         try:
-            filepath = self.current_object.docstring.parent.filepath  # type: ignore[union-attr]
-            lineno = self.current_object.docstring.lineno or 0  # type: ignore[union-attr]
+            filepath = self.current_object.docstring.parent.filepath
+            lineno = self.current_object.docstring.lineno or 0
         except AttributeError:
             filepath = self.current_object.filepath
             lineno = 0
