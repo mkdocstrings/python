@@ -24,6 +24,8 @@ from griffe import (
     DocstringSectionClasses,
     DocstringSectionFunctions,
     DocstringSectionModules,
+    DocstringSectionTypeAliases,
+    DocstringTypeAlias,
     Object,
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
@@ -34,7 +36,7 @@ from mkdocstrings.loggers import get_logger
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-    from griffe import Attribute, Class, Function, Module
+    from griffe import Attribute, Class, Function, Module, TypeAlias
     from jinja2 import Environment, Template
     from jinja2.runtime import Context
     from mkdocstrings.handlers.base import CollectorItem
@@ -110,7 +112,7 @@ class _StashCrossRefFilter:
 do_stash_crossref = _StashCrossRefFilter()
 
 
-def _format_signature(name: Markup, signature: str, line_length: int) -> str:
+def _format_signature(name: Markup, signature: str, prefix: str, line_length: int) -> str:
     name = str(name).strip()  # type: ignore[assignment]
     signature = signature.strip()
     if len(name + signature) < line_length:
@@ -118,14 +120,14 @@ def _format_signature(name: Markup, signature: str, line_length: int) -> str:
 
     # Black cannot format names with dots, so we replace
     # the whole name with a string of equal length
-    name_length = len(name)
+    name_length = max(len(name) - len(prefix) - 1, 1)
     formatter = _get_formatter()
-    formatable = f"def {'x' * name_length}{signature}: pass"
+    formatable = f"{prefix} {'x' * name_length}{signature}: pass"
     formatted = formatter(formatable, line_length)
 
     # We put back the original name
     # and remove starting `def ` and trailing `: pass`
-    return name + formatted[4:-5].strip()[name_length:-1]
+    return name + formatted[len(prefix) + 1 : -5].strip()[name_length:-1]
 
 
 @pass_context
@@ -153,7 +155,8 @@ def do_format_signature(
     """
     env = context.environment
     # TODO: Stop using `do_get_template` when `*.html` templates are removed.
-    template = env.get_template(do_get_template(env, "signature"))
+    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
+    signature_template = env.get_template(do_get_template(env, "signature"))
 
     if annotations is None:
         new_context = context.parent
@@ -162,8 +165,10 @@ def do_format_signature(
         new_context["config"] = dict(new_context["config"])
         new_context["config"]["show_signature_annotations"] = annotations
 
-    signature = template.render(new_context, function=function, signature=True)
-    signature = _format_signature(callable_path, signature, line_length)
+    signature = type_params_template.render(context.parent, obj=function, signature=True)
+    signature += signature_template.render(new_context, function=function, signature=True)
+
+    signature = _format_signature(callable_path, signature, "def", line_length)
     signature = str(
         env.filters["highlight"](
             Markup.escape(signature),
@@ -182,6 +187,152 @@ def do_format_signature(
     # with an `nf` one, unless we found `nf` already.
     if signature.find('class="nf"') == -1:
         signature = signature.replace('class="n"', 'class="nf"', 1)
+
+    if stash := env.filters["stash_crossref"].stash:
+        for key, value in stash.items():
+            signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
+
+    return signature
+
+
+@pass_context
+def do_format_class(
+    context: Context,
+    class_path: Markup,
+    class_: Class,
+    line_length: int,
+    *,
+    crossrefs: bool = False,  # noqa: ARG001
+) -> str:
+    """Format a class.
+
+    Parameters:
+        context: Jinja context, passed automatically.
+        class_path: The path of the class we render the signature of.
+        class_: The class we render the signature of.
+        line_length: The line length.
+        crossrefs: Whether to cross-reference types in the signature.
+
+    Returns:
+        The same code, formatted.
+    """
+    env = context.environment
+    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    template = env.get_template(do_get_template(env, "type_parameters"))
+
+    signature = template.render(context.parent, obj=class_, signature=True)
+
+    signature = _format_signature(class_path, signature, "class", line_length)
+    signature = str(
+        env.filters["highlight"](
+            Markup.escape(signature),
+            language="python",
+            inline=False,
+            classes=["doc-signature"],
+            linenums=False,
+        ),
+    )
+
+    # Since we highlight the signature without `class`,
+    # Pygments does not see a class definition.
+    # The result is that the class name is not parsed as such,
+    # but instead as a regular name: `n` CSS class instead of `nc`.
+    # To fix it, we replace the first occurrence of an `n` CSS class
+    # with an `nc` one, unless we found `nc` already.
+    if signature.find('class="nc"') == -1:
+        signature = signature.replace('class="n"', 'class="nc"', 1)
+
+    if stash := env.filters["stash_crossref"].stash:
+        for key, value in stash.items():
+            signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
+
+    return signature
+
+
+@pass_context
+def do_format_merged_init(
+    context: Context,
+    class_path: Markup,
+    init: Function,
+    line_length: int,
+    *,
+    init_as_method: bool = False,
+    annotations: bool | None = None,
+    crossrefs: bool = False,  # noqa: ARG001
+) -> str:
+    """Format a signature of an `__init__` method merged into a class.
+
+    Parameters:
+        context: Jinja context, passed automatically.
+        class_path: The path of the class we render the signature of.
+        init: The method we render the signature of.
+        line_length: The line length.
+        init_as_method: Whether to show `__init__` as a method, instead of merging its
+            (type) parameters into the signature of the class.
+        annotations: Whether to show type annotations.
+        crossrefs: Whether to cross-reference types in the signature.
+
+    Returns:
+        The same code, formatted.
+    """
+    env = context.environment
+    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
+    signature_template = env.get_template(do_get_template(env, "signature"))
+
+    if annotations is None:
+        signature_context = context.parent
+    else:
+        signature_context = dict(context.parent)
+        signature_context["config"] = dict(signature_context["config"])
+        signature_context["config"]["show_signature_annotations"] = annotations
+
+    class_signature = type_params_template.render(context.parent, obj=init.parent, signature=True)
+
+    init_signature = signature_template.render(signature_context, function=init, signature=True)
+    if init_as_method:
+        init_signature = type_params_template.render(signature_context, obj=init, signature=True) + init_signature
+
+        name = str(class_path).strip()
+        if len(name + class_signature + ".__init__" + init_signature) < line_length:
+            signature = name + class_signature + ".__init__" + init_signature
+        else:
+            formatter = _get_formatter()
+
+            # Black cannot format names with dots, so we replace
+            # the whole name with a string of equal length
+            name_length = max(len(name) - 6, 1)
+            formatted_class_signature = formatter(f"class {'x' * name_length}{class_signature}: pass", line_length)
+            formatted_class_signature = formatted_class_signature[6:-5].strip()[name_length:]
+
+            name_length = len(formatted_class_signature.splitlines()[-1]) + len(".__init__") - 4
+            formatted_init_signature = formatter(f"def {'x' * name_length}{init_signature}: pass", line_length)
+            formatted_init_signature = formatted_init_signature[4:-5].strip()[name_length:]
+
+            signature = name + formatted_class_signature + ".__init__" + formatted_init_signature
+    else:
+        signature = _format_signature(class_path, class_signature + init_signature, "def", line_length)
+
+    signature = str(
+        env.filters["highlight"](
+            Markup.escape(signature),
+            language="python",
+            inline=False,
+            classes=["doc-signature"],
+            linenums=False,
+        ),
+    )
+
+    # Since we highlight the signature without `class`,
+    # Pygments does not see a class definition.
+    # The result is that the class name is not parsed as such,
+    # but instead as a regular name: `n` CSS class instead of `nc`.
+    # To fix it, we replace the first occurrence of an `n` CSS class
+    # with an `nc` one, unless we found `nc` already.
+    if signature.find('class="nc"') == -1:
+        signature = signature.replace('class="n"', 'class="nc"', 1)
 
     if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
@@ -235,6 +386,66 @@ def do_format_attribute(
             linenums=False,
         ),
     )
+
+    if stash := env.filters["stash_crossref"].stash:
+        for key, value in stash.items():
+            signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
+
+    return signature
+
+
+@pass_context
+def do_format_type_alias(
+    context: Context,
+    type_alias_path: Markup,
+    type_alias: TypeAlias,
+    line_length: int,
+    *,
+    crossrefs: bool = False,  # noqa: ARG001
+) -> str:
+    """Format a type alias.
+
+    Parameters:
+        context: Jinja context, passed automatically.
+        type_alias_path: The path of the type alias we render the signature of.
+        type_alias: The type alias we render the signature of.
+        line_length: The line length.
+        crossrefs: Whether to cross-reference types in the signature.
+
+    Returns:
+        The same code, formatted.
+    """
+    env = context.environment
+    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
+    expr_template = env.get_template(do_get_template(env, "expression"))
+
+    signature = str(type_alias_path).strip()
+    signature += type_params_template.render(context.parent, obj=type_alias, signature=True)
+    value = expr_template.render(context.parent, expression=type_alias.value, signature=True)
+    signature += f" = {value}"
+
+    signature = do_format_code(signature, line_length)
+    signature = str(
+        env.filters["highlight"](
+            Markup.escape(signature),
+            language="python",
+            inline=False,
+            classes=["doc-signature"],
+            linenums=False,
+        ),
+    )
+
+    # Since we highlight the signature without `type`,
+    # Pygments sees only an assignment, not a type alias definition.
+    # (At the moment it does not understand type alias definitions anyway)
+    # The result is that the type alias name is not parsed as such,
+    # but instead as a regular name: `n` CSS class instead of `nc`.
+    # To fix it, we replace the first occurrence of an `n` CSS class
+    # with an `nc` one, unless we found `nc` already.
+    if signature.find('class="nc"') == -1:
+        signature = signature.replace('class="n"', 'class="nc"', 1)
 
     if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
@@ -515,7 +726,7 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
         extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
         if name := extra_data.get("template", ""):
             return name
-        name = obj.kind.value
+        name = obj.kind.value.replace(" ", "_")
     try:
         template = env.get_template(f"{name}.html")
     except TemplateNotFound:
@@ -615,6 +826,34 @@ def do_as_classes_section(
             )
             for cls in classes
             if not check_public or cls.is_public
+        ],
+    )
+
+
+@pass_context
+def do_as_type_aliases_section(
+    context: Context,  # noqa: ARG001
+    type_aliases: Sequence[TypeAlias],
+    *,
+    check_public: bool = True,
+) -> DocstringSectionTypeAliases:
+    """Build a type aliases section from a list of type aliases.
+
+    Parameters:
+        type_aliases: The type aliases to build the section from.
+        check_public: Whether to check if the type_alias is public.
+
+    Returns:
+        A type aliases docstring section.
+    """
+    return DocstringSectionTypeAliases(
+        [
+            DocstringTypeAlias(
+                name=type_alias.name,
+                description=type_alias.docstring.value.split("\n", 1)[0] if type_alias.docstring else "",
+            )
+            for type_alias in type_aliases
+            if not check_public or type_alias.is_public
         ],
     )
 

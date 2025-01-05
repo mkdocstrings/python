@@ -144,6 +144,12 @@
               "type": "boolean",
               "default": false
             },
+            "show_signature_type_parameters": {
+              "title": "Show the type parameters in generic classes, methods, functions and type aliases signatures.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_signature_type_parameters",
+              "type": "boolean",
+              "default": true
+            },
             "separate_signature": {
               "title": "Whether to put the whole signature in a code block below the heading. If a formatter (Black or Ruff) is installed, the signature is also formatted using it.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#separate_signature",
@@ -207,6 +213,12 @@
             "show_docstring_returns": {
               "title": "Whether to display the \"Returns\" section in the object's docstring.",
               "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_returns",
+              "type": "boolean",
+              "default": true
+            },
+            "show_docstring_type_parameters": {
+              "title": "Whether to display the \"Type Parameters\" section in the object's docstring.",
+              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_type_parameters",
               "type": "boolean",
               "default": true
             },

@@ -51,7 +51,7 @@ def test_format_signature(name: Markup, signature: str) -> None:
         signature: Signature to format.
     """
     for length in (5, 100):
-        assert rendering._format_signature(name, signature, length)
+        assert rendering._format_signature(name, signature, "def", length)
 
 
 @dataclass

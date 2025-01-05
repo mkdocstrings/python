@@ -83,6 +83,7 @@ class PythonHandler(BaseHandler):
         "show_if_no_docstring": False,
         "show_signature": True,
         "show_signature_annotations": False,
+        "show_signature_type_parameters": True,
         "signature_crossrefs": False,
         "separate_signature": False,
         "line_length": 60,
@@ -92,6 +93,7 @@ class PythonHandler(BaseHandler):
         "show_docstring_attributes": True,
         "show_docstring_functions": True,
         "show_docstring_classes": True,
+        "show_docstring_type_aliases": True,
         "show_docstring_modules": True,
         "show_docstring_description": True,
         "show_docstring_examples": True,
@@ -100,6 +102,7 @@ class PythonHandler(BaseHandler):
         "show_docstring_raises": True,
         "show_docstring_receives": True,
         "show_docstring_returns": True,
+        "show_docstring_type_parameters": True,
         "show_docstring_warns": True,
         "show_docstring_yields": True,
         "show_source": True,
@@ -120,6 +123,7 @@ class PythonHandler(BaseHandler):
         "show_labels": True,
         "unwrap_annotated": False,
         "parameter_headings": False,
+        "type_parameter_headings": False,
         "modernize_annotations": False,
     }
     """Default handler configuration.
@@ -143,6 +147,7 @@ class PythonHandler(BaseHandler):
     Attributes: Headings options:
         heading_level (int): The initial heading level to use. Default: `2`.
         parameter_headings (bool): Whether to render headings for parameters (therefore showing parameters in the ToC). Default: `False`.
+        type_parameter_headings (bool): Whether to render headings for type parameters (therefore showing type parameters in the ToC). Default: `False`.
         show_root_heading (bool): Show the heading of the object at the root of the documentation tree
             (i.e. the object referenced by the identifier after `:::`). Default: `False`.
         show_root_toc_entry (bool): If the root heading is not shown, at least add a ToC entry for it. Default: `True`.
@@ -169,7 +174,7 @@ class PythonHandler(BaseHandler):
             to lower members in the hierarchy). Default: `["!^_[^_]"]`.
         group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
         show_submodules (bool): When rendering a module, show its submodules recursively. Default: `False`.
-        summary (bool | dict[str, bool]): Whether to render summaries of modules, classes, functions (methods) and attributes.
+        summary (bool | dict[str, bool]): Whether to render summaries of modules, classes, functions (methods), attributes and type aliases.
         show_labels (bool): Whether to show labels of the members. Default: `True`.
 
     Attributes: Docstrings options:
@@ -183,6 +188,7 @@ class PythonHandler(BaseHandler):
         show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
         show_docstring_functions (bool): Whether to display the "Functions" or "Methods" sections in the object's docstring. Default: `True`.
         show_docstring_classes (bool): Whether to display the "Classes" section in the object's docstring. Default: `True`.
+        show_docstring_type_aliases (bool): Whether to display the "Type Aliases" section in the object's docstring. Default: `True`.
         show_docstring_modules (bool): Whether to display the "Modules" section in the object's docstring. Default: `True`.
         show_docstring_description (bool): Whether to display the textual block (including admonitions) in the object's docstring. Default: `True`.
         show_docstring_examples (bool): Whether to display the "Examples" section in the object's docstring. Default: `True`.
@@ -191,6 +197,7 @@ class PythonHandler(BaseHandler):
         show_docstring_raises (bool): Whether to display the "Raises" section in the object's docstring. Default: `True`.
         show_docstring_receives (bool): Whether to display the "Receives" section in the object's docstring. Default: `True`.
         show_docstring_returns (bool): Whether to display the "Returns" section in the object's docstring. Default: `True`.
+        show_docstring_type_parameters (bool): Whether to display the "Type Parameters" section in the object's docstring. Default: `True`.
         show_docstring_warns (bool): Whether to display the "Warns" section in the object's docstring. Default: `True`.
         show_docstring_yields (bool): Whether to display the "Yields" section in the object's docstring. Default: `True`.
 
@@ -199,6 +206,7 @@ class PythonHandler(BaseHandler):
         line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
         show_signature (bool): Show methods and functions signatures. Default: `True`.
         show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
+        show_signature_type_parameters (bool): Show the type parameters in generic classes, methods, functions and type aliases signatures. Default: `True`.
         signature_crossrefs (bool): Whether to render cross-references for type annotations in signatures. Default: `False`.
         separate_signature (bool): Whether to put the whole signature in a code block below the heading.
             If a formatter (Black or Ruff) is installed, the signature is also formatted using it. Default: `False`.
@@ -387,6 +395,7 @@ class PythonHandler(BaseHandler):
                 "functions": True,
                 "classes": True,
                 "modules": True,
+                "type_aliases": True,
             }
         elif summary is False:
             final_config["summary"] = {
@@ -394,6 +403,7 @@ class PythonHandler(BaseHandler):
                 "functions": False,
                 "classes": False,
                 "modules": False,
+                "type_aliases": False,
             }
         else:
             final_config["summary"] = {
@@ -401,6 +411,7 @@ class PythonHandler(BaseHandler):
                 "functions": summary.get("functions", False),
                 "classes": summary.get("classes", False),
                 "modules": summary.get("modules", False),
+                "type_aliases": summary.get("type_aliases", False),
             }
 
         return template.render(
@@ -430,13 +441,17 @@ class PythonHandler(BaseHandler):
         self.env.filters["order_members"] = rendering.do_order_members
         self.env.filters["format_code"] = rendering.do_format_code
         self.env.filters["format_signature"] = rendering.do_format_signature
+        self.env.filters["format_class"] = rendering.do_format_class
+        self.env.filters["format_merged_init"] = rendering.do_format_merged_init
         self.env.filters["format_attribute"] = rendering.do_format_attribute
+        self.env.filters["format_type_alias"] = rendering.do_format_type_alias
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = rendering.do_stash_crossref
         self.env.filters["get_template"] = rendering.do_get_template
         self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section
         self.env.filters["as_classes_section"] = rendering.do_as_classes_section
+        self.env.filters["as_type_aliases_section"] = rendering.do_as_type_aliases_section
         self.env.filters["as_modules_section"] = rendering.do_as_modules_section
         self.env.globals["AutorefsHook"] = rendering.AutorefsHook
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()

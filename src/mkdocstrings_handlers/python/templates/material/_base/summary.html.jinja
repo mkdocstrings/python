@@ -2,7 +2,7 @@
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
 {% endblock logs %}
@@ -10,6 +10,10 @@
 {% with members_list = config.members if root_members else None %}
   {% if config.summary.modules %}
     {% include "summary/modules"|get_template with context %}
+  {% endif %}
+
+  {% if config.summary.type_aliases %}
+    {% include "summary/type_aliases"|get_template with context %}
   {% endif %}
 
   {% if config.summary.classes %}
