@@ -5,12 +5,12 @@ from __future__ import annotations
 import glob
 import os
 import posixpath
-import re
 import sys
-from collections import ChainMap
 from contextlib import suppress
+from dataclasses import asdict
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar
+from warnings import warn
 
 from griffe import (
     AliasResolutionError,
@@ -21,17 +21,18 @@ from griffe import (
     load_extensions,
     patch_loggers,
 )
-from mkdocstrings.extension import PluginError
-from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem
+from mkdocs.exceptions import PluginError
+from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem, HandlerOptions
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
 
 from mkdocstrings_handlers.python import rendering
+from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator, Mapping, Sequence
+    from collections.abc import Iterator, Mapping, MutableMapping, Sequence
 
-    from markdown import Markdown
+    from mkdocs.config.defaults import MkDocsConfig
 
 
 if sys.version_info >= (3, 11):
@@ -55,215 +56,78 @@ logger = get_logger(__name__)
 patch_loggers(get_logger)
 
 
+def _warn_extra_options(names: Sequence[str]) -> None:
+    warn(
+        "Passing extra options directly under `options` is deprecated. "
+        "Instead, pass them under `options.extra`, and update your templates. "
+        f"Current extra (unrecognized) options: {', '.join(sorted(names))}",
+        DeprecationWarning,
+        stacklevel=3,
+    )
+
+
 class PythonHandler(BaseHandler):
     """The Python handler class."""
 
-    name: str = "python"
+    name: ClassVar[str] = "python"
     """The handler's name."""
-    domain: str = "py"  # to match Sphinx's default domain
+
+    domain: ClassVar[str] = "py"
     """The cross-documentation domain/language for this handler."""
-    enable_inventory: bool = True
+
+    enable_inventory: ClassVar[bool] = True
     """Whether this handler is interested in enabling the creation of the `objects.inv` Sphinx inventory file."""
-    fallback_theme = "material"
+
+    fallback_theme: ClassVar[str] = "material"
     """The fallback theme."""
-    fallback_config: ClassVar[dict] = {"fallback": True}
-    """The configuration used to collect item during autorefs fallback."""
-    default_config: ClassVar[dict] = {
-        "find_stubs_package": False,
-        "docstring_style": "google",
-        "docstring_options": {},
-        "show_symbol_type_heading": False,
-        "show_symbol_type_toc": False,
-        "show_root_heading": False,
-        "show_root_toc_entry": True,
-        "show_root_full_path": True,
-        "show_root_members_full_path": False,
-        "show_object_full_path": False,
-        "show_category_heading": False,
-        "show_if_no_docstring": False,
-        "show_signature": True,
-        "show_signature_annotations": False,
-        "signature_crossrefs": False,
-        "separate_signature": False,
-        "line_length": 60,
-        "merge_init_into_class": False,
-        "relative_crossrefs": False,
-        "scoped_crossrefs": False,
-        "show_docstring_attributes": True,
-        "show_docstring_functions": True,
-        "show_docstring_classes": True,
-        "show_docstring_modules": True,
-        "show_docstring_description": True,
-        "show_docstring_examples": True,
-        "show_docstring_other_parameters": True,
-        "show_docstring_parameters": True,
-        "show_docstring_raises": True,
-        "show_docstring_receives": True,
-        "show_docstring_returns": True,
-        "show_docstring_warns": True,
-        "show_docstring_yields": True,
-        "show_source": True,
-        "show_bases": True,
-        "show_inheritance_diagram": False,
-        "show_submodules": False,
-        "group_by_category": True,
-        "heading": "",
-        "toc_label": "",
-        "heading_level": 2,
-        "members_order": rendering.Order.alphabetical.value,
-        "docstring_section_style": "table",
-        "members": None,
-        "inherited_members": False,
-        "filters": ["!^_[^_]"],
-        "annotations_path": "brief",
-        "preload_modules": None,
-        "allow_inspection": True,
-        "force_inspection": False,
-        "summary": False,
-        "show_labels": True,
-        "unwrap_annotated": False,
-        "parameter_headings": False,
-        "modernize_annotations": False,
-    }
-    """Default handler configuration.
 
-    Attributes: General options:
-        find_stubs_package (bool): Whether to load stubs package (package-stubs) when extracting docstrings. Default `False`.
-        allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
-        force_inspection (bool): Whether to force using dynamic analysis when loading data. Default: `False`.
-        show_bases (bool): Show the base classes of a class. Default: `True`.
-        show_inheritance_diagram (bool): Show the inheritance diagram of a class using Mermaid. Default: `False`.
-        show_source (bool): Show the source code of this object. Default: `True`.
-        preload_modules (list[str] | None): Pre-load modules that are
-            not specified directly in autodoc instructions (`::: identifier`).
-            It is useful when you want to render documentation for a particular member of an object,
-            and this member is imported from another package than its parent.
-
-            For an imported member to be rendered, you need to add it to the `__all__` attribute
-            of the importing module.
-
-            The modules must be listed as an array of strings. Default: `None`.
-
-    Attributes: Headings options:
-        heading (str): A custom string to override the autogenerated heading of the root object.
-        toc_label (str): A custom string to override the autogenerated toc label of the root object.
-        heading_level (int): The initial heading level to use. Default: `2`.
-        parameter_headings (bool): Whether to render headings for parameters (therefore showing parameters in the ToC). Default: `False`.
-        show_root_heading (bool): Show the heading of the object at the root of the documentation tree
-            (i.e. the object referenced by the identifier after `:::`). Default: `False`.
-        show_root_toc_entry (bool): If the root heading is not shown, at least add a ToC entry for it. Default: `True`.
-        show_root_full_path (bool): Show the full Python path for the root object heading. Default: `True`.
-        show_root_members_full_path (bool): Show the full Python path of the root members. Default: `False`.
-        show_object_full_path (bool): Show the full Python path of every object. Default: `False`.
-        show_category_heading (bool): When grouped by categories, show a heading for each category. Default: `False`.
-        show_symbol_type_heading (bool): Show the symbol type in headings (e.g. mod, class, meth, func and attr). Default: `False`.
-        show_symbol_type_toc (bool): Show the symbol type in the Table of Contents (e.g. mod, class, methd, func and attr). Default: `False`.
-
-    Attributes: Members options:
-        inherited_members (list[str] | bool | None): A boolean, or an explicit list of inherited members to render.
-            If true, select all inherited members, which can then be filtered with `members`.
-            If false or empty list, do not select any inherited member. Default: `False`.
-        members (list[str] | bool | None): A boolean, or an explicit list of members to render.
-            If true, select all members without further filtering.
-            If false or empty list, do not render members.
-            If none, select all members and apply further filtering with filters and docstrings. Default: `None`.
-        members_order (str): The members ordering to use. Options: `alphabetical` - order by the members names,
-            `source` - order members as they appear in the source file. Default: `"alphabetical"`.
-        filters (list[str] | None): A list of filters applied to filter objects based on their name.
-            A filter starting with `!` will exclude matching objects instead of including them.
-            The `members` option takes precedence over `filters` (filters will still be applied recursively
-            to lower members in the hierarchy). Default: `["!^_[^_]"]`.
-        group_by_category (bool): Group the object's children by categories: attributes, classes, functions, and modules. Default: `True`.
-        show_submodules (bool): When rendering a module, show its submodules recursively. Default: `False`.
-        summary (bool | dict[str, bool]): Whether to render summaries of modules, classes, functions (methods) and attributes.
-        show_labels (bool): Whether to show labels of the members. Default: `True`.
-
-    Attributes: Docstrings options:
-        docstring_style (str): The docstring style to use: `google`, `numpy`, `sphinx`, or `None`. Default: `"google"`.
-        docstring_options (dict): The options for the docstring parser. See [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/) and their options in Griffe docs.
-        docstring_section_style (str): The style used to render docstring sections. Options: `table`, `list`, `spacy`. Default: `"table"`.
-        merge_init_into_class (bool): Whether to merge the `__init__` method into the class' signature and docstring. Default: `False`.
-        relative_crossrefs (bool): Whether to enable the relative crossref syntax. Default: `False`.
-        scoped_crossrefs (bool): Whether to enable the scoped crossref ability. Default: `False`.
-        show_if_no_docstring (bool): Show the object heading even if it has no docstring or children with docstrings. Default: `False`.
-        show_docstring_attributes (bool): Whether to display the "Attributes" section in the object's docstring. Default: `True`.
-        show_docstring_functions (bool): Whether to display the "Functions" or "Methods" sections in the object's docstring. Default: `True`.
-        show_docstring_classes (bool): Whether to display the "Classes" section in the object's docstring. Default: `True`.
-        show_docstring_modules (bool): Whether to display the "Modules" section in the object's docstring. Default: `True`.
-        show_docstring_description (bool): Whether to display the textual block (including admonitions) in the object's docstring. Default: `True`.
-        show_docstring_examples (bool): Whether to display the "Examples" section in the object's docstring. Default: `True`.
-        show_docstring_other_parameters (bool): Whether to display the "Other Parameters" section in the object's docstring. Default: `True`.
-        show_docstring_parameters (bool): Whether to display the "Parameters" section in the object's docstring. Default: `True`.
-        show_docstring_raises (bool): Whether to display the "Raises" section in the object's docstring. Default: `True`.
-        show_docstring_receives (bool): Whether to display the "Receives" section in the object's docstring. Default: `True`.
-        show_docstring_returns (bool): Whether to display the "Returns" section in the object's docstring. Default: `True`.
-        show_docstring_warns (bool): Whether to display the "Warns" section in the object's docstring. Default: `True`.
-        show_docstring_yields (bool): Whether to display the "Yields" section in the object's docstring. Default: `True`.
-
-    Attributes: Signatures/annotations options:
-        annotations_path (str): The verbosity for annotations path: `brief` (recommended), or `source` (as written in the source). Default: `"brief"`.
-        line_length (int): Maximum line length when formatting code/signatures. Default: `60`.
-        show_signature (bool): Show methods and functions signatures. Default: `True`.
-        show_signature_annotations (bool): Show the type annotations in methods and functions signatures. Default: `False`.
-        signature_crossrefs (bool): Whether to render cross-references for type annotations in signatures. Default: `False`.
-        separate_signature (bool): Whether to put the whole signature in a code block below the heading.
-            If a formatter (Black or Ruff) is installed, the signature is also formatted using it. Default: `False`.
-        unwrap_annotated (bool): Whether to unwrap `Annotated` types to show only the type without the annotations. Default: `False`.
-        modernize_annotations (bool): Whether to modernize annotations, for example `Optional[str]` into `str | None`. Default: `False`.
-    """
-
-    def __init__(
-        self,
-        *args: Any,
-        config_file_path: str | None = None,
-        paths: list[str] | None = None,
-        locale: str = "en",
-        load_external_modules: bool | None = None,
-        **kwargs: Any,
-    ) -> None:
+    def __init__(self, config: PythonConfig, base_dir: Path, **kwargs: Any) -> None:
         """Initialize the handler.
 
         Parameters:
-            *args: Handler name, theme and custom templates.
-            config_file_path: The MkDocs configuration file path.
-            paths: A list of paths to use as Griffe search paths.
-            locale: The locale to use when rendering content.
-            load_external_modules: Load external modules when resolving aliases.
-            **kwargs: Same thing, but with keyword arguments.
+            config: The handler configuration.
+            base_dir: The base directory of the project.
+            **kwargs: Arguments passed to the parent constructor.
         """
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
+
+        self.config = config
+        self.base_dir = base_dir
+
+        # YORE: Bump 2: Replace block with `self.global_options = config.options`.
+        global_extra, global_options = PythonOptions._extract_extra(config.options)
+        if global_extra:
+            _warn_extra_options(global_extra.keys())  # type: ignore[arg-type]
+        self._global_extra = global_extra
+        self.global_options = global_options
 
         # Warn if user overrides base templates.
-        if custom_templates := kwargs.get("custom_templates", ()):
-            config_dir = Path(config_file_path or "./mkdocs.yml").parent
-            for theme_dir in config_dir.joinpath(custom_templates, "python").iterdir():
+        if self.custom_templates:
+            for theme_dir in base_dir.joinpath(self.custom_templates, "python").iterdir():
                 if theme_dir.joinpath("_base").is_dir():
                     logger.warning(
                         f"Overriding base template '{theme_dir.name}/_base/<template>.html.jinja' is not supported, "
                         f"override '{theme_dir.name}/<template>.html.jinja' instead",
                     )
 
-        self._config_file_path = config_file_path
-        self._load_external_modules = load_external_modules
-        paths = paths or []
+        paths = config.paths or []
 
         # Expand paths with glob patterns.
-        glob_base_dir = os.path.dirname(os.path.abspath(config_file_path)) if config_file_path else "."
-        with chdir(glob_base_dir):
+        with chdir(str(base_dir)):
             resolved_globs = [glob.glob(path) for path in paths]
         paths = [path for glob_list in resolved_globs for path in glob_list]
 
-        # By default, add the directory of the config file to the search paths.
-        if not paths and config_file_path:
-            paths.append(os.path.dirname(config_file_path))
+        # By default, add the base directory to the search paths.
+        if not paths:
+            paths.append(str(base_dir))
 
         # Initialize search paths from `sys.path`, eliminating empty paths.
         search_paths = [path for path in sys.path if path]
 
         for path in reversed(paths):
             # If it's not absolute, make path relative to the config file path, then make it absolute.
-            if not os.path.isabs(path) and config_file_path:
-                path = os.path.abspath(os.path.join(os.path.dirname(config_file_path), path))  # noqa: PLW2901
+            if not os.path.isabs(path):
+                path = os.path.abspath(base_dir / path)  # noqa: PLW2901
             # Don't add duplicates.
             if path not in search_paths:
                 search_paths.insert(0, path)
@@ -271,16 +135,18 @@ class PythonHandler(BaseHandler):
         self._paths = search_paths
         self._modules_collection: ModulesCollection = ModulesCollection()
         self._lines_collection: LinesCollection = LinesCollection()
-        self._locale = locale
 
-    @classmethod
+    def get_inventory_urls(self) -> list[tuple[str, dict[str, Any]]]:
+        """Return the URLs of the inventory files to download."""
+        return [(inv.url, inv._config) for inv in self.config.inventories]
+
+    @staticmethod
     def load_inventory(
-        cls,
         in_file: BinaryIO,
         url: str,
         base_url: str | None = None,
         domains: list[str] | None = None,
-        **kwargs: Any,  # noqa: ARG003
+        **kwargs: Any,  # noqa: ARG004
     ) -> Iterator[tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
@@ -303,47 +169,69 @@ class PythonHandler(BaseHandler):
         for item in Inventory.parse_sphinx(in_file, domain_filter=domains).values():
             yield item.name, posixpath.join(base_url, item.uri)
 
-    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:  # noqa: D102
+    def get_options(self, local_options: Mapping[str, Any]) -> HandlerOptions:
+        """Get combined default, global and local options.
+
+        Arguments:
+            local_options: The local options.
+
+        Returns:
+            The combined options.
+        """
+        # YORE: Bump 2: Remove block.
+        local_extra, local_options = PythonOptions._extract_extra(local_options)  # type: ignore[arg-type]
+        if local_extra:
+            _warn_extra_options(local_extra.keys())  # type: ignore[arg-type]
+        unknown_extra = self._global_extra | local_extra
+
+        extra = {**self.global_options.get("extra", {}), **local_options.get("extra", {})}
+        options = {**self.global_options, **local_options, "extra": extra}
+        # YORE: Bump 2: Replace `, **unknown_extra` with `` within line.
+        try:
+            return PythonOptions.from_data(**options, **unknown_extra)
+        except Exception as error:
+            raise PluginError(f"Invalid options: {error}") from error
+
+    def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:  # noqa: D102
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
-        if config.get("fallback", False) and unknown_module:
+        if options == {} and unknown_module:
             raise CollectionError("Not loading additional modules during fallback")
 
-        final_config = ChainMap(config, self.default_config)  # type: ignore[arg-type]
-        parser_name = final_config["docstring_style"]
-        parser_options = final_config["docstring_options"]
+        parser_name = options.docstring_style
         parser = parser_name and Parser(parser_name)
+        parser_options = options.docstring_options and asdict(options.docstring_options)
 
         if unknown_module:
-            extensions = self.normalize_extension_paths(final_config.get("extensions", []))
+            extensions = self.normalize_extension_paths(options.extensions)
             loader = GriffeLoader(
                 extensions=load_extensions(*extensions),
                 search_paths=self._paths,
                 docstring_parser=parser,
-                docstring_options=parser_options,
+                docstring_options=parser_options,  # type: ignore[arg-type]
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
-                allow_inspection=final_config["allow_inspection"],
-                force_inspection=final_config["force_inspection"],
+                allow_inspection=options.allow_inspection,
+                force_inspection=options.force_inspection,
             )
             try:
-                for pre_loaded_module in final_config.get("preload_modules") or []:
+                for pre_loaded_module in options.preload_modules:
                     if pre_loaded_module not in self._modules_collection:
                         loader.load(
                             pre_loaded_module,
                             try_relative_path=False,
-                            find_stubs_package=final_config["find_stubs_package"],
+                            find_stubs_package=options.find_stubs_package,
                         )
                 loader.load(
                     module_name,
                     try_relative_path=False,
-                    find_stubs_package=final_config["find_stubs_package"],
+                    find_stubs_package=options.find_stubs_package,
                 )
             except ImportError as error:
                 raise CollectionError(str(error)) from error
             unresolved, iterations = loader.resolve_aliases(
                 implicit=False,
-                external=self._load_external_modules,
+                external=self.config.load_external_modules,
             )
             if unresolved:
                 logger.debug(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
@@ -364,70 +252,29 @@ class PythonHandler(BaseHandler):
 
         return doc_object
 
-    def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:  # noqa: D102 (ignore missing docstring)
-        final_config = ChainMap(config, self.default_config)  # type: ignore[arg-type]
-
+    def render(self, data: CollectorItem, options: PythonOptions) -> str:  # noqa: D102 (ignore missing docstring)
         template_name = rendering.do_get_template(self.env, data)
         template = self.env.get_template(template_name)
 
-        # Heading level is a "state" variable, that will change at each step
-        # of the rendering recursion. Therefore, it's easier to use it as a plain value
-        # than as an item in a dictionary.
-        heading_level = final_config["heading_level"]
-        try:
-            final_config["members_order"] = rendering.Order(final_config["members_order"])
-        except ValueError as error:
-            choices = "', '".join(item.value for item in rendering.Order)
-            raise PluginError(
-                f"Unknown members_order '{final_config['members_order']}', choose between '{choices}'.",
-            ) from error
-
-        if final_config["filters"]:
-            final_config["filters"] = [
-                (re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in final_config["filters"]
-            ]
-
-        summary = final_config["summary"]
-        if summary is True:
-            final_config["summary"] = {
-                "attributes": True,
-                "functions": True,
-                "classes": True,
-                "modules": True,
-            }
-        elif summary is False:
-            final_config["summary"] = {
-                "attributes": False,
-                "functions": False,
-                "classes": False,
-                "modules": False,
-            }
-        else:
-            final_config["summary"] = {
-                "attributes": summary.get("attributes", False),
-                "functions": summary.get("functions", False),
-                "classes": summary.get("classes", False),
-                "modules": summary.get("modules", False),
-            }
-
         return template.render(
             **{
-                "config": final_config,
+                "config": options,
                 data.kind.value: data,
-                "heading_level": heading_level,
+                # Heading level is a "state" variable, that will change at each step
+                # of the rendering recursion. Therefore, it's easier to use it as a plain value
+                # than as an item in a dictionary.
+                "heading_level": options.heading_level,
                 "root": True,
-                "locale": self._locale,
+                "locale": self.config.locale,
             },
         )
 
-    def update_env(self, md: Markdown, config: dict) -> None:
+    def update_env(self, config: Any) -> None:  # noqa: ARG002
         """Update the Jinja environment with custom filters and tests.
 
         Parameters:
-            md: The Markdown instance.
-            config: The configuration dictionary.
+            config: The SSG configuration.
         """
-        super().update_env(md, config)
         self.env.trim_blocks = True
         self.env.lstrip_blocks = True
         self.env.keep_trailing_newline = False
@@ -448,24 +295,22 @@ class PythonHandler(BaseHandler):
         self.env.globals["AutorefsHook"] = rendering.AutorefsHook
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
-    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
-        anchors = [data.path]
+    def get_aliases(self, identifier: str) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
         try:
-            if data.canonical_path != data.path:
-                anchors.append(data.canonical_path)
-            for anchor in data.aliases:
-                if anchor not in anchors:
-                    anchors.append(anchor)
+            data = self._modules_collection[identifier]
+        except KeyError:
+            return ()
+        aliases = [data.path]
+        try:
+            for alias in [data.canonical_path, *data.aliases]:
+                if alias not in aliases:
+                    aliases.append(alias)
         except AliasResolutionError:
-            return tuple(anchors)
-        return tuple(anchors)
+            return tuple(aliases)
+        return tuple(aliases)
 
     def normalize_extension_paths(self, extensions: Sequence) -> Sequence:
         """Resolve extension paths relative to config file."""
-        if self._config_file_path is None:
-            return extensions
-
-        base_path = os.path.dirname(self._config_file_path)
         normalized = []
 
         for ext in extensions:
@@ -478,7 +323,7 @@ class PythonHandler(BaseHandler):
 
             if pth.endswith(".py") or ".py:" in pth or "/" in pth or "\\" in pth:
                 # This is a system path. Normalize it, make it absolute relative to config file path.
-                pth = os.path.abspath(os.path.join(base_path, pth))
+                pth = os.path.abspath(self.base_dir / pth)
 
             if options is not None:
                 normalized.append({pth: options})
@@ -489,35 +334,25 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
-    *,
-    theme: str,
-    custom_templates: str | None = None,
-    config_file_path: str | None = None,
-    paths: list[str] | None = None,
-    locale: str = "en",
-    load_external_modules: bool | None = None,
-    **config: Any,  # noqa: ARG001
+    handler_config: MutableMapping[str, Any],
+    tool_config: MkDocsConfig,
+    **kwargs: Any,
 ) -> PythonHandler:
     """Simply return an instance of `PythonHandler`.
 
     Arguments:
-        theme: The theme to use when rendering contents.
-        custom_templates: Directory containing custom templates.
-        config_file_path: The MkDocs configuration file path.
-        paths: A list of paths to use as Griffe search paths.
-        locale: The locale to use when rendering content.
-        load_external_modules: Load external modules when resolving aliases.
-        **config: Configuration passed to the handler.
+        handler_config: The handler configuration.
+        tool_config: The tool (SSG) configuration.
 
     Returns:
         An instance of `PythonHandler`.
     """
+    base_dir = Path(tool_config.config_file_path or "./mkdocs.yml").parent
+    if "inventories" not in handler_config and "import" in handler_config:
+        warn("The 'import' key is renamed 'inventories' for the Python handler", FutureWarning, stacklevel=1)
+        handler_config["inventories"] = handler_config.pop("import", [])
     return PythonHandler(
-        handler="python",
-        theme=theme,
-        custom_templates=custom_templates,
-        config_file_path=config_file_path,
-        paths=paths,
-        locale=locale,
-        load_external_modules=load_external_modules,
+        config=PythonConfig.from_data(**handler_config),
+        base_dir=base_dir,
+        **kwargs,
     )

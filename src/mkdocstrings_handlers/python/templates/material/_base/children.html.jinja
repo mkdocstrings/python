@@ -111,7 +111,7 @@ Context:
                 {% filter heading(heading_level, id=html_id ~ "-modules") %}Modules{% endfilter %}
               {% endif %}
               {% with heading_level = heading_level + extra_level %}
-                {% for module in modules|order_members(config.members_order.alphabetical, members_list) %}
+                {% for module in modules|order_members("alphabetical", members_list) %}
                   {% if members_list is not none or (not module.is_alias or module.is_public) %}
                     {% include module|get_template with context %}
                   {% endif %}

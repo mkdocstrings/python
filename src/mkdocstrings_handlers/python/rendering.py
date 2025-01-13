@@ -2,17 +2,17 @@
 
 from __future__ import annotations
 
-import enum
 import random
 import re
 import string
 import subprocess
 import sys
 import warnings
+from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
 from re import Match, Pattern
-from typing import TYPE_CHECKING, Any, Callable, ClassVar
+from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal
 
 from griffe import (
     Alias,
@@ -42,15 +42,6 @@ if TYPE_CHECKING:
 logger = get_logger(__name__)
 
 
-class Order(enum.Enum):
-    """Enumeration for the possible members ordering."""
-
-    alphabetical = "alphabetical"
-    """Alphabetical order."""
-    source = "source"
-    """Source code order."""
-
-
 def _sort_key_alphabetical(item: CollectorItem) -> Any:
     # chr(sys.maxunicode) is a string that contains the final unicode
     # character, so if 'name' isn't found on the object, the item will go to
@@ -65,9 +56,10 @@ def _sort_key_source(item: CollectorItem) -> Any:
     return item.lineno if item.lineno is not None else -1
 
 
+Order = Literal["alphabetical", "source"]
 order_map = {
-    Order.alphabetical: _sort_key_alphabetical,
-    Order.source: _sort_key_source,
+    "alphabetical": _sort_key_alphabetical,
+    "source": _sort_key_source,
 }
 
 
@@ -159,8 +151,7 @@ def do_format_signature(
         new_context = context.parent
     else:
         new_context = dict(context.parent)
-        new_context["config"] = dict(new_context["config"])
-        new_context["config"]["show_signature_annotations"] = annotations
+        new_context["config"] = replace(new_context["config"], show_signature_annotations=annotations)
 
     signature = template.render(new_context, function=function, signature=True)
     signature = _format_signature(callable_path, signature, line_length)
@@ -215,7 +206,7 @@ def do_format_attribute(
     env = context.environment
     # TODO: Stop using `do_get_template` when `*.html` templates are removed.
     template = env.get_template(do_get_template(env, "expression"))
-    annotations = context.parent["config"]["show_signature_annotations"]
+    annotations = context.parent["config"].show_signature_annotations
 
     signature = str(attribute_path).strip()
     if annotations and attribute.annotation:
@@ -578,7 +569,7 @@ def do_as_functions_section(
     Returns:
         A functions docstring section.
     """
-    keep_init_method = not context.parent["config"]["merge_init_into_class"]
+    keep_init_method = not context.parent["config"].merge_init_into_class
     return DocstringSectionFunctions(
         [
             DocstringFunction(

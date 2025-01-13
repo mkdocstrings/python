@@ -143,14 +143,14 @@ def test_filter_inherited_members(
 @pytest.mark.parametrize(
     ("order", "members_list", "expected_names"),
     [
-        (rendering.Order.alphabetical, None, ["a", "b", "c"]),
-        (rendering.Order.source, None, ["c", "b", "a"]),
-        (rendering.Order.alphabetical, ["c", "b"], ["c", "b"]),
-        (rendering.Order.source, ["a", "c"], ["a", "c"]),
-        (rendering.Order.alphabetical, [], ["a", "b", "c"]),
-        (rendering.Order.source, [], ["c", "b", "a"]),
-        (rendering.Order.alphabetical, True, ["a", "b", "c"]),
-        (rendering.Order.source, False, ["c", "b", "a"]),
+        ("alphabetical", None, ["a", "b", "c"]),
+        ("source", None, ["c", "b", "a"]),
+        ("alphabetical", ["c", "b"], ["c", "b"]),
+        ("source", ["a", "c"], ["a", "c"]),
+        ("alphabetical", [], ["a", "b", "c"]),
+        ("source", [], ["c", "b", "a"]),
+        ("alphabetical", True, ["a", "b", "c"]),
+        ("source", False, ["c", "b", "a"]),
     ],
 )
 def test_ordering_members(order: rendering.Order, members_list: list[str | None], expected_names: list[str]) -> None:

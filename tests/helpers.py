@@ -30,15 +30,18 @@ def mkdocs_conf(request: pytest.FixtureRequest, tmp_path: Path) -> Iterator[MkDo
     Yields:
         MkDocs config.
     """
-    conf = MkDocsConfig()
     while hasattr(request, "_parent_request") and hasattr(request._parent_request, "_parent_request"):
         request = request._parent_request
 
+    params = getattr(request, "param", {})
+    plugins = params.pop("plugins", [{"mkdocstrings": {}}])
+
+    conf = MkDocsConfig()
     conf_dict = {
         "site_name": "foo",
         "site_url": "https://example.org/",
         "site_dir": str(tmp_path),
-        "plugins": [{"mkdocstrings": {"default_handler": "python"}}],
+        "plugins": plugins,
         **getattr(request, "param", {}),
     }
     # Re-create it manually as a workaround for https://github.com/mkdocs/mkdocs/issues/2289
@@ -90,5 +93,5 @@ def handler(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> PythonHandler
         A handler instance.
     """
     handler = plugin.handlers.get_handler("python")
-    handler._update_env(ext_markdown, plugin.handlers._config)
+    handler._update_env(ext_markdown)
     return handler  # type: ignore[return-value]

@@ -10,36 +10,35 @@ from typing import TYPE_CHECKING
 import pytest
 from griffe import DocstringSectionExamples, DocstringSectionKind, temporary_visited_module
 
-from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler, get_handler
+from mkdocstrings_handlers.python.config import PythonOptions
+from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler
 
 if TYPE_CHECKING:
     from pathlib import Path
 
+    from mkdocstrings.plugin import MkdocstringsPlugin
 
-def test_collect_missing_module() -> None:
+
+def test_collect_missing_module(handler: PythonHandler) -> None:
     """Assert error is raised for missing modules."""
-    handler = get_handler(theme="material")
     with pytest.raises(CollectionError):
-        handler.collect("aaaaaaaa", {})
+        handler.collect("aaaaaaaa", PythonOptions())
 
 
-def test_collect_missing_module_item() -> None:
+def test_collect_missing_module_item(handler: PythonHandler) -> None:
     """Assert error is raised for missing items within existing modules."""
-    handler = get_handler(theme="material")
     with pytest.raises(CollectionError):
-        handler.collect("mkdocstrings.aaaaaaaa", {})
+        handler.collect("mkdocstrings.aaaaaaaa", PythonOptions())
 
 
-def test_collect_module() -> None:
+def test_collect_module(handler: PythonHandler) -> None:
     """Assert existing module can be collected."""
-    handler = get_handler(theme="material")
-    assert handler.collect("mkdocstrings", {})
+    assert handler.collect("mkdocstrings", PythonOptions())
 
 
-def test_collect_with_null_parser() -> None:
+def test_collect_with_null_parser(handler: PythonHandler) -> None:
     """Assert we can pass `None` as parser when collecting."""
-    handler = get_handler(theme="material")
-    assert handler.collect("mkdocstrings", {"docstring_style": None})
+    assert handler.collect("mkdocstrings", PythonOptions(docstring_style=None))
 
 
 @pytest.mark.parametrize(
@@ -71,7 +70,7 @@ def test_render_docstring_examples_section(handler: PythonHandler) -> None:
     assert "Hello" in rendered
 
 
-def test_expand_globs(tmp_path: Path) -> None:
+def test_expand_globs(tmp_path: Path, plugin: MkdocstringsPlugin) -> None:
     """Assert globs are correctly expanded.
 
     Parameters:
@@ -86,24 +85,16 @@ def test_expand_globs(tmp_path: Path) -> None:
     globbed_paths = [tmp_path.joinpath(globbed_name) for globbed_name in globbed_names]
     for path in globbed_paths:
         path.touch()
-    handler = PythonHandler(
-        handler="python",
-        theme="material",
-        config_file_path=str(tmp_path.joinpath("mkdocs.yml")),
-        paths=["*exp*"],
-    )
+    plugin.handlers._tool_config.config_file_path = str(tmp_path.joinpath("mkdocs.yml"))
+    handler: PythonHandler = plugin.handlers.get_handler("python", {"paths": ["*exp*"]})  # type: ignore[assignment]
     for path in globbed_paths:
         assert str(path) in handler._paths
 
 
-def test_expand_globs_without_changing_directory() -> None:
+def test_expand_globs_without_changing_directory(plugin: MkdocstringsPlugin) -> None:
     """Assert globs are correctly expanded when we are already in the right directory."""
-    handler = PythonHandler(
-        handler="python",
-        theme="material",
-        config_file_path="mkdocs.yml",
-        paths=["*.md"],
-    )
+    plugin.handlers._tool_config.config_file_path = "mkdocs.yml"
+    handler: PythonHandler = plugin.handlers.get_handler("python", {"paths": ["*.md"]})  # type: ignore[assignment]
     for path in list(glob(os.path.abspath(".") + "/*.md")):
         assert path in handler._paths
 
@@ -130,12 +121,15 @@ def test_expand_globs_without_changing_directory() -> None:
         (False, {"dot.notation.path.to.pyextension": {"option": "value"}}),
     ],
 )
-def test_extension_paths(tmp_path: Path, expect_change: bool, extension: str | dict) -> None:
+def test_extension_paths(
+    tmp_path: Path,
+    expect_change: bool,
+    extension: str | dict,
+    plugin: MkdocstringsPlugin,
+) -> None:
     """Assert extension paths are resolved relative to config file."""
-    handler = get_handler(
-        theme="material",
-        config_file_path=str(tmp_path.joinpath("mkdocs.yml")),
-    )
+    plugin.handlers._tool_config.config_file_path = str(tmp_path.joinpath("mkdocs.yml"))
+    handler: PythonHandler = plugin.handlers.get_handler("python")  # type: ignore[assignment]
     normalized = handler.normalize_extension_paths([extension])[0]
     if expect_change:
         if isinstance(normalized, str) and isinstance(extension, str):
@@ -172,4 +166,4 @@ def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
         module["Class"].lineno = None
         module["Class.function"].lineno = None
         module["attribute"].lineno = None
-        assert handler.render(module, {"show_source": True})
+        assert handler.render(module, PythonOptions(show_source=True))
