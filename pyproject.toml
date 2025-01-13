@@ -30,9 +30,10 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "mkdocstrings>=0.26",
+    "mkdocstrings>=0.28",
     "mkdocs-autorefs>=1.2",
     "griffe>=0.49",
+    "typing-extensions>=4.0; python_version < '3.11'",
 ]
 
 [project.urls]
@@ -106,6 +107,7 @@ dev = [
     "mkdocs-git-revision-date-localized-plugin>=1.2",
     "mkdocs-literate-nav>=0.6",
     "mkdocs-material>=9.5",
+    "pydantic>=2.10",
     "mkdocs-minify-plugin>=0.8",
     # YORE: EOL 3.10: Remove line.
     "tomli>=2.0; python_version < '3.11'",
@@ -113,3 +115,4 @@ dev = [
 
 [tool.inline-snapshot]
 storage-dir = "tests/snapshots"
+format-command = "ruff format --config config/ruff.toml --stdin-filename {filename}"

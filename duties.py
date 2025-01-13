@@ -88,6 +88,8 @@ def check_types(ctx: Context) -> None:
     ctx.run(
         tools.mypy(*PY_SRC_LIST, config_file="config/mypy.ini"),
         title=pyprefix("Type-checking"),
+        # TODO: Update when Pydantic supports 3.14.
+        nofail=sys.version_info >= (3, 14),
     )
 
 

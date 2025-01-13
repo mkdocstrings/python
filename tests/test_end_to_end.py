@@ -39,9 +39,11 @@ def _render(handler: PythonHandler, package: TmpPackage, final_options: dict[str
     handler_options.setdefault("show_root_heading", True)
     handler_options.setdefault("show_source", False)
 
+    options = handler.get_options(handler_options)
+
     handler._paths = [str(package.tmpdir)]
     try:
-        data = handler.collect(package.name, handler_options)
+        data = handler.collect(package.name, options)
     finally:
         # We're using a session handler, so we need to reset its state after each call.
         # This is not thread-safe, but pytest-xdist uses subprocesses, so it's fine.
@@ -49,7 +51,7 @@ def _render(handler: PythonHandler, package: TmpPackage, final_options: dict[str
         handler._lines_collection = LinesCollection()
         handler._paths = []
 
-    html = handler.render(data, handler_options)
+    html = handler.render(data, options)
     return _normalize_html(html)
 
 

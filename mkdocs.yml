@@ -13,6 +13,9 @@ validation:
   absolute_links: warn
   unrecognized_links: warn
 
+hooks:
+- scripts/mkdocs_hooks.py
+
 nav:
 - Home:
   - Overview: index.md
@@ -160,6 +163,8 @@ plugins:
           docstring_options:
             ignore_init_summary: true
           docstring_section_style: list
+          extensions:
+          - scripts/griffe_extensions.py
           filters: ["!^_"]
           heading_level: 1
           inherited_members: true
