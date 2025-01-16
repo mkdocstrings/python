@@ -74,6 +74,7 @@ plugins:
 ////
 ///
 
+[](){#option-parameter_headings}
 ## `parameter_headings`
 
 [:octicons-tag-24: Insiders 1.6.0](../../insiders/changelog.md#1.6.0)
@@ -196,6 +197,7 @@ To customize symbols, see [Customizing symbol types](../customization.md/#symbol
 
 ///
 
+[](){#option-show_root_heading}
 ## `show_root_heading`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -259,6 +261,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_root_toc_entry}
 ## `show_root_toc_entry`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -316,6 +319,7 @@ More text.
 ////
 ///
 
+[](){#option-show_root_full_path}
 ## `show_root_full_path`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -361,6 +365,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_root_members_full_path}
 ## `show_root_members_full_path`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -409,6 +414,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_object_full_path}
 ## `show_object_full_path`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -462,6 +468,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_category_heading}
 ## `show_category_heading`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -527,6 +534,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_symbol_type_heading}
 ## `show_symbol_type_heading`
 
 [:octicons-tag-24: Insiders 1.1.0](../../insiders/changelog.md#1.1.0)
@@ -591,6 +599,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_symbol_type_toc}
 ## `show_symbol_type_toc`
 
 [:octicons-tag-24: Insiders 1.1.0](../../insiders/changelog.md#1.1.0)

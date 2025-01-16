@@ -1,5 +1,6 @@
 # Signatures options
 
+[](){#option-annotations_path}
 ## `annotations_path`
 
 - **:octicons-package-24: Type [`str`][] :material-equal: `"brief"`{ title="default value" }**
@@ -146,6 +147,7 @@ def convert(text: str, md: Markdown) -> Markup:
 ////
 ///
 
+[](){#option-line_length}
 ## `line_length`
 
 - **:octicons-package-24: Type [`int`][] :material-equal: `60`{ title="default value" }**
@@ -198,6 +200,7 @@ plugins:
 ////
 ///
 
+[](){#option-modernize_annotations}
 ## `modernize_annotations`
 
 [:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
@@ -283,8 +286,7 @@ plugins:
 
 ///
 
-
-
+[](){#option-show_signature}
 ## `show_signature`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -323,6 +325,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_signature_annotations}
 ## `show_signature_annotations`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -377,6 +380,7 @@ function(param1, param2=None)
 ////
 ///
 
+[](){#option-separate_signature}
 ## `separate_signature`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -429,6 +433,7 @@ function(param1, param2=None)
 ////
 ///
 
+[](){#option-signature_crossrefs}
 ## `signature_crossrefs`
 
 [:octicons-tag-24: Insiders 1.0.0](../../insiders/changelog.md#1.0.0)
@@ -476,6 +481,7 @@ plugins:
 ////
 ///
 
+[](){#option-unwrap_annotated}
 ## `unwrap_annotated`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**

@@ -1,5 +1,6 @@
 # General options
 
+[](){#option-allow_inspection}
 ## `allow_inspection`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -281,6 +282,8 @@ __all__ = ["their_object"]
 <p>Docstring of your module.</p>
 ////
 ///
+
+[](){#option-show_bases}
 ## `show_bases`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -318,6 +321,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_inheritance_diagram}
 ## `show_inheritance_diagram`
 
 [:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
@@ -403,6 +407,7 @@ Mixin2A --> Mixin2B
 because these classes do not exist in our documentation.*
 ///
 
+[](){#option-show_source}
 ## `show_source`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**

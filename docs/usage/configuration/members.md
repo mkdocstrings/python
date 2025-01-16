@@ -1,5 +1,6 @@
 # Members options
 
+[](){#option-members}
 ## `members`
 
 - **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
@@ -95,6 +96,7 @@ this_attribute = 0
 
 INFO: **The default behavior (with unspecified `members` or `members: null`) is to use [`filters`][].**
 
+[](){#option-inherited_members}
 ## `inherited_members`
 
 - **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
@@ -259,6 +261,7 @@ class Main(Base):
 
 ///
 
+[](){#option-members_order}
 ## `members_order`
 
 - **:octicons-package-24: Type [`str`][] :material-equal: `"alphabetical"`{ title="default value" }**
@@ -329,6 +332,7 @@ def function_c():
 ////
 ///
 
+[](){#option-filters}
 ## `filters`
 
 - **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
@@ -427,6 +431,7 @@ Here are some common filters that you might to want to use.
 - `["!^_[^_]"]`: exclude all private/protected objects, keep special ones (default filters)
 ///
 
+[](){#option-group_by_category}
 ## `group_by_category`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -496,6 +501,7 @@ def function_d():
 ////
 ///
 
+[](){#option-show_submodules}
 ## `show_submodules`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -550,6 +556,7 @@ package
 ////
 ///
 
+[](){#option-summary}
 ## `summary`
 
 [:octicons-tag-24: Insiders 1.2.0](../../insiders/changelog.md#1.2.0)
@@ -643,6 +650,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_labels}
 ## `show_labels`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
