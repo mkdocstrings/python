@@ -1,5 +1,6 @@
 # Docstrings options
 
+[](){#option-docstring_style}
 ## `docstring_style`
 
 - **:octicons-package-24: Type [`str`][] :material-equal: `"google"`{ title="default value" }**
@@ -84,6 +85,7 @@ def greet(name: str) -> str:
 ////
 ///
 
+[](){#option-docstring_options}
 ## `docstring_options`
 
 - **:octicons-package-24: Type [`dict`][] :material-equal: `{}`{ title="default value" }**
@@ -158,6 +160,7 @@ ok
 ////
 ///
 
+[](){#option-docstring_section_style}
 ## `docstring_section_style`
 
 - **:octicons-package-24: Type [`str`][] :material-equal: `"table"`{ title="default value" }**
@@ -249,6 +252,7 @@ by reserving more horizontal space on the second column.
 ////
 ///
 
+[](){#option-merge_init_into_class}
 ## `merge_init_into_class`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -320,6 +324,7 @@ class Thing:
 ////
 ///
 
+[](){#option-relative_crossrefs}
 ## `relative_crossrefs`
 
 [:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
@@ -432,6 +437,7 @@ class Class:
 
 INFO: **There is an alternative, third-party Python handler that handles relative references: [mkdocstrings-python-xref](https://github.com/analog-garage/mkdocstrings-python-xref).**
 
+[](){#option-scoped_crossrefs}
 ## `scoped_crossrefs`
 
 [:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
@@ -452,7 +458,7 @@ The following order is applied when resolving a name in a given scope:
 
 In practice, it means that the name is first looked up in members, then it is compared against the parent name (only if it's a class), then it is looked up in siblings. It continues climbing up the object tree until there's no parent, in which case it raises a name resolution error.
 
-Cross-referencing an imported object will directly link to this object if the objects inventory of the project it comes from was [loaded][import]. You won't be able to cross-reference it within your own documentation with scoped references, if you happen to be rendering this external object too. In that case, you can use an absolute reference or a [relative][relative_crossrefs] one instead.
+Cross-referencing an imported object will directly link to this object if the objects inventory of the project it comes from was [loaded][inventories]. You won't be able to cross-reference it within your own documentation with scoped references, if you happen to be rendering this external object too. In that case, you can use an absolute reference or a [relative][relative_crossrefs] one instead.
 
 Another limitation is that you won't be able to reference an external package if its name can be resolved in the current object's scope.
 
@@ -541,6 +547,7 @@ class Class:
 
 ///
 
+[](){#option-show_if_no_docstring}
 ## `show_if_no_docstring`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -610,6 +617,7 @@ class ClassWithoutDocstring:
 ////
 ///
 
+[](){#option-show_docstring_attributes}
 ## `show_docstring_attributes`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -662,6 +670,7 @@ class Class:
 ////
 ///
 
+[](){#option-show_docstring_functions}
 ## `show_docstring_functions`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -736,7 +745,7 @@ class Class:
 ////
 ///
 
-
+[](){#option-show_docstring_classes}
 ## `show_docstring_classes`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -795,6 +804,7 @@ class Class:
 ////
 ///
 
+[](){#option-show_docstring_modules}
 ## `show_docstring_modules`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -851,6 +861,7 @@ Modules:
 ////
 ///
 
+[](){#option-show_docstring_description}
 ## `show_docstring_description`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -914,6 +925,7 @@ class Class:
 ////
 ///
 
+[](){#option-show_docstring_examples}
 ## `show_docstring_examples`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -967,6 +979,7 @@ hello
 ////
 ///
 
+[](){#option-show_docstring_other_parameters}
 ## `show_docstring_other_parameters`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -1017,6 +1030,7 @@ def do_something(**kwargs):
 ////
 ///
 
+[](){#option-show_docstring_parameters}
 ## `show_docstring_parameters`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -1067,6 +1081,7 @@ def do_something(whatever: int = 0):
 ////
 ///
 
+[](){#option-show_docstring_raises}
 ## `show_docstring_raises`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -1118,6 +1133,7 @@ def raise_runtime_error():
 ////
 ///
 
+[](){#option-show_docstring_receives}
 ## `show_docstring_receives`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -1177,6 +1193,7 @@ def iter_skip(
 ////
 ///
 
+[](){#option-show_docstring_returns}
 ## `show_docstring_returns`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -1228,6 +1245,7 @@ def rand() -> int:
 ////
 ///
 
+[](){#option-show_docstring_warns}
 ## `show_docstring_warns`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -1279,6 +1297,7 @@ def warn():
 ////
 ///
 
+[](){#option-show_docstring_yields}
 ## `show_docstring_yields`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
