@@ -18,6 +18,10 @@ and sometimes the collected data is inaccurate
 (depending on the tool that was used to compile the module)
 or too low-level/technical for API documentation.
 
+See also [`force_inspection`](#force_inspection).
+
+WARNING: **Packages are loaded only once.** When mkdocstrings-python collects data from a Python package (thanks to [Griffe](https://mkdocstrings.github.io/griffe/)), it collects *the entire package* and *caches it*. Next time an object from the same package is rendered, the package is retrieved from the cache and not collected again. The `allow_inspection` option will therefore only have an effect the first time a package is collected, and will do nothing for objects rendered afterwards.
+
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
 - mkdocstrings:
@@ -55,6 +59,145 @@ plugins:
 ////
 ///
 
+[](){#option-extensions}
+## `extensions`
+
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref> | <autoref identifier="dict" optional>dict</autoref>[<autoref identifier="str" optional>str</autoref>, <autoref identifier="dict" optional>dict</autoref>[<autoref identifier="str" optional>str</autoref>, <autoref identifier="typing.Any" optional>Any</autoref>]]]</code> :material-equal: `[]`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+The `extensions` option lets you enable [Griffe extensions](https://mkdocstrings.github.io/griffe/extensions/), which enhance or modify the data collected from Python sources (or compiled modules).
+
+Elements in the list can be strings or dictionaries.
+
+Strings denote the path to an extension module, like `griffe_typingdoc`, or to an extension class directly, like `griffe_typingdoc.TypingDocExtension`. When using a module path, all extensions within that module will be loaded and enabled. Strings can also be the path to a Python module, and a class name separated with `:`, like `scripts/griffe_extensions.py` or `scripts/griffe_extensions.py:MyExtension`.
+
+Dictionaries have a single key, which is the module/class path (as a dot-separated qualifier or file path and colon-separated class name, like above), and its value is another dictionary specifying options that will be passed when to class constructors when instantiating extensions.
+
+WARNING: **Packages are loaded only once.** When mkdocstrings-python collects data from a Python package (thanks to [Griffe](https://mkdocstrings.github.io/griffe/)), it collects *the entire package* and *caches it*. Next time an object from the same package is rendered, the package is retrieved from the cache and not collected again. Only the extensions specified the first time the package is loaded will be used. You cannot use a different set of extensions for specific objects rendered afterwards, and you cannot deactivate extensions for objects rendered afterwards either.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          extensions:
+          - griffe_sphinx
+          - griffe_pydantic: {schema: true}
+          - scripts/exts.py:DynamicDocstrings:
+              paths: [mypkg.mymod.myobj]
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: your_package.your_module.your_func
+    options:
+      extensions:
+      - griffe_typingdoc
+```
+
+[](){#option-extra}
+## `extra`
+
+- **:octicons-package-24: Type [`dict`][] :material-equal: `{}`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+The `extra` option lets you inject additional variables into the Jinja context used when rendering templates. You can then use this extra context in your [overridden templates][templates].
+
+Local `extra` options will be merged into the global `extra` option:
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          extra:
+            hello: world
+```
+
+```md title="in docs/some_page.md (local configuration)"
+::: your_package.your_module.your_func
+    options:
+      extra:
+        foo: bar
+```
+
+...will inject both `hello` and `foo` into the Jinja context when rendering `your_package.your_module.your_func`.
+
+> WARNING: Previously, extra options were supported directly under the `options` key.
+>
+> ```yaml
+> plugins:
+> - mkdocstrings:
+>     handlers:
+>       python:
+>         options:
+>           hello: world
+> ```
+>
+> Now that we introduced optional validation of options and automatic JSON schema generation thanks to Pydantic, we require extra options to be put under `options.extra`. Extra options directly under `options` are still supported, but deprecated, and will emit deprecation warnings. Support will be removed in a future version of mkdocstrings-python.
+
+[](){#option-find_stubs_package}
+## `find_stubs_package`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+When looking for documentation specified in [autodoc instructions][autodoc syntax] (`::: identifier`), also look for
+the stubs package as defined in [PEP 561](https://peps.python.org/pep-0561/) if it exists. This is useful when
+most of your documentation is separately provided by such a package and not inline in your main package.
+
+WARNING: **Packages are loaded only once.** When mkdocstrings-python collects data from a Python package (thanks to [Griffe](https://mkdocstrings.github.io/griffe/)), it collects *the entire package* and *caches it*. Next time an object from the same package is rendered, the package is retrieved from the cache and not collected again. The `find_stubs_package` option will therefore only have an effect the first time a package is collected, and will do nothing for objects rendered afterwards.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          find_stubs_package: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: your_package.your_module.your_func
+    options:
+      find_stubs_package: true
+```
+
+```python title="your_package/your_module.py"
+
+def your_func(a, b):
+    # Function code
+    ...
+
+# rest of your code
+```
+
+```python title="your_package-stubs/your_module.pyi"
+
+def your_func(a: int, b: str):
+    """
+    <Function docstring>
+    """
+    ...
+
+# rest of your code
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With find_stubs_package
+<h2><code>your_func</code></h2>
+<p>Function docstring</p>
+////
+
+//// tab | Without find_stubs_package
+<h2><code>your_func</code></h2>
+////
+///
+
+[](){#option-force_inspection}
 ## `force_inspection`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -63,6 +206,8 @@ plugins:
 Whether to force inspecting modules (importing them) even if their source code is available.
 
 This option is useful when you know that dynamic analysis (inspection) yields better results than static analysis. Do not use this blindly: the recommended approach is to write a Griffe extension that will improve extracted API data. See [How to selectively inspect objects](https://mkdocstrings.github.io/griffe/guide/users/how-to/selectively-inspect/).
+
+See also [`allow_inspection`](#allow_inspection).
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -79,6 +224,63 @@ plugins:
       force_inspection: true
 ```
 
+WARNING: **Packages are loaded only once.** When mkdocstrings-python collects data from a Python package (thanks to [Griffe](https://mkdocstrings.github.io/griffe/)), it collects *the entire package* and *caches it*. Next time an object from the same package is rendered, the package is retrieved from the cache and not collected again. The `force_inspection` option will therefore only have an effect the first time a package is collected, and will do nothing for objects rendered afterwards.
+
+[](){#option-preload_modules}
+## `preload_modules`
+
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `None`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Pre-load modules that are not specified directly in [autodoc instructions][autodoc syntax] (`::: identifier`).
+It is useful when you want to render documentation for a particular member of an object,
+and this member is imported from another package than its parent.
+
+For an imported member to be rendered,
+you need to add it to the [`__all__`][__all__] attribute of the importing module.
+The package from which the imported object originates must be accessible to the handler
+(see [Finding modules](../index.md#finding-modules)).
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          preload_modules:
+          - their_package
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: your_package.your_module
+    options:
+      preload_modules:
+      - their_package
+```
+
+```python title="your_package/your_module.py"
+from their_package.their_module import their_object
+
+__all__ = ["their_object"]
+
+# rest of your code
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With preloaded modules
+<h2><code>your_module</code></h2>
+<p>Docstring of your module.</p>
+<h3><code>their_object</code></h3>
+<p>Docstring of their object.</p>
+////
+
+//// tab | Without preloaded modules
+<h2><code>your_module</code></h2>
+<p>Docstring of your module.</p>
+////
+///
 ## `show_bases`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -243,117 +445,5 @@ def some_function():
 //// tab | Without source
 <h2><code>some_function()</code></h2>
 <p>Docstring of the function.</p>
-////
-///
-
-## `preload_modules`
-
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `None`{ title="default value" }**
-<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
-
-Pre-load modules that are not specified directly in [autodoc instructions][autodoc syntax] (`::: identifier`).
-It is useful when you want to render documentation for a particular member of an object,
-and this member is imported from another package than its parent.
-
-For an imported member to be rendered,
-you need to add it to the [`__all__`][__all__] attribute of the importing module.
-The package from which the imported object originates must be accessible to the handler
-(see [Finding modules](../index.md#finding-modules)).
-
-```yaml title="in mkdocs.yml (global configuration)"
-plugins:
-- mkdocstrings:
-    handlers:
-      python:
-        options:
-          preload_modules:
-          - their_package
-```
-
-```md title="or in docs/some_page.md (local configuration)"
-::: your_package.your_module
-    options:
-      preload_modules:
-      - their_package
-```
-
-```python title="your_package/your_module.py"
-from their_package.their_module import their_object
-
-__all__ = ["their_object"]
-
-# rest of your code
-```
-
-/// admonition | Preview
-    type: preview
-
-//// tab | With preloaded modules
-<h2><code>your_module</code></h2>
-<p>Docstring of your module.</p>
-<h3><code>their_object</code></h3>
-<p>Docstring of their object.</p>
-////
-
-//// tab | Without preloaded modules
-<h2><code>your_module</code></h2>
-<p>Docstring of your module.</p>
-////
-///
-
-## `find_stubs_package`
-
-- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
-<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
-
-When looking for documentation specified in [autodoc instructions][autodoc syntax] (`::: identifier`), also look for
-the stubs package as defined in [PEP 561](https://peps.python.org/pep-0561/) if it exists. This is useful when
-most of your documentation is separately provided by such a package and not inline in your main package.
-
-```yaml title="in mkdocs.yml (global configuration)"
-plugins:
-- mkdocstrings:
-    handlers:
-      python:
-        options:
-          find_stubs_package: true
-```
-
-```md title="or in docs/some_page.md (local configuration)"
-::: your_package.your_module.your_func
-    options:
-      find_stubs_package: true
-```
-
-```python title="your_package/your_module.py"
-
-def your_func(a, b):
-    # Function code
-    ...
-
-# rest of your code
-```
-
-```python title="your_package-stubs/your_module.pyi"
-
-def your_func(a: int, b: str):
-    """
-    <Function docstring>
-    """
-    ...
-
-# rest of your code
-```
-
-/// admonition | Preview
-    type: preview
-
-//// tab | With find_stubs_package
-<h2><code>your_func</code></h2>
-<p>Function docstring</p>
-////
-
-//// tab | Without find_stubs_package
-<h2><code>your_func</code></h2>
 ////
 ///

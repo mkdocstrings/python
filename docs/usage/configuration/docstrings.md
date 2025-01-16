@@ -29,6 +29,9 @@ plugins:
       docstring_style: numpy
 ```
 
+WARNING: **The style is applied to the specified object only, not its members.** Local `docstring_style` options (in `:::` instructions) will only be applied to the specified object, and not its members. Instead of changing the style when rendering, we strongly recommend to *set the right style as early as possible*, for example by using the [auto-style](https://mkdocstrings.github.io/griffe/reference/docstrings/#auto-style) (sponsors only), or with a custom Griffe extension
+
+
 /// admonition | Preview
     type: preview
 
