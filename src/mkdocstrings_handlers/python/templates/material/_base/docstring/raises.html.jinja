@@ -34,7 +34,7 @@ Context:
           <tr class="doc-section-item">
             <td>
               {% if raises.annotation %}
-                {% with expression = raises.annotation %}
+                {% with expression = raises.annotation, backlink_type = "raised-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -57,7 +57,7 @@ Context:
       {% for raises in section.value %}
         <li class="doc-section-item field-body">
           {% if raises.annotation %}
-            {% with expression = raises.annotation %}
+            {% with expression = raises.annotation, backlink_type = "raised-by" %}
               <code>{% include "expression"|get_template with context %}</code>
             {% endwith %}
             –
@@ -84,7 +84,7 @@ Context:
           <tr class="doc-section-item">
             <td>
               <span class="doc-raises-annotation">
-                {% with expression = raises.annotation %}
+                {% with expression = raises.annotation, backlink_type = "raised-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               </span>

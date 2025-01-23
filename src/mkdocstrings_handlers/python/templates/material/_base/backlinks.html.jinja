@@ -1,0 +1,27 @@
+{#- Template for backlinks.
+
+This template renders backlinks.
+
+Context:
+  backlinks (Mapping[str, Iterable[str]]): The backlinks to render.
+  config (dict): The configuration options.
+-#}
+
+{% block logs scoped %}
+  {#- Logging block.
+
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
+  {{ log.debug("Rendering backlinks") }}
+{% endblock logs %}
+
+<div class="doc doc-backlinks">
+  {% for backlink_type, backlink_list in backlinks | dictsort %}
+    <b class="doc doc-backlink-type">{{ verbose_type[backlink_type] }}:</b>
+    <ul class="doc doc-backlink-list">
+      {% for url, title in backlink_list | sort(attribute=1) %}
+        <li><a href="{{ url }}" class="doc doc-backlink">{{ (title or url.split("#", 1)[-1]) | safe }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>

@@ -32,7 +32,7 @@ Context:
             <li>
               <b><code>{{ attribute.name }}</code></b>
               {% if attribute.annotation %}
-                {% with expression = attribute.annotation %}
+                {% with expression = attribute.annotation, backlink_type = "returned-by" %}
                   (<code>{% include "expression"|get_template with context %}</code>)
                 {% endwith %}
               {% endif %}

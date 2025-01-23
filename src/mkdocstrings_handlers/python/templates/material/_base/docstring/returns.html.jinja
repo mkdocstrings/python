@@ -37,7 +37,7 @@ Context:
             {% if name_column %}<td>{% if returns.name %}<code>{{ returns.name }}</code>{% endif %}</td>{% endif %}
             <td>
               {% if returns.annotation %}
-                {% with expression = returns.annotation %}
+                {% with expression = returns.annotation, backlink_type = "returned-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -61,7 +61,7 @@ Context:
         <li class="doc-section-item field-body">
           {% if returns.name %}<b><code>{{ returns.name }}</code></b>{% endif %}
           {% if returns.annotation %}
-            {% with expression = returns.annotation %}
+            {% with expression = returns.annotation, backlink_type = "returned-by" %}
               {% if returns.name %} ({% endif %}
               <code>{% include "expression"|get_template with context %}</code>
               {% if returns.name %}){% endif %}
@@ -93,7 +93,7 @@ Context:
                 <code>{{ returns.name }}</code>
               {% elif returns.annotation %}
                 <span class="doc-returns-annotation">
-                  {% with expression = returns.annotation %}
+                  {% with expression = returns.annotation, backlink_type = "returned-by" %}
                     <code>{% include "expression"|get_template with context %}</code>
                   {% endwith %}
                 </span>
@@ -107,7 +107,7 @@ Context:
                 <p>
                   <span class="doc-returns-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
-                    {% with expression = returns.annotation %}
+                    {% with expression = returns.annotation, backlink_type = "returned-by" %}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>

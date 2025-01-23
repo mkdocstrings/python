@@ -210,10 +210,10 @@ def do_format_attribute(
 
     signature = str(attribute_path).strip()
     if annotations and attribute.annotation:
-        annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
+        annotation = template.render(context.parent, expression=attribute.annotation, signature=True, backlink_type="returned-by")
         signature += f": {annotation}"
     if attribute.value:
-        value = template.render(context.parent, expression=attribute.value, signature=True)
+        value = template.render(context.parent, expression=attribute.value, signature=True, backlink_type="used-by")
         signature += f" = {value}"
 
     signature = do_format_code(signature, line_length)

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 import glob
 import os
 import posixpath
@@ -272,6 +273,11 @@ class PythonHandler(BaseHandler):
                 "locale": self.config.locale,
             },
         )
+
+    def render_backlinks(self, backlinks: Mapping[str, Iterable[str]]) -> str:  # noqa: D102 (ignore missing docstring)
+        template = self.env.get_template("backlinks.html.jinja")
+        verbose_type = {key: key.capitalize().replace("-by", " by") for key in backlinks.keys()}
+        return template.render(backlinks=backlinks, config=self.get_options({}), verbose_type=verbose_type)
 
     def update_env(self, config: Any) -> None:  # noqa: ARG002
         """Update the Jinja environment with custom filters and tests.

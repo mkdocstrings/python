@@ -37,6 +37,7 @@ Context:
           heading_level,
           role="class",
           id=html_id,
+          title=html_id,
           class="doc doc-heading",
           toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + class.name,
         ) %}
@@ -130,7 +131,11 @@ Context:
           {% if config.show_bases and class.bases %}
             <p class="doc doc-class-bases">
               Bases: {% for expression in class.bases -%}
-                <code>{% include "expression"|get_template with context %}</code>{% if not loop.last %}, {% endif %}
+                <code>
+                  {%- with backlink_type = "subclassed-by" -%}
+                    {%- include "expression"|get_template with context -%}
+                  {%- endwith -%}
+                </code>{% if not loop.last %}, {% endif %}
               {% endfor -%}
             </p>
           {% endif %}
@@ -158,6 +163,8 @@ Context:
             {% endwith %}
           {% endif %}
         {% endblock docstring %}
+
+        <backlinks identifier="{{ html_id }}" handler="python" />
 
         {% block summary scoped %}
           {#- Summary block.
