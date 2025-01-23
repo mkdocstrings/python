@@ -51,7 +51,7 @@ Context:
             </td>
             <td>
               {% if parameter.annotation %}
-                {% with expression = parameter.annotation %}
+                {% with expression = parameter.annotation, backlink_type = "used-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -63,7 +63,7 @@ Context:
             </td>
             <td>
               {% if parameter.default %}
-                {% with expression = parameter.default %}
+                {% with expression = parameter.default, backlink_type = "used-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% else %}
@@ -96,10 +96,10 @@ Context:
             <b><code>{{ parameter.name }}</code></b>
           {% endif %}
           {% if parameter.annotation %}
-            {% with expression = parameter.annotation %}
+            {% with expression = parameter.annotation, backlink_type = "used-by" %}
               (<code>{% include "expression"|get_template with context %}</code>
               {%- if parameter.default %}, {{ lang.t("default:") }}
-                {% with expression = parameter.default %}
+                {% with expression = parameter.default, backlink_type = "used-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %})
@@ -149,7 +149,7 @@ Context:
                 {% if parameter.annotation %}
                   <span class="doc-param-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
-                    {% with expression = parameter.annotation %}
+                    {% with expression = parameter.annotation, backlink_type = "used-by" %}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>
@@ -157,7 +157,7 @@ Context:
                 {% if parameter.default %}
                   <span class="doc-param-default">
                     <b>{{ lang.t("DEFAULT:") }}</b>
-                    {% with expression = parameter.default %}
+                    {% with expression = parameter.default, backlink_type = "used-by" %}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>

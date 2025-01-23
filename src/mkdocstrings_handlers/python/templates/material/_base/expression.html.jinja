@@ -11,7 +11,7 @@ which is a tree-like structure representing a Python expression.
   -#}
 {% endblock logs %}
 
-{%- macro crossref(name, annotation_path) -%}
+{%- macro crossref(name, annotation_path, backlink_type="") -%}
   {#- Output a cross-reference.
 
   This macro outputs a cross-reference to the given name.
@@ -35,11 +35,11 @@ which is a tree-like structure representing a Python expression.
       {{ prefix }}
       {%- if not signature -%}
         {#- Always render cross-references outside of signatures. We don't need to stash them. -#}
-        <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
+        <autoref identifier="{{ path }}"{% if backlink_type %} backlink-type="{{ backlink_type }}" backlink-anchor="{{ html_id }}"{% endif %} optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
       {%- elif config.signature_crossrefs -%}
         {#- We're in a signature and cross-references are enabled, we must render one and stash it. -#}
         {%- filter stash_crossref(length=title|length) -%}
-          <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
+          <autoref identifier="{{ path }}"{% if backlink_type %} backlink-type="{{ backlink_type }}" backlink-anchor="{{ html_id }}"{% endif %} optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
         {%- endfilter -%}
       {%- else -%}
         {#- We're in a signature but cross-references are disabled, we just render the title. -#}
@@ -72,7 +72,7 @@ which is a tree-like structure representing a Python expression.
   {%- endif -%}
 {%- endmacro -%}
 
-{%- macro render(expression, annotations_path) -%}
+{%- macro render(expression, annotations_path, backlink_type="") -%}
   {#- Render an expression.
 
   Parameters:
@@ -85,13 +85,13 @@ which is a tree-like structure representing a Python expression.
   {%- if expression is string -%}
     {%- if signature -%}{{ expression|safe }}{%- else -%}{{ expression }}{%- endif -%}
   {%- elif expression.classname == "ExprName" -%}
-    {{ crossref(expression, annotations_path) }}
+    {{ crossref(expression, annotations_path, backlink_type) }}
   {%- elif config.unwrap_annotated and expression.classname == "ExprSubscript" and expression.canonical_path in ("typing.Annotated", "typing_extensions.Annotated") -%}
     {{ render(expression.slice.elements[0], annotations_path) }}
   {%- elif expression.classname == "ExprAttribute" -%}
     {%- if annotations_path == "brief" -%}
       {%- if expression.last.is_enum_value -%}
-        {{ crossref(expression.last.parent, "brief") }}.value
+        {{ crossref(expression.last.parent, "brief", backlink_type) }}.value
       {%- else -%}
         {{ render(expression.last, "brief") }}
       {%- endif -%}
@@ -116,4 +116,4 @@ which is a tree-like structure representing a Python expression.
   {%- endif -%}
 {%- endmacro -%}
 
-{{ render(expression, config.annotations_path) }}
+{{ render(expression, config.annotations_path, backlink_type|default("")) }}

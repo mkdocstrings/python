@@ -6,6 +6,7 @@ import glob
 import os
 import posixpath
 import sys
+from collections.abc import Iterable
 from contextlib import suppress
 from dataclasses import asdict
 from pathlib import Path
@@ -25,6 +26,7 @@ from mkdocs.exceptions import PluginError
 from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem, HandlerOptions
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
+from mkdocs_autorefs.plugin import BacklinkCrumb
 
 from mkdocstrings_handlers.python import rendering
 from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions
@@ -33,6 +35,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterator, Mapping, MutableMapping, Sequence
 
     from mkdocs.config.defaults import MkDocsConfig
+    from mkdocs_autorefs.plugin import Backlink
 
 
 if sys.version_info >= (3, 11):
@@ -280,6 +283,16 @@ class PythonHandler(BaseHandler):
             },
         )
 
+    def render_backlinks(self, backlinks: Mapping[str, Iterable[Backlink]]) -> str:  # noqa: D102 (ignore missing docstring)
+        template = self.env.get_template("backlinks.html.jinja")
+        verbose_type = {key: key.capitalize().replace("-by", " by") for key in backlinks.keys()}
+        return template.render(
+            backlinks=backlinks,
+            config=self.get_options({}),
+            verbose_type=verbose_type,
+            default_crumb=BacklinkCrumb(title="", url=""),
+        )
+
     def update_env(self, config: Any) -> None:  # noqa: ARG002
         """Update the Jinja environment with custom filters and tests.
 
@@ -303,6 +316,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section
         self.env.filters["as_classes_section"] = rendering.do_as_classes_section
         self.env.filters["as_modules_section"] = rendering.do_as_modules_section
+        self.env.filters["backlink_tree"] = rendering.do_backlink_tree
         self.env.globals["AutorefsHook"] = rendering.AutorefsHook
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 

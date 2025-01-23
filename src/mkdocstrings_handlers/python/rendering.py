@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 import random
 import re
 import string
@@ -12,7 +13,7 @@ from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
 from re import Match, Pattern
-from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal
+from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal, TypeVar
 
 from griffe import (
     Alias,
@@ -26,9 +27,12 @@ from griffe import (
     DocstringSectionModules,
     Object,
 )
+from collections import defaultdict
+from typing import Optional, Sequence, Union
+
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
-from mkdocs_autorefs import AutorefsHookInterface
+from mkdocs_autorefs import AutorefsHookInterface, Backlink, BacklinkCrumb
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
@@ -210,10 +214,15 @@ def do_format_attribute(
 
     signature = str(attribute_path).strip()
     if annotations and attribute.annotation:
-        annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
+        annotation = template.render(
+            context.parent,
+            expression=attribute.annotation,
+            signature=True,
+            backlink_type="returned-by",
+        )
         signature += f": {annotation}"
     if attribute.value:
-        value = template.render(context.parent, expression=attribute.value, signature=True)
+        value = template.render(context.parent, expression=attribute.value, signature=True, backlink_type="used-by")
         signature += f" = {value}"
 
     signature = do_format_code(signature, line_length)
@@ -725,3 +734,52 @@ class AutorefsHook(AutorefsHookInterface):
             filepath=str(filepath),
             lineno=lineno,
         )
+
+
+T = TypeVar("T")
+Tree = dict[T, "Tree"]
+CompactTree = dict[tuple[T, ...], "CompactTree"]
+_rtree = lambda: defaultdict(_rtree)
+
+
+def _tree(data: Iterable[tuple[T, ...]]) -> Tree:
+    new_tree = _rtree()
+    for nav in data:
+        *path, leaf = nav
+        node = new_tree
+        for key in path:
+            node = node[key]
+        node[leaf] = _rtree()
+    return new_tree
+
+
+def print_tree(tree: Tree, level: int = 0) -> None:
+    for key, value in tree.items():
+        print("  " * level + str(key))
+        if value:
+            print_tree(value, level + 1)
+
+
+def _compact_tree(tree: Tree) -> CompactTree:
+    new_tree = _rtree()
+    for key, value in tree.items():
+        child = _compact_tree(value)
+        if len(child) == 1:
+            child_key, child_value = next(iter(child.items()))
+            new_key = (key, *child_key)
+            new_tree[new_key] = child_value
+        else:
+            new_tree[(key,)] = child
+    return new_tree
+
+
+def do_backlink_tree(backlinks: list[Backlink]) -> CompactTree[BacklinkCrumb]:
+    """Build a tree of backlinks.
+
+    Parameters:
+        backlinks: The list of backlinks.
+
+    Returns:
+        A tree of backlinks.
+    """
+    return _compact_tree(_tree((backlink.crumbs for backlink in backlinks)))

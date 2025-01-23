@@ -36,7 +36,7 @@ Context:
             <td><code>{{ parameter.name }}</code></td>
             <td>
               {% if parameter.annotation %}
-                {% with expression = parameter.annotation %}
+                {% with expression = parameter.annotation, backlink_type = "used-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -60,7 +60,7 @@ Context:
         <li class="doc-section-item field-body">
           <b><code>{{ parameter.name }}</code></b>
           {% if parameter.annotation %}
-            {% with expression = parameter.annotation %}
+            {% with expression = parameter.annotation, backlink_type = "used-by" %}
               (<code>{% include "expression"|get_template with context %}</code>)
             {% endwith %}
           {% endif %}
@@ -94,7 +94,7 @@ Context:
                 {% if parameter.annotation %}
                   <span class="doc-param-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
-                    {% with expression = parameter.annotation %}
+                    {% with expression = parameter.annotation, backlink_type = "used-by" %}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>

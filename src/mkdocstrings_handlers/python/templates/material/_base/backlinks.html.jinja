@@ -1,0 +1,65 @@
+{#- Template for backlinks.
+
+This template renders backlinks.
+
+Context:
+  backlinks (Mapping[str, Iterable[str]]): The backlinks to render.
+  config (dict): The configuration options.
+-#}
+
+{% block logs scoped %}
+  {#- Logging block.
+
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
+  {{ log.debug("Rendering backlinks") }}
+{% endblock logs %}
+
+{% macro render_crumb(crumb) %}
+  <span class="doc doc-backlink-crumb">
+    {% if crumb.url and crumb.title %}
+      <a href="{{ crumb.url }}">{{ crumb.title | safe }}</a>
+    {% elif crumb.title %}
+      <span>{{ crumb.title | safe }}</span>
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro render_tree(tree) %}
+  <ul class="doc doc-backlink-list">
+    {% for node, child in tree | dictsort %}
+      <li class="doc doc-backlink">
+        {% for crumb in node %}
+          {{ render_crumb(crumb) }}
+        {% endfor %}
+        {% if child %}
+          {{ render_tree(child) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% if config.backlinks %}
+  <div class="doc doc-backlinks">
+    {% if config.backlinks == "tree" %}
+      {% for backlink_type, backlink_list in backlinks | dictsort %}
+        <b class="doc doc-backlink-type">{{ verbose_type[backlink_type] }}:</b>
+        {{ render_tree(backlink_list|backlink_tree) }}
+      {% endfor %}
+    {% elif config.backlinks == "flat" %}
+      {% for backlink_type, backlink_list in backlinks | dictsort %}
+        <b class="doc doc-backlink-type">{{ verbose_type[backlink_type] }}:</b>
+        <ul class="doc doc-backlink-list">
+          {% for backlink in backlink_list | sort(attribute="crumbs") %}
+            <li class="doc doc-backlink">
+              {% for crumb in backlink.crumbs %}
+                {{ render_crumb(crumb) }}
+              {% endfor %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endif %}
