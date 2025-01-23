@@ -263,7 +263,7 @@ def test_deduplicate_summary_sections(handler: PythonHandler, section: str, code
     """Assert summary sections are deduplicated."""
     summary_section = section.lower()
     summary_section = "functions" if summary_section == "methods" else summary_section
-    with temporary_visited_module(code, docstring_parser="google") as module:  # type: ignore[arg-type]
+    with temporary_visited_module(code, docstring_parser="google") as module:
         if summary_section == "modules":
             module.set_member("a", Module("A", docstring=Docstring("A.")))
             module.set_member("b", Module("B", docstring=Docstring("B.")))

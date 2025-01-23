@@ -113,6 +113,10 @@ Context:
             {% include "docstring"|get_template with context %}
           {% endwith %}
         {% endblock docstring %}
+
+        {% if config.backlinks %}
+          <backlinks identifier="{{ html_id }}" handler="python" />
+        {% endif %}
       {% endblock contents %}
     </div>
 

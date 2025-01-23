@@ -34,7 +34,7 @@ Context:
           <tr class="doc-section-item">
             <td>
               {% if warns.annotation %}
-                {% with expression = warns.annotation %}
+                {% with expression = warns.annotation, backlink_type = "emitted-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -57,7 +57,7 @@ Context:
       {% for warns in section.value %}
         <li class="doc-section-item field-body">
           {% if warns.annotation %}
-            {% with expression = warns.annotation %}
+            {% with expression = warns.annotation, backlink_type = "emitted-by" %}
               <code>{% include "expression"|get_template with context %}</code>
             {% endwith %}
             –
@@ -84,7 +84,7 @@ Context:
           <tr class="doc-section-item">
             <td>
               <span class="doc-warns-annotation">
-                {% with expression = warns.annotation %}
+                {% with expression = warns.annotation, backlink_type = "emitted-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               </span>

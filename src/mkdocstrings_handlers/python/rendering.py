@@ -8,11 +8,12 @@ import string
 import subprocess
 import sys
 import warnings
+from collections import defaultdict
 from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
 from re import Match, Pattern
-from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal
+from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal, TypeVar
 
 from griffe import (
     Alias,
@@ -28,11 +29,11 @@ from griffe import (
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
-from mkdocs_autorefs import AutorefsHookInterface
+from mkdocs_autorefs import AutorefsHookInterface, Backlink, BacklinkCrumb
 from mkdocstrings import get_logger
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator, Sequence
+    from collections.abc import Iterable, Iterator, Sequence
 
     from griffe import Attribute, Class, Function, Module
     from jinja2 import Environment, Template
@@ -210,10 +211,15 @@ def do_format_attribute(
 
     signature = str(attribute_path).strip()
     if annotations and attribute.annotation:
-        annotation = template.render(context.parent, expression=attribute.annotation, signature=True)
+        annotation = template.render(
+            context.parent,
+            expression=attribute.annotation,
+            signature=True,
+            backlink_type="returned-by",
+        )
         signature += f": {annotation}"
     if attribute.value:
-        value = template.render(context.parent, expression=attribute.value, signature=True)
+        value = template.render(context.parent, expression=attribute.value, signature=True, backlink_type="used-by")
         signature += f" = {value}"
 
     signature = do_format_code(signature, line_length)
@@ -725,3 +731,45 @@ class AutorefsHook(AutorefsHookInterface):
             filepath=str(filepath),
             lineno=lineno,
         )
+
+
+T = TypeVar("T")
+Tree = dict[T, "Tree"]
+CompactTree = dict[tuple[T, ...], "CompactTree"]
+_rtree = lambda: defaultdict(_rtree)  # type: ignore[has-type,var-annotated]  # noqa: E731
+
+
+def _tree(data: Iterable[tuple[T, ...]]) -> Tree:
+    new_tree = _rtree()
+    for nav in data:
+        *path, leaf = nav
+        node = new_tree
+        for key in path:
+            node = node[key]
+        node[leaf] = _rtree()
+    return new_tree
+
+
+def _compact_tree(tree: Tree) -> CompactTree:
+    new_tree = _rtree()
+    for key, value in tree.items():
+        child = _compact_tree(value)
+        if len(child) == 1:
+            child_key, child_value = next(iter(child.items()))
+            new_key = (key, *child_key)
+            new_tree[new_key] = child_value
+        else:
+            new_tree[(key,)] = child
+    return new_tree
+
+
+def do_backlink_tree(backlinks: list[Backlink]) -> CompactTree[BacklinkCrumb]:
+    """Build a tree of backlinks.
+
+    Parameters:
+        backlinks: The list of backlinks.
+
+    Returns:
+        A tree of backlinks.
+    """
+    return _compact_tree(_tree(backlink.crumbs for backlink in backlinks))

@@ -129,6 +129,10 @@ Context:
           {% endwith %}
         {% endblock docstring %}
 
+        {% if config.backlinks %}
+          <backlinks identifier="{{ html_id }}" handler="python" />
+        {% endif %}
+
         {% block source scoped %}
           {#- Source block.
 

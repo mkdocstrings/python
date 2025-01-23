@@ -60,6 +60,38 @@ plugins:
 ////
 ///
 
+[](){#option-backlinks}
+## `backlinks`
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.10.0](../../insiders/changelog.md#1.10.0)
+
+- **:octicons-package-24: Type <code><autoref identifier="typing.Literal" optional>Literal</autoref>["flat", "tree", False]</code> :material-equal: `False`{ title="default value" }**
+
+The `backlinks` option enables rendering of backlinks within your API documentation.
+
+When an arbitrary section of your documentation links to an API symbol, this link will be collected as a backlink, and rendered below your API symbol. In short, the API symbol will link back to the section that links to it. Such backlinks will help your users navigate the documentation, as they will immediately which functions return a specific symbol, or where a specific symbol is accepted as parameter, etc..
+
+Each backlink is a list of breadcrumbs that represent the navigation, from the root page down to the given section.
+
+The available styles for rendering backlinks are **`flat`** and **`tree`**.
+
+- **`flat`** will render backlinks as a single-layer list. This can lead to repetition of breadcrumbs.
+- **`tree`** will combine backlinks into a tree, to remove repetition of breadcrumbs.
+
+WARNING: **Global-only option.** For now, the option only works when set globally in `mkdocs.yml`.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          backlinks: tree
+```
+
+<!-- TODO: Add screenshots! -->
+
 [](){#option-extensions}
 ## `extensions`
 

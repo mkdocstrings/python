@@ -130,7 +130,11 @@ Context:
           {% if config.show_bases and class.bases %}
             <p class="doc doc-class-bases">
               Bases: {% for expression in class.bases -%}
-                <code>{% include "expression"|get_template with context %}</code>{% if not loop.last %}, {% endif %}
+                <code>
+                  {%- with backlink_type = "subclassed-by" -%}
+                    {%- include "expression"|get_template with context -%}
+                  {%- endwith -%}
+                </code>{% if not loop.last %}, {% endif %}
               {% endfor -%}
             </p>
           {% endif %}
@@ -158,6 +162,10 @@ Context:
             {% endwith %}
           {% endif %}
         {% endblock docstring %}
+
+        {% if config.backlinks %}
+          <backlinks identifier="{{ html_id }}" handler="python" />
+        {% endif %}
 
         {% block summary scoped %}
           {#- Summary block.

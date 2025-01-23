@@ -31,7 +31,7 @@ Context:
           {% for raises in section.value %}
             <li>
               {% if raises.annotation %}
-                {% with expression = raises.annotation %}
+                {% with expression = raises.annotation, backlink_type = "raised-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
