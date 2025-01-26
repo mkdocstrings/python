@@ -792,6 +792,63 @@ class Class:
 ////
 ///
 
+## `show_docstring_type_aliases`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+
+Whether to render the "Type Aliases" sections of docstrings.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_docstring_type_aliases: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      show_docstring_type_aliases: false
+```
+
+```python
+"""Summary.
+
+Type Aliases:
+    TypeAlias: Some type alias.
+"""
+
+
+type TypeAlias = int
+"""Summary."""
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With type_aliases
+<h2>module</h2>
+<p>Summary.</p>
+<p><b>Type Aliases:</b></p>
+
+**Name**     | **Description**
+------------ | ----------------
+`TypeAlias`  | Some type alias.
+
+<h3><code>TypeAlias</code></h3>
+<p>Summary.</p>
+////
+
+//// tab | Without classes
+<h2>module</h2>
+<p>Summary.</p>
+<h3><code>TypeAlias</code></h3>
+<p>Summary.</p>
+////
+///
+
 ## `show_docstring_modules`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -1222,6 +1279,56 @@ def rand() -> int:
 //// tab | Without return value
 <h2><code>rand</code></h2>
 <p>Return a random number.</p>
+////
+///
+
+## `show_docstring_type_parameters`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to render the "Type Parameters" section of docstrings.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_docstring_type_parameters: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      show_docstring_type_parameters: false
+```
+
+```python
+class AClass[X: (int, str) = str]:
+    """Represents something.
+
+    Type Parameters:
+        X: Something.
+    """
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With parameters
+<h2><code>AClass</code></h2>
+<p>Represents something.</p>
+<p><b>Type Parameters:</b></p>
+
+**Name**   | **Bound or Constraints** | **Description** | **Default**
+---------- | ------------------------ | --------------- | -----------
+`whatever` | `(int, str)`             | Something.      | `str`
+////
+
+//// tab | Without parameters
+<h2><code>AClass</code></h2>
+<p>Represents something.</p>
 ////
 ///
 

@@ -560,7 +560,7 @@ package
 Whether to render summaries of modules, classes, functions (methods) and attributes.
 
 This option accepts a boolean (`yes`, `true`, `no`, `false` in YAML)
-or a dictionary with one or more of the following keys: `attributes`, `functions`, `classes`, `modules`,
+or a dictionary with one or more of the following keys: `attributes`, `functions`, `classes`, `modules`, `type_aliases`,
 with booleans as values. Class methods summary is (de)activated with the `functions` key.
 By default, `summary` is false, and by extension all values are false.
 

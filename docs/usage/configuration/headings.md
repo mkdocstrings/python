@@ -179,6 +179,285 @@ To customize symbols, see [Customizing symbol types](../customization.md/#symbol
 
 ///
 
+## `type_parameter_headings`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+
+Whether to render headings for generic class, function/method and type alias
+type parameters.
+
+With this option enabled, each type parameter of a generic object (including
+type parameters of `__init__` methods merged in their parent class with the
+[`merge_init_into_class`][] option) gets a permalink, an entry in the Table of
+Contents, and an entry in the generated objects inventory. The permalink and
+inventory entry allow cross-references from internal and external pages.
+
+The identifier used in the permalink and inventory is of the following form:
+`path.to.function:type_param_name`. To manually cross-reference a parameter,
+you can therefore use this Markdown syntax:
+
+```md
+- Class type parameter: [`Param`][package.module.Class:Param]
+- Method type parameter: [`Param`][package.module.Class.method:Param]
+- Function type parameter: [`Param`][package.module.function:Param]
+- Type alias type parameter: [`Param`][package.module.TypeAlias:Param]
+- Type variable tuple: [`*Args`][package.module.function:*Args]
+- Parameter specification: [`**Params`][package.module.function:**Params]
+```
+
+Enabling this option along with [`signature_crossrefs`][] will automatically
+render cross-references to type parameters in class/function/method/type alias
+signatures.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          type_parameter_headings: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      type_parameter_headings: true
+```
+
+/// admonition | Preview: Cross-references
+    type: preview
+
+<div class="doc doc-object doc-function">
+  <h3 id="package.set_element" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code> <span
+      class="doc doc-object-name doc-function-name"><mark data-md-highlight="">set_e</mark>lement</span>
+    <a href="#package.set_element" class="headerlink" title="Permanent link">¤</a>
+  </h3>
+  <div class="language-python doc-signature highlight">
+    <pre id="__code_10"><span></span><button class="md-clipboard md-icon" title="Copy to clipboard" data-clipboard-target="#__code_10 > code"></button><code><span class="nf"><mark data-md-highlight="">set_e</mark>lement</span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" href="#package.set_element:T">T</a></span><span class="p">](</span><span class="n"><a class="autorefs autorefs-internal" href="#package.set_element(element)">element</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+  </div>
+  <div class="doc doc-contents first">
+    <p>Set element.</p>
+    <p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+      <li class="doc-section-item field-body">
+        <h4 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter"> <b><code>element</code></b>
+          <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
+        </h4>
+        (<code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The element to set.</p>
+        </div>
+      </li>
+    </ul>
+    <p><span class="doc-section-title">Type Parameters:</span></p>
+    <ul>
+      <li class="doc-section-item field-body">
+        <h4 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <b><code>T</code></b>
+          <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
+        </h4> –
+        <div class="doc-md-description">
+          <p>The type of the element.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+///
+
+/// admonition | Preview: Type parameters sections
+    type: preview
+
+//// tab | Table style
+<div class="doc doc-object doc-function">
+  <div class="doc doc-contents first">
+    <p><span class="doc-section-title">Parameters:</span></p>
+    <div class="md-typeset__scrollwrap">
+      <div class="md-typeset__table">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="doc-section-item">
+              <td>
+                <h3 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter">
+                  <code>element</code>
+                  <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
+                </h3>
+              </td>
+              <td>
+                <code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>
+              </td>
+              <td>
+                <div class="doc-md-description">
+                  <p>The element to set.</p>
+                </div>
+              </td>
+              <td>
+                <em>required</em>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p><span class="doc-section-title">Type Parameters:</span></p>
+    <div class="md-typeset__scrollwrap">
+      <div class="md-typeset__table">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Bound or Constraints</th>
+              <th>Description</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="doc-section-item">
+              <td>
+                <h3 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <code>T</code>
+                  <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
+                </h3>
+              </td>
+              <td>
+              </td>
+              <td>
+                <div class="doc-md-description">
+                  <p>The type of the element.</p>
+                </div>
+              </td>
+              <td>
+                <em>required</em>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+////
+
+//// tab | List style
+<div class="doc doc-object doc-function">
+  <div class="doc doc-contents first">
+    <p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+      <li class="doc-section-item field-body">
+        <h3 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter"> <b><code>element</code></b>
+          <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
+        </h3>
+        (<code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The element to set.</p>
+        </div>
+      </li>
+    </ul>
+    <p><span class="doc-section-title">Type Parameters:</span></p>
+    <ul>
+      <li class="doc-section-item field-body">
+        <h3 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <b><code>T</code></b>
+          <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
+        </h3> –
+        <div class="doc-md-description">
+          <p>The type of the element.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+////
+
+//// tab | Spacy style
+<div class="doc doc-object doc-function">
+  <div class="doc doc-contents first">
+    <div class="md-typeset__scrollwrap">
+      <div class="md-typeset__table">
+        <table>
+          <thead>
+            <tr>
+              <th><span class="doc-section-title">PARAMETER</span></th>
+              <th><span>DESCRIPTION</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="doc-section-item">
+              <td>
+                <h3 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter">
+                  <code>element</code>
+                  <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
+                </h3>
+              </td>
+              <td class="doc-param-details">
+                <div class="doc-md-description">
+                  <p>The element to set.</p>
+                </div>
+                <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>
+                  </span>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="md-typeset__scrollwrap">
+      <div class="md-typeset__table">
+        <table>
+          <thead>
+            <tr>
+              <th><span class="doc-section-title">TYPE PARAMETER</span></th>
+              <th><span>DESCRIPTION</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="doc-section-item">
+              <td>
+                <h3 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <code>T</code>
+                  <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
+                </h3>
+              </td>
+              <td class="doc-type_param-details">
+                <div class="doc-md-description">
+                  <p>The type of the element.</p>
+                </div>
+                <p>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+////
+///
+
+/// admonition | Preview: Table of contents (with symbol types)
+    type: preview
+
+<code class="doc-symbol doc-symbol-toc doc-symbol-function"></code> set_element<br>
+<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter" style="margin-left: 16px;"></code> T
+
+To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+
+///
+
 ## `show_root_heading`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -286,15 +565,15 @@ More text.
     type: preview
 
 //// tab | With ToC entry
-**Table of contents**  
-[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }  
-[`object`](#permalink-to-object){ title="#permalink-to-object" }   
-[Other heading](#permalink-to-other-heading){ title="#permalink-to-other-heading" } 
+**Table of contents**
+[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }
+[`object`](#permalink-to-object){ title="#permalink-to-object" }
+[Other heading](#permalink-to-other-heading){ title="#permalink-to-other-heading" }
 ////
 
 //// tab | Without ToC entry
-**Table of contents**  
-[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }  
+**Table of contents**
+[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }
 [Other heading](#permalink-to-other-heading){ title="#permalink-to-other-heading" }
 ////
 ///
@@ -400,7 +679,7 @@ plugins:
 Show the full Python path of every object.
 
 Same as for [`show_root_members_full_path`][],
-but for every member, recursively. This option takes precedence over 
+but for every member, recursively. This option takes precedence over
 [`show_root_members_full_path`][]:
 
 `show_root_members_full_path` | `show_object_full_path` | Direct root members path
@@ -454,7 +733,7 @@ When [grouped by categories][group_by_category], show a heading for each categor
 These category headings will appear in the table of contents,
 allowing you to link to them using their permalinks.
 
-WARNING: **Not recommended with deeply nested object**  
+WARNING: **Not recommended with deeply nested object**
 When injecting documentation for deeply nested objects,
 you'll quickly run out of heading levels, and the objects
 at the bottom of the tree risk all getting documented

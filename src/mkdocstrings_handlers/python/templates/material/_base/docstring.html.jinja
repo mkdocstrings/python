@@ -14,7 +14,7 @@ Context:
 {% if docstring_sections %}
   {% block logs scoped %}
     {#- Logging block.
-    
+
     This block can be used to log debug messages, deprecation messages, warnings, etc.
     -#}
     {{ log.debug("Rendering docstring") }}
@@ -29,8 +29,12 @@ Context:
         {% include "docstring/functions"|get_template with context %}
       {% elif config.show_docstring_classes and section.kind.value == "classes" %}
         {% include "docstring/classes"|get_template with context %}
+      {% elif config.show_docstring_type_aliases and section.kind.value == "type_aliases" %}
+        {% include "docstring/type_aliases"|get_template with context %}
       {% elif config.show_docstring_modules and section.kind.value == "modules" %}
         {% include "docstring/modules"|get_template with context %}
+      {% elif config.show_docstring_type_parameters and section.kind.value == "type parameters" %}
+        {% include "docstring/type_parameters"|get_template with context %}
       {% elif config.show_docstring_parameters and section.kind.value == "parameters" %}
         {% include "docstring/parameters"|get_template with context %}
       {% elif config.show_docstring_other_parameters and section.kind.value == "other parameters" %}
