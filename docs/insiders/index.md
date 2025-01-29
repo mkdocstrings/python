@@ -161,7 +161,7 @@ You can cancel your sponsorship anytime.[^5]
 
 The following section lists all funding goals. Each goal contains a list of
 features prefixed with a checkmark symbol, denoting whether a feature is
-:octicons-check-circle-fill-24:{ style="color: #00e676" } already available or 
+:octicons-check-circle-fill-24:{ style="color: #00e676" } already available or
 :octicons-check-circle-fill-24:{ style="color: var(--md-default-fg-color--lightest)" } planned,
 but not yet implemented. When the funding goal is hit,
 the features are released for general availability.
@@ -221,7 +221,7 @@ by the [ISC License][license]. However, we kindly ask you to respect our
 
 - Please **don't distribute the source code** of Insiders. You may freely use
   it for public, private or commercial projects, privately fork or mirror it,
-  but please don't make the source code public, as it would counteract the 
+  but please don't make the source code public, as it would counteract the
   sponsorware strategy.
 
 - If you cancel your subscription, you're automatically removed as a

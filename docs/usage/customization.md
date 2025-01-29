@@ -371,9 +371,9 @@ Available context:
 #### Docstring sections
 
 In `docstring/attributes.html`,
-`docstring/functions.html`, 
-`docstring/classes.html`, 
-`docstring/modules.html`, 
+`docstring/functions.html`,
+`docstring/classes.html`,
+`docstring/modules.html`,
 `docstring/other_parameters.html`,
 `docstring/parameters.html`,
 `docstring/raises.html`,

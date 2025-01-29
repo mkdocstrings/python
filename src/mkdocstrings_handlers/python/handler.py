@@ -118,6 +118,7 @@ class PythonHandler(BaseHandler):
         "annotations_path": "brief",
         "preload_modules": None,
         "allow_inspection": True,
+        "force_inspection": False,
         "summary": False,
         "show_labels": True,
         "unwrap_annotated": False,
@@ -129,6 +130,7 @@ class PythonHandler(BaseHandler):
     Attributes: General options:
         find_stubs_package (bool): Whether to load stubs package (package-stubs) when extracting docstrings. Default `False`.
         allow_inspection (bool): Whether to allow inspecting modules when visiting them is not possible. Default: `True`.
+        force_inspection (bool): Whether to force using dynamic analysis when loading data. Default: `False`.
         show_bases (bool): Show the base classes of a class. Default: `True`.
         show_inheritance_diagram (bool): Show the inheritance diagram of a class using Mermaid. Default: `False`.
         show_source (bool): Show the source code of this object. Default: `True`.
@@ -322,6 +324,7 @@ class PythonHandler(BaseHandler):
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
                 allow_inspection=final_config["allow_inspection"],
+                force_inspection=final_config["force_inspection"],
             )
             try:
                 for pre_loaded_module in final_config.get("preload_modules") or []:

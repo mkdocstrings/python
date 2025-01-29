@@ -1,6 +1,6 @@
 # Usage
 
-TIP: **This is the documentation for the NEW Python handler.**  
+TIP: **This is the documentation for the NEW Python handler.**
 To read the documentation for the LEGACY handler,
 go to the [legacy handler documentation](https://mkdocstrings.github.io/python-legacy).
 
@@ -94,7 +94,7 @@ When importing an inventory, you enable automatic cross-references
 to other documentation sites like the standard library docs
 or any third-party package docs. Typically, you want to import
 the inventories of your project's dependencies, at least those
-that are used in the public API. 
+that are used in the public API.
 
 See [*mkdocstrings*' documentation on inventories][inventories]
 for more details.
@@ -292,7 +292,7 @@ to make sure anyone can build your docs from any location on their filesystem.
 
 ### Using the PYTHONPATH environment variable
 
-WARNING: **This method has limitations.**  
+WARNING: **This method has limitations.**
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
 We recommend using the [`paths` method](#using-the-paths-option) instead.
@@ -348,10 +348,10 @@ In Bash and other shells, you can run your command like this
     ```bash
     PYTHONPATH=src mkdocs build -f docs/mkdocs.yml
     ```
-  
+
 ### Installing your package in the current Python environment
 
-WARNING: **This method has limitations.**  
+WARNING: **This method has limitations.**
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
 We recommend using the [`paths` method](#using-the-paths-option) instead.

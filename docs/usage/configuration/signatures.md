@@ -202,7 +202,7 @@ plugins:
 
 [:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
 [:octicons-tag-24: Insiders 1.8.0](../../insiders/changelog.md#1.8.0) &mdash;
-**This feature also requires 
+**This feature also requires
 [Griffe Insiders](https://mkdocstrings.github.io/griffe/insiders/)
 to be installed.**
 

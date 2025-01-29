@@ -55,6 +55,30 @@ plugins:
 ////
 ///
 
+## `force_inspection`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+Whether to force inspecting modules (importing them) even if their source code is available.
+
+This option is useful when you know that dynamic analysis (inspection) yields better results than static analysis. Do not use this blindly: the recommended approach is to write a Griffe extension that will improve extracted API data. See [How to selectively inspect objects](https://mkdocstrings.github.io/griffe/guide/users/how-to/selectively-inspect/).
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          force_inspection: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      force_inspection: true
+```
+
 ## `show_bases`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -250,7 +274,7 @@ plugins:
 ::: your_package.your_module
     options:
       preload_modules:
-      - their_package   
+      - their_package
 ```
 
 ```python title="your_package/your_module.py"

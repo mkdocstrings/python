@@ -227,12 +227,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Release Insiders features of the $500/month funding goal ([bd30106](https://github.com/mkdocstrings/python/commit/bd301061fe9c647f9b91c2c9b4baa784c304eca7) by Timothée Mazzucotelli).
     The features and projects related to *mkdocstrings-python* are:
-    
+
     - [Cross-references for type annotations in signatures](https://mkdocstrings.github.io/python/usage/configuration/signatures/#signature_crossrefs)
     - [Symbol types in headings and table of contents](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_toc)
     - [`griffe-inherited-docstrings`](https://mkdocstrings.github.io/griffe-inherited-docstrings/), a Griffe extension for inheriting docstrings
     - [`griffe2md`](https://mkdocstrings.github.io/griffe2md/), a tool to output API docs to Markdown using Griffe
-    
+
     See the complete list of features and projects here:
     https://pawamoy.github.io/insiders/#500-plasmavac-user-guide.
 
@@ -464,7 +464,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
     You can see how to use the filter in this commit's changes:
     [f686f4e4](https://github.com/mkdocstrings/python/commit/f686f4e4599cea64686d4ef4863b507dd096a513).
-    
+
 **We take this as an opportunity to go out of beta and bump the version to 1.0.0.
 This will allow users to rely on semantic versioning.**
 

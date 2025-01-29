@@ -490,7 +490,7 @@ When [grouped by categories][group_by_category], show a heading for each categor
 These category headings will appear in the table of contents,
 allowing you to link to them using their permalinks.
 
-WARNING: **Not recommended with deeply nested object**
+WARNING: **Not recommended with deeply nested objects.**
 When injecting documentation for deeply nested objects,
 you'll quickly run out of heading levels, and the objects
 at the bottom of the tree risk all getting documented

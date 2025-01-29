@@ -13,7 +13,7 @@ Context:
 {% if obj.all_members %}
   {% block logs scoped %}
     {#- Logging block.
-    
+
     This block can be used to log debug messages, deprecation messages, warnings, etc.
     -#}
     {{ log.debug("Rendering children of " + obj.path) }}
