@@ -286,15 +286,15 @@ More text.
     type: preview
 
 //// tab | With ToC entry
-**Table of contents**  
-[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }  
-[`object`](#permalink-to-object){ title="#permalink-to-object" }   
-[Other heading](#permalink-to-other-heading){ title="#permalink-to-other-heading" } 
+**Table of contents**
+[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }
+[`object`](#permalink-to-object){ title="#permalink-to-object" }
+[Other heading](#permalink-to-other-heading){ title="#permalink-to-other-heading" }
 ////
 
 //// tab | Without ToC entry
-**Table of contents**  
-[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }  
+**Table of contents**
+[Some heading](#permalink-to-some-heading){ title="#permalink-to-some-heading" }
 [Other heading](#permalink-to-other-heading){ title="#permalink-to-other-heading" }
 ////
 ///
@@ -400,7 +400,7 @@ plugins:
 Show the full Python path of every object.
 
 Same as for [`show_root_members_full_path`][],
-but for every member, recursively. This option takes precedence over 
+but for every member, recursively. This option takes precedence over
 [`show_root_members_full_path`][]:
 
 `show_root_members_full_path` | `show_object_full_path` | Direct root members path
@@ -454,7 +454,7 @@ When [grouped by categories][group_by_category], show a heading for each categor
 These category headings will appear in the table of contents,
 allowing you to link to them using their permalinks.
 
-WARNING: **Not recommended with deeply nested object**  
+WARNING: **Not recommended with deeply nested objects.**
 When injecting documentation for deeply nested objects,
 you'll quickly run out of heading levels, and the objects
 at the bottom of the tree risk all getting documented

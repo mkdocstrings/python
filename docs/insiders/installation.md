@@ -42,21 +42,21 @@ Or using HTTPS:
 pip install git+https://${GH_TOKEN}@github.com/pawamoy-insiders/mkdocstrings-python.git
 ```
 
->? NOTE: **How to get a GitHub personal access token**  
+>? NOTE: **How to get a GitHub personal access token?**
 > The `GH_TOKEN` environment variable is a GitHub token.
 > It can be obtained by creating a [personal access token] for
 > your GitHub account. It will give you access to the Insiders repository,
 > programmatically, from the command line or GitHub Actions workflows:
-> 
+>
 > 1.  Go to https://github.com/settings/tokens
 > 2.  Click on [Generate a new token]
 > 3.  Enter a name and select the [`repo`][scopes] scope
 > 4.  Generate the token and store it in a safe place
-> 
+>
 >   [personal access token]: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 >   [Generate a new token]: https://github.com/settings/tokens/new
 >   [scopes]: https://docs.github.com/en/developers/apps/scopes-for-oauth-apps#available-scopes
-> 
+>
 > Note that the personal access
 > token must be kept secret at all times, as it allows the owner to access your
 > private repositories.

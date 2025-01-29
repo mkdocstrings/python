@@ -17,11 +17,11 @@ For example:
         This admonition has a custom title!
     """
     ```
-    
+
 === "Result"
     NOTE: It looks like a section, but it will be rendered as an admonition.
 
-    TIP: **You can even choose a title.**  
+    TIP: **You can even choose a title.**
     This admonition has a custom title!
 
 See [Napoleon's documentation](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html).

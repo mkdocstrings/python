@@ -274,7 +274,7 @@ plugins:
 ::: your_package.your_module
     options:
       preload_modules:
-      - their_package   
+      - their_package
 ```
 
 ```python title="your_package/your_module.py"
