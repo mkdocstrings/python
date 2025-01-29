@@ -54,7 +54,7 @@ Context:
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-{{ symbol_type }}"></code>{% endif %}
           {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-function-name">{{ function_name }}</span>
+            <span class="doc doc-object-name doc-function-name">{{ config.heading if config.heading and root else function_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) %}
               {{ function_name }}{% include "signature"|get_template with context %}
@@ -103,7 +103,7 @@ Context:
             heading_level,
             role="function",
             id=html_id,
-            toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + function.name,
+            toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else function.name),
             hidden=True,
           ) %}
         {% endfilter %}

@@ -48,7 +48,7 @@ Context:
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>{% endif %}
           {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-class-name">{{ class_name }}</span>
+            <span class="doc doc-object-name doc-class-name">{{ config.heading if config.heading and root else class_name }}</span>
           {% elif config.merge_init_into_class and "__init__" in all_members %}
             {% with function = all_members["__init__"] %}
               {%+ filter highlight(language="python", inline=True) %}
@@ -106,7 +106,7 @@ Context:
         {% filter heading(heading_level,
             role="class",
             id=html_id,
-            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + class.name,
+            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else class.name),
             hidden=True,
           ) %}
         {% endfilter %}
