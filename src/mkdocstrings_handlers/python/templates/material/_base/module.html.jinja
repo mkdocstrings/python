@@ -11,7 +11,7 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug("Rendering " + module.path) }}
@@ -38,17 +38,17 @@ Context:
           role="module",
           id=html_id,
           class="doc doc-heading",
-          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + module.name,
+          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else module.name),
         ) %}
 
         {% block heading scoped %}
           {#- Heading block.
-          
+
           This block renders the heading for the module.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>{% endif %}
           {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
+            <span class="doc doc-object-name doc-module-name">{{ config.heading if config.heading and root else module_name }}</span>
           {% else %}
             <code>{{ module_name }}</code>
           {% endif %}
@@ -56,7 +56,7 @@ Context:
 
         {% block labels scoped %}
           {#- Labels block.
-          
+
           This block renders the labels for the module.
           -#}
           {% with labels = module.labels %}
@@ -71,7 +71,7 @@ Context:
         {% filter heading(heading_level,
             role="module",
             id=html_id,
-            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + module.name,
+            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else module.name),
             hidden=True,
           ) %}
         {% endfilter %}
@@ -82,14 +82,14 @@ Context:
     <div class="doc doc-contents {% if root %}first{% endif %}">
       {% block contents scoped %}
         {#- Contents block.
-        
+
         This block renders the contents of the module.
         It contains other blocks that users can override.
         Overriding the contents block allows to rearrange the order of the blocks.
         -#}
         {% block docstring scoped %}
           {#- Docstring block.
-          
+
           This block renders the docstring for the module.
           -#}
           {% with docstring_sections = module.docstring.parsed %}
@@ -99,7 +99,7 @@ Context:
 
         {% block summary scoped %}
           {#- Summary block.
-          
+
           This block renders auto-summaries for classes, methods, and attributes.
           -#}
           {% include "summary"|get_template with context %}
@@ -107,7 +107,7 @@ Context:
 
         {% block children scoped %}
           {#- Children block.
-          
+
           This block renders the children (members) of the module.
           -#}
           {% set root = False %}

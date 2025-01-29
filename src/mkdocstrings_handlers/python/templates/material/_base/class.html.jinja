@@ -11,7 +11,7 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug("Rendering " + class.path) }}
@@ -43,12 +43,12 @@ Context:
 
         {% block heading scoped %}
           {#- Heading block.
-          
+
           This block renders the heading for the class.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>{% endif %}
           {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-class-name">{{ class_name }}</span>
+            <span class="doc doc-object-name doc-class-name">{{ config.heading if config.heading and root else class_name }}</span>
           {% elif config.merge_init_into_class and "__init__" in all_members %}
             {% with function = all_members["__init__"] %}
               {%+ filter highlight(language="python", inline=True) %}
@@ -62,7 +62,7 @@ Context:
 
         {% block labels scoped %}
           {#- Labels block.
-          
+
           This block renders the labels for the class.
           -#}
           {% with labels = class.labels %}
@@ -74,7 +74,7 @@ Context:
 
       {% block signature scoped %}
         {#- Signature block.
-        
+
         This block renders the signature for the class.
         Overloads of the `__init__` method are rendered if `merge_init_into_class` is enabled.
         The actual `__init__` method signature is only rendered if `separate_signature` is also enabled.
@@ -106,7 +106,7 @@ Context:
         {% filter heading(heading_level,
             role="class",
             id=html_id,
-            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + class.name,
+            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else class.name),
             hidden=True,
           ) %}
         {% endfilter %}
@@ -117,14 +117,14 @@ Context:
     <div class="doc doc-contents {% if root %}first{% endif %}">
       {% block contents scoped %}
         {#- Contents block.
-        
+
         This block renders the contents of the class.
         It contains other blocks that users can override.
         Overriding the contents block allows to rearrange the order of the blocks.
         -#}
         {% block bases scoped %}
           {#- Class bases block.
-          
+
           This block renders the bases for the class.
           -#}
           {% if config.show_bases and class.bases %}
@@ -138,7 +138,7 @@ Context:
 
         {% block docstring scoped %}
           {#- Docstring block.
-          
+
           This block renders the docstring for the class.
           -#}
           {% with docstring_sections = class.docstring.parsed %}
@@ -161,7 +161,7 @@ Context:
 
         {% block summary scoped %}
           {#- Summary block.
-          
+
           This block renders auto-summaries for classes, methods, and attributes.
           -#}
           {% include "summary"|get_template with context %}
@@ -169,7 +169,7 @@ Context:
 
         {% block source scoped %}
           {#- Source block.
-          
+
           This block renders the source code for the class.
           -#}
           {% if config.show_source %}
@@ -205,7 +205,7 @@ Context:
 
         {% block children scoped %}
           {#- Children block.
-          
+
           This block renders the children (members) of the class.
           -#}
           {% set root = False %}
