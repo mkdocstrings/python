@@ -1,316 +1,802 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema",
-  "title": "Python handler for mkdocstrings.",
-  "type": "object",
-  "properties": {
-    "python": {
-      "markdownDescription": "https://mkdocstrings.github.io/python/",
-      "type": "object",
+  "$defs": {
+    "AutoStyleOptions": {
+      "description": "Auto style docstring options.",
       "properties": {
-        "import": {
-          "title": "Inventories to import.",
-          "markdownDescription": "https://mkdocstrings.github.io/python/usage/#global-only-options",
-          "type": "array",
+        "method": {
+          "default": "heuristics",
+          "description": "The method to use to determine the docstring style.",
+          "enum": [
+            "heuristics",
+            "max_sections"
+          ],
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nThe method to use to determine the docstring style.",
+          "title": "method",
+          "type": "string"
+        },
+        "style_order": {
+          "description": "The order of the docstring styles to try.",
           "items": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "title": "URL of the inventory file.",
-                    "type": "string"
-                  },
-                  "base_url": {
-                    "title": "Base URL used to build references URLs.",
-                    "type": "string"
-                  },
-                  "domains": {
-                    "title": "Domains to import from the inventory.",
-                    "description": "If not defined it will only import 'py' domain.",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            ]
-          }
+            "type": "string"
+          },
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nThe order of the docstring styles to try.",
+          "title": "style_order",
+          "type": "array"
         },
-        "paths": {
-          "title": "Local absolute/relative paths (relative to mkdocs.yml) to search packages into.",
-          "markdownDescription": "https://mkdocstrings.github.io/python/usage/#paths",
-          "type": "array",
+        "default": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "default",
+          "description": "The default docstring style to use if no other style is detected.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nThe default docstring style to use if no other style is detected."
+        },
+        "per_style_options": {
+          "$ref": "#/$defs/PerStyleOptions",
+          "description": "Per-style options.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nPer-style options.",
+          "title": "per_style_options"
+        }
+      },
+      "title": "AutoStyleOptions",
+      "type": "object"
+    },
+    "GoogleStyleOptions": {
+      "description": "Google style docstring options.",
+      "properties": {
+        "ignore_init_summary": {
+          "default": false,
+          "description": "Whether to ignore the summary in `__init__` methods' docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to ignore the summary in `__init__` methods' docstrings.",
+          "title": "ignore_init_summary",
+          "type": "boolean"
+        },
+        "returns_multiple_items": {
+          "default": true,
+          "description": "Whether to parse multiple items in `Yields` and `Returns` sections.\n\nWhen true, each item's continuation lines must be indented.\nWhen false (single item), no further indentation is required.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to parse multiple items in `Yields` and `Returns` sections.\n\nWhen true, each item's continuation lines must be indented.\nWhen false (single item), no further indentation is required.",
+          "title": "returns_multiple_items",
+          "type": "boolean"
+        },
+        "returns_named_value": {
+          "default": true,
+          "description": "Whether to parse `Yields` and `Returns` section items as name and description, rather than type and description.\n\nWhen true, type must be wrapped in parentheses: `(int): Description.`. Names are optional: `name (int): Description.`.\nWhen false, parentheses are optional but the items cannot be named: `int: Description`.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to parse `Yields` and `Returns` section items as name and description, rather than type and description.\n\nWhen true, type must be wrapped in parentheses: `(int): Description.`. Names are optional: `name (int): Description.`.\nWhen false, parentheses are optional but the items cannot be named: `int: Description`.",
+          "title": "returns_named_value",
+          "type": "boolean"
+        },
+        "returns_type_in_property_summary": {
+          "default": false,
+          "description": "Whether to parse the return type of properties at the beginning of their summary: `str: Summary of the property`.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to parse the return type of properties at the beginning of their summary: `str: Summary of the property`.",
+          "title": "returns_type_in_property_summary",
+          "type": "boolean"
+        },
+        "receives_multiple_items": {
+          "default": true,
+          "description": "Whether to parse multiple items in `Receives` sections.\n\nWhen true, each item's continuation lines must be indented.\nWhen false (single item), no further indentation is required.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to parse multiple items in `Receives` sections.\n\nWhen true, each item's continuation lines must be indented.\nWhen false (single item), no further indentation is required.",
+          "title": "receives_multiple_items",
+          "type": "boolean"
+        },
+        "receives_named_value": {
+          "default": true,
+          "description": "Whether to parse `Receives` section items as name and description, rather than type and description.\n\nWhen true, type must be wrapped in parentheses: `(int): Description.`. Names are optional: `name (int): Description.`.\nWhen false, parentheses are optional but the items cannot be named: `int: Description`.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to parse `Receives` section items as name and description, rather than type and description.\n\nWhen true, type must be wrapped in parentheses: `(int): Description.`. Names are optional: `name (int): Description.`.\nWhen false, parentheses are optional but the items cannot be named: `int: Description`.",
+          "title": "receives_named_value",
+          "type": "boolean"
+        },
+        "trim_doctest_flags": {
+          "default": true,
+          "description": "Whether to remove doctest flags from Python example blocks.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to remove doctest flags from Python example blocks.",
+          "title": "trim_doctest_flags",
+          "type": "boolean"
+        },
+        "warn_unknown_params": {
+          "default": true,
+          "description": "Warn about documented parameters not appearing in the signature.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about documented parameters not appearing in the signature.",
+          "title": "warn_unknown_params",
+          "type": "boolean"
+        }
+      },
+      "title": "GoogleStyleOptions",
+      "type": "object"
+    },
+    "Inventory": {
+      "description": "An inventory.",
+      "properties": {
+        "url": {
+          "description": "The URL of the inventory.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#inventories)\n\nThe URL of the inventory.",
+          "title": "url",
+          "type": "string"
+        },
+        "base": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The base URL of the inventory.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#inventories)\n\nThe base URL of the inventory.",
+          "title": "base"
+        },
+        "domains": {
+          "description": "The domains to load from the inventory.",
           "items": {
-            "type": "string",
-            "format": "path"
-          }
+            "type": "string"
+          },
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#inventories)\n\nThe domains to load from the inventory.",
+          "title": "domains",
+          "type": "array"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "title": "Inventory",
+      "type": "object"
+    },
+    "NumpyStyleOptions": {
+      "description": "Numpy style docstring options.",
+      "properties": {
+        "ignore_init_summary": {
+          "default": false,
+          "description": "Whether to ignore the summary in `__init__` methods' docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to ignore the summary in `__init__` methods' docstrings.",
+          "title": "ignore_init_summary",
+          "type": "boolean"
         },
-        "load_external_modules": {
-          "title": "Load external modules to resolve aliases.",
-          "markdownDescription": "https://mkdocstrings.github.io/python/usage/#load_external_modules",
-          "type": "boolean",
-          "default": false
+        "trim_doctest_flags": {
+          "default": true,
+          "description": "Whether to remove doctest flags from Python example blocks.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWhether to remove doctest flags from Python example blocks.",
+          "title": "trim_doctest_flags",
+          "type": "boolean"
         },
-        "options": {
-          "title": "Options for collecting and rendering objects.",
-          "markdownDescription": "https://mkdocstrings.github.io/python/usage/#globallocal-options",
-          "type": "object",
-          "properties": {
-            "docstring_style": {
-              "title": "The docstring style to use when parsing docstrings.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_style",
+        "warn_unknown_params": {
+          "default": true,
+          "description": "Warn about documented parameters not appearing in the signature.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about documented parameters not appearing in the signature.",
+          "title": "warn_unknown_params",
+          "type": "boolean"
+        }
+      },
+      "title": "NumpyStyleOptions",
+      "type": "object"
+    },
+    "PerStyleOptions": {
+      "description": "Per style options.",
+      "properties": {
+        "google": {
+          "$ref": "#/$defs/GoogleStyleOptions",
+          "description": "Google-style options.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nGoogle-style options.",
+          "title": "google"
+        },
+        "numpy": {
+          "$ref": "#/$defs/NumpyStyleOptions",
+          "description": "Numpydoc-style options.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nNumpydoc-style options.",
+          "title": "numpy"
+        },
+        "sphinx": {
+          "$ref": "#/$defs/SphinxStyleOptions",
+          "description": "Sphinx-style options.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nSphinx-style options.",
+          "title": "sphinx"
+        }
+      },
+      "title": "PerStyleOptions",
+      "type": "object"
+    },
+    "PythonInputOptions": {
+      "description": "Accepted input options.",
+      "properties": {
+        "allow_inspection": {
+          "default": true,
+          "description": "Whether to allow inspecting modules when visiting them is not possible.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#allow_inspection)\n\nWhether to allow inspecting modules when visiting them is not possible.",
+          "title": "allow_inspection",
+          "type": "boolean"
+        },
+        "force_inspection": {
+          "default": false,
+          "description": "Whether to force using dynamic analysis when loading data.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#force_inspection)\n\nWhether to force using dynamic analysis when loading data.",
+          "title": "force_inspection",
+          "type": "boolean"
+        },
+        "annotations_path": {
+          "default": "brief",
+          "description": "The verbosity for annotations path: `brief` (recommended), `source` (as written in the source), or `full`.",
+          "enum": [
+            "brief",
+            "source",
+            "full"
+          ],
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#annotations_path)\n\nThe verbosity for annotations path: `brief` (recommended), `source` (as written in the source), or `full`.",
+          "title": "annotations_path",
+          "type": "string"
+        },
+        "docstring_options": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GoogleStyleOptions"
+            },
+            {
+              "$ref": "#/$defs/NumpyStyleOptions"
+            },
+            {
+              "$ref": "#/$defs/SphinxStyleOptions"
+            },
+            {
+              "$ref": "#/$defs/AutoStyleOptions"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The options for the docstring parser.\n\nSee [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/) and their options in Griffe docs.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nThe options for the docstring parser.\n\nSee [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/) and their options in Griffe docs.",
+          "title": "docstring_options"
+        },
+        "docstring_section_style": {
+          "default": "table",
+          "description": "The style used to render docstring sections.",
+          "enum": [
+            "table",
+            "list",
+            "spacy"
+          ],
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_section_style)\n\nThe style used to render docstring sections.",
+          "title": "docstring_section_style",
+          "type": "string"
+        },
+        "docstring_style": {
+          "anyOf": [
+            {
               "enum": [
+                "auto",
                 "google",
                 "numpy",
                 "sphinx"
               ],
-              "default": "google"
+              "type": "string"
             },
-            "docstring_options": {
-              "title": "The options for the docstring parser.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options",
-              "default": null,
-              "items": {
-                "$ref": "https://raw.githubusercontent.com/mkdocstrings/griffe/master/docs/schema-docstrings-options.json"
+            {
+              "type": "null"
+            }
+          ],
+          "default": "google",
+          "description": "The docstring style to use: `auto`, `google`, `numpy`, `sphinx`, or `None`.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_style)\n\nThe docstring style to use: `auto`, `google`, `numpy`, `sphinx`, or `None`.",
+          "title": "docstring_style"
+        },
+        "extensions": {
+          "description": "A list of Griffe extensions to load.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object"
               }
+            ]
+          },
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#extensions)\n\nA list of Griffe extensions to load.",
+          "title": "extensions",
+          "type": "array"
+        },
+        "filters": {
+          "description": "A list of filters applied to filter objects based on their name.\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).",
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#filters)\n\nA list of filters applied to filter objects based on their name.\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).",
+          "title": "filters",
+          "type": "array"
+        },
+        "find_stubs_package": {
+          "default": false,
+          "description": "Whether to load stubs package (package-stubs) when extracting docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#find_stubs_package)\n\nWhether to load stubs package (package-stubs) when extracting docstrings.",
+          "title": "find_stubs_package",
+          "type": "boolean"
+        },
+        "group_by_category": {
+          "default": true,
+          "description": "Group the object's children by categories: attributes, classes, functions, and modules.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#group_by_category)\n\nGroup the object's children by categories: attributes, classes, functions, and modules.",
+          "title": "group_by_category",
+          "type": "boolean"
+        },
+        "heading": {
+          "default": "",
+          "description": "A custom string to override the autogenerated heading of the root object.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#heading)\n\nA custom string to override the autogenerated heading of the root object.",
+          "title": "heading",
+          "type": "string"
+        },
+        "heading_level": {
+          "default": 2,
+          "description": "The initial heading level to use.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#heading_level)\n\nThe initial heading level to use.",
+          "title": "heading_level",
+          "type": "integer"
+        },
+        "inherited_members": {
+          "anyOf": [
+            {
+              "type": "boolean"
             },
-            "show_root_heading": {
-              "title": "Show the heading of the object at the root of the documentation tree.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_root_heading",
-              "type": "boolean",
-              "default": false
-            },
-            "show_root_toc_entry": {
-              "title": "If the root heading is not shown, at least add a ToC entry for it.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_root_toc_entry",
-              "type": "boolean",
-              "default": true
-            },
-            "show_root_full_path": {
-              "title": "Show the full Python path for the root object heading.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_root_full_path",
-              "type": "boolean",
-              "default": true
-            },
-            "show_root_members_full_path": {
-              "title": "Show the full Python path of the root members.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_root_members_full_path",
-              "type": "boolean",
-              "default": false
-            },
-            "show_object_full_path": {
-              "title": "Show the full Python path of every object.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_object_full_path",
-              "type": "boolean",
-              "default": false
-            },
-            "show_symbol_type_heading": {
-              "title": "Show the symbol type in headings (e.g. mod, class, func and attr).",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_heading",
-              "type": "boolean",
-              "default": false
-            },
-            "show_symbol_type_toc": {
-              "title": "Show the symbol type in the Table of Contents (e.g. mod, class, func and attr).",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_toc",
-              "type": "boolean",
-              "default": false
-            },
-            "show_category_heading": {
-              "title": "When grouped by categories, show a heading for each category.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#show_category_heading",
-              "type": "boolean",
-              "default": false
-            },
-            "show_if_no_docstring": {
-              "title": "Show the object heading even if it has no docstring or children with docstrings.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_if_no_docstring",
-              "type": "boolean",
-              "default": false
-            },
-            "show_signature": {
-              "title": "Show methods and functions signatures.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_signature",
-              "type": "boolean",
-              "default": true
-            },
-            "show_signature_annotations": {
-              "title": "Show the type annotations in methods and functions signatures.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_signature_annotations",
-              "type": "boolean",
-              "default": false
-            },
-            "separate_signature": {
-              "title": "Whether to put the whole signature in a code block below the heading. If a formatter (Black or Ruff) is installed, the signature is also formatted using it.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#separate_signature",
-              "type": "boolean",
-              "default": false
-            },
-            "line_length": {
-              "title": "Maximum line length when formatting code/signatures.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#line_length",
-              "type": "integer",
-              "default": 60
-            },
-            "merge_init_into_class": {
-              "title": "Whether to merge the `__init__` method into the class' signature and docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#merge_init_into_class",
-              "type": "boolean",
-              "default": false
-            },
-            "show_docstring_attributes": {
-              "title": "Whether to display the \"Attributes\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_attributes",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_description": {
-              "title": "Whether to display the textual block (including admonitions) in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_description",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_examples": {
-              "title": "Whether to display the \"Examples\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_examples",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_other_parameters": {
-              "title": "Whether to display the \"Other Parameters\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_other_parameters",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_parameters": {
-              "title": "Whether to display the \"Parameters\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_parameters",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_raises": {
-              "title": "Whether to display the \"Raises\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_raises",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_receives": {
-              "title": "Whether to display the \"Receives\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_receives",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_returns": {
-              "title": "Whether to display the \"Returns\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_returns",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_warns": {
-              "title": "Whether to display the \"Warns\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_warns",
-              "type": "boolean",
-              "default": true
-            },
-            "show_docstring_yields": {
-              "title": "Whether to display the \"Yields\" section in the object's docstring.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_yields",
-              "type": "boolean",
-              "default": true
-            },
-            "show_source": {
-              "title": "Show the source code of this object.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/general/#show_source",
-              "type": "boolean",
-              "default": true
-            },
-            "show_bases": {
-              "title": "Show the base classes of a class.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/general/#show_bases",
-              "type": "boolean",
-              "default": true
-            },
-            "show_submodules": {
-              "title": "When rendering a module, show its submodules recursively.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/members/#show_submodules",
-              "type": "boolean",
-              "default": false
-            },
-            "group_by_category": {
-              "title": "Group the object's children by categories: attributes, classes, functions, and modules.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/members/#group_by_category",
-              "type": "boolean",
-              "default": true
-            },
-            "heading_level": {
-              "title": "The initial heading level to use.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/headings/#heading_level",
-              "type": "integer",
-              "default": 2
-            },
-            "members_order": {
-              "title": "The members ordering to use.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/members/#members_order",
-              "enum": [
-                "alphabetical",
-                "source"
-              ],
-              "default": "alphabetical"
-            },
-            "docstring_section_style": {
-              "title": "The style used to render docstring sections.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_section_style",
-              "enum": [
-                "list",
-                "spacy",
-                "table"
-              ],
-              "default": "table"
-            },
-            "members": {
-              "title": "An explicit list of members to render.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/members/#members",
-              "type": [
-                "boolean",
-                "array"
-              ],
-              "default": null
-            },
-            "filters": {
-              "title": "A list of filters applied to filter objects based on their name. A filter starting with `!` will exclude matching objects instead of including them. The `members` option takes precedence over `filters` (filters will still be applied recursively to lower members in the hierarchy).",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/members/#filters",
-              "type": "array",
-              "default": [
-                "!^_[^_]"
-              ]
-            },
-            "annotations_path": {
-              "title": "The verbosity for annotations path.",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/signatures/#annotations_path",
-              "enum": [
-                "brief",
-                "source"
-              ],
-              "default": "brief"
-            },
-            "preload_modules": {
-              "title": "Pre-load modules. It permits to resolve aliases pointing to these modules (packages), and therefore render members of an object that are external to the given object (originating from another package).",
-              "markdownDescription": "https://mkdocstrings.github.io/python/usage/configuration/general/#preload_modules",
-              "type": "array",
+            {
               "items": {
                 "type": "string"
-              }
+              },
+              "type": "array"
             }
+          ],
+          "default": false,
+          "description": "A boolean, or an explicit list of inherited members to render.\n\nIf true, select all inherited members, which can then be filtered with `members`.\nIf false or empty list, do not select any inherited member.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#inherited_members)\n\nA boolean, or an explicit list of inherited members to render.\n\nIf true, select all inherited members, which can then be filtered with `members`.\nIf false or empty list, do not select any inherited member.",
+          "title": "inherited_members"
+        },
+        "line_length": {
+          "default": 60,
+          "description": "Maximum line length when formatting code/signatures.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#line_length)\n\nMaximum line length when formatting code/signatures.",
+          "title": "line_length",
+          "type": "integer"
+        },
+        "members": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A boolean, or an explicit list of members to render.\n\nIf true, select all members without further filtering.\nIf false or empty list, do not render members.\nIf none, select all members and apply further filtering with filters and docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#members)\n\nA boolean, or an explicit list of members to render.\n\nIf true, select all members without further filtering.\nIf false or empty list, do not render members.\nIf none, select all members and apply further filtering with filters and docstrings.",
+          "title": "members"
+        },
+        "members_order": {
+          "default": "alphabetical",
+          "description": "The members ordering to use.\n\n- `alphabetical`: order by the members names,\n- `source`: order members as they appear in the source file.",
+          "enum": [
+            "alphabetical",
+            "source"
+          ],
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#members_order)\n\nThe members ordering to use.\n\n- `alphabetical`: order by the members names,\n- `source`: order members as they appear in the source file.",
+          "title": "members_order",
+          "type": "string"
+        },
+        "merge_init_into_class": {
+          "default": false,
+          "description": "Whether to merge the `__init__` method into the class' signature and docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#merge_init_into_class)\n\nWhether to merge the `__init__` method into the class' signature and docstring.",
+          "title": "merge_init_into_class",
+          "type": "boolean"
+        },
+        "modernize_annotations": {
+          "default": false,
+          "description": "Whether to modernize annotations, for example `Optional[str]` into `str | None`.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#modernize_annotations)\n\nWhether to modernize annotations, for example `Optional[str]` into `str | None`.",
+          "title": "modernize_annotations",
+          "type": "boolean"
+        },
+        "parameter_headings": {
+          "default": false,
+          "description": "Whether to render headings for parameters (therefore showing parameters in the ToC).",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#parameter_headings)\n\nWhether to render headings for parameters (therefore showing parameters in the ToC).",
+          "title": "parameter_headings",
+          "type": "boolean"
+        },
+        "preload_modules": {
+          "description": "Pre-load modules that are not specified directly in autodoc instructions (`::: identifier`).\n\nIt is useful when you want to render documentation for a particular member of an object,\nand this member is imported from another package than its parent.\n\nFor an imported member to be rendered, you need to add it to the `__all__` attribute\nof the importing module.\n\nThe modules must be listed as an array of strings.",
+          "items": {
+            "type": "string"
           },
-          "additionalProperties": false
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#preload_modules)\n\nPre-load modules that are not specified directly in autodoc instructions (`::: identifier`).\n\nIt is useful when you want to render documentation for a particular member of an object,\nand this member is imported from another package than its parent.\n\nFor an imported member to be rendered, you need to add it to the `__all__` attribute\nof the importing module.\n\nThe modules must be listed as an array of strings.",
+          "title": "preload_modules",
+          "type": "array"
+        },
+        "relative_crossrefs": {
+          "default": false,
+          "description": "Whether to enable the relative crossref syntax.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#relative_crossrefs)\n\nWhether to enable the relative crossref syntax.",
+          "title": "relative_crossrefs",
+          "type": "boolean"
+        },
+        "scoped_crossrefs": {
+          "default": false,
+          "description": "Whether to enable the scoped crossref ability.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#scoped_crossrefs)\n\nWhether to enable the scoped crossref ability.",
+          "title": "scoped_crossrefs",
+          "type": "boolean"
+        },
+        "separate_signature": {
+          "default": false,
+          "description": "Whether to put the whole signature in a code block below the heading.\n\nIf Black or Ruff are installed, the signature is also formatted using them.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#separate_signature)\n\nWhether to put the whole signature in a code block below the heading.\n\nIf Black or Ruff are installed, the signature is also formatted using them.",
+          "title": "separate_signature",
+          "type": "boolean"
+        },
+        "show_bases": {
+          "default": true,
+          "description": "Show the base classes of a class.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#show_bases)\n\nShow the base classes of a class.",
+          "title": "show_bases",
+          "type": "boolean"
+        },
+        "show_category_heading": {
+          "default": false,
+          "description": "When grouped by categories, show a heading for each category.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_category_heading)\n\nWhen grouped by categories, show a heading for each category.",
+          "title": "show_category_heading",
+          "type": "boolean"
+        },
+        "show_docstring_attributes": {
+          "default": true,
+          "description": "Whether to display the 'Attributes' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_attributes)\n\nWhether to display the 'Attributes' section in the object's docstring.",
+          "title": "show_docstring_attributes",
+          "type": "boolean"
+        },
+        "show_docstring_classes": {
+          "default": true,
+          "description": "Whether to display the 'Classes' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_classes)\n\nWhether to display the 'Classes' section in the object's docstring.",
+          "title": "show_docstring_classes",
+          "type": "boolean"
+        },
+        "show_docstring_description": {
+          "default": true,
+          "description": "Whether to display the textual block (including admonitions) in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_description)\n\nWhether to display the textual block (including admonitions) in the object's docstring.",
+          "title": "show_docstring_description",
+          "type": "boolean"
+        },
+        "show_docstring_examples": {
+          "default": true,
+          "description": "Whether to display the 'Examples' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_examples)\n\nWhether to display the 'Examples' section in the object's docstring.",
+          "title": "show_docstring_examples",
+          "type": "boolean"
+        },
+        "show_docstring_functions": {
+          "default": true,
+          "description": "Whether to display the 'Functions' or 'Methods' sections in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_functions)\n\nWhether to display the 'Functions' or 'Methods' sections in the object's docstring.",
+          "title": "show_docstring_functions",
+          "type": "boolean"
+        },
+        "show_docstring_modules": {
+          "default": true,
+          "description": "Whether to display the 'Modules' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_modules)\n\nWhether to display the 'Modules' section in the object's docstring.",
+          "title": "show_docstring_modules",
+          "type": "boolean"
+        },
+        "show_docstring_other_parameters": {
+          "default": true,
+          "description": "Whether to display the 'Other Parameters' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_other_parameters)\n\nWhether to display the 'Other Parameters' section in the object's docstring.",
+          "title": "show_docstring_other_parameters",
+          "type": "boolean"
+        },
+        "show_docstring_parameters": {
+          "default": true,
+          "description": "Whether to display the 'Parameters' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_parameters)\n\nWhether to display the 'Parameters' section in the object's docstring.",
+          "title": "show_docstring_parameters",
+          "type": "boolean"
+        },
+        "show_docstring_raises": {
+          "default": true,
+          "description": "Whether to display the 'Raises' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_raises)\n\nWhether to display the 'Raises' section in the object's docstring.",
+          "title": "show_docstring_raises",
+          "type": "boolean"
+        },
+        "show_docstring_receives": {
+          "default": true,
+          "description": "Whether to display the 'Receives' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_receives)\n\nWhether to display the 'Receives' section in the object's docstring.",
+          "title": "show_docstring_receives",
+          "type": "boolean"
+        },
+        "show_docstring_returns": {
+          "default": true,
+          "description": "Whether to display the 'Returns' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_returns)\n\nWhether to display the 'Returns' section in the object's docstring.",
+          "title": "show_docstring_returns",
+          "type": "boolean"
+        },
+        "show_docstring_warns": {
+          "default": true,
+          "description": "Whether to display the 'Warns' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_warns)\n\nWhether to display the 'Warns' section in the object's docstring.",
+          "title": "show_docstring_warns",
+          "type": "boolean"
+        },
+        "show_docstring_yields": {
+          "default": true,
+          "description": "Whether to display the 'Yields' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_yields)\n\nWhether to display the 'Yields' section in the object's docstring.",
+          "title": "show_docstring_yields",
+          "type": "boolean"
+        },
+        "show_if_no_docstring": {
+          "default": false,
+          "description": "Show the object heading even if it has no docstring or children with docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_if_no_docstring)\n\nShow the object heading even if it has no docstring or children with docstrings.",
+          "title": "show_if_no_docstring",
+          "type": "boolean"
+        },
+        "show_inheritance_diagram": {
+          "default": false,
+          "description": "Show the inheritance diagram of a class using Mermaid.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_inheritance_diagram)\n\nShow the inheritance diagram of a class using Mermaid.",
+          "title": "show_inheritance_diagram",
+          "type": "boolean"
+        },
+        "show_labels": {
+          "default": true,
+          "description": "Whether to show labels of the members.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_labels)\n\nWhether to show labels of the members.",
+          "title": "show_labels",
+          "type": "boolean"
+        },
+        "show_object_full_path": {
+          "default": false,
+          "description": "Show the full Python path of every object.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_object_full_path)\n\nShow the full Python path of every object.",
+          "title": "show_object_full_path",
+          "type": "boolean"
+        },
+        "show_root_full_path": {
+          "default": true,
+          "description": "Show the full Python path for the root object heading.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_root_full_path)\n\nShow the full Python path for the root object heading.",
+          "title": "show_root_full_path",
+          "type": "boolean"
+        },
+        "show_root_heading": {
+          "default": false,
+          "description": "Show the heading of the object at the root of the documentation tree.\n\nThe root object is the object referenced by the identifier after `:::`.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_root_heading)\n\nShow the heading of the object at the root of the documentation tree.\n\nThe root object is the object referenced by the identifier after `:::`.",
+          "title": "show_root_heading",
+          "type": "boolean"
+        },
+        "show_root_members_full_path": {
+          "default": false,
+          "description": "Show the full Python path of the root members.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_root_members_full_path)\n\nShow the full Python path of the root members.",
+          "title": "show_root_members_full_path",
+          "type": "boolean"
+        },
+        "show_root_toc_entry": {
+          "default": true,
+          "description": "If the root heading is not shown, at least add a ToC entry for it.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_root_toc_entry)\n\nIf the root heading is not shown, at least add a ToC entry for it.",
+          "title": "show_root_toc_entry",
+          "type": "boolean"
+        },
+        "show_signature_annotations": {
+          "default": false,
+          "description": "Show the type annotations in methods and functions signatures.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_signature_annotations)\n\nShow the type annotations in methods and functions signatures.",
+          "title": "show_signature_annotations",
+          "type": "boolean"
+        },
+        "show_signature": {
+          "default": true,
+          "description": "Show methods and functions signatures.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_signature)\n\nShow methods and functions signatures.",
+          "title": "show_signature",
+          "type": "boolean"
+        },
+        "show_source": {
+          "default": true,
+          "description": "Show the source code of this object.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#show_source)\n\nShow the source code of this object.",
+          "title": "show_source",
+          "type": "boolean"
+        },
+        "show_submodules": {
+          "default": false,
+          "description": "When rendering a module, show its submodules recursively.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#show_submodules)\n\nWhen rendering a module, show its submodules recursively.",
+          "title": "show_submodules",
+          "type": "boolean"
+        },
+        "show_symbol_type_heading": {
+          "default": false,
+          "description": "Show the symbol type in headings (e.g. mod, class, meth, func and attr).",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_heading)\n\nShow the symbol type in headings (e.g. mod, class, meth, func and attr).",
+          "title": "show_symbol_type_heading",
+          "type": "boolean"
+        },
+        "show_symbol_type_toc": {
+          "default": false,
+          "description": "Show the symbol type in the Table of Contents (e.g. mod, class, methd, func and attr).",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_toc)\n\nShow the symbol type in the Table of Contents (e.g. mod, class, methd, func and attr).",
+          "title": "show_symbol_type_toc",
+          "type": "boolean"
+        },
+        "signature_crossrefs": {
+          "default": false,
+          "description": "Whether to render cross-references for type annotations in signatures.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#signature_crossrefs)\n\nWhether to render cross-references for type annotations in signatures.",
+          "title": "signature_crossrefs",
+          "type": "boolean"
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/$defs/SummaryOption"
+            }
+          ],
+          "description": "Whether to render summaries of modules, classes, functions (methods) and attributes.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#summary)\n\nWhether to render summaries of modules, classes, functions (methods) and attributes.",
+          "title": "summary"
+        },
+        "toc_label": {
+          "default": "",
+          "description": "A custom string to override the autogenerated toc label of the root object.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#toc_label)\n\nA custom string to override the autogenerated toc label of the root object.",
+          "title": "toc_label",
+          "type": "string"
+        },
+        "unwrap_annotated": {
+          "default": false,
+          "description": "Whether to unwrap `Annotated` types to show only the type without the annotations.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#unwrap_annotated)\n\nWhether to unwrap `Annotated` types to show only the type without the annotations.",
+          "title": "unwrap_annotated",
+          "type": "boolean"
+        },
+        "extra": {
+          "description": "Extra options.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#extra)\n\nExtra options.",
+          "title": "extra",
+          "type": "object"
         }
       },
-      "additionalProperties": false
+      "title": "PythonInputOptions",
+      "type": "object"
+    },
+    "SphinxStyleOptions": {
+      "description": "Sphinx style docstring options.",
+      "properties": {},
+      "title": "SphinxStyleOptions",
+      "type": "object"
+    },
+    "SummaryOption": {
+      "description": "Summary option.",
+      "properties": {
+        "attributes": {
+          "default": false,
+          "description": "Whether to render summaries of attributes.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#summary)\n\nWhether to render summaries of attributes.",
+          "title": "attributes",
+          "type": "boolean"
+        },
+        "functions": {
+          "default": false,
+          "description": "Whether to render summaries of functions (methods).",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#summary)\n\nWhether to render summaries of functions (methods).",
+          "title": "functions",
+          "type": "boolean"
+        },
+        "classes": {
+          "default": false,
+          "description": "Whether to render summaries of classes.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#summary)\n\nWhether to render summaries of classes.",
+          "title": "classes",
+          "type": "boolean"
+        },
+        "modules": {
+          "default": false,
+          "description": "Whether to render summaries of modules.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#summary)\n\nWhether to render summaries of modules.",
+          "title": "modules",
+          "type": "boolean"
+        }
+      },
+      "title": "SummaryOption",
+      "type": "object"
     }
   },
-  "additionalProperties": false
+  "description": "Python handler configuration.",
+  "properties": {
+    "inventories": {
+      "description": "The inventories to load.",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Inventory"
+          }
+        ]
+      },
+      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#inventories)\n\nThe inventories to load.",
+      "title": "inventories",
+      "type": "array"
+    },
+    "paths": {
+      "description": "The paths in which to search for Python packages.",
+      "items": {
+        "type": "string"
+      },
+      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#paths)\n\nThe paths in which to search for Python packages.",
+      "title": "paths",
+      "type": "array"
+    },
+    "load_external_modules": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Whether to always load external modules/packages.",
+      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#load_external_modules)\n\nWhether to always load external modules/packages.",
+      "title": "load_external_modules"
+    },
+    "options": {
+      "$ref": "#/$defs/PythonInputOptions",
+      "description": "Configuration options for collecting and rendering objects.",
+      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#options)\n\nConfiguration options for collecting and rendering objects.",
+      "title": "options"
+    },
+    "locale": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The locale to use when translating template strings.",
+      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#locale)\n\nThe locale to use when translating template strings.",
+      "title": "locale"
+    }
+  },
+  "title": "PythonInputConfig",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft-07/schema"
 }
