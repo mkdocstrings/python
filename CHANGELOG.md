@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.14.0](https://github.com/mkdocstrings/python/releases/tag/1.14.0) - 2025-02-03
+
+<small>[Compare with 1.13.0](https://github.com/mkdocstrings/python/compare/1.13.0...1.14.0)</small>
+
+### Features
+
+- Add `heading` and `toc_label` options ([7cabacf](https://github.com/mkdocstrings/python/commit/7cabacf13735dbc5066793baf5820d61cd342dc8) by Yann Van Crombrugge). [Issue-mkdocstrings-725](https://github.com/mkdocstrings/mkdocstrings/issues/725), [PR-236](https://github.com/mkdocstrings/python/pull/236)
+- Add `force_inspection` option to force dynamic analysis ([83823be](https://github.com/mkdocstrings/python/commit/83823be2146d6a2ecedc5fe9c0cfd84098d780ca) by Uchechukwu Orji). [Issue-94](https://github.com/mkdocstrings/python/issues/94), [PR-231](https://github.com/mkdocstrings/python/pull/231)
+
+### Code Refactoring
+
+- Use dataclasses for configuration/options and automate schema generation ([5ebeda6](https://github.com/mkdocstrings/python/commit/5ebeda6fce1b1bc7cb3f5e27a5a90ac394a3de0c) by Timothée Mazzucotelli).
+
 ## [1.13.0](https://github.com/mkdocstrings/python/releases/tag/1.13.0) - 2024-12-26
 
 <small>[Compare with 1.12.2](https://github.com/mkdocstrings/python/compare/1.12.2...1.13.0)</small>
