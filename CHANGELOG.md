@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.14.2](https://github.com/mkdocstrings/python/releases/tag/1.14.2) - 2025-02-03
+
+<small>[Compare with 1.14.1](https://github.com/mkdocstrings/python/compare/1.14.1...1.14.2)</small>
+
+### Bug Fixes
+
+- Deactivate Pydantic logic if v1 is installed instead of v2 ([c5ecd70](https://github.com/mkdocstrings/python/commit/c5ecd702b04417fa3d862806d608ea627b2e8ed9) by Timothée Mazzucotelli). [Issue-240](https://github.com/mkdocstrings/python/issues/240)
+
 ## [1.14.1](https://github.com/mkdocstrings/python/releases/tag/1.14.1) - 2025-02-03
 
 <small>[Compare with 1.14.0](https://github.com/mkdocstrings/python/compare/1.14.0...1.14.1)</small>
