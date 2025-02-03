@@ -25,6 +25,11 @@ try:
     # "yaml.schemas": {
     #     "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
     # }
+    import pydantic
+
+    if getattr(pydantic, "__version__", "1.").startswith("1."):
+        raise ImportError  # noqa: TRY301
+
     from inspect import cleandoc
 
     from pydantic import Field as BaseField
