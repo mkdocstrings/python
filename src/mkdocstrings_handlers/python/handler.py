@@ -195,8 +195,12 @@ class PythonHandler(BaseHandler):
     def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:  # noqa: D102
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
-        if options == {} and unknown_module:
-            raise CollectionError("Not loading additional modules during fallback")
+        reapply = True
+        if options == {}:
+            if unknown_module:
+                raise CollectionError("Not loading additional modules during fallback")
+            options = self.get_options({})
+            reapply = False
 
         parser_name = options.docstring_style
         parser = parser_name and Parser(parser_name)
@@ -244,11 +248,11 @@ class PythonHandler(BaseHandler):
         except AliasResolutionError as error:
             raise CollectionError(str(error)) from error
 
-        if not unknown_module:
+        if not unknown_module and reapply:
             with suppress(AliasResolutionError):
                 if doc_object.docstring is not None:
                     doc_object.docstring.parser = parser
-                    doc_object.docstring.parser_options = parser_options
+                    doc_object.docstring.parser_options = parser_options or {}
 
         return doc_object
 
