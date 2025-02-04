@@ -186,11 +186,16 @@ class PythonHandler(BaseHandler):
 
         extra = {**self.global_options.get("extra", {}), **local_options.get("extra", {})}
         options = {**self.global_options, **local_options, "extra": extra}
-        # YORE: Bump 2: Replace `, **unknown_extra` with `` within line.
         try:
-            return PythonOptions.from_data(**options, **unknown_extra)
+            # YORE: Bump 2: Replace `opts =` with `return` within line.
+            opts = PythonOptions.from_data(**options)
         except Exception as error:
             raise PluginError(f"Invalid options: {error}") from error
+
+        # YORE: Bump 2: Remove block.
+        for key, value in unknown_extra.items():
+            object.__setattr__(opts, key, value)
+        return opts
 
     def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:  # noqa: D102
         module_name = identifier.split(".", 1)[0]

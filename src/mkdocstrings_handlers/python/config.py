@@ -843,15 +843,6 @@ class PythonInputOptions:
         copy = data.copy()
         return {name: copy.pop(name) for name in data if name not in field_names}, copy
 
-    # YORE: Bump 2: Remove block.
-    def __init__(self, **kwargs: Any) -> None:
-        """Initialize the instance."""
-        extra_fields = self._extract_extra(kwargs)
-        for name, value in kwargs.items():
-            object.__setattr__(self, name, value)
-        if extra_fields:
-            object.__setattr__(self, "_extra", extra_fields)
-
     @classmethod
     def coerce(cls, **data: Any) -> MutableMapping[str, Any]:
         """Coerce data."""
