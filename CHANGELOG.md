@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.14.3](https://github.com/mkdocstrings/python/releases/tag/1.14.3) - 2025-02-04
+
+<small>[Compare with 1.14.2](https://github.com/mkdocstrings/python/compare/1.14.2...1.14.3)</small>
+
+### Bug Fixes
+
+- Let dataclass implement `__init__` method, set extra fields in `get_options` ([477b9e4](https://github.com/mkdocstrings/python/commit/477b9e447ef9717c6edcb14bd4c53f9cacc555b8) by Timothée Mazzucotelli).
+
 ## [1.14.2](https://github.com/mkdocstrings/python/releases/tag/1.14.2) - 2025-02-03
 
 <small>[Compare with 1.14.1](https://github.com/mkdocstrings/python/compare/1.14.1...1.14.2)</small>
