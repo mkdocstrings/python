@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.14.5](https://github.com/mkdocstrings/python/releases/tag/1.14.5) - 2025-02-05
+
+<small>[Compare with 1.14.4](https://github.com/mkdocstrings/python/compare/1.14.4...1.14.5)</small>
+
+### Bug Fixes
+
+- Remove type from property docstring summary in summary sections ([15f2cd4](https://github.com/mkdocstrings/python/commit/15f2cd48b79a1f062086a47ea0c6bc52d89786d8) by Uchechukwu Orji). [PR-242](https://github.com/mkdocstrings/python/pull/242)
+
 ## [1.14.4](https://github.com/mkdocstrings/python/releases/tag/1.14.4) - 2025-02-04
 
 <small>[Compare with 1.14.3](https://github.com/mkdocstrings/python/compare/1.14.3...1.14.4)</small>
