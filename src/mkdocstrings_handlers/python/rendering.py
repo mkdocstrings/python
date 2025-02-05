@@ -539,11 +539,20 @@ def do_as_attributes_section(
     Returns:
         An attributes docstring section.
     """
+
+    def _parse_docstring_summary(attribute: Attribute) -> str:
+        if attribute.docstring is None:
+            return ""
+        line = attribute.docstring.value.split("\n", 1)[0]
+        if ":" in line and attribute.docstring.parser_options.get("returns_type_in_property_summary", False):
+            _, line = line.split(":", 1)
+        return line
+
     return DocstringSectionAttributes(
         [
             DocstringAttribute(
                 name=attribute.name,
-                description=attribute.docstring.value.split("\n", 1)[0] if attribute.docstring else "",
+                description=_parse_docstring_summary(attribute),
                 annotation=attribute.annotation,
                 value=attribute.value,  # type: ignore[arg-type]
             )
