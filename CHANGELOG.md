@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.14.6](https://github.com/mkdocstrings/python/releases/tag/1.14.6) - 2025-02-07
+
+<small>[Compare with 1.14.5](https://github.com/mkdocstrings/python/compare/1.14.5...1.14.6)</small>
+
+### Bug Fixes
+
+- Catch alias resolution errors when getting aliases for an identifier ([0aaa260](https://github.com/mkdocstrings/python/commit/0aaa260139afe2e3ab85d62224c90a389df64978) by Timothée Mazzucotelli). [Issue-358](https://github.com/mkdocstrings/griffe/discussions/358)
+
+### Code Refactoring
+
+- Improve translations for Simplified Chinese and Japanese ([753a0df](https://github.com/mkdocstrings/python/commit/753a0df8f91f1cf42fb7e56b7fdd312b2bd652ab) by Zhikang Yan). [PR-244](https://github.com/mkdocstrings/python/pull/244)
+
 ## [1.14.5](https://github.com/mkdocstrings/python/releases/tag/1.14.5) - 2025-02-05
 
 <small>[Compare with 1.14.4](https://github.com/mkdocstrings/python/compare/1.14.4...1.14.5)</small>
