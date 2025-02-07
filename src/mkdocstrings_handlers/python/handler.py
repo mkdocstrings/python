@@ -307,7 +307,7 @@ class PythonHandler(BaseHandler):
     def get_aliases(self, identifier: str) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
         try:
             data = self._modules_collection[identifier]
-        except KeyError:
+        except (KeyError, AliasResolutionError):
             return ()
         aliases = [data.path]
         try:
