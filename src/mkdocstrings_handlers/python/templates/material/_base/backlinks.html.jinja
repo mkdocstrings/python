@@ -19,8 +19,21 @@ Context:
   {% for backlink_type, backlink_list in backlinks | dictsort %}
     <b class="doc doc-backlink-type">{{ verbose_type[backlink_type] }}:</b>
     <ul class="doc doc-backlink-list">
-      {% for url, title in backlink_list | sort(attribute=1) %}
-        <li><a href="{{ url }}" class="doc doc-backlink">{{ (title or url.split("#", 1)[-1]) | safe }}</a></li>
+      {% for backlink in backlink_list | sort(attribute="crumbs") %}
+        <li class="doc doc-backlink">
+          {% for crumb in backlink.crumbs | reverse %}
+            {% if crumb.url %}
+              <a class="doc doc-backlink-crumb" href="{{ crumb.url }}">{{ crumb.title | safe }}</a>
+            {% else %}
+              <span class="doc doc-backlink-crumb">{{ crumb.title | safe }}</span>
+            {% endif %}
+            {% if not loop.last %}
+              <span class="twemoji">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+              </span>
+            {% endif %}
+          {% endfor %}
+        </li>
       {% endfor %}
     </ul>
   {% endfor %}

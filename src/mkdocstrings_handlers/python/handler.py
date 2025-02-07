@@ -34,6 +34,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterator, Mapping, MutableMapping, Sequence
 
     from mkdocs.config.defaults import MkDocsConfig
+    from mkdocs_autorefs.plugin import Backlink
 
 
 if sys.version_info >= (3, 11):
@@ -274,7 +275,7 @@ class PythonHandler(BaseHandler):
             },
         )
 
-    def render_backlinks(self, backlinks: Mapping[str, Iterable[str]]) -> str:  # noqa: D102 (ignore missing docstring)
+    def render_backlinks(self, backlinks: Mapping[str, Iterable[Backlink]]) -> str:  # noqa: D102 (ignore missing docstring)
         template = self.env.get_template("backlinks.html.jinja")
         verbose_type = {key: key.capitalize().replace("-by", " by") for key in backlinks.keys()}
         return template.render(backlinks=backlinks, config=self.get_options({}), verbose_type=verbose_type)
