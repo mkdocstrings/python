@@ -1,7 +1,7 @@
 """Generate a JSON schema of the Python handler configuration."""
 
 import json
-from dataclasses import fields
+from dataclasses import dataclass, fields
 from os.path import join
 from typing import Any
 
@@ -25,7 +25,12 @@ def on_post_build(config: MkDocsConfig, **kwargs: Any) -> None:  # noqa: ARG001
     if TypeAdapter is None:
         logger.info("Pydantic is not installed, skipping JSON schema generation")
         return
-    adapter = TypeAdapter(PythonInputConfig)
+
+    @dataclass
+    class PythonHandlerSchema:
+        python: PythonInputConfig
+
+    adapter = TypeAdapter(PythonHandlerSchema)
     schema = adapter.json_schema()
     schema["$schema"] = "https://json-schema.org/draft-07/schema"
     with open(join(config.site_dir, "schema.json"), "w") as file:
