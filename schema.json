@@ -202,6 +202,72 @@
       "title": "PerStyleOptions",
       "type": "object"
     },
+    "PythonInputConfig": {
+      "description": "Python handler configuration.",
+      "properties": {
+        "inventories": {
+          "description": "The inventories to load.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/Inventory"
+              }
+            ]
+          },
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#inventories)\n\nThe inventories to load.",
+          "title": "inventories",
+          "type": "array"
+        },
+        "paths": {
+          "description": "The paths in which to search for Python packages.",
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#paths)\n\nThe paths in which to search for Python packages.",
+          "title": "paths",
+          "type": "array"
+        },
+        "load_external_modules": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Whether to always load external modules/packages.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#load_external_modules)\n\nWhether to always load external modules/packages.",
+          "title": "load_external_modules"
+        },
+        "options": {
+          "$ref": "#/$defs/PythonInputOptions",
+          "description": "Configuration options for collecting and rendering objects.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#options)\n\nConfiguration options for collecting and rendering objects.",
+          "title": "options"
+        },
+        "locale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The locale to use when translating template strings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#locale)\n\nThe locale to use when translating template strings.",
+          "title": "locale"
+        }
+      },
+      "title": "PythonInputConfig",
+      "type": "object"
+    },
     "PythonInputOptions": {
       "description": "Accepted input options.",
       "properties": {
@@ -734,69 +800,15 @@
       "type": "object"
     }
   },
-  "description": "Python handler configuration.",
   "properties": {
-    "inventories": {
-      "description": "The inventories to load.",
-      "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/Inventory"
-          }
-        ]
-      },
-      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#inventories)\n\nThe inventories to load.",
-      "title": "inventories",
-      "type": "array"
-    },
-    "paths": {
-      "description": "The paths in which to search for Python packages.",
-      "items": {
-        "type": "string"
-      },
-      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#paths)\n\nThe paths in which to search for Python packages.",
-      "title": "paths",
-      "type": "array"
-    },
-    "load_external_modules": {
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "description": "Whether to always load external modules/packages.",
-      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#load_external_modules)\n\nWhether to always load external modules/packages.",
-      "title": "load_external_modules"
-    },
-    "options": {
-      "$ref": "#/$defs/PythonInputOptions",
-      "description": "Configuration options for collecting and rendering objects.",
-      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#options)\n\nConfiguration options for collecting and rendering objects.",
-      "title": "options"
-    },
-    "locale": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "description": "The locale to use when translating template strings.",
-      "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#locale)\n\nThe locale to use when translating template strings.",
-      "title": "locale"
+    "python": {
+      "$ref": "#/$defs/PythonInputConfig"
     }
   },
-  "title": "PythonInputConfig",
+  "required": [
+    "python"
+  ],
+  "title": "PythonHandlerSchema",
   "type": "object",
   "$schema": "https://json-schema.org/draft-07/schema"
 }
