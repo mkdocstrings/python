@@ -5,6 +5,50 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.15.0](https://github.com/mkdocstrings/python/releases/tag/1.15.0) - 2025-02-11
+
+<small>[Compare with 1.14.6](https://github.com/mkdocstrings/python/compare/1.14.6...1.15.0)</small>
+
+### Features
+
+- Support cross-referencing constructor parameters in instance attribute values ([f07bf58](https://github.com/mkdocstrings/python/commit/f07bf58a7358dea106032c7da27098e7617eefa0) by Timothée Mazzucotelli).
+
+## [1.14.6](https://github.com/mkdocstrings/python/releases/tag/1.14.6) - 2025-02-07
+
+<small>[Compare with 1.14.5](https://github.com/mkdocstrings/python/compare/1.14.5...1.14.6)</small>
+
+### Bug Fixes
+
+- Catch alias resolution errors when getting aliases for an identifier ([0aaa260](https://github.com/mkdocstrings/python/commit/0aaa260139afe2e3ab85d62224c90a389df64978) by Timothée Mazzucotelli). [Issue-358](https://github.com/mkdocstrings/griffe/discussions/358)
+
+### Code Refactoring
+
+- Improve translations for Simplified Chinese and Japanese ([753a0df](https://github.com/mkdocstrings/python/commit/753a0df8f91f1cf42fb7e56b7fdd312b2bd652ab) by Zhikang Yan). [PR-244](https://github.com/mkdocstrings/python/pull/244)
+
+## [1.14.5](https://github.com/mkdocstrings/python/releases/tag/1.14.5) - 2025-02-05
+
+<small>[Compare with 1.14.4](https://github.com/mkdocstrings/python/compare/1.14.4...1.14.5)</small>
+
+### Bug Fixes
+
+- Remove type from property docstring summary in summary sections ([15f2cd4](https://github.com/mkdocstrings/python/commit/15f2cd48b79a1f062086a47ea0c6bc52d89786d8) by Uchechukwu Orji). [PR-242](https://github.com/mkdocstrings/python/pull/242)
+
+## [1.14.4](https://github.com/mkdocstrings/python/releases/tag/1.14.4) - 2025-02-04
+
+<small>[Compare with 1.14.3](https://github.com/mkdocstrings/python/compare/1.14.3...1.14.4)</small>
+
+### Bug Fixes
+
+- Deactivate Pydantic validation on Python 3.9 is `eval-type-backport` is not available (for modern typing syntax support) ([0de0e5e](https://github.com/mkdocstrings/python/commit/0de0e5e57f8f22e039b0d19aad6341ce7ab3da9f) by Timothée Mazzucotelli). [Issue-241](https://github.com/mkdocstrings/python/issues/241)
+
+## [1.14.3](https://github.com/mkdocstrings/python/releases/tag/1.14.3) - 2025-02-04
+
+<small>[Compare with 1.14.2](https://github.com/mkdocstrings/python/compare/1.14.2...1.14.3)</small>
+
+### Bug Fixes
+
+- Let dataclass implement `__init__` method, set extra fields in `get_options` ([477b9e4](https://github.com/mkdocstrings/python/commit/477b9e447ef9717c6edcb14bd4c53f9cacc555b8) by Timothée Mazzucotelli).
+
 ## [1.14.2](https://github.com/mkdocstrings/python/releases/tag/1.14.2) - 2025-02-03
 
 <small>[Compare with 1.14.1](https://github.com/mkdocstrings/python/compare/1.14.1...1.14.2)</small>

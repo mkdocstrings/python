@@ -188,11 +188,16 @@ class PythonHandler(BaseHandler):
 
         extra = {**self.global_options.get("extra", {}), **local_options.get("extra", {})}
         options = {**self.global_options, **local_options, "extra": extra}
-        # YORE: Bump 2: Replace `, **unknown_extra` with `` within line.
         try:
-            return PythonOptions.from_data(**options, **unknown_extra)
+            # YORE: Bump 2: Replace `opts =` with `return` within line.
+            opts = PythonOptions.from_data(**options)
         except Exception as error:
             raise PluginError(f"Invalid options: {error}") from error
+
+        # YORE: Bump 2: Remove block.
+        for key, value in unknown_extra.items():
+            object.__setattr__(opts, key, value)
+        return opts
 
     def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:  # noqa: D102
         module_name = identifier.split(".", 1)[0]
@@ -307,9 +312,14 @@ class PythonHandler(BaseHandler):
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_aliases(self, identifier: str) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
+        if "(" in identifier:
+            identifier, parameter = identifier.split("(", 1)
+            parameter.removesuffix(")")
+        else:
+            parameter = ""
         try:
             data = self._modules_collection[identifier]
-        except KeyError:
+        except (KeyError, AliasResolutionError):
             return ()
         aliases = [data.path]
         try:
@@ -317,7 +327,9 @@ class PythonHandler(BaseHandler):
                 if alias not in aliases:
                     aliases.append(alias)
         except AliasResolutionError:
-            return tuple(aliases)
+            pass
+        if parameter:
+            return tuple(f"{alias}({parameter})" for alias in aliases)
         return tuple(aliases)
 
     def normalize_extension_paths(self, extensions: Sequence) -> Sequence:

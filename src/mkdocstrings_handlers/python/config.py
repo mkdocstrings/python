@@ -7,11 +7,17 @@ import sys
 from dataclasses import field, fields
 from typing import TYPE_CHECKING, Annotated, Any, Literal
 
+from mkdocstrings.loggers import get_logger
+
 # YORE: EOL 3.10: Replace block with line 2.
 if sys.version_info >= (3, 11):
     from typing import Self
 else:
     from typing_extensions import Self
+
+
+logger = get_logger(__name__)
+
 
 try:
     # When Pydantic is available, use it to validate options (done automatically).
@@ -29,6 +35,17 @@ try:
 
     if getattr(pydantic, "__version__", "1.").startswith("1."):
         raise ImportError  # noqa: TRY301
+
+    if sys.version_info < (3, 10):
+        try:
+            import eval_type_backport  # noqa: F401
+        except ImportError:
+            logger.debug(
+                "Pydantic needs the `eval-type-backport` package to be installed "
+                "for modern type syntax to work on Python 3.9. "
+                "Deactivating Pydantic validation for Python handler options.",
+            )
+            raise
 
     from inspect import cleandoc
 
@@ -842,15 +859,6 @@ class PythonInputOptions:
         field_names = {field.name for field in fields(cls)}
         copy = data.copy()
         return {name: copy.pop(name) for name in data if name not in field_names}, copy
-
-    # YORE: Bump 2: Remove block.
-    def __init__(self, **kwargs: Any) -> None:
-        """Initialize the instance."""
-        extra_fields = self._extract_extra(kwargs)
-        for name, value in kwargs.items():
-            object.__setattr__(self, name, value)
-        if extra_fields:
-            object.__setattr__(self, "_extra", extra_fields)
 
     @classmethod
     def coerce(cls, **data: Any) -> MutableMapping[str, Any]:
