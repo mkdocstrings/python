@@ -31,7 +31,8 @@ which is a tree-like structure representing a Python expression.
     {%- elif annotation_path == "full" -%}
       {%- set annotation = full -%}
     {%- endif -%}
-    {%- for title, path in annotation|split_path(full) -%}
+    {%- for prefix, title, path, suffix in annotation|split_path(full) -%}
+      {{ prefix }}
       {%- if not signature -%}
         {#- Always render cross-references outside of signatures. We don't need to stash them. -#}
         <autoref identifier="{{ path }}" optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
@@ -44,7 +45,7 @@ which is a tree-like structure representing a Python expression.
         {#- We're in a signature but cross-references are disabled, we just render the title. -#}
         {{ title }}
       {%- endif -%}
-      {%- if not loop.last -%}.{%- endif -%}
+      {{ suffix }}
     {%- endfor -%}
   {%- endwith -%}
 {%- endmacro -%}

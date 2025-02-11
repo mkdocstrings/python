@@ -305,6 +305,11 @@ class PythonHandler(BaseHandler):
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_aliases(self, identifier: str) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
+        if "(" in identifier:
+            identifier, parameter = identifier.split("(", 1)
+            parameter.removesuffix(")")
+        else:
+            parameter = ""
         try:
             data = self._modules_collection[identifier]
         except (KeyError, AliasResolutionError):
@@ -315,7 +320,9 @@ class PythonHandler(BaseHandler):
                 if alias not in aliases:
                     aliases.append(alias)
         except AliasResolutionError:
-            return tuple(aliases)
+            pass
+        if parameter:
+            return tuple(f"{alias}({parameter})" for alias in aliases)
         return tuple(aliases)
 
     def normalize_extension_paths(self, extensions: Sequence) -> Sequence:
