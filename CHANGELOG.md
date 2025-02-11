@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.15.0](https://github.com/mkdocstrings/python/releases/tag/1.15.0) - 2025-02-11
+
+<small>[Compare with 1.14.6](https://github.com/mkdocstrings/python/compare/1.14.6...1.15.0)</small>
+
+### Features
+
+- Support cross-referencing constructor parameters in instance attribute values ([f07bf58](https://github.com/mkdocstrings/python/commit/f07bf58a7358dea106032c7da27098e7617eefa0) by Timothée Mazzucotelli).
+
 ## [1.14.6](https://github.com/mkdocstrings/python/releases/tag/1.14.6) - 2025-02-07
 
 <small>[Compare with 1.14.5](https://github.com/mkdocstrings/python/compare/1.14.5...1.14.6)</small>
