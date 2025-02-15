@@ -433,6 +433,55 @@ function(param1, param2=None)
 ////
 ///
 
+[](){#option-show_overloads}
+## `show_overloads`
+
+Whether to render function / method overloads.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_overloads: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      show_overloads: false
+```
+
+/// admonition | Preview
+    type: preview
+//// tab | With overloads
+<h2>function</h2>
+
+
+```python
+@overload
+function(param1: int): ...
+
+@overload
+function(param1: str): ...
+
+function(param1: str | int)
+```
+Function docstring.
+
+////
+//// tab | Without overloads
+<h2>function</h2>
+
+```python
+function(param1: str | int)
+```
+Function docstring.
+
+////
+///
+
 [](){#option-signature_crossrefs}
 ## `signature_crossrefs`
 
