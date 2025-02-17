@@ -80,7 +80,7 @@ Context:
         This block renders the signature for the function,
         as well as its overloaded signatures if any.
         -#}
-        {% if function.overloads %}
+        {% if function.overloads and config.show_overloads %}
           <div class="doc-overloads">
             {% for overload in function.overloads %}
               {% filter format_signature(overload, config.line_length, annotations=True, crossrefs=config.signature_crossrefs) %}

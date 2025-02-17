@@ -568,6 +568,14 @@ class PythonInputOptions:
         ),
     ] = False
 
+    show_overloads: Annotated[
+        bool,
+        Field(
+            group="signatures",
+            description="Show the overloads of a function or method.",
+        ),
+    ] = True
+
     separate_signature: Annotated[
         bool,
         Field(

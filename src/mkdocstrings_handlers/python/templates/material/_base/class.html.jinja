@@ -82,7 +82,7 @@ Context:
         {% if config.merge_init_into_class %}
           {% if "__init__" in all_members %}
             {% with function = all_members["__init__"] %}
-              {% if function.overloads %}
+              {% if function.overloads and config.show_overloads %}
                 <div class="doc-overloads">
                   {% for overload in function.overloads %}
                     {% filter format_signature(overload, config.line_length, annotations=True, crossrefs=config.signature_crossrefs) %}
