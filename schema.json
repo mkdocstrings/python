@@ -504,6 +504,13 @@
           "title": "scoped_crossrefs",
           "type": "boolean"
         },
+        "show_overloads": {
+          "default": true,
+          "description": "Show the overloads of a function or method.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_overloads)\n\nShow the overloads of a function or method.",
+          "title": "show_overloads",
+          "type": "boolean"
+        },
         "separate_signature": {
           "default": false,
           "description": "Whether to put the whole signature in a code block below the heading.\n\nIf Black or Ruff are installed, the signature is also formatted using them.",
