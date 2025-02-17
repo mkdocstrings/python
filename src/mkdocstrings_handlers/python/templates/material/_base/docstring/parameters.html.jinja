@@ -79,7 +79,7 @@ Context:
   {% block list_style scoped %}
     {#- Block for the `list` section style. -#}
     <p><span class="doc-section-title">{{ section.title or lang.t("Parameters:") }}</span></p>
-    <ul>
+    <ul style="list-style-type: none;">
       {% for parameter in section.value %}
         <li class="doc-section-item field-body">
           {% if config.parameter_headings %}

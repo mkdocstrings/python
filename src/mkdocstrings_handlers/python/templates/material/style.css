@@ -41,6 +41,23 @@
   font-weight: bold;
 }
 
+/* Backlinks crumb separator. */
+.doc-backlink-crumb:not(:first-child) {
+  display: inline-flex;
+  gap: .2rem;
+  white-space: nowrap;
+}
+.doc-backlink-crumb:not(:first-child)::before {
+  background-color: var(--md-default-fg-color--lighter);
+  content: "";
+  display: inline;
+  height: 1rem;
+  -webkit-mask-image: var(--md-path-icon);
+  mask-image: var(--md-path-icon);
+  width: 1rem;
+  font-size: 1rem;
+}
+
 /* Symbols in Navigation and ToC. */
 :root, :host,
 [data-md-color-scheme="default"] {

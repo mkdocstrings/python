@@ -21,17 +21,19 @@ Context:
     <ul class="doc doc-backlink-list">
       {% for backlink in backlink_list | sort(attribute="crumbs") %}
         <li class="doc doc-backlink">
-          {% for crumb in backlink.crumbs | reverse %}
-            {% if crumb.url %}
-              <a class="doc doc-backlink-crumb" href="{{ crumb.url }}">{{ crumb.title | safe }}</a>
-            {% else %}
-              <span class="doc doc-backlink-crumb">{{ crumb.title | safe }}</span>
-            {% endif %}
-            {% if not loop.last %}
+          {% for crumb in backlink.crumbs %}
+            <span class="doc doc-backlink-crumb">
+              {% if crumb.url %}
+                <a href="{{ crumb.url }}">{{ crumb.title | safe }}</a>
+              {% else %}
+                <span>{{ crumb.title | safe }}</span>
+              {% endif %}
+            </span>
+            {# {% if not loop.last %}
               <span class="twemoji">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
               </span>
-            {% endif %}
+            {% endif %} #}
           {% endfor %}
         </li>
       {% endfor %}
