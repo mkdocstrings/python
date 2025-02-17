@@ -47,7 +47,7 @@ Context:
         {#- Prepare type annotation. -#}
         {%- if config.show_signature_annotations and parameter.annotation is not none -%}
           {%- set ns.equal = " = " -%}
-          {%- if config.separate_signature and config.signature_crossrefs -%}
+          {%- if config.separate_signature -%}
             {%- with expression = parameter.annotation -%}
               {%- set ns.annotation -%}: {% include "expression"|get_template with context %}{%- endset -%}
             {%- endwith -%}
