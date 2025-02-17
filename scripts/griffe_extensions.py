@@ -28,7 +28,7 @@ class CustomFields(griffe.Extension):
         except AttributeError:
             return
 
-        if field.canonical_path == "mkdocstrings_handler.python.config.Field":
+        if field.canonical_path == "mkdocstrings_handlers.python.config.Field":
             description = next(
                 attr.value
                 for attr in field.arguments
