@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.15.1](https://github.com/mkdocstrings/python/releases/tag/1.15.1) - 2025-02-17
+
+<small>[Compare with 1.15.0](https://github.com/mkdocstrings/python/compare/1.15.0...1.15.1)</small>
+
+### Bug Fixes
+
+- Unwrap `Annotated` regardless of `signature_crossrefs` ([d809f1a](https://github.com/mkdocstrings/python/commit/d809f1a9e6a6f4eaf6fe4a18c2ec0e69e5716a12) by Timothée Mazzucotelli). [Issue-249](https://github.com/mkdocstrings/python/issues/249)
+
 ## [1.15.0](https://github.com/mkdocstrings/python/releases/tag/1.15.0) - 2025-02-11
 
 <small>[Compare with 1.14.6](https://github.com/mkdocstrings/python/compare/1.14.6...1.15.0)</small>
