@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.1](https://github.com/mkdocstrings/python/releases/tag/1.16.1) - 2025-02-18
+
+<small>[Compare with 1.16.0](https://github.com/mkdocstrings/python/compare/1.16.0...1.16.1)</small>
+
+### Bug Fixes
+
+- Give precedence to user-provided paths when they are already listed in `sys.path` ([0f497d1](https://github.com/mkdocstrings/python/commit/0f497d185ba1860c61555803bfc4b311a410bd39) by Timothée Mazzucotelli). [Issue-248](https://github.com/mkdocstrings/python/discussions/248)
+
 ## [1.16.0](https://github.com/mkdocstrings/python/releases/tag/1.16.0) - 2025-02-17
 
 <small>[Compare with 1.15.1](https://github.com/mkdocstrings/python/compare/1.15.1...1.16.0)</small>
