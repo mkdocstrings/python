@@ -3,19 +3,19 @@
 from __future__ import annotations
 
 import os
+import sys
 from glob import glob
+from pathlib import Path
 from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pytest
 from griffe import DocstringSectionExamples, DocstringSectionKind, temporary_visited_module
 
-from mkdocstrings_handlers.python.config import PythonOptions
+from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions
 from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler
 
 if TYPE_CHECKING:
-    from pathlib import Path
-
     from mkdocstrings.plugin import MkdocstringsPlugin
 
 
@@ -167,3 +167,15 @@ def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
         module["Class.function"].lineno = None
         module["attribute"].lineno = None
         assert handler.render(module, PythonOptions(show_source=True))
+
+
+def test_give_precedence_to_user_paths() -> None:
+    """Assert user paths take precedence over default paths."""
+    last_sys_path = sys.path[-1]
+    handler = PythonHandler(
+        base_dir=Path("."),
+        config=PythonConfig.from_data(paths=[last_sys_path]),
+        mdx=[],
+        mdx_config={},
+    )
+    assert handler._paths[0] == last_sys_path

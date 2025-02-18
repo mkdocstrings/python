@@ -128,9 +128,11 @@ class PythonHandler(BaseHandler):
             # If it's not absolute, make path relative to the config file path, then make it absolute.
             if not os.path.isabs(path):
                 path = os.path.abspath(base_dir / path)  # noqa: PLW2901
-            # Don't add duplicates.
-            if path not in search_paths:
-                search_paths.insert(0, path)
+            # Remove pre-listed paths.
+            if path in search_paths:
+                search_paths.remove(path)
+            # Give precedence to user-provided paths.
+            search_paths.insert(0, path)
 
         self._paths = search_paths
         self._modules_collection: ModulesCollection = ModulesCollection()
