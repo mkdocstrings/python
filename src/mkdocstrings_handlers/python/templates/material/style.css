@@ -42,10 +42,12 @@
 }
 
 /* Backlinks crumb separator. */
-.doc-backlink-crumb:not(:first-child) {
+.doc-backlink-crumb {
   display: inline-flex;
   gap: .2rem;
   white-space: nowrap;
+  align-items: center;
+  vertical-align: middle;
 }
 .doc-backlink-crumb:not(:first-child)::before {
   background-color: var(--md-default-fg-color--lighter);
@@ -55,7 +57,6 @@
   -webkit-mask-image: var(--md-path-icon);
   mask-image: var(--md-path-icon);
   width: 1rem;
-  font-size: 1rem;
 }
 
 /* Symbols in Navigation and ToC. */
