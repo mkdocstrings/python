@@ -28,7 +28,7 @@ from griffe import (
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
-from mkdocs_autorefs.references import AutorefsHookInterface
+from mkdocs_autorefs import AutorefsHookInterface
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
