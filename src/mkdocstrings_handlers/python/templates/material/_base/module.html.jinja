@@ -97,6 +97,8 @@ Context:
           {% endwith %}
         {% endblock docstring %}
 
+        <backlinks identifier="{{ html_id }}" handler="python" />
+
         {% block summary scoped %}
           {#- Summary block.
 
