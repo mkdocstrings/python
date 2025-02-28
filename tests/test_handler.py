@@ -10,7 +10,7 @@ from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pytest
-from griffe import DocstringSectionExamples, DocstringSectionKind, temporary_visited_module
+from griffe import Docstring, DocstringSectionExamples, DocstringSectionKind, Module, temporary_visited_module
 
 from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions
 from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler
@@ -179,3 +179,102 @@ def test_give_precedence_to_user_paths() -> None:
         mdx_config={},
     )
     assert handler._paths[0] == last_sys_path
+
+
+@pytest.mark.parametrize(
+    ("section", "code"),
+    [
+        (
+            "Attributes",
+            """
+            class A:
+                '''Summary.
+
+                Attributes:
+                    x: X.
+                    y: Y.
+                '''
+                x: int = 0
+                '''X.'''
+                y: int = 0
+                '''Y.'''
+            """,
+        ),
+        (
+            "Methods",
+            """
+            class A:
+                '''Summary.
+
+                Methods:
+                    x: X.
+                    y: Y.
+                '''
+                def x(self): ...
+                '''X.'''
+                def y(self): ...
+                '''Y.'''
+            """,
+        ),
+        (
+            "Functions",
+            """
+            '''Summary.
+
+            Functions:
+                x: X.
+                y: Y.
+            '''
+            def x(): ...
+            '''X.'''
+            def y(): ...
+            '''Y.'''
+            """,
+        ),
+        (
+            "Classes",
+            """
+            '''Summary.
+
+            Classes:
+                A: A.
+                B: B.
+            '''
+            class A: ...
+            '''A.'''
+            class B: ...
+            '''B.'''
+            """,
+        ),
+        (
+            "Modules",
+            """
+            '''Summary.
+
+            Modules:
+                a: A.
+                b: B.
+            '''
+            """,
+        ),
+    ],
+)
+def test_deduplicate_summary_sections(handler: PythonHandler, section: str, code: str) -> None:
+    """Assert summary sections are deduplicated."""
+    summary_section = section.lower()
+    summary_section = "functions" if summary_section == "methods" else summary_section
+    with temporary_visited_module(code, docstring_parser="google") as module:  # type: ignore[arg-type]
+        if summary_section == "modules":
+            module.set_member("a", Module("A", docstring=Docstring("A.")))
+            module.set_member("b", Module("B", docstring=Docstring("B.")))
+        html = handler.render(
+            module,
+            handler.get_options(
+                {
+                    "summary": {summary_section: True},
+                    "show_source": False,
+                    "show_submodules": True,
+                },
+            ),
+        )
+        assert html.count(f"{section}:") == 1
