@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.3](https://github.com/mkdocstrings/python/releases/tag/1.16.3) - 2025-03-08
+
+<small>[Compare with 1.16.2](https://github.com/mkdocstrings/python/compare/1.16.2...1.16.3)</small>
+
+### Build
+
+- Depend on mkdocstrings 0.28.3 ([9fa4f16](https://github.com/mkdocstrings/python/commit/9fa4f1636af240bb695661b7172f052cb11e0ec9) by Timothée Mazzucotelli).
+
+### Bug Fixes
+
+- De-duplicate summary sections ([a657d07](https://github.com/mkdocstrings/python/commit/a657d07499eb82d22337c169aa86b1cdd85543fa) by Timothée Mazzucotelli). [Issue-134](https://github.com/mkdocstrings/python/issues/134)
+
+### Code Refactoring
+
+- Import from top-level `mkdocstrings` module ([da2ba13](https://github.com/mkdocstrings/python/commit/da2ba13b1367ce107416d08f382fb9f2384c015c) by Timothée Mazzucotelli).
+
 ## [1.16.2](https://github.com/mkdocstrings/python/releases/tag/1.16.2) - 2025-02-24
 
 <small>[Compare with 1.16.1](https://github.com/mkdocstrings/python/compare/1.16.1...1.16.2)</small>
