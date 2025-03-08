@@ -16,7 +16,7 @@ from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions
 from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler
 
 if TYPE_CHECKING:
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings import MkdocstringsPlugin
 
 
 def test_collect_missing_module(handler: PythonHandler) -> None:

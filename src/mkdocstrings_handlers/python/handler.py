@@ -22,9 +22,7 @@ from griffe import (
     patch_loggers,
 )
 from mkdocs.exceptions import PluginError
-from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem, HandlerOptions
-from mkdocstrings.inventory import Inventory
-from mkdocstrings.loggers import get_logger
+from mkdocstrings import BaseHandler, CollectionError, CollectorItem, HandlerOptions, Inventory, get_logger
 
 from mkdocstrings_handlers.python import rendering
 from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions

@@ -29,7 +29,7 @@ from griffe import (
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
 from mkdocs_autorefs import AutorefsHookInterface
-from mkdocstrings.loggers import get_logger
+from mkdocstrings import get_logger
 
 if TYPE_CHECKING:
     from collections.abc import Iterator, Sequence
@@ -37,7 +37,7 @@ if TYPE_CHECKING:
     from griffe import Attribute, Class, Function, Module
     from jinja2 import Environment, Template
     from jinja2.runtime import Context
-    from mkdocstrings.handlers.base import CollectorItem
+    from mkdocstrings import CollectorItem
 
 logger = get_logger(__name__)
 

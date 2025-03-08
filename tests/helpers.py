@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from pathlib import Path
 
     import pytest
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings import MkdocstringsPlugin
 
     from mkdocstrings_handlers.python.handler import PythonHandler
 

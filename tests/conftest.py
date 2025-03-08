@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
     from markdown.core import Markdown
     from mkdocs.config.defaults import MkDocsConfig
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings import MkdocstringsPlugin
 
     from mkdocstrings_handlers.python.handler import PythonHandler
 

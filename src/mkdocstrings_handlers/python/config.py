@@ -7,7 +7,7 @@ import sys
 from dataclasses import field, fields
 from typing import TYPE_CHECKING, Annotated, Any, Literal
 
-from mkdocstrings.loggers import get_logger
+from mkdocstrings import get_logger
 
 # YORE: EOL 3.10: Replace block with line 2.
 if sys.version_info >= (3, 11):
