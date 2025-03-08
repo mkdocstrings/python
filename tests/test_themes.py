@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import pytest
 
 if TYPE_CHECKING:
-    from mkdocstrings.handlers.python import PythonHandler
+    from mkdocstrings_handlers.python.handler import PythonHandler
 
 
 @pytest.mark.parametrize(
