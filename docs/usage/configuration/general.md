@@ -90,7 +90,17 @@ plugins:
           backlinks: tree
 ```
 
-<!-- TODO: Add screenshots! -->
+/// admonition | Preview
+    type: preview
+
+//// tab | Flat
+![backlinks-flat](https://github.com/user-attachments/assets/f7a15b01-f194-4c55-8281-50adbb4a74af)
+////
+
+//// tab | Tree
+![backlinks-tree](https://github.com/user-attachments/assets/3457db21-45e1-4e03-bd8c-2e9e75dc778b)
+////
+///
 
 [](){#option-extensions}
 ## `extensions`
