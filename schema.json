@@ -297,6 +297,17 @@
           "title": "annotations_path",
           "type": "string"
         },
+        "backlinks": {
+          "default": false,
+          "description": "Whether to render backlinks, and how.",
+          "enum": [
+            "flat",
+            "tree",
+            false
+          ],
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#backlinks)\n\nWhether to render backlinks, and how.",
+          "title": "backlinks"
+        },
         "docstring_options": {
           "anyOf": [
             {
