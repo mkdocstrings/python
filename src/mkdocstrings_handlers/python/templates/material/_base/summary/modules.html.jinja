@@ -7,7 +7,7 @@
   -#}
 {% endblock logs %}
 
-{% if not obj.docstring.parsed | selectattr("kind.value", "eq", "modules") %}
+{% if not obj.docstring.parsed | selectattr("kind.value", "eq", "modules") | list %}
   {% with section = obj.modules
       |filter_objects(
         filters=config.filters,

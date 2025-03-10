@@ -7,7 +7,7 @@
   -#}
 {% endblock logs %}
 
-{% if not obj.docstring.parsed | selectattr("kind.value", "eq", "functions") %}
+{% if not obj.docstring.parsed | selectattr("kind.value", "eq", "functions") | list %}
   {% with section = obj.functions
       |filter_objects(
         filters=config.filters,
