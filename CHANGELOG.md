@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.4](https://github.com/mkdocstrings/python/releases/tag/1.16.4) - 2025-03-10
+
+<small>[Compare with 1.16.3](https://github.com/mkdocstrings/python/compare/1.16.3...1.16.4)</small>
+
+### Bug Fixes
+
+- Fix de-duplication of summary sections ([dc46ac9](https://github.com/mkdocstrings/python/commit/dc46ac9b4cfc642decd153dceb62e9f45c5c750e) by Timothée Mazzucotelli).
+
 ## [1.16.3](https://github.com/mkdocstrings/python/releases/tag/1.16.3) - 2025-03-08
 
 <small>[Compare with 1.16.2](https://github.com/mkdocstrings/python/compare/1.16.2...1.16.3)</small>
