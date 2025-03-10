@@ -1,0 +1,17 @@
+{#- Template for backlinks.
+
+This template renders backlinks.
+
+Context:
+  backlinks (Mapping[str, Iterable[str]]): The backlinks to render.
+  config (dict): The configuration options.
+  verbose_type (Mapping[str, str]): The verbose backlink types.
+  default_crumb (BacklinkCrumb): A default, empty crumb.
+-#}
+
+{% block logs scoped %}
+  {#- Logging block.
+
+  This block can be used to log debug messages, deprecation messages, warnings, etc.
+  -#}
+{% endblock logs %}

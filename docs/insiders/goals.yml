@@ -42,3 +42,6 @@ goals:
     - name: Scoped cross-references
       ref: /usage/configuration/docstrings/#scoped_crossrefs
       since: 2024/09/03
+    - name: Backlinks
+      ref: /usage/configuration/general/#backlinks
+      since: 2025/03/10

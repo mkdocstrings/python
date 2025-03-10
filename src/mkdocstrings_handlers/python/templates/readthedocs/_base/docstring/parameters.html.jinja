@@ -32,10 +32,10 @@ Context:
             <li>
               <b><code>{{ parameter.name }}</code></b>
               {% if parameter.annotation %}
-                {% with expression = parameter.annotation %}
+                {% with expression = parameter.annotation, backlink_type = "used-by" %}
                   (<code>{% include "expression"|get_template with context %}</code>
                   {%- if parameter.default %}, {{ lang.t("default:") }}
-                    {% with expression = parameter.default %}
+                    {% with expression = parameter.default, backlink_type = "used-by" %}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   {% endif %})

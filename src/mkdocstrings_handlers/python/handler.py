@@ -301,6 +301,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section
         self.env.filters["as_classes_section"] = rendering.do_as_classes_section
         self.env.filters["as_modules_section"] = rendering.do_as_modules_section
+        self.env.filters["backlink_tree"] = rendering.do_backlink_tree
         self.env.globals["AutorefsHook"] = rendering.AutorefsHook
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 

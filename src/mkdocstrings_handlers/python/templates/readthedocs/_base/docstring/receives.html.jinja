@@ -32,7 +32,7 @@ Context:
             <li>
               {% if receives.name %}<b><code>{{ receives.name }}</code></b>{% endif %}
               {% if receives.annotation %}
-                {% with expression = receives.annotation %}
+                {% with expression = receives.annotation, backlink_type = "received-by" %}
                   {% if receives.name %}({% endif %}
                   <code>{% include "expression"|get_template with context %}</code>
                   {% if receives.name %}){% endif %}

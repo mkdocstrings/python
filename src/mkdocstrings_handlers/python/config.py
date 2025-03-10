@@ -386,6 +386,14 @@ class PythonInputOptions:
         ),
     ] = "brief"
 
+    backlinks: Annotated[
+        Literal["flat", "tree", False],
+        Field(
+            group="general",
+            description="Whether to render backlinks, and how.",
+        ),
+    ] = False
+
     docstring_options: Annotated[
         GoogleStyleOptions | NumpyStyleOptions | SphinxStyleOptions | AutoStyleOptions | None,
         Field(

@@ -31,7 +31,7 @@ Context:
           {% for warns in section.value %}
             <li>
               {% if warns.annotation %}
-                {% with expression = warns.annotation %}
+                {% with expression = warns.annotation, backlink_type = "emitted-by" %}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}

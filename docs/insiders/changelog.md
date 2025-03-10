@@ -2,6 +2,10 @@
 
 ## mkdocstrings-python Insiders
 
+### 1.10.0 <small>March 10, 2025</small> { id="1.10.0" }
+
+- [Backlinks][backlinks]
+
 ### 1.9.0 <small>September 03, 2024</small> { id="1.9.0" }
 
 - [Relative cross-references][relative_crossrefs]
