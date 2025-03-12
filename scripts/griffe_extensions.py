@@ -1,4 +1,4 @@
-"""Custom extensions for Griffe."""
+# Custom extensions for Griffe.
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from typing import Any
 
 import griffe
 
-logger = griffe.get_logger("griffe_extensions")
+_logger = griffe.get_logger("griffe_extensions")
 
 
 class CustomFields(griffe.Extension):
@@ -28,14 +28,14 @@ class CustomFields(griffe.Extension):
         except AttributeError:
             return
 
-        if field.canonical_path == "mkdocstrings_handlers.python.config.Field":
+        if field.canonical_path == "mkdocstrings_handlers.python._internal.config._Field":
             description = next(
                 attr.value
                 for attr in field.arguments
                 if isinstance(attr, griffe.ExprKeyword) and attr.name == "description"
             )
             if not isinstance(description, str):
-                logger.warning(f"Field description of {attr.path} is not a static string")
+                _logger.warning(f"Field description of {attr.path} is not a static string")
                 description = str(description)
 
             attr.docstring = griffe.Docstring(

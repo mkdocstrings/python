@@ -37,9 +37,7 @@ nav:
   - Advanced:
     - Customization: usage/customization.md
     - Extensions: usage/extensions.md
-# defer to gen-files + literate-nav
-- API reference:
-  - mkdocstrings-python: reference/
+- API reference: reference/api.md
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
@@ -63,7 +61,8 @@ theme:
   - content.code.copy
   - content.tooltips
   - navigation.footer
-  - navigation.indexes
+  - navigation.instant.preview
+  - navigation.path
   - navigation.sections
   - navigation.tabs
   - navigation.tabs.sticky
@@ -140,15 +139,11 @@ markdown_extensions:
     permalink: "¤"
 
 plugins:
-- autorefs
 - search
+- autorefs
 - markdown-exec
-- gen-files:
-    scripts:
-    - scripts/gen_ref_nav.py
-- literate-nav:
-    nav_file: SUMMARY.md
-# - coverage
+- section-index
+- coverage
 - mkdocstrings:
     handlers:
       python:
@@ -164,8 +159,7 @@ plugins:
           docstring_options:
             ignore_init_summary: true
           docstring_section_style: list
-          extensions:
-          - scripts/griffe_extensions.py
+          extensions: [scripts/griffe_extensions.py]
           filters: ["!^_"]
           heading_level: 1
           inherited_members: true
@@ -186,12 +180,26 @@ plugins:
           signature_crossrefs: true
           summary: true
           unwrap_annotated: true
+- llmstxt:
+    files:
+    - output: llms-full.txt
+      inputs:
+      - index.md
+      - reference/**.md
 - git-revision-date-localized:
     enabled: !ENV [DEPLOY, false]
     enable_creation_date: true
     type: timeago
 - minify:
     minify_html: !ENV [DEPLOY, false]
+- redirects:
+    redirect_maps:
+      reference/mkdocstrings_handlers/python/index.md: reference/api.md
+      reference/mkdocstrings_handlers/python/config.md: reference/api.md#mkdocstrings_handlers.python.config
+      reference/mkdocstrings_handlers/python/debug.md: reference/api.md#mkdocstrings_handlers.python.debug
+      reference/mkdocstrings_handlers/python/handler.md: reference/api.md#mkdocstrings_handlers.python.handler
+      reference/mkdocstrings_handlers/python/rendering.md: reference/api.md#mkdocstrings_handlers.python.rendering
+
 - group:
     enabled: !ENV [MATERIAL_INSIDERS, false]
     plugins:

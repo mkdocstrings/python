@@ -54,7 +54,7 @@ try:
 
     _base_url = "https://mkdocstrings.github.io/python/usage"
 
-    def Field(  # noqa: N802, D103
+    def Field(  # noqa: N802
         *args: Any,
         description: str,
         group: Literal["general", "headings", "members", "docstrings", "signatures"] | None = None,
@@ -75,7 +75,7 @@ try:
 except ImportError:
     from dataclasses import dataclass  # type: ignore[no-redef]
 
-    def Field(*args: Any, **kwargs: Any) -> None:  # type: ignore[misc]  # noqa: D103, N802
+    def Field(*args: Any, **kwargs: Any) -> None:  # type: ignore[misc]  # noqa: N802
         pass
 
 

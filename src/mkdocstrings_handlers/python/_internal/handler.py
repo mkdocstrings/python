@@ -40,7 +40,7 @@ else:
     from contextlib import contextmanager
 
     @contextmanager
-    def chdir(path: str) -> Iterator[None]:  # noqa: D103
+    def chdir(path: str) -> Iterator[None]:
         old_wd = os.getcwd()
         os.chdir(path)
         try:
@@ -197,7 +197,7 @@ class PythonHandler(BaseHandler):
             object.__setattr__(opts, key, value)
         return opts
 
-    def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:  # noqa: D102
+    def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
         reapply = True
@@ -261,7 +261,7 @@ class PythonHandler(BaseHandler):
 
         return doc_object
 
-    def render(self, data: CollectorItem, options: PythonOptions) -> str:  # noqa: D102 (ignore missing docstring)
+    def render(self, data: CollectorItem, options: PythonOptions) -> str:
         template_name = rendering.do_get_template(self.env, data)
         template = self.env.get_template(template_name)
 
@@ -305,7 +305,7 @@ class PythonHandler(BaseHandler):
         self.env.globals["AutorefsHook"] = rendering.AutorefsHook
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
-    def get_aliases(self, identifier: str) -> tuple[str, ...]:  # noqa: D102 (ignore missing docstring)
+    def get_aliases(self, identifier: str) -> tuple[str, ...]:
         if "(" in identifier:
             identifier, parameter = identifier.split("(", 1)
             parameter.removesuffix(")")

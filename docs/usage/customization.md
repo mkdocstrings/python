@@ -283,7 +283,7 @@ for filepath in sorted(path for path in Path(basedir).rglob("*") if "_base" not 
     )
 ```
 
-See them [in the repository](https://github.com/mkdocstrings/python/tree/master/src/mkdocstrings_handlers/python/templates/).
+See them [in the repository](https://github.com/mkdocstrings/python/tree/main/src/mkdocstrings_handlers/python/templates/).
 See the general *mkdocstrings* documentation to learn how to override them: https://mkdocstrings.github.io/theming/#templates.
 
 Each one of these templates extends a base version in `theme/_base`. Example:
