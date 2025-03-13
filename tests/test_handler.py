@@ -11,9 +11,9 @@ from typing import TYPE_CHECKING
 
 import pytest
 from griffe import Docstring, DocstringSectionExamples, DocstringSectionKind, Module, temporary_visited_module
+from mkdocstrings import CollectionError
 
-from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions
-from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler
+from mkdocstrings_handlers.python import PythonConfig, PythonHandler, PythonOptions
 
 if TYPE_CHECKING:
     from mkdocstrings import MkdocstringsPlugin

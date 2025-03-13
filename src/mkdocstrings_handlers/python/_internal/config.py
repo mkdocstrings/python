@@ -1,4 +1,4 @@
-"""Configuration and options dataclasses."""
+# Configuration and options dataclasses.
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ else:
     from typing_extensions import Self
 
 
-logger = get_logger(__name__)
+_logger = get_logger(__name__)
 
 
 try:
@@ -40,7 +40,7 @@ try:
         try:
             import eval_type_backport  # noqa: F401
         except ImportError:
-            logger.debug(
+            _logger.debug(
                 "Pydantic needs the `eval-type-backport` package to be installed "
                 "for modern type syntax to work on Python 3.9. "
                 "Deactivating Pydantic validation for Python handler options.",
@@ -54,7 +54,7 @@ try:
 
     _base_url = "https://mkdocstrings.github.io/python/usage"
 
-    def Field(  # noqa: N802
+    def _Field(  # noqa: N802
         *args: Any,
         description: str,
         group: Literal["general", "headings", "members", "docstrings", "signatures"] | None = None,
@@ -75,7 +75,7 @@ try:
 except ImportError:
     from dataclasses import dataclass  # type: ignore[no-redef]
 
-    def Field(*args: Any, **kwargs: Any) -> None:  # type: ignore[misc]  # noqa: N802
+    def _Field(*args: Any, **kwargs: Any) -> None:  # type: ignore[misc]  # noqa: N802
         pass
 
 
@@ -96,7 +96,7 @@ class GoogleStyleOptions:
 
     ignore_init_summary: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Whether to ignore the summary in `__init__` methods' docstrings.",
@@ -105,7 +105,7 @@ class GoogleStyleOptions:
 
     returns_multiple_items: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="""Whether to parse multiple items in `Yields` and `Returns` sections.
@@ -118,7 +118,7 @@ class GoogleStyleOptions:
 
     returns_named_value: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="""Whether to parse `Yields` and `Returns` section items as name and description, rather than type and description.
@@ -131,7 +131,7 @@ class GoogleStyleOptions:
 
     returns_type_in_property_summary: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Whether to parse the return type of properties at the beginning of their summary: `str: Summary of the property`.",
@@ -140,7 +140,7 @@ class GoogleStyleOptions:
 
     receives_multiple_items: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="""Whether to parse multiple items in `Receives` sections.
@@ -153,7 +153,7 @@ class GoogleStyleOptions:
 
     receives_named_value: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="""Whether to parse `Receives` section items as name and description, rather than type and description.
@@ -166,7 +166,7 @@ class GoogleStyleOptions:
 
     trim_doctest_flags: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Whether to remove doctest flags from Python example blocks.",
@@ -175,7 +175,7 @@ class GoogleStyleOptions:
 
     warn_unknown_params: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Warn about documented parameters not appearing in the signature.",
@@ -190,7 +190,7 @@ class NumpyStyleOptions:
 
     ignore_init_summary: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Whether to ignore the summary in `__init__` methods' docstrings.",
@@ -199,7 +199,7 @@ class NumpyStyleOptions:
 
     trim_doctest_flags: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Whether to remove doctest flags from Python example blocks.",
@@ -208,7 +208,7 @@ class NumpyStyleOptions:
 
     warn_unknown_params: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Warn about documented parameters not appearing in the signature.",
@@ -229,7 +229,7 @@ class PerStyleOptions:
 
     google: Annotated[
         GoogleStyleOptions,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Google-style options.",
@@ -238,7 +238,7 @@ class PerStyleOptions:
 
     numpy: Annotated[
         NumpyStyleOptions,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Numpydoc-style options.",
@@ -247,7 +247,7 @@ class PerStyleOptions:
 
     sphinx: Annotated[
         SphinxStyleOptions,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Sphinx-style options.",
@@ -273,7 +273,7 @@ class AutoStyleOptions:
 
     method: Annotated[
         Literal["heuristics", "max_sections"],
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="The method to use to determine the docstring style.",
@@ -282,7 +282,7 @@ class AutoStyleOptions:
 
     style_order: Annotated[
         list[str],
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="The order of the docstring styles to try.",
@@ -291,7 +291,7 @@ class AutoStyleOptions:
 
     default: Annotated[
         str | None,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="The default docstring style to use if no other style is detected.",
@@ -300,7 +300,7 @@ class AutoStyleOptions:
 
     per_style_options: Annotated[
         PerStyleOptions,
-        Field(
+        _Field(
             group="docstrings",
             parent="docstring_options",
             description="Per-style options.",
@@ -322,7 +322,7 @@ class SummaryOption:
 
     attributes: Annotated[
         bool,
-        Field(
+        _Field(
             group="members",
             parent="summary",
             description="Whether to render summaries of attributes.",
@@ -331,7 +331,7 @@ class SummaryOption:
 
     functions: Annotated[
         bool,
-        Field(
+        _Field(
             group="members",
             parent="summary",
             description="Whether to render summaries of functions (methods).",
@@ -340,7 +340,7 @@ class SummaryOption:
 
     classes: Annotated[
         bool,
-        Field(
+        _Field(
             group="members",
             parent="summary",
             description="Whether to render summaries of classes.",
@@ -349,7 +349,7 @@ class SummaryOption:
 
     modules: Annotated[
         bool,
-        Field(
+        _Field(
             group="members",
             parent="summary",
             description="Whether to render summaries of modules.",
@@ -364,7 +364,7 @@ class PythonInputOptions:
 
     allow_inspection: Annotated[
         bool,
-        Field(
+        _Field(
             group="general",
             description="Whether to allow inspecting modules when visiting them is not possible.",
         ),
@@ -372,7 +372,7 @@ class PythonInputOptions:
 
     force_inspection: Annotated[
         bool,
-        Field(
+        _Field(
             group="general",
             description="Whether to force using dynamic analysis when loading data.",
         ),
@@ -380,7 +380,7 @@ class PythonInputOptions:
 
     annotations_path: Annotated[
         Literal["brief", "source", "full"],
-        Field(
+        _Field(
             group="signatures",
             description="The verbosity for annotations path: `brief` (recommended), `source` (as written in the source), or `full`.",
         ),
@@ -388,7 +388,7 @@ class PythonInputOptions:
 
     backlinks: Annotated[
         Literal["flat", "tree", False],
-        Field(
+        _Field(
             group="general",
             description="Whether to render backlinks, and how.",
         ),
@@ -396,7 +396,7 @@ class PythonInputOptions:
 
     docstring_options: Annotated[
         GoogleStyleOptions | NumpyStyleOptions | SphinxStyleOptions | AutoStyleOptions | None,
-        Field(
+        _Field(
             group="docstrings",
             description="""The options for the docstring parser.
 
@@ -407,7 +407,7 @@ class PythonInputOptions:
 
     docstring_section_style: Annotated[
         Literal["table", "list", "spacy"],
-        Field(
+        _Field(
             group="docstrings",
             description="The style used to render docstring sections.",
         ),
@@ -415,7 +415,7 @@ class PythonInputOptions:
 
     docstring_style: Annotated[
         Literal["auto", "google", "numpy", "sphinx"] | None,
-        Field(
+        _Field(
             group="docstrings",
             description="The docstring style to use: `auto`, `google`, `numpy`, `sphinx`, or `None`.",
         ),
@@ -423,7 +423,7 @@ class PythonInputOptions:
 
     extensions: Annotated[
         list[str | dict[str, Any]],
-        Field(
+        _Field(
             group="general",
             description="A list of Griffe extensions to load.",
         ),
@@ -431,7 +431,7 @@ class PythonInputOptions:
 
     filters: Annotated[
         list[str],
-        Field(
+        _Field(
             group="members",
             description="""A list of filters applied to filter objects based on their name.
 
@@ -444,7 +444,7 @@ class PythonInputOptions:
 
     find_stubs_package: Annotated[
         bool,
-        Field(
+        _Field(
             group="general",
             description="Whether to load stubs package (package-stubs) when extracting docstrings.",
         ),
@@ -452,7 +452,7 @@ class PythonInputOptions:
 
     group_by_category: Annotated[
         bool,
-        Field(
+        _Field(
             group="members",
             description="Group the object's children by categories: attributes, classes, functions, and modules.",
         ),
@@ -460,7 +460,7 @@ class PythonInputOptions:
 
     heading: Annotated[
         str,
-        Field(
+        _Field(
             group="headings",
             description="A custom string to override the autogenerated heading of the root object.",
         ),
@@ -468,7 +468,7 @@ class PythonInputOptions:
 
     heading_level: Annotated[
         int,
-        Field(
+        _Field(
             group="headings",
             description="The initial heading level to use.",
         ),
@@ -476,7 +476,7 @@ class PythonInputOptions:
 
     inherited_members: Annotated[
         bool | list[str],
-        Field(
+        _Field(
             group="members",
             description="""A boolean, or an explicit list of inherited members to render.
 
@@ -488,7 +488,7 @@ class PythonInputOptions:
 
     line_length: Annotated[
         int,
-        Field(
+        _Field(
             group="signatures",
             description="Maximum line length when formatting code/signatures.",
         ),
@@ -496,7 +496,7 @@ class PythonInputOptions:
 
     members: Annotated[
         list[str] | bool | None,
-        Field(
+        _Field(
             group="members",
             description="""A boolean, or an explicit list of members to render.
 
@@ -509,7 +509,7 @@ class PythonInputOptions:
 
     members_order: Annotated[
         Literal["alphabetical", "source"],
-        Field(
+        _Field(
             group="members",
             description="""The members ordering to use.
 
@@ -521,7 +521,7 @@ class PythonInputOptions:
 
     merge_init_into_class: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to merge the `__init__` method into the class' signature and docstring.",
         ),
@@ -529,7 +529,7 @@ class PythonInputOptions:
 
     modernize_annotations: Annotated[
         bool,
-        Field(
+        _Field(
             group="signatures",
             description="Whether to modernize annotations, for example `Optional[str]` into `str | None`.",
         ),
@@ -537,7 +537,7 @@ class PythonInputOptions:
 
     parameter_headings: Annotated[
         bool,
-        Field(
+        _Field(
             group="headings",
             description="Whether to render headings for parameters (therefore showing parameters in the ToC).",
         ),
@@ -545,7 +545,7 @@ class PythonInputOptions:
 
     preload_modules: Annotated[
         list[str],
-        Field(
+        _Field(
             group="general",
             description="""Pre-load modules that are not specified directly in autodoc instructions (`::: identifier`).
 
@@ -562,7 +562,7 @@ class PythonInputOptions:
 
     relative_crossrefs: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to enable the relative crossref syntax.",
         ),
@@ -570,7 +570,7 @@ class PythonInputOptions:
 
     scoped_crossrefs: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to enable the scoped crossref ability.",
         ),
@@ -578,7 +578,7 @@ class PythonInputOptions:
 
     show_overloads: Annotated[
         bool,
-        Field(
+        _Field(
             group="signatures",
             description="Show the overloads of a function or method.",
         ),
@@ -586,7 +586,7 @@ class PythonInputOptions:
 
     separate_signature: Annotated[
         bool,
-        Field(
+        _Field(
             group="signatures",
             description="""Whether to put the whole signature in a code block below the heading.
 
@@ -597,7 +597,7 @@ class PythonInputOptions:
 
     show_bases: Annotated[
         bool,
-        Field(
+        _Field(
             group="general",
             description="Show the base classes of a class.",
         ),
@@ -605,7 +605,7 @@ class PythonInputOptions:
 
     show_category_heading: Annotated[
         bool,
-        Field(
+        _Field(
             group="headings",
             description="When grouped by categories, show a heading for each category.",
         ),
@@ -613,7 +613,7 @@ class PythonInputOptions:
 
     show_docstring_attributes: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Attributes' section in the object's docstring.",
         ),
@@ -621,7 +621,7 @@ class PythonInputOptions:
 
     show_docstring_classes: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Classes' section in the object's docstring.",
         ),
@@ -629,7 +629,7 @@ class PythonInputOptions:
 
     show_docstring_description: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the textual block (including admonitions) in the object's docstring.",
         ),
@@ -637,7 +637,7 @@ class PythonInputOptions:
 
     show_docstring_examples: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Examples' section in the object's docstring.",
         ),
@@ -645,7 +645,7 @@ class PythonInputOptions:
 
     show_docstring_functions: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Functions' or 'Methods' sections in the object's docstring.",
         ),
@@ -653,7 +653,7 @@ class PythonInputOptions:
 
     show_docstring_modules: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Modules' section in the object's docstring.",
         ),
@@ -661,7 +661,7 @@ class PythonInputOptions:
 
     show_docstring_other_parameters: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Other Parameters' section in the object's docstring.",
         ),
@@ -669,7 +669,7 @@ class PythonInputOptions:
 
     show_docstring_parameters: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Parameters' section in the object's docstring.",
         ),
@@ -677,7 +677,7 @@ class PythonInputOptions:
 
     show_docstring_raises: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Raises' section in the object's docstring.",
         ),
@@ -685,7 +685,7 @@ class PythonInputOptions:
 
     show_docstring_receives: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Receives' section in the object's docstring.",
         ),
@@ -693,7 +693,7 @@ class PythonInputOptions:
 
     show_docstring_returns: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Returns' section in the object's docstring.",
         ),
@@ -701,7 +701,7 @@ class PythonInputOptions:
 
     show_docstring_warns: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Warns' section in the object's docstring.",
         ),
@@ -709,7 +709,7 @@ class PythonInputOptions:
 
     show_docstring_yields: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to display the 'Yields' section in the object's docstring.",
         ),
@@ -717,7 +717,7 @@ class PythonInputOptions:
 
     show_if_no_docstring: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Show the object heading even if it has no docstring or children with docstrings.",
         ),
@@ -725,7 +725,7 @@ class PythonInputOptions:
 
     show_inheritance_diagram: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Show the inheritance diagram of a class using Mermaid.",
         ),
@@ -733,7 +733,7 @@ class PythonInputOptions:
 
     show_labels: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Whether to show labels of the members.",
         ),
@@ -741,7 +741,7 @@ class PythonInputOptions:
 
     show_object_full_path: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Show the full Python path of every object.",
         ),
@@ -749,7 +749,7 @@ class PythonInputOptions:
 
     show_root_full_path: Annotated[
         bool,
-        Field(
+        _Field(
             group="docstrings",
             description="Show the full Python path for the root object heading.",
         ),
@@ -757,7 +757,7 @@ class PythonInputOptions:
 
     show_root_heading: Annotated[
         bool,
-        Field(
+        _Field(
             group="headings",
             description="""Show the heading of the object at the root of the documentation tree.
 
@@ -768,7 +768,7 @@ class PythonInputOptions:
 
     show_root_members_full_path: Annotated[
         bool,
-        Field(
+        _Field(
             group="headings",
             description="Show the full Python path of the root members.",
         ),
@@ -776,7 +776,7 @@ class PythonInputOptions:
 
     show_root_toc_entry: Annotated[
         bool,
-        Field(
+        _Field(
             group="headings",
             description="If the root heading is not shown, at least add a ToC entry for it.",
         ),
@@ -784,7 +784,7 @@ class PythonInputOptions:
 
     show_signature_annotations: Annotated[
         bool,
-        Field(
+        _Field(
             group="signatures",
             description="Show the type annotations in methods and functions signatures.",
         ),
@@ -792,7 +792,7 @@ class PythonInputOptions:
 
     show_signature: Annotated[
         bool,
-        Field(
+        _Field(
             group="signatures",
             description="Show methods and functions signatures.",
         ),
@@ -800,7 +800,7 @@ class PythonInputOptions:
 
     show_source: Annotated[
         bool,
-        Field(
+        _Field(
             group="general",
             description="Show the source code of this object.",
         ),
@@ -808,7 +808,7 @@ class PythonInputOptions:
 
     show_submodules: Annotated[
         bool,
-        Field(
+        _Field(
             group="members",
             description="When rendering a module, show its submodules recursively.",
         ),
@@ -816,7 +816,7 @@ class PythonInputOptions:
 
     show_symbol_type_heading: Annotated[
         bool,
-        Field(
+        _Field(
             group="headings",
             description="Show the symbol type in headings (e.g. mod, class, meth, func and attr).",
         ),
@@ -824,7 +824,7 @@ class PythonInputOptions:
 
     show_symbol_type_toc: Annotated[
         bool,
-        Field(
+        _Field(
             group="headings",
             description="Show the symbol type in the Table of Contents (e.g. mod, class, methd, func and attr).",
         ),
@@ -832,7 +832,7 @@ class PythonInputOptions:
 
     signature_crossrefs: Annotated[
         bool,
-        Field(
+        _Field(
             group="signatures",
             description="Whether to render cross-references for type annotations in signatures.",
         ),
@@ -840,7 +840,7 @@ class PythonInputOptions:
 
     summary: Annotated[
         bool | SummaryOption,
-        Field(
+        _Field(
             group="members",
             description="Whether to render summaries of modules, classes, functions (methods) and attributes.",
         ),
@@ -848,7 +848,7 @@ class PythonInputOptions:
 
     toc_label: Annotated[
         str,
-        Field(
+        _Field(
             group="headings",
             description="A custom string to override the autogenerated toc label of the root object.",
         ),
@@ -856,7 +856,7 @@ class PythonInputOptions:
 
     unwrap_annotated: Annotated[
         bool,
-        Field(
+        _Field(
             group="signatures",
             description="Whether to unwrap `Annotated` types to show only the type without the annotations.",
         ),
@@ -864,7 +864,7 @@ class PythonInputOptions:
 
     extra: Annotated[
         dict[str, Any],
-        Field(
+        _Field(
             group="general",
             description="Extra options.",
         ),
@@ -937,7 +937,7 @@ class Inventory:
 
     url: Annotated[
         str,
-        Field(
+        _Field(
             parent="inventories",
             description="The URL of the inventory.",
         ),
@@ -945,7 +945,7 @@ class Inventory:
 
     base: Annotated[
         str | None,
-        Field(
+        _Field(
             parent="inventories",
             description="The base URL of the inventory.",
         ),
@@ -953,7 +953,7 @@ class Inventory:
 
     domains: Annotated[
         list[str],
-        Field(
+        _Field(
             parent="inventories",
             description="The domains to load from the inventory.",
         ),
@@ -971,27 +971,27 @@ class PythonInputConfig:
 
     inventories: Annotated[
         list[str | Inventory],
-        Field(description="The inventories to load."),
+        _Field(description="The inventories to load."),
     ] = field(default_factory=list)
 
     paths: Annotated[
         list[str],
-        Field(description="The paths in which to search for Python packages."),
+        _Field(description="The paths in which to search for Python packages."),
     ] = field(default_factory=lambda: ["."])
 
     load_external_modules: Annotated[
         bool | None,
-        Field(description="Whether to always load external modules/packages."),
+        _Field(description="Whether to always load external modules/packages."),
     ] = None
 
     options: Annotated[
         PythonInputOptions,
-        Field(description="Configuration options for collecting and rendering objects."),
+        _Field(description="Configuration options for collecting and rendering objects."),
     ] = field(default_factory=PythonInputOptions)
 
     locale: Annotated[
         str | None,
-        Field(description="The locale to use when translating template strings."),
+        _Field(description="The locale to use when translating template strings."),
     ] = None
 
     @classmethod
@@ -1010,8 +1010,15 @@ class PythonInputConfig:
 class PythonConfig(PythonInputConfig):  # type: ignore[override,unused-ignore]
     """Python handler configuration."""
 
-    inventories: list[Inventory] = field(default_factory=list)  # type: ignore[assignment]
-    options: dict[str, Any] = field(default_factory=dict)  # type: ignore[assignment]
+    inventories: Annotated[
+        list[Inventory],
+        _Field(description="The object inventories to load."),
+    ] = field(default_factory=list)  # type: ignore[assignment]
+
+    options: Annotated[
+        dict[str, Any],
+        _Field(description="Configuration options for collecting and rendering objects."),
+    ] = field(default_factory=dict)  # type: ignore[assignment]
 
     @classmethod
     def coerce(cls, **data: Any) -> MutableMapping[str, Any]:

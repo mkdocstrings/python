@@ -589,7 +589,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Breaking changes
 
-- The signature of the [`format_signature` filter](https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/rendering/#mkdocstrings_handlers.python.rendering.do_format_signature) has changed.
+- The signature of the [`format_signature` filter][mkdocstrings_handlers.python.do_format_signature] has changed.
     If you override templates in your project to customize the output,
     make sure to update the following templates so that they use
     the new filter signature:

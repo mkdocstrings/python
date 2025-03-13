@@ -5,3 +5,5 @@ hide:
 ---
 
 # ::: mkdocstrings_handlers.python
+    options:
+        show_submodules: true

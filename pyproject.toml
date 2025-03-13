@@ -86,6 +86,7 @@ maintain = [
     "yore>=0.3.3",
 ]
 ci = [
+    "blacK>=25.1",
     "duty>=1.6",
     "ruff>=0.4",
     "pytest>=8.2",
@@ -108,6 +109,7 @@ ci = [
     "mkdocs-material>=9.5",
     "pydantic>=2.10",
     "mkdocs-minify-plugin>=0.8",
+    "mkdocs-redirects>=1.2",
     "mkdocs-section-index>=0.3",
     # YORE: EOL 3.10: Remove line.
     "tomli>=2.0; python_version < '3.11'",

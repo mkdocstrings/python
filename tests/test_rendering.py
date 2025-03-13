@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Any, Callable
 import pytest
 from griffe import ModulesCollection, temporary_visited_module
 
-from mkdocstrings_handlers.python import rendering
+from mkdocstrings_handlers.python._internal import rendering
 
 if TYPE_CHECKING:
     from markupsafe import Markup

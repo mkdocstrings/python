@@ -1,4 +1,4 @@
-"""This module implements rendering utilities."""
+# This module implements rendering utilities.
 
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ if TYPE_CHECKING:
     from jinja2.runtime import Context
     from mkdocstrings import CollectorItem
 
-logger = get_logger(__name__)
+_logger = get_logger(__name__)
 
 
 def _sort_key_alphabetical(item: CollectorItem) -> Any:
@@ -58,7 +58,9 @@ def _sort_key_source(item: CollectorItem) -> Any:
 
 
 Order = Literal["alphabetical", "source"]
-order_map = {
+"""Ordering methods."""
+
+_order_map = {
     "alphabetical": _sort_key_alphabetical,
     "source": _sort_key_source,
 }
@@ -101,6 +103,7 @@ class _StashCrossRefFilter:
 
 
 do_stash_crossref = _StashCrossRefFilter()
+"""Filter to stash cross-references (and restore them after formatting and highlighting)."""
 
 
 def _format_signature(name: Markup, signature: str, line_length: int) -> str:
@@ -263,7 +266,7 @@ def do_order_members(
             if name in members_dict:
                 sorted_members.append(members_dict[name])
         return sorted_members
-    return sorted(members, key=order_map[order])
+    return sorted(members, key=_order_map[order])
 
 
 @lru_cache
@@ -461,7 +464,7 @@ def _get_formatter() -> Callable[[str, int], str]:
         if (formatter := formatter_function()) is not None:
             return formatter
 
-    logger.info("Formatting signatures requires either Black or Ruff to be installed.")
+    _logger.info("Formatting signatures requires either Black or Ruff to be installed.")
     return lambda text, _: text
 
 
@@ -538,11 +541,11 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
         template = env.get_template(f"{name}.html")
     except TemplateNotFound:
         return f"{name}.html.jinja"
-    our_template = Path(template.filename).is_relative_to(Path(__file__).parent)  # type: ignore[arg-type]
+    our_template = Path(template.filename).is_relative_to(Path(__file__).parent.parent)  # type: ignore[arg-type]
     if our_template:
         return f"{name}.html.jinja"
     # TODO: Switch to a warning log after some time.
-    logger.info(
+    _logger.info(
         f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. "
         "After some time, this message will be logged as a warning, causing strict builds to fail.",
         once=True,
@@ -733,13 +736,15 @@ class AutorefsHook(AutorefsHookInterface):
         )
 
 
-T = TypeVar("T")
-Tree = dict[T, "Tree"]
-CompactTree = dict[tuple[T, ...], "CompactTree"]
+_T = TypeVar("_T")
+_Tree = dict[_T, "_Tree"]
 _rtree = lambda: defaultdict(_rtree)  # type: ignore[has-type,var-annotated]  # noqa: E731
 
+Tree = dict[tuple[_T, ...], "Tree"]
+"""A tree type. Each node holds a tuple of items."""
 
-def _tree(data: Iterable[tuple[T, ...]]) -> Tree:
+
+def _tree(data: Iterable[tuple[_T, ...]]) -> _Tree:
     new_tree = _rtree()
     for nav in data:
         *path, leaf = nav
@@ -750,7 +755,7 @@ def _tree(data: Iterable[tuple[T, ...]]) -> Tree:
     return new_tree
 
 
-def _compact_tree(tree: Tree) -> CompactTree:
+def _compact_tree(tree: _Tree) -> Tree:
     new_tree = _rtree()
     for key, value in tree.items():
         child = _compact_tree(value)
@@ -763,7 +768,7 @@ def _compact_tree(tree: Tree) -> CompactTree:
     return new_tree
 
 
-def do_backlink_tree(backlinks: list[Backlink]) -> CompactTree[BacklinkCrumb]:
+def do_backlink_tree(backlinks: list[Backlink]) -> Tree[BacklinkCrumb]:
     """Build a tree of backlinks.
 
     Parameters:

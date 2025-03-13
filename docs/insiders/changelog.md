@@ -81,6 +81,6 @@
 
 - Add [cross-references for type annotations in signatures](../usage/configuration/signatures.md#signature_crossrefs).
     Make sure to update your local templates as the signature of the
-    [`format_signature` filter][mkdocstrings_handlers.python.rendering.do_format_signature]
+    [`format_signature` filter][mkdocstrings_handlers.python.do_format_signature]
     has changed. The templates that must be updated:
     `class.html`, `expression.html`, `function.html` and `signature.html`.

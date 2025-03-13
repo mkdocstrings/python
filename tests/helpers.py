@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     import pytest
     from mkdocstrings import MkdocstringsPlugin
 
-    from mkdocstrings_handlers.python.handler import PythonHandler
+    from mkdocstrings_handlers.python import PythonHandler
 
 
 @contextmanager

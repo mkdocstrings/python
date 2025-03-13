@@ -1,4 +1,4 @@
-"""This module implements a handler for the Python language."""
+# This module implements a handler for the Python language.
 
 from __future__ import annotations
 
@@ -24,8 +24,8 @@ from griffe import (
 from mkdocs.exceptions import PluginError
 from mkdocstrings import BaseHandler, CollectionError, CollectorItem, HandlerOptions, Inventory, get_logger
 
-from mkdocstrings_handlers.python import rendering
-from mkdocstrings_handlers.python.config import PythonConfig, PythonOptions
+from mkdocstrings_handlers.python._internal import rendering
+from mkdocstrings_handlers.python._internal.config import PythonConfig, PythonOptions
 
 if TYPE_CHECKING:
     from collections.abc import Iterator, Mapping, MutableMapping, Sequence
@@ -49,7 +49,7 @@ else:
             os.chdir(old_wd)
 
 
-logger = get_logger(__name__)
+_logger = get_logger(__name__)
 
 patch_loggers(get_logger)
 
@@ -90,7 +90,9 @@ class PythonHandler(BaseHandler):
         super().__init__(**kwargs)
 
         self.config = config
+        """The handler configuration."""
         self.base_dir = base_dir
+        """The base directory of the project."""
 
         # YORE: Bump 2: Replace block with `self.global_options = config.options`.
         global_extra, global_options = PythonOptions._extract_extra(config.options)
@@ -98,12 +100,13 @@ class PythonHandler(BaseHandler):
             _warn_extra_options(global_extra.keys())  # type: ignore[arg-type]
         self._global_extra = global_extra
         self.global_options = global_options
+        """The global configuration options (in `mkdocs.yml`)."""
 
         # Warn if user overrides base templates.
         if self.custom_templates:
             for theme_dir in base_dir.joinpath(self.custom_templates, "python").iterdir():
                 if theme_dir.joinpath("_base").is_dir():
-                    logger.warning(
+                    _logger.warning(
                         f"Overriding base template '{theme_dir.name}/_base/<template>.html.jinja' is not supported, "
                         f"override '{theme_dir.name}/<template>.html.jinja' instead",
                     )
@@ -198,6 +201,15 @@ class PythonHandler(BaseHandler):
         return opts
 
     def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:
+        """Collect the documentation for the given identifier.
+
+        Parameters:
+            identifier: The identifier of the object to collect.
+            options: The options to use for the collection.
+
+        Returns:
+            The collected item.
+        """
         module_name = identifier.split(".", 1)[0]
         unknown_module = module_name not in self._modules_collection
         reapply = True
@@ -243,8 +255,8 @@ class PythonHandler(BaseHandler):
                 external=self.config.load_external_modules,
             )
             if unresolved:
-                logger.debug(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
-                logger.debug(f"Unresolved aliases: {', '.join(sorted(unresolved))}")
+                _logger.debug(f"{len(unresolved)} aliases were still unresolved after {iterations} iterations")
+                _logger.debug(f"Unresolved aliases: {', '.join(sorted(unresolved))}")
 
         try:
             doc_object = self._modules_collection[identifier]
@@ -262,6 +274,15 @@ class PythonHandler(BaseHandler):
         return doc_object
 
     def render(self, data: CollectorItem, options: PythonOptions) -> str:
+        """Render the collected data.
+
+        Parameters:
+            data: The collected data.
+            options: The options to use for rendering.
+
+        Returns:
+            The rendered data (HTML).
+        """
         template_name = rendering.do_get_template(self.env, data)
         template = self.env.get_template(template_name)
 
@@ -306,6 +327,14 @@ class PythonHandler(BaseHandler):
         self.env.tests["existing_template"] = lambda template_name: template_name in self.env.list_templates()
 
     def get_aliases(self, identifier: str) -> tuple[str, ...]:
+        """Get the aliases for the given identifier.
+
+        Parameters:
+            identifier: The identifier to get the aliases for.
+
+        Returns:
+            The aliases.
+        """
         if "(" in identifier:
             identifier, parameter = identifier.split("(", 1)
             parameter.removesuffix(")")
@@ -327,7 +356,14 @@ class PythonHandler(BaseHandler):
         return tuple(aliases)
 
     def normalize_extension_paths(self, extensions: Sequence) -> Sequence:
-        """Resolve extension paths relative to config file."""
+        """Resolve extension paths relative to config file.
+
+        Parameters:
+            extensions: The extensions (configuration) to normalize.
+
+        Returns:
+            The normalized extensions.
+        """
         normalized = []
 
         for ext in extensions:
@@ -355,9 +391,9 @@ def get_handler(
     tool_config: MkDocsConfig,
     **kwargs: Any,
 ) -> PythonHandler:
-    """Simply return an instance of `PythonHandler`.
+    """Return an instance of `PythonHandler`.
 
-    Arguments:
+    Parameters:
         handler_config: The handler configuration.
         tool_config: The tool (SSG) configuration.
 

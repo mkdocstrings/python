@@ -19,6 +19,7 @@ if TYPE_CHECKING:
 @pytest.fixture(name="loader", scope="module")
 def _fixture_loader() -> griffe.GriffeLoader:
     loader = griffe.GriffeLoader()
+    loader.load("mkdocstrings")
     loader.load("mkdocstrings_handlers.python")
     loader.resolve_aliases()
     return loader
@@ -143,6 +144,12 @@ def test_api_matches_inventory(inventory: Inventory, public_objects: list[griffe
     assert not not_in_inventory, msg.format(paths="\n".join(sorted(not_in_inventory)))
 
 
+def _module_or_child(parent: str, name: str) -> bool:
+    parents = [parent[: i + 1] for i, char in enumerate(parent) if char == "."]
+    parents.append(parent)
+    return name in parents or name.startswith(parent + ".")
+
+
 def test_inventory_matches_api(
     inventory: Inventory,
     public_objects: list[griffe.Object | griffe.Alias],
@@ -153,8 +160,13 @@ def test_inventory_matches_api(
     public_api_paths = {obj.path for obj in public_objects}
     public_api_paths.add("mkdocstrings_handlers")
     public_api_paths.add("mkdocstrings_handlers.python")
+    # YORE: Bump 2: Remove block.
+    public_api_paths.add("mkdocstrings_handlers.python.config")
+    public_api_paths.add("mkdocstrings_handlers.python.handler")
+    public_api_paths.add("mkdocstrings_handlers.python.rendering")
+
     for item in inventory.values():
-        if item.domain == "py" and "(" not in item.name:
+        if item.domain == "py" and "(" not in item.name and _module_or_child("mkdocstrings_handlers.python", item.name):
             obj = loader.modules_collection[item.name]
             if obj.path not in public_api_paths and not any(path in public_api_paths for path in obj.aliases):
                 not_in_api.append(item.name)

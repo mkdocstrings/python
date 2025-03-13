@@ -16,7 +16,7 @@ from tests.snapshots import snapshots_members, snapshots_signatures
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
-    from mkdocstrings_handlers.python.handler import PythonHandler
+    from mkdocstrings_handlers.python import PythonHandler
 
 
 def _normalize_html(html: str) -> str:
