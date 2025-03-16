@@ -552,10 +552,8 @@ def do_get_template(env: Environment, obj: str | Object) -> str:
     our_template = Path(template.filename).is_relative_to(Path(__file__).parent.parent)  # type: ignore[arg-type]
     if our_template:
         return f"{name}.html.jinja"
-    # TODO: Switch to a warning log after some time.
-    _logger.info(
-        f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. "
-        "After some time, this message will be logged as a warning, causing strict builds to fail.",
+    _logger.warning(
+        f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. ",
         once=True,
     )
     return f"{name}.html"
