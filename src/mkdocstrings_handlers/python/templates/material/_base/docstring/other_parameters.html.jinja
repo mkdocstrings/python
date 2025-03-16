@@ -15,6 +15,7 @@ Context:
   {{ log.debug("Rendering other parameters section") }}
 {% endblock logs %}
 
+{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
 {% import "language"|get_template as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
@@ -37,6 +38,7 @@ Context:
             <td>
               {% if parameter.annotation %}
                 {% with expression = parameter.annotation, backlink_type = "used-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -61,6 +63,7 @@ Context:
           <b><code>{{ parameter.name }}</code></b>
           {% if parameter.annotation %}
             {% with expression = parameter.annotation, backlink_type = "used-by" %}
+              {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
               (<code>{% include "expression"|get_template with context %}</code>)
             {% endwith %}
           {% endif %}
@@ -95,6 +98,7 @@ Context:
                   <span class="doc-param-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
                     {% with expression = parameter.annotation, backlink_type = "used-by" %}
+                      {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>

@@ -1,6 +1,6 @@
 """Deprecated. Import from `mkdocstrings_handlers.python` directly."""
 
-# YORE: Bump 1: Remove file.
+# YORE: Bump 2: Remove file.
 
 import warnings
 from typing import Any

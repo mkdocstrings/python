@@ -37,6 +37,7 @@ try:
     if getattr(pydantic, "__version__", "1.").startswith("1."):
         raise ImportError  # noqa: TRY301
 
+    # YORE: EOL 3.9: Remove block.
     if sys.version_info < (3, 10):
         try:
             import eval_type_backport  # noqa: F401

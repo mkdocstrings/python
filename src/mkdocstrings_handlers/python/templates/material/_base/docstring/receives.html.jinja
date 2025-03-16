@@ -15,6 +15,7 @@ Context:
   {{ log.debug("Rendering receives section") }}
 {% endblock logs %}
 
+{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
 {% import "language"|get_template as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
@@ -38,6 +39,7 @@ Context:
             <td>
               {% if receives.annotation %}
                 {% with expression = receives.annotation, backlink_type = "received-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -63,6 +65,7 @@ Context:
           {% if receives.annotation %}
             {% with expression = receives.annotation, backlink_type = "received-by" %}
               {% if receives.name %} ({% endif %}
+              {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
               <code>{% include "expression"|get_template with context %}</code>
               {% if receives.name %}){% endif %}
             {% endwith %}
@@ -94,6 +97,7 @@ Context:
               {% elif receives.annotation %}
                 <span class="doc-receives-annotation">
                   {% with expression = receives.annotation, backlink_type = "received-by" %}
+                    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                     <code>{% include "expression"|get_template with context %}</code>
                   {% endwith %}
                 </span>
@@ -108,6 +112,7 @@ Context:
                   <span class="doc-receives-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
                     {% with expression = receives.annotation, backlink_type = "received-by" %}
+                      {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>

@@ -64,6 +64,7 @@ Context:
           This block renders the labels for the attribute.
           -#}
           {% with labels = attribute.labels %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "labels"|get_template with context %}
           {% endwith %}
         {% endblock labels %}
@@ -110,6 +111,7 @@ Context:
           This block renders the docstring for the attribute.
           -#}
           {% with docstring_sections = attribute.docstring.parsed %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "docstring"|get_template with context %}
           {% endwith %}
         {% endblock docstring %}

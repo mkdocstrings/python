@@ -18,6 +18,7 @@
       |order_members(config.members_order, members_list)
       |as_functions_section(check_public=not members_list)
     %}
+    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
     {% if section %}{% include "docstring/functions"|get_template with context %}{% endif %}
   {% endwith %}
 {% endif %}

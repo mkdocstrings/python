@@ -50,6 +50,7 @@ Context:
           {%- if config.separate_signature -%}
             {%- with expression = parameter.annotation -%}
               {%- set ns.annotation -%}: {% with backlink_type = "used-by" -%}
+                {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
                 {%- include "expression"|get_template with context -%}
               {%- endwith -%}{%- endset -%}
             {%- endwith -%}
@@ -105,6 +106,7 @@ Context:
           {{ ns.equal }}
           {%- if config.signature_crossrefs and config.separate_signature -%}
             {%- with expression = parameter.default, backlink_type = "used-by" -%}
+              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
               {%- include "expression"|get_template with context -%}
             {%- endwith -%}
           {%- else -%}
@@ -124,6 +126,7 @@ Context:
         and not (config.merge_init_into_class and function.name == "__init__" )
       %} -> {% if config.separate_signature and config.signature_crossrefs -%}
         {%- with expression = function.annotation, backlink_type = "returned-by" -%}
+          {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
           {%- include "expression"|get_template with context -%}
         {%- endwith -%}
       {%- else -%}

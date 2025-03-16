@@ -148,7 +148,7 @@ def do_format_signature(
         The same code, formatted.
     """
     env = context.environment
-    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    # YORE: Bump 2: Replace `do_get_template(env, "signature")` with `"signature.html.jinja"`.
     template = env.get_template(do_get_template(env, "signature"))
 
     if annotations is None:
@@ -208,7 +208,7 @@ def do_format_attribute(
         The same code, formatted.
     """
     env = context.environment
-    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"`.
     template = env.get_template(do_get_template(env, "expression"))
     annotations = context.parent["config"].show_signature_annotations
 
@@ -269,6 +269,7 @@ def do_order_members(
     return sorted(members, key=_order_map[order])
 
 
+# YORE: Bump 2: Remove block.
 @lru_cache
 def _warn_crossref() -> None:
     warnings.warn(
@@ -278,6 +279,7 @@ def _warn_crossref() -> None:
     )
 
 
+# YORE: Bump 2: Remove block.
 def do_crossref(path: str, *, brief: bool = True) -> Markup:
     """Deprecated. Filter to create cross-references.
 
@@ -298,6 +300,7 @@ def do_crossref(path: str, *, brief: bool = True) -> Markup:
     )
 
 
+# YORE: Bump 2: Remove block.
 @lru_cache
 def _warn_multi_crossref() -> None:
     warnings.warn(
@@ -307,6 +310,7 @@ def _warn_multi_crossref() -> None:
     )
 
 
+# YORE: Bump 2: Remove block.
 def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
     """Deprecated. Filter to create cross-references.
 
@@ -520,7 +524,10 @@ def _get_black_formatter() -> Callable[[str, int], str] | None:
     return formatter
 
 
+# YORE: Bump 2: Remove line.
 @pass_environment
+# YORE: Bump 2: Replace `env: Environment, ` with `` within line.
+# YORE: Bump 2: Replace `str | ` with `` within line.
 def do_get_template(env: Environment, obj: str | Object) -> str | Template:
     """Get the template name used to render an object.
 
@@ -537,6 +544,7 @@ def do_get_template(env: Environment, obj: str | Object) -> str | Template:
         if name := extra_data.get("template", ""):
             return name
         name = obj.kind.value
+    # YORE: Bump 2: Replace block with `return f"{name}.html.jinja"`.
     try:
         template = env.get_template(f"{name}.html")
     except TemplateNotFound:

@@ -33,10 +33,10 @@ if TYPE_CHECKING:
     from mkdocs.config.defaults import MkDocsConfig
 
 
+# YORE: EOL 3.10: Replace block with line 2.
 if sys.version_info >= (3, 11):
     from contextlib import chdir
 else:
-    # TODO: remove once support for Python 3.10 is dropped
     from contextlib import contextmanager
 
     @contextmanager
@@ -54,6 +54,7 @@ _logger = get_logger(__name__)
 patch_loggers(get_logger)
 
 
+# YORE: Bump 2: Remove block.
 def _warn_extra_options(names: Sequence[str]) -> None:
     warn(
         "Passing extra options directly under `options` is deprecated. "
@@ -94,13 +95,17 @@ class PythonHandler(BaseHandler):
         self.base_dir = base_dir
         """The base directory of the project."""
 
-        # YORE: Bump 2: Replace block with `self.global_options = config.options`.
+        # YORE: Bump 2: Remove block.
         global_extra, global_options = PythonOptions._extract_extra(config.options)
         if global_extra:
             _warn_extra_options(global_extra.keys())  # type: ignore[arg-type]
         self._global_extra = global_extra
         self.global_options = global_options
         """The global configuration options (in `mkdocs.yml`)."""
+
+        # YORE: Bump 2: Replace `# ` with `` within block.
+        # self.global_options = config.options
+        # """The global configuration options (in `mkdocs.yml`)."""
 
         # Warn if user overrides base templates.
         if self.custom_templates:
