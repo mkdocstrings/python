@@ -66,6 +66,9 @@ def _signature_package() -> Iterator[TmpPackage]:
         def module_function(a: int, b: str) -> None:
             '''Docstring for `module_function`.'''
 
+        def _private_function(a: int, b: str) -> None:
+            '''Docstring for `_private_function`.'''
+
         class Class:
             '''Docstring for `Class`.'''
 

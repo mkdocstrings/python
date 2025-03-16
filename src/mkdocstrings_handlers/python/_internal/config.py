@@ -18,6 +18,7 @@ else:
 
 _logger = get_logger(__name__)
 
+_DEFAULT_FILTERS = ["!^_[^_]"]
 
 try:
     # When Pydantic is available, use it to validate options (done automatically).
@@ -440,7 +441,7 @@ class PythonInputOptions:
             to lower members in the hierarchy).
             """,
         ),
-    ] = field(default_factory=lambda: ["!^_[^_]"])
+    ] = field(default_factory=lambda: _DEFAULT_FILTERS.copy())
 
     find_stubs_package: Annotated[
         bool,
@@ -914,7 +915,11 @@ class PythonInputOptions:
 class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
     """Final options passed as template context."""
 
-    filters: list[tuple[re.Pattern, bool]] = field(default_factory=list)  # type: ignore[assignment]
+    filters: list[tuple[re.Pattern, bool]] = field(  # type: ignore[assignment]
+        default_factory=lambda: [
+            (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in _DEFAULT_FILTERS
+        ],
+    )
     """A list of filters applied to filter objects based on their name."""
 
     summary: SummaryOption = field(default_factory=SummaryOption)
@@ -925,7 +930,7 @@ class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
         """Create an instance from a dictionary."""
         if "filters" in data:
             data["filters"] = [
-                (re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in data["filters"] or ()
+                (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in data["filters"] or ()
             ]
         return super().coerce(**data)
 
