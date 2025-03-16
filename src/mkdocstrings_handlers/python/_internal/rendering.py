@@ -336,7 +336,7 @@ def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
     text = re.sub(r"([\w.]+)", repl, text)
     if code:
         text = f"<code>{text}</code>"
-    return Markup(text).format(**variables)
+    return Markup(text).format(**variables)  # noqa: S704
 
 
 _split_path_re = re.compile(r"([.(]?)([\w]+)(\))?")
