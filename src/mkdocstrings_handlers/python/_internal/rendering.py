@@ -36,7 +36,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator, Sequence
 
     from griffe import Attribute, Class, Function, Module
-    from jinja2 import Environment, Template
+    from jinja2 import Environment
     from jinja2.runtime import Context
     from mkdocstrings import CollectorItem
 
@@ -528,7 +528,7 @@ def _get_black_formatter() -> Callable[[str, int], str] | None:
 @pass_environment
 # YORE: Bump 2: Replace `env: Environment, ` with `` within line.
 # YORE: Bump 2: Replace `str | ` with `` within line.
-def do_get_template(env: Environment, obj: str | Object) -> str | Template:
+def do_get_template(env: Environment, obj: str | Object) -> str:
     """Get the template name used to render an object.
 
     Parameters:
