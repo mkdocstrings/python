@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.6](https://github.com/mkdocstrings/python/releases/tag/1.16.6) - 2025-03-18
+
+<small>[Compare with 1.16.5](https://github.com/mkdocstrings/python/compare/1.16.5...1.16.6)</small>
+
+### Deprecations
+
+Importing from submodules is now deprecated: the public API is fully exposed under the top-level `mkdocstrings_handler.python` module.
+
+### Bug Fixes
+
+- Add back default compiled filters (regression) ([2d83900](https://github.com/mkdocstrings/python/commit/2d83900c9e258399c90ecbac350ad03ff5d8f311) by Timothée Mazzucotelli). [Issue-264](https://github.com/mkdocstrings/python/issues/264)
+
+### Code Refactoring
+
+- Start logging warnings instead of info messages about deprecated use of templates ([7606f33](https://github.com/mkdocstrings/python/commit/7606f33559ced6962ecf9a1bc9aa76f24d87f515) by Timothée Mazzucotelli).
+- Move modules into internal folder, expose API in top-level module ([93a68d0](https://github.com/mkdocstrings/python/commit/93a68d0d7afce38c78a8264189cfa812d737666c) by Timothée Mazzucotelli).
+
 ## [1.16.5](https://github.com/mkdocstrings/python/releases/tag/1.16.5) - 2025-03-10
 
 <small>[Compare with 1.16.4](https://github.com/mkdocstrings/python/compare/1.16.4...1.16.5)</small>
