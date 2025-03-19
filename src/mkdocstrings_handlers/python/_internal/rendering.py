@@ -148,7 +148,7 @@ def do_format_signature(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "signature")` with `"signature.html.jinja"`.
+    # YORE: Bump 2: Replace `do_get_template(env, "signature")` with `"signature.html.jinja"` within line.
     template = env.get_template(do_get_template(env, "signature"))
 
     if annotations is None:
@@ -208,7 +208,7 @@ def do_format_attribute(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"`.
+    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"` within line.
     template = env.get_template(do_get_template(env, "expression"))
     annotations = context.parent["config"].show_signature_annotations
 
