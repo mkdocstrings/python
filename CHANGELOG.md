@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.7](https://github.com/mkdocstrings/python/releases/tag/1.16.7) - 2025-03-20
+
+<small>[Compare with 1.16.6](https://github.com/mkdocstrings/python/compare/1.16.6...1.16.7)</small>
+
+### Code Refactoring
+
+- Prepare `public` filtering method feature ([fde2019](https://github.com/mkdocstrings/python/commit/fde20191cab20f39d9e5e729a95cdfa3390b8f1f) by Timothée Mazzucotelli). [Issue-78](https://github.com/mkdocstrings/python/issues/78)
+
 ## [1.16.6](https://github.com/mkdocstrings/python/releases/tag/1.16.6) - 2025-03-18
 
 <small>[Compare with 1.16.5](https://github.com/mkdocstrings/python/compare/1.16.5...1.16.6)</small>
