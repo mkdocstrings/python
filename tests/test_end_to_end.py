@@ -149,7 +149,7 @@ def _members_package() -> Iterator[TmpPackage]:
 
 @pytest.mark.parametrize("inherited_members", [(), ("method1",), True, False])
 @pytest.mark.parametrize("members", [(), ("module_attribute",), True, False, None])
-@pytest.mark.parametrize("filters", [(), ("!module_attribute",), ("module_attribute",), None])
+@pytest.mark.parametrize("filters", [(), ("!module_attribute",), ("module_attribute",), "public", None])
 def test_end_to_end_for_members(
     session_handler: PythonHandler,
     members_package: TmpPackage,

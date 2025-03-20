@@ -432,14 +432,24 @@ class PythonInputOptions:
     ] = field(default_factory=list)
 
     filters: Annotated[
-        list[str],
+        list[str] | Literal["public"],
         _Field(
             group="members",
-            description="""A list of filters applied to filter objects based on their name.
+            description="""A list of filters, or `"public"`.
+
+            **List of filters**
 
             A filter starting with `!` will exclude matching objects instead of including them.
             The `members` option takes precedence over `filters` (filters will still be applied recursively
             to lower members in the hierarchy).
+
+            **Filtering methods**
+
+            [:octicons-heart-fill-24:{ .pulse } Sponsors only](../insiders/index.md){ .insiders } &mdash;
+            [:octicons-tag-24: Insiders 1.11.0](../insiders/changelog.md#1.11.0)
+
+            The `public` method will include only public objects:
+            those added to `__all__` or not starting with an underscore (except for special methods/attributes).
             """,
         ),
     ] = field(default_factory=lambda: _DEFAULT_FILTERS.copy())
@@ -916,12 +926,12 @@ class PythonInputOptions:
 class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
     """Final options passed as template context."""
 
-    filters: list[tuple[re.Pattern, bool]] = field(  # type: ignore[assignment]
+    filters: list[tuple[re.Pattern, bool]] | Literal["public"] = field(  # type: ignore[assignment]
         default_factory=lambda: [
             (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in _DEFAULT_FILTERS
         ],
     )
-    """A list of filters applied to filter objects based on their name."""
+    """A list of filters, or `"public"`."""
 
     summary: SummaryOption = field(default_factory=SummaryOption)
     """Whether to render summaries of modules, classes, functions (methods) and attributes."""
@@ -930,6 +940,11 @@ class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
     def coerce(cls, **data: Any) -> MutableMapping[str, Any]:
         """Create an instance from a dictionary."""
         if "filters" in data:
+            # Non-insiders: transform back to default filters.
+            # Next: `if "filters" in data and not isinstance(data["filters"], str):`.
+            if data["filters"] == "public":
+                data["filters"] = _DEFAULT_FILTERS
+            # Filters are `None` or a sequence of strings (tests use tuples).
             data["filters"] = [
                 (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in data["filters"] or ()
             ]

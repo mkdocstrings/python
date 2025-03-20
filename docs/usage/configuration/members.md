@@ -335,10 +335,21 @@ def function_c():
 [](){#option-filters}
 ## `filters`
 
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | <autoref identifier="typing.Literal" optional>Literal</autoref>["public"] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-A list of filters applied to filter objects based on their name.
+A list of filters, or `"public"`.
+
+**Filtering methods**
+
+[](){#option-filters-public}
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.11.0](../../insiders/changelog.md#1.11.0)
+
+The `public` filtering method will include only public objects: those added to the `__all__` attribute of modules, or not starting with a single underscore. Special methods and attributes ("dunder" methods/attributes, starting and ending with two underscores), like `__init__`, `__call__`, `__mult__`, etc., are always considered public.
+
+**List of filters**
 
 Filters are regular expressions. These regular expressions are evaluated by Python
 and so must match the syntax supported by the [`re`][] module.
@@ -379,13 +390,13 @@ plugins:
       python:
         options:
           filters:
-          - "!^_"
+          - "!^_[^_]"
 ```
 
 ```md title="or in docs/some_page.md (local configuration)"
 ::: package.module
     options:
-      filters: []
+      filters: public
 ```
 
 ```python title="package/module.py"

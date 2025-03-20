@@ -353,5 +353,35 @@ snapshots_members = snapshot(
             ("inherited_members", ()),
             ("members", ()),
         ): external("a185e216dc7b*.html"),
+        (("filters", "public"), ("inherited_members", ("method1",)), ("members", None)): external("6af55596d9c4*.html"),
+        (("filters", "public"), ("inherited_members", ("method1",)), ("members", False)): external(
+            "6abf5ddd819b*.html",
+        ),
+        (("filters", "public"), ("inherited_members", ()), ("members", None)): external("6d72c524b827*.html"),
+        (("filters", "public"), ("inherited_members", False), ("members", False)): external("9dab67183389*.html"),
+        (("filters", "public"), ("inherited_members", ("method1",)), ("members", True)): external("6c0b7207df03*.html"),
+        (("filters", "public"), ("inherited_members", True), ("members", ())): external("f48d651b3f1a*.html"),
+        (("filters", "public"), ("inherited_members", ("method1",)), ("members", ("module_attribute",))): external(
+            "408244423577*.html",
+        ),
+        (("filters", "public"), ("inherited_members", True), ("members", None)): external("16295fa51a2c*.html"),
+        (("filters", "public"), ("inherited_members", True), ("members", True)): external("37232379c426*.html"),
+        (("filters", "public"), ("inherited_members", ()), ("members", ())): external("2e866eca9a45*.html"),
+        (("filters", "public"), ("inherited_members", True), ("members", False)): external("ed5d07bcdbaa*.html"),
+        (("filters", "public"), ("inherited_members", False), ("members", ())): external("135f57223e00*.html"),
+        (("filters", "public"), ("inherited_members", False), ("members", None)): external("b4e20d5cd52e*.html"),
+        (("filters", "public"), ("inherited_members", ()), ("members", False)): external("46daa7e60b98*.html"),
+        (("filters", "public"), ("inherited_members", False), ("members", True)): external("a255ee80bf7a*.html"),
+        (("filters", "public"), ("inherited_members", ()), ("members", True)): external("74e2496015e1*.html"),
+        (("filters", "public"), ("inherited_members", True), ("members", ("module_attribute",))): external(
+            "e254ae60f9af*.html",
+        ),
+        (("filters", "public"), ("inherited_members", ("method1",)), ("members", ())): external("51d73351dc55*.html"),
+        (("filters", "public"), ("inherited_members", ()), ("members", ("module_attribute",))): external(
+            "d56d3aeae22b*.html",
+        ),
+        (("filters", "public"), ("inherited_members", False), ("members", ("module_attribute",))): external(
+            "80399c502938*.html",
+        ),
     },
 )

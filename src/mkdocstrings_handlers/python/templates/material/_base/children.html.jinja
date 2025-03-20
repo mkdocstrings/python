@@ -49,7 +49,7 @@ Context:
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
               {% for attribute in attributes|order_members(config.members_order, members_list) %}
-                {% if members_list is not none or (not attribute.is_imported or attribute.is_public) %}
+                {% if config.filters == "public" or members_list is not none or (not attribute.is_imported or attribute.is_public) %}
                   {% include attribute|get_template with context %}
                 {% endif %}
               {% endfor %}
@@ -69,7 +69,7 @@ Context:
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
               {% for class in classes|order_members(config.members_order, members_list) %}
-                {% if members_list is not none or (not class.is_imported or class.is_public) %}
+                {% if config.filters == "public" or members_list is not none or (not class.is_imported or class.is_public) %}
                   {% include class|get_template with context %}
                 {% endif %}
               {% endfor %}
@@ -90,7 +90,7 @@ Context:
             {% with heading_level = heading_level + extra_level %}
               {% for function in functions|order_members(config.members_order, members_list) %}
                 {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
-                  {% if members_list is not none or (not function.is_imported or function.is_public) %}
+                  {% if config.filters == "public" or members_list is not none or (not function.is_imported or function.is_public) %}
                     {% include function|get_template with context %}
                   {% endif %}
                 {% endif %}
@@ -112,7 +112,7 @@ Context:
               {% endif %}
               {% with heading_level = heading_level + extra_level %}
                 {% for module in modules|order_members("alphabetical", members_list) %}
-                  {% if members_list is not none or (not module.is_alias or module.is_public) %}
+                  {% if config.filters == "public" or members_list is not none or (not module.is_alias or module.is_public) %}
                     {% include module|get_template with context %}
                   {% endif %}
                 {% endfor %}
@@ -137,7 +137,7 @@ Context:
 
         {% if not (obj.is_class and child.name == "__init__" and config.merge_init_into_class) %}
 
-          {% if members_list is not none or child.is_public %}
+          {% if config.filters == "public" or members_list is not none or child.is_public %}
             {% if child.is_attribute %}
               {% with attribute = child %}
                 {% include attribute|get_template with context %}

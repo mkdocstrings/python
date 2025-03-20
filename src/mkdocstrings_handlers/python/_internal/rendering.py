@@ -399,7 +399,7 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
 def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
     *,
-    filters: Sequence[tuple[Pattern, bool]] | None = None,
+    filters: Sequence[tuple[Pattern, bool]] | Literal["public"] | None = None,
     members_list: bool | list[str] | None = None,
     inherited_members: bool | list[str] = False,
     keep_no_docstrings: bool = True,
@@ -408,7 +408,7 @@ def do_filter_objects(
 
     Parameters:
         objects_dictionary: The dictionary of objects.
-        filters: Filters to apply, based on members' names.
+        filters: Filters to apply, based on members' names, or `"public"`.
             Each element is a tuple: a pattern, and a boolean indicating whether
             to reject the object if the pattern matches.
         members_list: An optional, explicit list of members to keep.
@@ -449,7 +449,9 @@ def do_filter_objects(
         ]
 
     # Use filters and docstrings.
-    if filters:
+    if filters == "public":
+        objects = [obj for obj in objects if obj.is_public]
+    elif filters:
         objects = [
             obj for obj in objects if _keep_object(obj.name, filters) or (inherited_members_specified and obj.inherited)
         ]
