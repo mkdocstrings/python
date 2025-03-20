@@ -45,3 +45,6 @@ goals:
     - name: Backlinks
       ref: /usage/configuration/general/#backlinks
       since: 2025/03/10
+    - name: "Filtering method: `public`"
+      ref: /usage/configuration/members/#option-filters-public
+      since: 2025/03/20

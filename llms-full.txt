@@ -1325,7 +1325,7 @@ PythonInputOptions(
     docstring_section_style: Literal["table", "list", "spacy"] = "table",
     docstring_style: Literal["auto", "google", "numpy", "sphinx"] | None = "google",
     extensions: list[str | dict[str, Any]] = list(),
-    filters: list[str] = lambda: copy()(),
+    filters: list[str] | Literal["public"] = lambda: copy()(),
     find_stubs_package: bool = False,
     group_by_category: bool = True,
     heading: str = "",
@@ -1397,7 +1397,7 @@ Attributes:
 - **`docstring_style`** (`Literal['auto', 'google', 'numpy', 'sphinx'] | None`) – The docstring style to use: auto, google, numpy, sphinx, or None.
 - **`extensions`** (`list[str | dict[str, Any]]`) – A list of Griffe extensions to load.
 - **`extra`** (`dict[str, Any]`) – Extra options.
-- **`filters`** (`list[str]`) – A list of filters applied to filter objects based on their name.
+- **`filters`** (`list[str] | Literal['public']`) – A list of filters, or "public".
 - **`find_stubs_package`** (`bool`) – Whether to load stubs package (package-stubs) when extracting docstrings.
 - **`force_inspection`** (`bool`) – Whether to force using dynamic analysis when loading data.
 - **`group_by_category`** (`bool`) – Group the object's children by categories: attributes, classes, functions, and modules.
@@ -1532,13 +1532,21 @@ Extra options.
 ### filters
 
 ```python
-filters: list[str] = field(default_factory=lambda: copy())
+filters: list[str] | Literal['public'] = field(default_factory=lambda: copy())
 
 ```
 
-A list of filters applied to filter objects based on their name.
+A list of filters, or `"public"`.
+
+**List of filters**
 
 A filter starting with `!` will exclude matching objects instead of including them. The `members` option takes precedence over `filters` (filters will still be applied recursively to lower members in the hierarchy).
+
+**Filtering methods**
+
+[Sponsors only](../../insiders/) — [Insiders 1.11.0](../../insiders/changelog/#1.11.0)
+
+The `public` method will include only public objects: those added to `__all__` or not starting with an underscore (except for special methods/attributes).
 
 ### find_stubs_package
 
@@ -2043,7 +2051,7 @@ PythonOptions(
     docstring_section_style: Literal["table", "list", "spacy"] = "table",
     docstring_style: Literal["auto", "google", "numpy", "sphinx"] | None = "google",
     extensions: list[str | dict[str, Any]] = list(),
-    filters: list[tuple[Pattern, bool]] = lambda: [
+    filters: list[tuple[Pattern, bool]] | Literal["public"] = lambda: [
         (compile(removeprefix("!")), startswith("!")) for filtr in _DEFAULT_FILTERS
     ](),
     find_stubs_package: bool = False,
@@ -2132,7 +2140,7 @@ Attributes:
 - **`docstring_style`** (`Literal['auto', 'google', 'numpy', 'sphinx'] | None`) – The docstring style to use: auto, google, numpy, sphinx, or None.
 - **`extensions`** (`list[str | dict[str, Any]]`) – A list of Griffe extensions to load.
 - **`extra`** (`dict[str, Any]`) – Extra options.
-- **`filters`** (`list[tuple[Pattern, bool]]`) – A list of filters applied to filter objects based on their name.
+- **`filters`** (`list[tuple[Pattern, bool]] | Literal['public']`) – A list of filters, or "public".
 - **`find_stubs_package`** (`bool`) – Whether to load stubs package (package-stubs) when extracting docstrings.
 - **`force_inspection`** (`bool`) – Whether to force using dynamic analysis when loading data.
 - **`group_by_category`** (`bool`) – Group the object's children by categories: attributes, classes, functions, and modules.
@@ -2267,7 +2275,7 @@ Extra options.
 ### filters
 
 ```python
-filters: list[tuple[Pattern, bool]] = field(
+filters: list[tuple[Pattern, bool]] | Literal["public"] = field(
     default_factory=lambda: [
         (compile(removeprefix("!")), startswith("!")) for filtr in _DEFAULT_FILTERS
     ]
@@ -2275,7 +2283,7 @@ filters: list[tuple[Pattern, bool]] = field(
 
 ```
 
-A list of filters applied to filter objects based on their name.
+A list of filters, or `"public"`.
 
 ### find_stubs_package
 
@@ -2976,7 +2984,7 @@ Returns:
 do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
     *,
-    filters: Sequence[tuple[Pattern, bool]] | None = None,
+    filters: Sequence[tuple[Pattern, bool]] | Literal["public"] | None = None,
     members_list: bool | list[str] | None = None,
     inherited_members: bool | list[str] = False,
     keep_no_docstrings: bool = True
@@ -2994,7 +3002,7 @@ Parameters:
 
 - ### **`filters`**
 
-  (`Sequence[tuple[Pattern, bool]] | None`, default: `None` ) – Filters to apply, based on members' names. Each element is a tuple: a pattern, and a boolean indicating whether to reject the object if the pattern matches.
+  (`Sequence[tuple[Pattern, bool]] | Literal['public'] | None`, default: `None` ) – Filters to apply, based on members' names, or "public". Each element is a tuple: a pattern, and a boolean indicating whether to reject the object if the pattern matches.
 
 - ### **`members_list`**
 

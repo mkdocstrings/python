@@ -380,13 +380,21 @@
           "type": "array"
         },
         "filters": {
-          "description": "A list of filters applied to filter objects based on their name.\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).",
-          "items": {
-            "type": "string"
-          },
-          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#filters)\n\nA list of filters applied to filter objects based on their name.\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).",
-          "title": "filters",
-          "type": "array"
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "const": "public",
+              "type": "string"
+            }
+          ],
+          "description": "A list of filters, or `\"public\"`.\n\n**List of filters**\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).\n\n**Filtering methods**\n\n[:octicons-heart-fill-24:{ .pulse } Sponsors only](../insiders/index.md){ .insiders } &mdash;\n[:octicons-tag-24: Insiders 1.11.0](../insiders/changelog.md#1.11.0)\n\nThe `public` method will include only public objects:\nthose added to `__all__` or not starting with an underscore (except for special methods/attributes).",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#filters)\n\nA list of filters, or `\"public\"`.\n\n**List of filters**\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).\n\n**Filtering methods**\n\n[:octicons-heart-fill-24:{ .pulse } Sponsors only](../insiders/index.md){ .insiders } &mdash;\n[:octicons-tag-24: Insiders 1.11.0](../insiders/changelog.md#1.11.0)\n\nThe `public` method will include only public objects:\nthose added to `__all__` or not starting with an underscore (except for special methods/attributes).",
+          "title": "filters"
         },
         "find_stubs_package": {
           "default": false,
