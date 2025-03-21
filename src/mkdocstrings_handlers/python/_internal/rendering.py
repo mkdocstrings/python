@@ -43,18 +43,17 @@ if TYPE_CHECKING:
 _logger = get_logger(__name__)
 
 
-def _sort_key_alphabetical(item: CollectorItem) -> Any:
-    # chr(sys.maxunicode) is a string that contains the final unicode
-    # character, so if 'name' isn't found on the object, the item will go to
-    # the end of the list.
+def _sort_key_alphabetical(item: CollectorItem) -> str:
+    # `chr(sys.maxunicode)` is a string that contains the final unicode character,
+    # so if `name` isn't found on the object, the item will go to the end of the list.
     return item.name or chr(sys.maxunicode)
 
 
-def _sort_key_source(item: CollectorItem) -> Any:
-    # if 'lineno' is none, the item will go to the start of the list.
+def _sort_key_source(item: CollectorItem) -> float:
+    # If `lineno` is none, the item will go to the end of the list.
     if item.is_alias:
-        return item.alias_lineno if item.alias_lineno is not None else -1
-    return item.lineno if item.lineno is not None else -1
+        return item.alias_lineno if item.alias_lineno is not None else float("inf")
+    return item.lineno if item.lineno is not None else float("inf")
 
 
 Order = Literal["alphabetical", "source"]
