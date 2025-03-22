@@ -10,7 +10,14 @@ from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pytest
-from griffe import Docstring, DocstringSectionExamples, DocstringSectionKind, Module, temporary_visited_module
+from griffe import (
+    Docstring,
+    DocstringSectionExamples,
+    DocstringSectionKind,
+    Module,
+    temporary_inspected_module,
+    temporary_visited_module,
+)
 from mkdocstrings import CollectionError
 
 from mkdocstrings_handlers.python import PythonConfig, PythonHandler, PythonOptions
@@ -275,3 +282,19 @@ def test_deduplicate_summary_sections(handler: PythonHandler, section: str, code
             ),
         )
         assert html.count(f"{section}:") == 1
+
+
+def test_inheriting_self_from_parent_class(handler: PythonHandler) -> None:
+    """Inspect self only once when inheriting it from parent class."""
+    with temporary_inspected_module(
+        """
+        class A: ...
+        class B(A): ...
+        A.B = B
+        """,
+    ) as module:
+        # Assert no recusrion error.
+        handler.render(
+            module,
+            handler.get_options({"inherited_members": True}),
+        )

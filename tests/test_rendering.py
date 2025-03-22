@@ -58,6 +58,8 @@ def test_format_signature(name: Markup, signature: str) -> None:
 class _FakeObject:
     name: str
     inherited: bool = False
+    parent: None = None
+    is_alias: bool = False
 
 
 @pytest.mark.parametrize(

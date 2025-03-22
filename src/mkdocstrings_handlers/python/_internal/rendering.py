@@ -18,6 +18,8 @@ from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal, TypeVar
 
 from griffe import (
     Alias,
+    AliasResolutionError,
+    CyclicAliasError,
     DocstringAttribute,
     DocstringClass,
     DocstringFunction,
@@ -411,6 +413,29 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
     return keep
 
 
+def _parents(obj: Alias) -> set[str]:
+    parent: Object | Alias = obj.parent  # type: ignore[assignment]
+    parents = {obj.path, parent.path}
+    if parent.is_alias:
+        parents.add(parent.final_target.path)  # type: ignore[union-attr]
+    while parent.parent:
+        parent = parent.parent
+        parents.add(parent.path)
+        if parent.is_alias:
+            parents.add(parent.final_target.path)  # type: ignore[union-attr]
+    return parents
+
+
+def _remove_cycles(objects: list[Object | Alias]) -> Iterator[Object | Alias]:
+    suppress_errors = suppress(AliasResolutionError, CyclicAliasError)
+    for obj in objects:
+        if obj.is_alias:
+            with suppress_errors:
+                if obj.final_target.path in _parents(obj):  # type: ignore[arg-type,union-attr]
+                    continue
+        yield obj
+
+
 def do_filter_objects(
     objects_dictionary: dict[str, Object | Alias],
     *,
@@ -470,10 +495,14 @@ def do_filter_objects(
         objects = [
             obj for obj in objects if _keep_object(obj.name, filters) or (inherited_members_specified and obj.inherited)
         ]
-    if keep_no_docstrings:
-        return objects
+    if not keep_no_docstrings:
+        objects = [obj for obj in objects if obj.has_docstrings or (inherited_members_specified and obj.inherited)]
 
-    return [obj for obj in objects if obj.has_docstrings or (inherited_members_specified and obj.inherited)]
+    # Prevent infinite recursion.
+    if objects:
+        objects = list(_remove_cycles(objects))
+
+    return objects
 
 
 @lru_cache(maxsize=1)
