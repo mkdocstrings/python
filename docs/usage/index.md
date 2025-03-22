@@ -87,8 +87,8 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
-        - https://docs.python-requests.org/en/master/objects.inv
+        inventories:
+        - https://docs.python.org/3/objects.inv
 ```
 
 When loading an inventory, you enable automatic cross-references
