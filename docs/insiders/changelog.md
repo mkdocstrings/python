@@ -2,6 +2,10 @@
 
 ## mkdocstrings-python Insiders
 
+### 1.12.0 <small>March 22, 2025</small> { id="1.12.0" }
+
+- [Ordering method: `__all__`][option-members_order]
+
 ### 1.11.0 <small>March 20, 2025</small> { id="1.11.0" }
 
 - [Filtering method: `public`][option-filters-public]

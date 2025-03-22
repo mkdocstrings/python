@@ -9,6 +9,8 @@ from typing import TYPE_CHECKING, Annotated, Any, Literal
 
 from mkdocstrings import get_logger
 
+from mkdocstrings_handlers.python._internal.rendering import Order  # noqa: TC001
+
 # YORE: EOL 3.10: Replace block with line 2.
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -520,13 +522,18 @@ class PythonInputOptions:
     ] = None
 
     members_order: Annotated[
-        Literal["alphabetical", "source"],
+        Order | list[Order],
         _Field(
             group="members",
             description="""The members ordering to use.
 
-            - `alphabetical`: order by the members names,
+            - `__all__`: order members according to `__all__` module attributes, if declared;
+            - `alphabetical`: order members alphabetically;
             - `source`: order members as they appear in the source file.
+
+            Since `__all__` is a module-only attribute, it can't be used to sort class members,
+            therefore the `members_order` option accepts a list of ordering methods,
+            indicating ordering preferences.
             """,
         ),
     ] = "alphabetical"

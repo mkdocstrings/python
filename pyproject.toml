@@ -33,7 +33,7 @@ classifiers = [
 dependencies = [
     "mkdocstrings>=0.28.3",
     "mkdocs-autorefs>=1.4",
-    "griffe>=0.49",
+    "griffe>=1.6.2",
     "typing-extensions>=4.0; python_version < '3.11'",
 ]
 

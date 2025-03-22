@@ -264,13 +264,14 @@ class Main(Base):
 [](){#option-members_order}
 ## `members_order`
 
-- **:octicons-package-24: Type [`str`][] :material-equal: `"alphabetical"`{ title="default value" }**
+- **:octicons-package-24: Type `str | list[str]` :material-equal: `"alphabetical"`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 The members ordering to use. Possible values:
 
-- `alphabetical`: order by the members names.
-- `source`: order members as they appear in the source file.
+- `__all__` ([:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash; [:octicons-tag-24: Insiders 1.12.0](../../insiders/changelog.md#1.12.0)): Order according to `__all__` attributes. Since classes do not define `__all__` attributes, you can specify a second ordering method by using a list.
+- `alphabetical`: Order by the members names.
+- `source`: Order members as they appear in the source file.
 
 The order applies for all members, recursively.
 The order will be ignored for members that are explicitely sorted using the [`members`][] option.
@@ -290,6 +291,12 @@ plugins:
 ::: package.module
     options:
       members_order: source
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: package.module
+    options:
+      members_order: [__all__, source]
 ```
 
 ```python title="package/module.py"

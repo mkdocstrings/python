@@ -9,6 +9,7 @@ import subprocess
 import sys
 import warnings
 from collections import defaultdict
+from contextlib import suppress
 from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
@@ -56,12 +57,22 @@ def _sort_key_source(item: CollectorItem) -> float:
     return item.lineno if item.lineno is not None else float("inf")
 
 
-Order = Literal["alphabetical", "source"]
-"""Ordering methods."""
+def _sort__all__(item: CollectorItem) -> float:  # noqa: ARG001
+    raise ValueError("Not implemented in public version of mkdocstrings-python")
 
-_order_map = {
+
+Order = Literal["__all__", "alphabetical", "source"]
+"""Ordering methods.
+
+- `__all__`: order members according to `__all__` module attributes, if declared;
+- `alphabetical`: order members alphabetically;
+- `source`: order members as they appear in the source file.
+"""
+
+_order_map: dict[str, Callable[[Object | Alias], str | float]] = {
     "alphabetical": _sort_key_alphabetical,
     "source": _sort_key_source,
+    "__all__": _sort__all__,
 }
 
 
@@ -245,7 +256,7 @@ def do_format_attribute(
 
 def do_order_members(
     members: Sequence[Object | Alias],
-    order: Order,
+    order: Order | list[Order],
     members_list: bool | list[str] | None,
 ) -> Sequence[Object | Alias]:
     """Order members given an ordering method.
@@ -265,7 +276,12 @@ def do_order_members(
             if name in members_dict:
                 sorted_members.append(members_dict[name])
         return sorted_members
-    return sorted(members, key=_order_map[order])
+    if isinstance(order, str):
+        order = [order]
+    for method in order:
+        with suppress(ValueError):
+            return sorted(members, key=_order_map[method])
+    return members
 
 
 # YORE: Bump 2: Remove block.
