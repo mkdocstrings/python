@@ -102,11 +102,15 @@ Attributes:
 ## Order
 
 ```python
-Order = Literal['alphabetical', 'source']
+Order = Literal['__all__', 'alphabetical', 'source']
 
 ```
 
 Ordering methods.
+
+- `__all__`: order members according to `__all__` module attributes, if declared;
+- `alphabetical`: order members alphabetically;
+- `source`: order members as they appear in the source file.
 
 ## Tree
 
@@ -1333,7 +1337,7 @@ PythonInputOptions(
     inherited_members: bool | list[str] = False,
     line_length: int = 60,
     members: list[str] | bool | None = None,
-    members_order: Literal["alphabetical", "source"] = "alphabetical",
+    members_order: Order | list[Order] = "alphabetical",
     merge_init_into_class: bool = False,
     modernize_annotations: bool = False,
     parameter_headings: bool = False,
@@ -1406,7 +1410,7 @@ Attributes:
 - **`inherited_members`** (`bool | list[str]`) – A boolean, or an explicit list of inherited members to render.
 - **`line_length`** (`int`) – Maximum line length when formatting code/signatures.
 - **`members`** (`list[str] | bool | None`) – A boolean, or an explicit list of members to render.
-- **`members_order`** (`Literal['alphabetical', 'source']`) – The members ordering to use.
+- **`members_order`** (`Order | list[Order]`) – The members ordering to use.
 - **`merge_init_into_class`** (`bool`) – Whether to merge the __init__ method into the class' signature and docstring.
 - **`modernize_annotations`** (`bool`) – Whether to modernize annotations, for example Optional[str] into str | None.
 - **`parameter_headings`** (`bool`) – Whether to render headings for parameters (therefore showing parameters in the ToC).
@@ -1627,14 +1631,17 @@ If true, select all members without further filtering. If false or empty list, d
 ### members_order
 
 ```python
-members_order: Literal['alphabetical', 'source'] = 'alphabetical'
+members_order: Order | list[Order] = 'alphabetical'
 
 ```
 
 The members ordering to use.
 
-- `alphabetical`: order by the members names,
+- `__all__`: order members according to `__all__` module attributes, if declared;
+- `alphabetical`: order members alphabetically;
 - `source`: order members as they appear in the source file.
+
+Since `__all__` is a module-only attribute, it can't be used to sort class members, therefore the `members_order` option accepts a list of ordering methods, indicating ordering preferences.
 
 ### merge_init_into_class
 
@@ -2061,7 +2068,7 @@ PythonOptions(
     inherited_members: bool | list[str] = False,
     line_length: int = 60,
     members: list[str] | bool | None = None,
-    members_order: Literal["alphabetical", "source"] = "alphabetical",
+    members_order: Order | list[Order] = "alphabetical",
     merge_init_into_class: bool = False,
     modernize_annotations: bool = False,
     parameter_headings: bool = False,
@@ -2149,7 +2156,7 @@ Attributes:
 - **`inherited_members`** (`bool | list[str]`) – A boolean, or an explicit list of inherited members to render.
 - **`line_length`** (`int`) – Maximum line length when formatting code/signatures.
 - **`members`** (`list[str] | bool | None`) – A boolean, or an explicit list of members to render.
-- **`members_order`** (`Literal['alphabetical', 'source']`) – The members ordering to use.
+- **`members_order`** (`Order | list[Order]`) – The members ordering to use.
 - **`merge_init_into_class`** (`bool`) – Whether to merge the __init__ method into the class' signature and docstring.
 - **`modernize_annotations`** (`bool`) – Whether to modernize annotations, for example Optional[str] into str | None.
 - **`parameter_headings`** (`bool`) – Whether to render headings for parameters (therefore showing parameters in the ToC).
@@ -2364,14 +2371,17 @@ If true, select all members without further filtering. If false or empty list, d
 ### members_order
 
 ```python
-members_order: Literal['alphabetical', 'source'] = 'alphabetical'
+members_order: Order | list[Order] = 'alphabetical'
 
 ```
 
 The members ordering to use.
 
-- `alphabetical`: order by the members names,
+- `__all__`: order members according to `__all__` module attributes, if declared;
+- `alphabetical`: order members alphabetically;
 - `source`: order members as they appear in the source file.
+
+Since `__all__` is a module-only attribute, it can't be used to sort class members, therefore the `members_order` option accepts a list of ordering methods, indicating ordering preferences.
 
 ### merge_init_into_class
 
@@ -3183,7 +3193,7 @@ Returns:
 ```python
 do_order_members(
     members: Sequence[Object | Alias],
-    order: Order,
+    order: Order | list[Order],
     members_list: bool | list[str] | None,
 ) -> Sequence[Object | Alias]
 
@@ -3199,7 +3209,7 @@ Parameters:
 
 - ### **`order`**
 
-  (`Order`) – The ordering method.
+  (`Order | list[Order]`) – The ordering method.
 
 - ### **`members_list`**
 

@@ -469,15 +469,31 @@
           "title": "members"
         },
         "members_order": {
-          "default": "alphabetical",
-          "description": "The members ordering to use.\n\n- `alphabetical`: order by the members names,\n- `source`: order members as they appear in the source file.",
-          "enum": [
-            "alphabetical",
-            "source"
+          "anyOf": [
+            {
+              "enum": [
+                "__all__",
+                "alphabetical",
+                "source"
+              ],
+              "type": "string"
+            },
+            {
+              "items": {
+                "enum": [
+                  "__all__",
+                  "alphabetical",
+                  "source"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           ],
-          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#members_order)\n\nThe members ordering to use.\n\n- `alphabetical`: order by the members names,\n- `source`: order members as they appear in the source file.",
-          "title": "members_order",
-          "type": "string"
+          "default": "alphabetical",
+          "description": "The members ordering to use.\n\n- `__all__`: order members according to `__all__` module attributes, if declared;\n- `alphabetical`: order members alphabetically;\n- `source`: order members as they appear in the source file.\n\nSince `__all__` is a module-only attribute, it can't be used to sort class members,\ntherefore the `members_order` option accepts a list of ordering methods,\nindicating ordering preferences.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#members_order)\n\nThe members ordering to use.\n\n- `__all__`: order members according to `__all__` module attributes, if declared;\n- `alphabetical`: order members alphabetically;\n- `source`: order members as they appear in the source file.\n\nSince `__all__` is a module-only attribute, it can't be used to sort class members,\ntherefore the `members_order` option accepts a list of ordering methods,\nindicating ordering preferences.",
+          "title": "members_order"
         },
         "merge_init_into_class": {
           "default": false,
