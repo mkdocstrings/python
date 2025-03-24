@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.8](https://github.com/mkdocstrings/python/releases/tag/1.16.8) - 2025-03-24
+
+<small>[Compare with 1.16.7](https://github.com/mkdocstrings/python/compare/1.16.7...1.16.8)</small>
+
+### Bug Fixes
+
+- Prevent infinite recursion by detecting parent-member cycles ([f3917e9](https://github.com/mkdocstrings/python/commit/f3917e9dd50ca7f94d0dd22b6e4e11885b4617e7) by Timothée Mazzucotelli). [Issue-griffe-368](https://github.com/mkdocstrings/griffe/issues/368)
+
+### Code Refactoring
+
+- Prepare feature for ordering by `__all__` value ([bfb5b30](https://github.com/mkdocstrings/python/commit/bfb5b303f4ea2187c15bccc688f7eba25e7edfcc) by Timothée Mazzucotelli). [Issue-219](https://github.com/mkdocstrings/python/issues/219)
+- Sort objects without line numbers last instead of first ([681afb1](https://github.com/mkdocstrings/python/commit/681afb146225d98350a8eb2178aab07aec95fe6b) by Timothée Mazzucotelli).
+
 ## [1.16.7](https://github.com/mkdocstrings/python/releases/tag/1.16.7) - 2025-03-20
 
 <small>[Compare with 1.16.6](https://github.com/mkdocstrings/python/compare/1.16.6...1.16.7)</small>
