@@ -404,7 +404,7 @@ Warn about documented parameters not appearing in the signature.
 ## Inventory
 
 ```python
-Inventory(url: str, base: str | None = None, domains: list[str] = lambda: ['py']())
+Inventory(url: str, base_url: str | None = None, domains: list[str] = lambda: ['py']())
 
 ```
 
@@ -412,14 +412,14 @@ An inventory.
 
 Attributes:
 
-- **`base`** (`str | None`) – The base URL of the inventory.
+- **`base_url`** (`str | None`) – The base URL of the inventory.
 - **`domains`** (`list[str]`) – The domains to load from the inventory.
 - **`url`** (`str`) – The URL of the inventory.
 
-### base
+### base_url
 
 ```python
-base: str | None = None
+base_url: str | None = None
 
 ```
 

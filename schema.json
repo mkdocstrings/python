@@ -119,7 +119,7 @@
           "title": "url",
           "type": "string"
         },
-        "base": {
+        "base_url": {
           "anyOf": [
             {
               "type": "string"
@@ -131,7 +131,7 @@
           "default": null,
           "description": "The base URL of the inventory.",
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#inventories)\n\nThe base URL of the inventory.",
-          "title": "base"
+          "title": "base_url"
         },
         "domains": {
           "description": "The domains to load from the inventory.",
