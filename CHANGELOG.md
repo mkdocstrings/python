@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.10](https://github.com/mkdocstrings/python/releases/tag/1.16.10) - 2025-04-03
+
+<small>[Compare with 1.16.9](https://github.com/mkdocstrings/python/compare/1.16.9...1.16.10)</small>
+
+### Bug Fixes
+
+- Fix inventory `base_url` being ignored ([8870eb9](https://github.com/mkdocstrings/python/commit/8870eb9af837666f59f96149c67c849e02f7ee25) by Stefan Mejlgaard). [Issue-268](https://github.com/mkdocstrings/python/issues/268), [PR-269](https://github.com/mkdocstrings/python/pull/269)
+
 ## [1.16.9](https://github.com/mkdocstrings/python/releases/tag/1.16.9) - 2025-04-03
 
 <small>[Compare with 1.16.8](https://github.com/mkdocstrings/python/compare/1.16.8...1.16.9)</small>
