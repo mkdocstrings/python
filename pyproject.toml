@@ -86,7 +86,7 @@ maintain = [
     "yore>=0.3.3",
 ]
 ci = [
-    "blacK>=25.1",
+    "black>=25.1",
     "duty>=1.6",
     "ruff>=0.4",
     "pytest>=8.2",
