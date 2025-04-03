@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import os
 import sys
+from dataclasses import replace
 from glob import glob
+from io import BytesIO
 from pathlib import Path
 from textwrap import dedent
 from typing import TYPE_CHECKING
 
+import mkdocstrings
 import pytest
 from griffe import (
     Docstring,
@@ -20,7 +23,7 @@ from griffe import (
 )
 from mkdocstrings import CollectionError
 
-from mkdocstrings_handlers.python import PythonConfig, PythonHandler, PythonOptions
+from mkdocstrings_handlers.python import Inventory, PythonConfig, PythonHandler, PythonOptions
 
 if TYPE_CHECKING:
     from mkdocstrings import MkdocstringsPlugin
@@ -298,3 +301,33 @@ def test_inheriting_self_from_parent_class(handler: PythonHandler) -> None:
             module,
             handler.get_options({"inherited_members": True}),
         )
+
+
+def test_specifying_inventory_base_url(handler: PythonHandler) -> None:
+    """Assert that the handler renders inventory URLs using the specified base_url."""
+    # Update handler config to include an inventory with a base URL
+    base_url = "https://docs.com/my_library"
+    inventory = Inventory(url="https://example.com/objects.inv", base_url=base_url)
+    handler.config = replace(handler.config, inventories=[inventory])
+
+    # Mock inventory bytes
+    item_name = "my_library.my_module.MyClass"
+    mocked_inventory = mkdocstrings.Inventory()
+    mocked_inventory.register(
+        name=item_name,
+        domain="py",
+        role="class",
+        uri=f"api-reference/#{item_name}",
+        dispname=item_name,
+    )
+    mocked_bytes = BytesIO(mocked_inventory.format_sphinx())
+
+    # Get inventory URL and config
+    url, config = handler.get_inventory_urls()[0]
+
+    # Load the mocked inventory
+    _, item_url = next(handler.load_inventory(mocked_bytes, url, **config))
+
+    # Assert the URL is based on the provided base URL
+    msg = "Expected inventory URL to start with base_url"
+    assert item_url.startswith(base_url), msg

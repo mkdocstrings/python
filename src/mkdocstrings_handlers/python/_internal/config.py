@@ -971,7 +971,7 @@ class Inventory:
         ),
     ]
 
-    base: Annotated[
+    base_url: Annotated[
         str | None,
         _Field(
             parent="inventories",
@@ -989,7 +989,7 @@ class Inventory:
 
     @property
     def _config(self) -> dict[str, Any]:
-        return {"base": self.base, "domains": self.domains}
+        return {"base_url": self.base_url, "domains": self.domains}
 
 
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
