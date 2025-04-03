@@ -15,8 +15,7 @@ Context:
   {{ log.debug() }}
 {% endblock %}
 
-{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-{% import "language"|get_template as lang with context %}
+{% import "language.html.jinja" as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
 <table class="field-list">
@@ -34,8 +33,7 @@ Context:
               <b><code>{{ attribute.name }}</code></b>
               {% if attribute.annotation %}
                 {% with expression = attribute.annotation %}
-                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                  (<code>{% include "expression"|get_template with context %}</code>)
+                  (<code>{% include "expression.html.jinja" with context %}</code>)
                 {% endwith %}
               {% endif %}
               –

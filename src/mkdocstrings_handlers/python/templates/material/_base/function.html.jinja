@@ -17,8 +17,7 @@ Context:
   {{ log.debug("Rendering " + function.path) }}
 {% endblock logs %}
 
-{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-{% import "language"|get_template as lang with context %}
+{% import "language.html.jinja" as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
 <div class="doc doc-object doc-function">
@@ -60,8 +59,7 @@ Context:
             <span class="doc doc-object-name doc-function-name">{{ function_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) -%}
-              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
-              {{ function_name }}{% include "signature"|get_template with context %}
+              {{ function_name }}{% include "signature.html.jinja" with context %}
             {%- endfilter %}
           {% endif %}
         {% endblock heading %}
@@ -72,8 +70,7 @@ Context:
           This block renders the labels for the function.
           -#}
           {% with labels = function.labels %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "labels"|get_template with context %}
+            {% include "labels.html.jinja" with context %}
           {% endwith %}
         {% endblock labels %}
 
@@ -130,8 +127,7 @@ Context:
           This block renders the docstring for the function.
           -#}
           {% with docstring_sections = function.docstring.parsed %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "docstring"|get_template with context %}
+            {% include "docstring.html.jinja" with context %}
           {% endwith %}
         {% endblock docstring %}
 

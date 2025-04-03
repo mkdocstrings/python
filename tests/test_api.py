@@ -160,10 +160,6 @@ def test_inventory_matches_api(
     public_api_paths = {obj.path for obj in public_objects}
     public_api_paths.add("mkdocstrings_handlers")
     public_api_paths.add("mkdocstrings_handlers.python")
-    # YORE: Bump 2: Remove block.
-    public_api_paths.add("mkdocstrings_handlers.python.config")
-    public_api_paths.add("mkdocstrings_handlers.python.handler")
-    public_api_paths.add("mkdocstrings_handlers.python.rendering")
 
     for item in inventory.values():
         if item.domain == "py" and "(" not in item.name and _module_or_child("mkdocstrings_handlers.python", item.name):

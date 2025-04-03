@@ -54,8 +54,7 @@ Context:
           {% elif config.merge_init_into_class and "__init__" in all_members %}
             {% with function = all_members["__init__"] %}
               {%+ filter highlight(language="python", inline=True) -%}
-                {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
-                {{ class_name }}{% include "signature"|get_template with context %}
+                {{ class_name }}{% include "signature.html.jinja" with context %}
               {%- endfilter %}
             {% endwith %}
           {% else %}
@@ -69,8 +68,7 @@ Context:
           This block renders the labels for the class.
           -#}
           {% with labels = class.labels %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "labels"|get_template with context %}
+            {% include "labels.html.jinja" with context %}
           {% endwith %}
         {% endblock labels %}
 
@@ -136,8 +134,7 @@ Context:
               Bases: {% for expression in class.bases -%}
                 <code>
                   {%- with backlink_type = "subclassed-by" -%}
-                    {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
-                    {%- include "expression"|get_template with context -%}
+                    {%- include "expression.html.jinja" with context -%}
                   {%- endwith -%}
                 </code>{% if not loop.last %}, {% endif %}
               {% endfor -%}
@@ -151,8 +148,7 @@ Context:
           This block renders the docstring for the class.
           -#}
           {% with docstring_sections = class.docstring.parsed %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "docstring"|get_template with context %}
+            {% include "docstring.html.jinja" with context %}
           {% endwith %}
           {% if config.merge_init_into_class %}
             {# We don't want to merge the inherited `__init__` method docstring into the class docstring #}
@@ -161,8 +157,7 @@ Context:
               {% if "__init__" in check_members and check_members["__init__"].has_docstring %}
                 {% with function = check_members["__init__"] %}
                   {% with obj = function, docstring_sections = function.docstring.parsed %}
-                    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                    {% include "docstring"|get_template with context %}
+                    {% include "docstring.html.jinja" with context %}
                   {% endwith %}
                 {% endwith %}
               {% endif %}
@@ -179,8 +174,7 @@ Context:
 
           This block renders auto-summaries for classes, methods, and attributes.
           -#}
-          {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-          {% include "summary"|get_template with context %}
+          {% include "summary.html.jinja" with context %}
         {% endblock summary %}
 
         {% block source scoped %}
@@ -226,8 +220,7 @@ Context:
           -#}
           {% set root = False %}
           {% set heading_level = heading_level + 1 %}
-          {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-          {% include "children"|get_template with context %}
+          {% include "children.html.jinja" with context %}
         {% endblock children %}
       {% endblock contents %}
     </div>

@@ -62,8 +62,7 @@ Context:
           This block renders the labels for the module.
           -#}
           {% with labels = module.labels %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "labels"|get_template with context %}
+            {% include "labels.html.jinja" with context %}
           {% endwith %}
         {% endblock labels %}
 
@@ -96,8 +95,7 @@ Context:
           This block renders the docstring for the module.
           -#}
           {% with docstring_sections = module.docstring.parsed %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "docstring"|get_template with context %}
+            {% include "docstring.html.jinja" with context %}
           {% endwith %}
         {% endblock docstring %}
 
@@ -110,8 +108,7 @@ Context:
 
           This block renders auto-summaries for classes, methods, and attributes.
           -#}
-          {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-          {% include "summary"|get_template with context %}
+          {% include "summary.html.jinja" with context %}
         {% endblock summary %}
 
         {% block children scoped %}
@@ -121,8 +118,7 @@ Context:
           -#}
           {% set root = False %}
           {% set heading_level = heading_level + 1 %}
-          {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-          {% include "children"|get_template with context %}
+          {% include "children.html.jinja" with context %}
         {% endblock children %}
       {% endblock contents %}
     </div>

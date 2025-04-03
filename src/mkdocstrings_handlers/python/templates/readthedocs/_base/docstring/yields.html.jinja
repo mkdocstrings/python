@@ -15,8 +15,7 @@ Context:
   {{ log.debug() }}
 {% endblock %}
 
-{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-{% import "language"|get_template as lang with context %}
+{% import "language.html.jinja" as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
 <table class="field-list">
@@ -35,8 +34,7 @@ Context:
               {% if yields.annotation %}
                 {% with expression = yields.annotation, backlink_type = "yielded-by" %}
                   {% if yields.name %}({% endif %}
-                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                  <code>{% include "expression"|get_template with context %}</code>
+                  <code>{% include "expression.html.jinja" with context %}</code>
                   {% if yields.name %}){% endif %}
                 {% endwith %}
               {% endif %}

@@ -18,7 +18,6 @@
       |order_members("alphabetical", members_list)
       |as_modules_section(check_public=not members_list)
     %}
-    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-    {% if section %}{% include "docstring/modules"|get_template with context %}{% endif %}
+    {% if section %}{% include "docstring/modules.html.jinja" with context %}{% endif %}
   {% endwith %}
 {% endif %}
