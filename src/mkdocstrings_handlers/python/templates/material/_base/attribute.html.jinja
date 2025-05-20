@@ -39,7 +39,7 @@ Context:
           role="data" if attribute.parent.kind.value == "module" else "attr",
           id=html_id,
           class="doc doc-heading",
-          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute_name),
+          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute.name),
         ) %}
 
         {% block heading scoped %}
