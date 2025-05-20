@@ -9,6 +9,11 @@
   display: inline;
 }
 
+/* No text transformation from Material for MkDocs for H5 headings. */
+.md-typeset h5 .doc-object-name {
+  text-transform: none;
+}
+
 /* Max width for docstring sections tables. */
 .doc .md-typeset__table,
 .doc .md-typeset__table table {
