@@ -145,7 +145,7 @@ def test_api_matches_inventory(inventory: Inventory, public_objects: list[griffe
 
 
 def _module_or_child(parent: str, name: str) -> bool:
-    parents = [parent[: i + 1] for i, char in enumerate(parent) if char == "."]
+    parents = [parent[:i] for i, char in enumerate(parent) if char == "."]
     parents.append(parent)
     return name in parents or name.startswith(parent + ".")
 
