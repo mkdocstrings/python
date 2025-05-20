@@ -383,5 +383,23 @@ snapshots_members = snapshot(
         (("filters", "public"), ("inherited_members", False), ("members", ("module_attribute",))): external(
             "80399c502938*.html",
         ),
+        (("heading", ""), ("members", False), ("separate_signature", False), ("show_if_no_docstring", True)): external(
+            "d1dd339f9260*.html",
+        ),
+        (
+            ("heading", "Some heading"),
+            ("members", False),
+            ("separate_signature", True),
+            ("show_if_no_docstring", True),
+        ): external("480324b25439*.html"),
+        (("heading", ""), ("members", False), ("separate_signature", True), ("show_if_no_docstring", True)): external(
+            "2eef87791b97*.html",
+        ),
+        (
+            ("heading", "Some heading"),
+            ("members", False),
+            ("separate_signature", False),
+            ("show_if_no_docstring", True),
+        ): external("51deee0f00f3*.html"),
     },
 )

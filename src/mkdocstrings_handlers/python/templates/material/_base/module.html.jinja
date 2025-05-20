@@ -47,8 +47,10 @@ Context:
           This block renders the heading for the module.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>{% endif %}
-          {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-module-name">{{ config.heading if config.heading and root else module_name }}</span>
+          {% if config.heading and root %}
+            {{ config.heading }}
+          {% elif config.separate_signature %}
+            <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
           {% else %}
             <code>{{ module_name }}</code>
           {% endif %}

@@ -48,8 +48,10 @@ Context:
           This block renders the heading for the attribute.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>{% endif %}
-          {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-attribute-name">{{ config.heading if config.heading and root else attribute_name }}</span>
+          {% if config.heading and root %}
+            {{ config.heading }}
+          {% elif config.separate_signature %}
+            <span class="doc doc-object-name doc-attribute-name">{{ attribute_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) %}
               {{ attribute_name }}{% if attribute.annotation and config.show_signature_annotations %}: {{ attribute.annotation }}{% endif %}
