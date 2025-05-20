@@ -35,6 +35,11 @@
   display: inline;
 }
 
+/* Default font size for parameter headings. */
+.md-typeset .doc-heading-parameter {
+  font-size: inherit;
+}
+
 /* Prefer space on the right, not the left of parameter permalinks. */
 .doc-heading-parameter .headerlink {
   margin-left: 0 !important;
