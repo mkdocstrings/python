@@ -1,17 +1,22 @@
 """Python handler for mkdocstrings."""
 
 from mkdocstrings_handlers.python._internal.config import (
+    UNSET,
     AutoStyleOptions,
+    ChainedOptions,
     GoogleStyleOptions,
     Inventory,
+    MembersOption,
     NumpyStyleOptions,
     PerStyleOptions,
     PythonConfig,
     PythonInputConfig,
     PythonInputOptions,
     PythonOptions,
+    RecursiveOptions,
     SphinxStyleOptions,
     SummaryOption,
+    Unset,
 )
 from mkdocstrings_handlers.python._internal.handler import PythonHandler, get_handler
 from mkdocstrings_handlers.python._internal.rendering import (
@@ -34,10 +39,13 @@ from mkdocstrings_handlers.python._internal.rendering import (
 )
 
 __all__ = [
+    "UNSET",
     "AutoStyleOptions",
     "AutorefsHook",
+    "ChainedOptions",
     "GoogleStyleOptions",
     "Inventory",
+    "MembersOption",
     "NumpyStyleOptions",
     "Order",
     "PerStyleOptions",
@@ -46,9 +54,11 @@ __all__ = [
     "PythonInputConfig",
     "PythonInputOptions",
     "PythonOptions",
+    "RecursiveOptions",
     "SphinxStyleOptions",
     "SummaryOption",
     "Tree",
+    "Unset",
     "do_as_attributes_section",
     "do_as_classes_section",
     "do_as_functions_section",

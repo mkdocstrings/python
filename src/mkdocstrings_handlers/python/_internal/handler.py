@@ -84,6 +84,9 @@ class PythonHandler(BaseHandler):
         self.base_dir = base_dir
         """The base directory of the project."""
 
+        self.default_options = PythonOptions()
+        """The default configuration options."""
+
         self.global_options = config.options
         """The global configuration options (in `mkdocs.yml`)."""
 
@@ -166,10 +169,8 @@ class PythonHandler(BaseHandler):
         Returns:
             The combined options.
         """
-        extra = {**self.global_options.get("extra", {}), **local_options.get("extra", {})}
-        options = {**self.global_options, **local_options, "extra": extra}
         try:
-            return PythonOptions.from_data(**options)
+            return self.default_options.chain(self.global_options).chain(local_options)
         except Exception as error:
             raise PluginError(f"Invalid options: {error}") from error
 
@@ -197,29 +198,29 @@ class PythonHandler(BaseHandler):
         parser_options = options.docstring_options and asdict(options.docstring_options)
 
         if unknown_module:
-            extensions = self.normalize_extension_paths(options.extensions)
+            extensions = self.normalize_extension_paths(options.extensions)  # type: ignore[arg-type]
             loader = GriffeLoader(
                 extensions=load_extensions(*extensions),
                 search_paths=self._paths,
-                docstring_parser=parser,
+                docstring_parser=parser,  # type: ignore[arg-type]
                 docstring_options=parser_options,  # type: ignore[arg-type]
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
-                allow_inspection=options.allow_inspection,
-                force_inspection=options.force_inspection,
+                allow_inspection=options.allow_inspection,  # type: ignore[arg-type]
+                force_inspection=options.force_inspection,  # type: ignore[arg-type]
             )
             try:
-                for pre_loaded_module in options.preload_modules:
+                for pre_loaded_module in options.preload_modules:  # type: ignore[union-attr]
                     if pre_loaded_module not in self._modules_collection:
                         loader.load(
                             pre_loaded_module,
                             try_relative_path=False,
-                            find_stubs_package=options.find_stubs_package,
+                            find_stubs_package=options.find_stubs_package,  # type: ignore[arg-type]
                         )
                 loader.load(
                     module_name,
                     try_relative_path=False,
-                    find_stubs_package=options.find_stubs_package,
+                    find_stubs_package=options.find_stubs_package,  # type: ignore[arg-type]
                 )
             except ImportError as error:
                 raise CollectionError(str(error)) from error

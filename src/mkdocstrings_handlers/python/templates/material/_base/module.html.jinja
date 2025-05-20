@@ -38,7 +38,7 @@ Context:
           role="module",
           id=html_id,
           class="doc doc-heading",
-          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else module.name),
+          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label or module.name),
         ) %}
 
         {% block heading scoped %}
@@ -47,7 +47,7 @@ Context:
           This block renders the heading for the module.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>{% endif %}
-          {% if config.heading and root %}
+          {% if config.heading %}
             {{ config.heading }}
           {% elif config.separate_signature %}
             <span class="doc doc-object-name doc-module-name">{{ module_name }}</span>
@@ -73,7 +73,7 @@ Context:
         {% filter heading(heading_level,
             role="module",
             id=html_id,
-            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else module.name),
+            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label or module.name),
             hidden=True,
           ) %}
         {% endfilter %}

@@ -271,7 +271,8 @@ def do_order_members(
     if isinstance(members_list, list) and members_list:
         sorted_members = []
         members_dict = {member.name: member for member in members}
-        for name in members_list:
+        for item in members_list:
+            name = item if isinstance(item, str) else item.name
             if name in members_dict:
                 sorted_members.append(members_dict[name])
         return sorted_members
@@ -370,6 +371,7 @@ def do_filter_objects(
     members_list: bool | list[str] | None = None,
     inherited_members: bool | list[str] = False,
     keep_no_docstrings: bool = True,
+    apply_options: bool = False,
 ) -> list[Object | Alias]:
     """Filter a dictionary of objects based on their docstrings.
 
@@ -383,6 +385,7 @@ def do_filter_objects(
             When given and not empty, ignore filters and docstrings presence/absence.
         inherited_members: Whether to keep inherited members or exclude them.
         keep_no_docstrings: Whether to keep objects with no/empty docstrings (recursive check).
+        apply_options: Whether to apply options to the objects.
 
     Returns:
         A list of objects.
@@ -411,9 +414,14 @@ def do_filter_objects(
 
     if members_list is not None:
         # Return selected members (keeping any pre-selected inherited members).
-        return [
-            obj for obj in objects if obj.name in set(members_list) or (inherited_members_specified and obj.inherited)
-        ]
+        if apply_options:
+            for member in members_list:
+                if not isinstance(member, str):
+                    name = member.name
+                    if (obj := objects_dictionary[name]) and member.options:
+                        obj.extra["mkdocstrings"]["options"] = member.options
+        names = {member if isinstance(member, str) else member.name for member in members_list}
+        return [obj for obj in objects if obj.name in names or (inherited_members_specified and obj.inherited)]
 
     # Use filters and docstrings.
     if filters == "public":

@@ -1,10 +1,55 @@
 # Configuration and options dataclasses.
+#
+# We start by declaring a custom field function that will help us generate a JSON schema
+# where each item links to the relevant documentation page and section.
+# The function is a no-op when Pydantic is not available.
+#
+# Then we define the dataclasses for specific, complex options (more than just a built-in type),
+# like `SummaryOption`, and `MembersOption`.
+#
+# Finally, we define the complete options dataclasses, one for the inputs matching what users
+# write in mkdocs.yml, and one for the coerced options, which is used in the Jinja templates.
+# The dataclasses are split into inputs and "coerced" because we want to expose a JSON schema
+# corresponding to the inputs only, but we still want to validate and transform the inputs
+# into something more convenient for templates.
+#
+# We also define the input configuration and final configuration dataclasses.
+# Similarly to the options dataclasses, they are split into inputs and "coerced",
+# for the JSON schema and convenience in templates, respectively.
+# Options correspond to the items under `plugins[mkdocstrings].handlers.python.options`,
+# while configuration corresponds to the items under `plugins[mkdocstrings].handlers.python` (including options).
+#
+# ---
+#
+# NOTE: **Note about fine-grain configuration.** To allow repeating a subset of options under `members`,
+# we define this subset of options into `RecursiveOptions`, which `PythonInputOptions` inherits from.
+# This allows us to reference `RecursiveOptions` in the `members` option.
+#
+# ---
+#
+# NOTE: **Note about defaults and merging options.** One thing I (@pawamoy) am not satisfied with
+# is how we handle default values and how we merge options. For the context:
+#
+# - Options can be defined globally (in `mkdocs.yml`), locally (under each `:::` injection),
+#   and recursively (under `members` options).
+# - We want to merge the members options into the local options, into the global options,
+#   into the default options.
+# - But since dataclasses are total, if we merge one instance into the other, it will override
+#   all the unspecified options of the merged instance into the other instance.
+#   It means the receiving/new instance will have all the other fields reset to default values.
+# - To avoid this, we keep track of the inputs (dictionaries) used to instantiate dataclasses,
+#   so that we can merge the inputs instead, which are partial, and then instantiate
+#   the new dataclass with the merged inputs.
+# - That makes a lot of back and forth between dataclasses and dictionaries,
+#   which is not very efficient or elegant.
+#   See `ChainedOptions.chain()` and `PythonHandler.get_options()`.
 
 from __future__ import annotations
 
 import re
 import sys
 from dataclasses import field, fields
+from functools import cached_property
 from typing import TYPE_CHECKING, Annotated, Any, Literal
 
 from mkdocstrings import get_logger
@@ -16,7 +61,6 @@ if sys.version_info >= (3, 11):
     from typing import Self
 else:
     from typing_extensions import Self
-
 
 _logger = get_logger(__name__)
 
@@ -84,7 +128,7 @@ except ImportError:
 
 
 if TYPE_CHECKING:
-    from collections.abc import MutableMapping
+    from collections.abc import Mapping, MutableMapping
 
 
 # YORE: EOL 3.9: Remove block.
@@ -93,6 +137,65 @@ if sys.version_info >= (3, 10):
     _dataclass_options["kw_only"] = True
 
 
+# --------------------------------------------------------------------------- #
+# Chainable dataclass.                                                        #
+# --------------------------------------------------------------------------- #
+@dataclass
+class Unset:
+    """Unset value."""
+
+    def __bool__(self) -> bool:
+        """Always false."""
+        return False
+
+    def __repr__(self) -> str:
+        return "UNSET"
+
+
+UNSET = Unset()
+"""Unset value."""
+
+
+class ChainedOptions:
+    """Chained options."""
+
+    def __init__(self, *dataclasses: ChainedOptions | PythonOptions, unset: Any = UNSET) -> None:
+        self._dataclasses: tuple[ChainedOptions | PythonOptions, ...] = tuple(dataclasses)
+        self._unset = unset
+
+    def __getattr__(self, name: str) -> Any:
+        """Get the attribute from the dataclass."""
+        for dataclass in reversed(self._dataclasses):
+            if (value := getattr(dataclass, name)) is not self._unset:
+                return value
+        return self._unset
+
+    @cached_property
+    def extra(self) -> dict[str, Any]:
+        """Get the extra options from the dataclass."""
+        # Special case for `extra` because we want to merge all extra options.
+        extra = {}
+        for dataclass in self._dataclasses:
+            if isinstance(dataclass.extra, dict):
+                extra.update(dataclass.extra)
+        return extra
+
+    def chain(self, *options: Mapping[str, Any] | PythonOptions | Any) -> ChainedOptions:
+        """Chain the current options with the given options."""
+        return ChainedOptions(
+            self,
+            *(
+                opts
+                if isinstance(opts, PythonOptions)
+                else PythonOptions.from_data(**(opts if isinstance(opts, dict) else {}))
+                for opts in options
+            ),
+        )
+
+
+# --------------------------------------------------------------------------- #
+# Complex options.                                                            #
+# --------------------------------------------------------------------------- #
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
 @dataclass(**_dataclass_options)  # type: ignore[call-overload]
 class GoogleStyleOptions:
@@ -361,29 +464,79 @@ class SummaryOption:
     ] = False
 
 
+# --------------------------------------------------------------------------- #
+# Complex configuration items.                                                #
+# --------------------------------------------------------------------------- #
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
 @dataclass(**_dataclass_options)  # type: ignore[call-overload]
-class PythonInputOptions:
-    """Accepted input options."""
+class Inventory:
+    """An inventory."""
 
-    allow_inspection: Annotated[
-        bool,
+    url: Annotated[
+        str,
         _Field(
-            group="general",
-            description="Whether to allow inspecting modules when visiting them is not possible.",
+            parent="inventories",
+            description="The URL of the inventory.",
         ),
-    ] = True
+    ]
 
-    force_inspection: Annotated[
-        bool,
+    base_url: Annotated[
+        str | None,
         _Field(
-            group="general",
-            description="Whether to force using dynamic analysis when loading data.",
+            parent="inventories",
+            description="The base URL of the inventory.",
         ),
-    ] = False
+    ] = None
+
+    domains: Annotated[
+        list[str],
+        _Field(
+            parent="inventories",
+            description="The domains to load from the inventory.",
+        ),
+    ] = field(default_factory=lambda: ["py"])
+
+    @property
+    def _config(self) -> dict[str, Any]:
+        return {"base_url": self.base_url, "domains": self.domains}
+
+
+# --------------------------------------------------------------------------- #
+# Special "recursive options" dataclasses (for fine-grain configuration).     #
+# --------------------------------------------------------------------------- #
+# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
+@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+class MembersOption:
+    """Members option."""
+
+    # YORE: EOL 3.9: Replace ` = ""` with `` within block.
+    name: Annotated[
+        str,
+        _Field(
+            group="members",
+            parent="members",
+            description="Name of the member to render.",
+            min_length=1,
+        ),
+    ] = ""
+
+    options: Annotated[
+        dict[str, Any] | RecursiveOptions | None,
+        _Field(
+            group="members",
+            parent="members",
+            description="Rendering options for this specific member.",
+        ),
+    ] = None
+
+
+# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
+@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+class RecursiveOptions:
+    """Options that can be applied to the current object and any of its selected members."""
 
     annotations_path: Annotated[
-        Literal["brief", "source", "full"],
+        Literal["brief", "source", "full"] | Unset,
         _Field(
             group="signatures",
             description="The verbosity for annotations path: `brief` (recommended), `source` (as written in the source), or `full`.",
@@ -391,50 +544,23 @@ class PythonInputOptions:
     ] = "brief"
 
     backlinks: Annotated[
-        Literal["flat", "tree", False],
+        Literal["flat", "tree", False] | Unset,
         _Field(
             group="general",
             description="Whether to render backlinks, and how.",
         ),
     ] = False
 
-    docstring_options: Annotated[
-        GoogleStyleOptions | NumpyStyleOptions | SphinxStyleOptions | AutoStyleOptions | None,
-        _Field(
-            group="docstrings",
-            description="""The options for the docstring parser.
-
-            See [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/) and their options in Griffe docs.
-            """,
-        ),
-    ] = None
-
     docstring_section_style: Annotated[
-        Literal["table", "list", "spacy"],
+        Literal["table", "list", "spacy"] | Unset,
         _Field(
             group="docstrings",
             description="The style used to render docstring sections.",
         ),
     ] = "table"
 
-    docstring_style: Annotated[
-        Literal["auto", "google", "numpy", "sphinx"] | None,
-        _Field(
-            group="docstrings",
-            description="The docstring style to use: `auto`, `google`, `numpy`, `sphinx`, or `None`.",
-        ),
-    ] = "google"
-
-    extensions: Annotated[
-        list[str | dict[str, Any]],
-        _Field(
-            group="general",
-            description="A list of Griffe extensions to load.",
-        ),
-    ] = field(default_factory=list)
-
     filters: Annotated[
-        list[str] | Literal["public"],
+        list[str] | Literal["public"] | Unset,
         _Field(
             group="members",
             description="""A list of filters, or `"public"`.
@@ -456,16 +582,8 @@ class PythonInputOptions:
         ),
     ] = field(default_factory=lambda: _DEFAULT_FILTERS.copy())
 
-    find_stubs_package: Annotated[
-        bool,
-        _Field(
-            group="general",
-            description="Whether to load stubs package (package-stubs) when extracting docstrings.",
-        ),
-    ] = False
-
     group_by_category: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="members",
             description="Group the object's children by categories: attributes, classes, functions, and modules.",
@@ -473,23 +591,15 @@ class PythonInputOptions:
     ] = True
 
     heading: Annotated[
-        str,
+        str | Unset,
         _Field(
             group="headings",
             description="A custom string to override the autogenerated heading of the root object.",
         ),
     ] = ""
 
-    heading_level: Annotated[
-        int,
-        _Field(
-            group="headings",
-            description="The initial heading level to use.",
-        ),
-    ] = 2
-
     inherited_members: Annotated[
-        bool | list[str],
+        bool | list[str] | Unset,
         _Field(
             group="members",
             description="""A boolean, or an explicit list of inherited members to render.
@@ -501,7 +611,7 @@ class PythonInputOptions:
     ] = False
 
     line_length: Annotated[
-        int,
+        int | Unset,
         _Field(
             group="signatures",
             description="Maximum line length when formatting code/signatures.",
@@ -509,7 +619,7 @@ class PythonInputOptions:
     ] = 60
 
     members: Annotated[
-        list[str] | bool | None,
+        list[str | MembersOption] | bool | None | Unset,
         _Field(
             group="members",
             description="""A boolean, or an explicit list of members to render.
@@ -522,7 +632,7 @@ class PythonInputOptions:
     ] = None
 
     members_order: Annotated[
-        Order | list[Order],
+        Order | list[Order] | Unset,
         _Field(
             group="members",
             description="""The members ordering to use.
@@ -539,7 +649,7 @@ class PythonInputOptions:
     ] = "alphabetical"
 
     merge_init_into_class: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="docstrings",
             description="Whether to merge the `__init__` method into the class' signature and docstring.",
@@ -547,7 +657,7 @@ class PythonInputOptions:
     ] = False
 
     modernize_annotations: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="signatures",
             description="Whether to modernize annotations, for example `Optional[str]` into `str | None`.",
@@ -555,15 +665,350 @@ class PythonInputOptions:
     ] = False
 
     parameter_headings: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="headings",
             description="Whether to render headings for parameters (therefore showing parameters in the ToC).",
         ),
     ] = False
 
+    relative_crossrefs: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to enable the relative crossref syntax.",
+        ),
+    ] = False
+
+    scoped_crossrefs: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to enable the scoped crossref ability.",
+        ),
+    ] = False
+
+    show_overloads: Annotated[
+        bool | Unset,
+        _Field(
+            group="signatures",
+            description="Show the overloads of a function or method.",
+        ),
+    ] = True
+
+    separate_signature: Annotated[
+        bool | Unset,
+        _Field(
+            group="signatures",
+            description="""Whether to put the whole signature in a code block below the heading.
+
+            If Black or Ruff are installed, the signature is also formatted using them.
+            """,
+        ),
+    ] = False
+
+    show_bases: Annotated[
+        bool | Unset,
+        _Field(
+            group="general",
+            description="Show the base classes of a class.",
+        ),
+    ] = True
+
+    show_category_heading: Annotated[
+        bool | Unset,
+        _Field(
+            group="headings",
+            description="When grouped by categories, show a heading for each category.",
+        ),
+    ] = False
+
+    show_docstring_attributes: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Attributes' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_classes: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Classes' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_description: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the textual block (including admonitions) in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_examples: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Examples' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_functions: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Functions' or 'Methods' sections in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_modules: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Modules' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_other_parameters: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Other Parameters' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_parameters: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Parameters' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_raises: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Raises' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_receives: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Receives' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_returns: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Returns' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_warns: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Warns' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_yields: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Yields' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_if_no_docstring: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Show the object heading even if it has no docstring or children with docstrings.",
+        ),
+    ] = False
+
+    show_inheritance_diagram: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Show the inheritance diagram of a class using Mermaid.",
+        ),
+    ] = False
+
+    show_labels: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Whether to show labels of the members.",
+        ),
+    ] = True
+
+    show_object_full_path: Annotated[
+        bool | Unset,
+        _Field(
+            group="docstrings",
+            description="Show the full Python path of every object.",
+        ),
+    ] = False
+
+    show_signature_annotations: Annotated[
+        bool | Unset,
+        _Field(
+            group="signatures",
+            description="Show the type annotations in methods and functions signatures.",
+        ),
+    ] = False
+
+    show_signature: Annotated[
+        bool | Unset,
+        _Field(
+            group="signatures",
+            description="Show methods and functions signatures.",
+        ),
+    ] = True
+
+    show_source: Annotated[
+        bool | Unset,
+        _Field(
+            group="general",
+            description="Show the source code of this object.",
+        ),
+    ] = True
+
+    show_submodules: Annotated[
+        bool | Unset,
+        _Field(
+            group="members",
+            description="When rendering a module, show its submodules recursively.",
+        ),
+    ] = False
+
+    show_symbol_type_heading: Annotated[
+        bool | Unset,
+        _Field(
+            group="headings",
+            description="Show the symbol type in headings (e.g. mod, class, meth, func and attr).",
+        ),
+    ] = False
+
+    show_symbol_type_toc: Annotated[
+        bool | Unset,
+        _Field(
+            group="headings",
+            description="Show the symbol type in the Table of Contents (e.g. mod, class, methd, func and attr).",
+        ),
+    ] = False
+
+    signature_crossrefs: Annotated[
+        bool | Unset,
+        _Field(
+            group="signatures",
+            description="Whether to render cross-references for type annotations in signatures.",
+        ),
+    ] = False
+
+    summary: Annotated[
+        bool | SummaryOption | Unset,
+        _Field(
+            group="members",
+            description="Whether to render summaries of modules, classes, functions (methods) and attributes.",
+        ),
+    ] = field(default_factory=SummaryOption)
+
+    toc_label: Annotated[
+        str | Unset,
+        _Field(
+            group="headings",
+            description="A custom string to override the autogenerated toc label of the root object.",
+        ),
+    ] = ""
+
+    unwrap_annotated: Annotated[
+        bool | Unset,
+        _Field(
+            group="signatures",
+            description="Whether to unwrap `Annotated` types to show only the type without the annotations.",
+        ),
+    ] = False
+
+
+# --------------------------------------------------------------------------- #
+# Input dataclasses (untransformed data, loaded from `mkdocs.yml`).           #
+# --------------------------------------------------------------------------- #
+# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
+@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+class PythonInputOptions(RecursiveOptions):
+    """Accepted input options."""
+
+    allow_inspection: Annotated[
+        bool | Unset,
+        _Field(
+            group="general",
+            description="Whether to allow inspecting modules when visiting them is not possible.",
+        ),
+    ] = True
+
+    force_inspection: Annotated[
+        bool | Unset,
+        _Field(
+            group="general",
+            description="Whether to force using dynamic analysis when loading data.",
+        ),
+    ] = False
+
+    docstring_options: Annotated[
+        GoogleStyleOptions | NumpyStyleOptions | SphinxStyleOptions | AutoStyleOptions | None | Unset,
+        _Field(
+            group="docstrings",
+            description="""The options for the docstring parser.
+
+            See [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/) and their options in Griffe docs.
+            """,
+        ),
+    ] = None
+
+    docstring_style: Annotated[
+        Literal["auto", "google", "numpy", "sphinx"] | None | Unset,
+        _Field(
+            group="docstrings",
+            description="The docstring style to use: `auto`, `google`, `numpy`, `sphinx`, or `None`.",
+        ),
+    ] = "google"
+
+    extensions: Annotated[
+        list[str | dict[str, Any]] | Unset,
+        _Field(
+            group="general",
+            description="A list of Griffe extensions to load.",
+        ),
+    ] = field(default_factory=list)
+
+    find_stubs_package: Annotated[
+        bool | Unset,
+        _Field(
+            group="general",
+            description="Whether to load stubs package (package-stubs) when extracting docstrings.",
+        ),
+    ] = False
+
+    heading_level: Annotated[
+        int | Unset,
+        _Field(
+            group="headings",
+            description="The initial heading level to use.",
+        ),
+    ] = 2
+
     preload_modules: Annotated[
-        list[str],
+        list[str] | Unset,
         _Field(
             group="general",
             description="""Pre-load modules that are not specified directly in autodoc instructions (`::: identifier`).
@@ -579,195 +1024,8 @@ class PythonInputOptions:
         ),
     ] = field(default_factory=list)
 
-    relative_crossrefs: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to enable the relative crossref syntax.",
-        ),
-    ] = False
-
-    scoped_crossrefs: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to enable the scoped crossref ability.",
-        ),
-    ] = False
-
-    show_overloads: Annotated[
-        bool,
-        _Field(
-            group="signatures",
-            description="Show the overloads of a function or method.",
-        ),
-    ] = True
-
-    separate_signature: Annotated[
-        bool,
-        _Field(
-            group="signatures",
-            description="""Whether to put the whole signature in a code block below the heading.
-
-            If Black or Ruff are installed, the signature is also formatted using them.
-            """,
-        ),
-    ] = False
-
-    show_bases: Annotated[
-        bool,
-        _Field(
-            group="general",
-            description="Show the base classes of a class.",
-        ),
-    ] = True
-
-    show_category_heading: Annotated[
-        bool,
-        _Field(
-            group="headings",
-            description="When grouped by categories, show a heading for each category.",
-        ),
-    ] = False
-
-    show_docstring_attributes: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Attributes' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_classes: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Classes' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_description: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the textual block (including admonitions) in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_examples: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Examples' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_functions: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Functions' or 'Methods' sections in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_modules: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Modules' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_other_parameters: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Other Parameters' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_parameters: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Parameters' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_raises: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Raises' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_receives: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Receives' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_returns: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Returns' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_warns: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Warns' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_docstring_yields: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to display the 'Yields' section in the object's docstring.",
-        ),
-    ] = True
-
-    show_if_no_docstring: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Show the object heading even if it has no docstring or children with docstrings.",
-        ),
-    ] = False
-
-    show_inheritance_diagram: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Show the inheritance diagram of a class using Mermaid.",
-        ),
-    ] = False
-
-    show_labels: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Whether to show labels of the members.",
-        ),
-    ] = True
-
-    show_object_full_path: Annotated[
-        bool,
-        _Field(
-            group="docstrings",
-            description="Show the full Python path of every object.",
-        ),
-    ] = False
-
     show_root_full_path: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="docstrings",
             description="Show the full Python path for the root object heading.",
@@ -775,7 +1033,7 @@ class PythonInputOptions:
     ] = True
 
     show_root_heading: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="headings",
             description="""Show the heading of the object at the root of the documentation tree.
@@ -786,7 +1044,7 @@ class PythonInputOptions:
     ] = False
 
     show_root_members_full_path: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="headings",
             description="Show the full Python path of the root members.",
@@ -794,95 +1052,15 @@ class PythonInputOptions:
     ] = False
 
     show_root_toc_entry: Annotated[
-        bool,
+        bool | Unset,
         _Field(
             group="headings",
             description="If the root heading is not shown, at least add a ToC entry for it.",
         ),
     ] = True
 
-    show_signature_annotations: Annotated[
-        bool,
-        _Field(
-            group="signatures",
-            description="Show the type annotations in methods and functions signatures.",
-        ),
-    ] = False
-
-    show_signature: Annotated[
-        bool,
-        _Field(
-            group="signatures",
-            description="Show methods and functions signatures.",
-        ),
-    ] = True
-
-    show_source: Annotated[
-        bool,
-        _Field(
-            group="general",
-            description="Show the source code of this object.",
-        ),
-    ] = True
-
-    show_submodules: Annotated[
-        bool,
-        _Field(
-            group="members",
-            description="When rendering a module, show its submodules recursively.",
-        ),
-    ] = False
-
-    show_symbol_type_heading: Annotated[
-        bool,
-        _Field(
-            group="headings",
-            description="Show the symbol type in headings (e.g. mod, class, meth, func and attr).",
-        ),
-    ] = False
-
-    show_symbol_type_toc: Annotated[
-        bool,
-        _Field(
-            group="headings",
-            description="Show the symbol type in the Table of Contents (e.g. mod, class, methd, func and attr).",
-        ),
-    ] = False
-
-    signature_crossrefs: Annotated[
-        bool,
-        _Field(
-            group="signatures",
-            description="Whether to render cross-references for type annotations in signatures.",
-        ),
-    ] = False
-
-    summary: Annotated[
-        bool | SummaryOption,
-        _Field(
-            group="members",
-            description="Whether to render summaries of modules, classes, functions (methods) and attributes.",
-        ),
-    ] = field(default_factory=SummaryOption)
-
-    toc_label: Annotated[
-        str,
-        _Field(
-            group="headings",
-            description="A custom string to override the autogenerated toc label of the root object.",
-        ),
-    ] = ""
-
-    unwrap_annotated: Annotated[
-        bool,
-        _Field(
-            group="signatures",
-            description="Whether to unwrap `Annotated` types to show only the type without the annotations.",
-        ),
-    ] = False
-
     extra: Annotated[
-        dict[str, Any],
+        dict[str, Any] | Unset,
         _Field(
             group="general",
             description="Extra options.",
@@ -925,71 +1103,9 @@ class PythonInputOptions:
     @classmethod
     def from_data(cls, **data: Any) -> Self:
         """Create an instance from a dictionary."""
-        return cls(**cls.coerce(**data))
-
-
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
-class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
-    """Final options passed as template context."""
-
-    filters: list[tuple[re.Pattern, bool]] | Literal["public"] = field(  # type: ignore[assignment]
-        default_factory=lambda: [
-            (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in _DEFAULT_FILTERS
-        ],
-    )
-    """A list of filters, or `"public"`."""
-
-    summary: SummaryOption = field(default_factory=SummaryOption)
-    """Whether to render summaries of modules, classes, functions (methods) and attributes."""
-
-    @classmethod
-    def coerce(cls, **data: Any) -> MutableMapping[str, Any]:
-        """Create an instance from a dictionary."""
-        if "filters" in data:
-            # Non-insiders: transform back to default filters.
-            # Next: `if "filters" in data and not isinstance(data["filters"], str):`.
-            if data["filters"] == "public":
-                data["filters"] = _DEFAULT_FILTERS
-            # Filters are `None` or a sequence of strings (tests use tuples).
-            data["filters"] = [
-                (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in data["filters"] or ()
-            ]
-        return super().coerce(**data)
-
-
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
-class Inventory:
-    """An inventory."""
-
-    url: Annotated[
-        str,
-        _Field(
-            parent="inventories",
-            description="The URL of the inventory.",
-        ),
-    ]
-
-    base_url: Annotated[
-        str | None,
-        _Field(
-            parent="inventories",
-            description="The base URL of the inventory.",
-        ),
-    ] = None
-
-    domains: Annotated[
-        list[str],
-        _Field(
-            parent="inventories",
-            description="The domains to load from the inventory.",
-        ),
-    ] = field(default_factory=lambda: ["py"])
-
-    @property
-    def _config(self) -> dict[str, Any]:
-        return {"base_url": self.base_url, "domains": self.domains}
+        non_propagated_fields = {"heading", "members", "toc_label"}
+        unset_fields = {field.name for field in fields(cls)} - set(data) - non_propagated_fields
+        return cls(**cls.coerce(**data), **dict.fromkeys(unset_fields, UNSET))
 
 
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
@@ -1033,6 +1149,43 @@ class PythonInputConfig:
         return cls(**cls.coerce(**data))
 
 
+# --------------------------------------------------------------------------- #
+# Final dataclasses (transformed data, used in templates).                    #
+# --------------------------------------------------------------------------- #
+# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
+@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
+    """Final options passed as template context."""
+
+    filters: list[tuple[re.Pattern, bool]] | Literal["public"] | Unset = field(  # type: ignore[assignment]
+        default_factory=lambda: [
+            (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in _DEFAULT_FILTERS
+        ],
+    )
+    """A list of filters, or `"public"`."""
+
+    summary: SummaryOption | Unset = field(default_factory=SummaryOption)
+    """Whether to render summaries of modules, classes, functions (methods) and attributes."""
+
+    @classmethod
+    def coerce(cls, **data: Any) -> MutableMapping[str, Any]:
+        """Create an instance from a dictionary."""
+        if "filters" in data:
+            # Non-insiders: transform back to default filters.
+            # Next: `if "filters" in data and not isinstance(data["filters"], str):`.
+            if data["filters"] == "public":
+                data["filters"] = _DEFAULT_FILTERS
+            # Filters are `None` or a sequence of strings (tests use tuples).
+            data["filters"] = [
+                (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in data["filters"] or ()
+            ]
+        return super().coerce(**data)
+
+    def chain(self, *options: Mapping[str, Any] | PythonOptions) -> ChainedOptions:
+        """Chain the current options with the given options."""
+        return ChainedOptions(self).chain(*options)
+
+
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
 @dataclass(**_dataclass_options)  # type: ignore[call-overload]
 class PythonConfig(PythonInputConfig):  # type: ignore[override,unused-ignore]
@@ -1044,9 +1197,9 @@ class PythonConfig(PythonInputConfig):  # type: ignore[override,unused-ignore]
     ] = field(default_factory=list)  # type: ignore[assignment]
 
     options: Annotated[
-        dict[str, Any],
+        PythonOptions,
         _Field(description="Configuration options for collecting and rendering objects."),
-    ] = field(default_factory=dict)  # type: ignore[assignment]
+    ] = field(default_factory=PythonOptions)
 
     @classmethod
     def coerce(cls, **data: Any) -> MutableMapping[str, Any]:
@@ -1055,4 +1208,6 @@ class PythonConfig(PythonInputConfig):  # type: ignore[override,unused-ignore]
             data["inventories"] = [
                 Inventory(url=inv) if isinstance(inv, str) else Inventory(**inv) for inv in data["inventories"]
             ]
+        if "options" in data and isinstance(data["options"], dict):
+            data["options"] = PythonOptions.from_data(**data["options"])
         return data
