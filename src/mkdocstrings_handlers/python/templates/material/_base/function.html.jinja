@@ -54,8 +54,10 @@ Context:
           This block renders the heading for the function.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-{{ symbol_type }}"></code>{% endif %}
-          {% if config.separate_signature %}
-            <span class="doc doc-object-name doc-function-name">{{ config.heading if config.heading and root else function_name }}</span>
+          {% if config.heading and root %}
+            {{ config.heading }}
+          {% elif config.separate_signature %}
+            <span class="doc doc-object-name doc-function-name">{{ function_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) -%}
               {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}

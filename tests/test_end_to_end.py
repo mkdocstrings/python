@@ -59,7 +59,7 @@ def _render_options(options: dict[str, Any]) -> str:
     return f"<!--\n{json.dumps(options, indent=2, sort_keys=True)}\n-->\n\n"
 
 
-# Signature options
+# Signature tests.
 @pytest.fixture(name="signature_package", scope="session")
 def _signature_package() -> Iterator[TmpPackage]:
     code = """
@@ -108,7 +108,7 @@ def test_end_to_end_for_signatures(
     assert outsource(html, suffix=".html") == snapshots_signatures[snapshot_key]
 
 
-# Members options.
+# Member tests.
 @pytest.fixture(name="members_package", scope="session")
 def _members_package() -> Iterator[TmpPackage]:
     code = """
@@ -169,5 +169,52 @@ def test_end_to_end_for_members(
         "filters": filters,
     }
     html = _render_options(final_options) + _render(session_handler, members_package, final_options)
+    snapshot_key = tuple(sorted(final_options.items()))
+    assert outsource(html, suffix=".html") == snapshots_members[snapshot_key]
+
+
+# Heading tests.
+@pytest.fixture(name="headings_package", scope="session")
+def _headings_package() -> Iterator[TmpPackage]:
+    code = """
+        def module_function(a: int, b: str) -> None:
+            pass
+
+        class Class:
+            class_attribute: int = 42
+
+            def __init__(self, a: int, b: str) -> None:
+                self.instance_attribute = a + b
+
+            def method1(self, a: int, b: str) -> None:
+                pass
+
+        module_attribute: int = 42
+    """
+    with temporary_pypackage("headings_package", {"__init__.py": code}) as tmppkg:
+        yield tmppkg
+
+
+@pytest.mark.parametrize("separate_signature", [True, False])
+@pytest.mark.parametrize("heading", ["", "Some heading"])
+def test_end_to_end_for_headings(
+    session_handler: PythonHandler,
+    headings_package: TmpPackage,
+    separate_signature: bool,
+    heading: str,
+) -> None:
+    """Test rendering of a given theme's templates.
+
+    Parameters:
+        identifier: Parametrized identifier.
+        session_handler: Python handler (fixture).
+    """
+    final_options = {
+        "separate_signature": separate_signature,
+        "heading": heading,
+        "show_if_no_docstring": True,
+        "members": False,
+    }
+    html = _render_options(final_options) + _render(session_handler, headings_package, final_options)
     snapshot_key = tuple(sorted(final_options.items()))
     assert outsource(html, suffix=".html") == snapshots_members[snapshot_key]
