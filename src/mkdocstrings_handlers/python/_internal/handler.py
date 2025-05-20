@@ -166,10 +166,8 @@ class PythonHandler(BaseHandler):
         Returns:
             The combined options.
         """
-        extra = {**self.global_options.get("extra", {}), **local_options.get("extra", {})}
-        options = {**self.global_options, **local_options, "extra": extra}
         try:
-            return PythonOptions.from_data(**options)
+            return self.global_options.chain(local_options)
         except Exception as error:
             raise PluginError(f"Invalid options: {error}") from error
 
@@ -194,7 +192,7 @@ class PythonHandler(BaseHandler):
 
         parser_name = options.docstring_style
         parser = parser_name and Parser(parser_name)
-        parser_options = options.docstring_options and asdict(options.docstring_options)
+        parser_options = options.docstring_options and asdict(options.docstring_options)  # type: ignore[arg-type]
 
         if unknown_module:
             extensions = self.normalize_extension_paths(options.extensions)
