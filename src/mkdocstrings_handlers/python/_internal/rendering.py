@@ -185,10 +185,12 @@ def do_format_signature(
     # Pygments sees it as a function call and not a function definition.
     # The result is that the function name is not parsed as such,
     # but instead as a regular name: `n` CSS class instead of `nf`.
-    # To fix it, we replace the first occurrence of an `n` CSS class
-    # with an `nf` one, unless we found `nf` already.
-    if signature.find('class="nf"') == -1:
-        signature = signature.replace('class="n"', 'class="nf"', 1)
+    # When the function name is a known special name like `__exit__`,
+    # Pygments will set an `fm` (function -> magic) CSS class.
+    # To fix this, we replace the CSS class in the first span with `nf`,
+    # unless we already found an `nf` span.
+    if not re.search(r'<span class="nf">', signature):
+        signature = re.sub(r'<span class="[a-z]+">', '<span class="nf">', signature, count=1)
 
     if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
