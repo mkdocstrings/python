@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.16.11](https://github.com/mkdocstrings/python/releases/tag/1.16.11) - 2025-05-24
+
+<small>[Compare with 1.16.10](https://github.com/mkdocstrings/python/compare/1.16.10...1.16.11)</small>
+
+### Bug Fixes
+
+- Fix highlighting for signature with known special names like `__init__` ([7f95686](https://github.com/mkdocstrings/python/commit/7f956868f93a766346455fedb296c26787894d5c) by Timothée Mazzucotelli). [Issue-mkdocstrings-757](https://github.com/mkdocstrings/mkdocstrings/issues/757)
+- Use default font-size for parameter headings ([0a35b20](https://github.com/mkdocstrings/python/commit/0a35b20a6050a28ba8492d93e5f9940a69462ce3) by Timothée Mazzucotelli). [Issue-mkdocstrings-697](https://github.com/mkdocstrings/mkdocstrings/issues/697)
+- Prevent uppercasing H5 titles (by Material for MkDocs) ([ba66969](https://github.com/mkdocstrings/python/commit/ba669697daad5067ea5db3fdf8a2d5ba2f966b25) by Timothée Mazzucotelli). [Issue-mkdocstrings-697](https://github.com/mkdocstrings/mkdocstrings/issues/697), [Issue-276](https://github.com/mkdocstrings/python/issues/276)
+- Use configured heading even when signature is not separated ([096960a](https://github.com/mkdocstrings/python/commit/096960abd79831d6fd45e2a7962dfd2bd49e4edd) by Timothée Mazzucotelli). [Issue-mkdocstrings-767](https://github.com/mkdocstrings/mkdocstrings/issues/767), [PR-278](https://github.com/mkdocstrings/python/pull/278)
+- Render attribute names without full path in ToC ([d4e618a](https://github.com/mkdocstrings/python/commit/d4e618ab794747b84dced848b1be824639fea2b8) by David Lee). [Issue-271](https://github.com/mkdocstrings/python/issues/271), [PR-272](https://github.com/mkdocstrings/python/pull/272)
+
 ## [1.16.10](https://github.com/mkdocstrings/python/releases/tag/1.16.10) - 2025-04-03
 
 <small>[Compare with 1.16.9](https://github.com/mkdocstrings/python/compare/1.16.9...1.16.10)</small>
