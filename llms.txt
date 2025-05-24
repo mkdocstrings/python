@@ -1,0 +1,12 @@
+# mkdocstrings-python
+
+> A Python handler for mkdocstrings.
+
+## Usage
+
+- [Overview](https://mkdocstrings.github.io/python/index.md)
+
+## API
+
+- [API reference](https://mkdocstrings.github.io/python/reference/api/index.md)
+
