@@ -190,7 +190,7 @@ def do_format_signature(
     # To fix this, we replace the CSS class in the first span with `nf`,
     # unless we already found an `nf` span.
     if not re.search(r'<span class="nf">', signature):
-        signature = re.sub(r'<span class="[a-z]+">', '<span class="nf">', signature, count=1)
+        signature = re.sub(r'<span class="[a-z]{1,2}">', '<span class="nf">', signature, count=1)
 
     if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
