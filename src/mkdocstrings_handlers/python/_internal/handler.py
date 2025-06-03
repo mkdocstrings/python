@@ -360,7 +360,7 @@ class PythonHandler(BaseHandler):
             return tuple(f"{alias}({parameter})" for alias in aliases)
         return tuple(aliases)
 
-    def normalize_extension_paths(self, extensions: Sequence) -> Sequence:
+    def normalize_extension_paths(self, extensions: Sequence) -> list[str | dict[str, Any]]:
         """Resolve extension paths relative to config file.
 
         Parameters:
@@ -369,7 +369,7 @@ class PythonHandler(BaseHandler):
         Returns:
             The normalized extensions.
         """
-        normalized = []
+        normalized: list[str | dict[str, Any]] = []
 
         for ext in extensions:
             if isinstance(ext, dict):
