@@ -240,7 +240,7 @@ def coverage(ctx: Context) -> None:
 
 
 @duty
-def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "report") -> None:
+def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "report") -> None:  # noqa: PT028
     """Run the test suite.
 
     Parameters:
