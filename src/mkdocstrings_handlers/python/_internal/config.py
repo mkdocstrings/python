@@ -1019,7 +1019,9 @@ class PythonInputConfig:
 
     locale: Annotated[
         str | None,
-        _Field(description="The locale to use when translating template strings."),
+        _Field(
+            description="Deprecated. Use mkdocstrings' own `locale` setting instead. The locale to use when translating template strings.",
+        ),
     ] = None
 
     @classmethod
