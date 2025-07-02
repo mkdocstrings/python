@@ -492,7 +492,7 @@ class PythonInputOptions:
         Literal["TB", "TD", "BT", "RL", "LR"],
         _Field(
             group="docstrings",
-            description="Set the direction of the Mermaid chart presenting the inheritance diagram of a class.",
+            description="The direction of the Mermaid chart presenting the inheritance diagram of a class.",
         ),
     ]
 
