@@ -54,17 +54,6 @@ _logger = get_logger(__name__)
 patch_loggers(get_logger)
 
 
-# YORE: Bump 2: Remove block.
-def _warn_extra_options(names: Sequence[str]) -> None:
-    warn(
-        "Passing extra options directly under `options` is deprecated. "
-        "Instead, pass them under `options.extra`, and update your templates. "
-        f"Current extra (unrecognized) options: {', '.join(sorted(names))}",
-        DeprecationWarning,
-        stacklevel=3,
-    )
-
-
 class PythonHandler(BaseHandler):
     """The Python handler class."""
 
@@ -95,17 +84,11 @@ class PythonHandler(BaseHandler):
         self.base_dir = base_dir
         """The base directory of the project."""
 
-        # YORE: Bump 2: Remove block.
-        global_extra, global_options = PythonOptions._extract_extra(config.options)
-        if global_extra:
-            _warn_extra_options(global_extra.keys())  # type: ignore[arg-type]
-        self._global_extra = global_extra
-        self.global_options = global_options
-        """The global configuration options (in `mkdocs.yml`)."""
+        self.default_options = PythonOptions()
+        """The default configuration options."""
 
-        # YORE: Bump 2: Replace `# ` with `` within block.
-        # self.global_options = config.options
-        # """The global configuration options (in `mkdocs.yml`)."""
+        self.global_options = config.options
+        """The global configuration options (in `mkdocs.yml`)."""
 
         # Warn if user overrides base templates.
         if self.custom_templates:
@@ -186,24 +169,10 @@ class PythonHandler(BaseHandler):
         Returns:
             The combined options.
         """
-        # YORE: Bump 2: Remove block.
-        local_extra, local_options = PythonOptions._extract_extra(local_options)  # type: ignore[arg-type]
-        if local_extra:
-            _warn_extra_options(local_extra.keys())  # type: ignore[arg-type]
-        unknown_extra = self._global_extra | local_extra
-
-        extra = {**self.global_options.get("extra", {}), **local_options.get("extra", {})}
-        options = {**self.global_options, **local_options, "extra": extra}
         try:
-            # YORE: Bump 2: Replace `opts =` with `return` within line.
-            opts = PythonOptions.from_data(**options)
+            return self.default_options.chain(self.global_options).chain(local_options)
         except Exception as error:
             raise PluginError(f"Invalid options: {error}") from error
-
-        # YORE: Bump 2: Remove block.
-        for key, value in unknown_extra.items():
-            object.__setattr__(opts, key, value)
-        return opts
 
     def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:
         """Collect the documentation for the given identifier.
@@ -229,29 +198,29 @@ class PythonHandler(BaseHandler):
         parser_options = options.docstring_options and asdict(options.docstring_options)
 
         if unknown_module:
-            extensions = self.normalize_extension_paths(options.extensions)
+            extensions = self.normalize_extension_paths(options.extensions)  # type: ignore[arg-type]
             loader = GriffeLoader(
                 extensions=load_extensions(*extensions),
                 search_paths=self._paths,
-                docstring_parser=parser,
+                docstring_parser=parser,  # type: ignore[arg-type]
                 docstring_options=parser_options,  # type: ignore[arg-type]
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
-                allow_inspection=options.allow_inspection,
-                force_inspection=options.force_inspection,
+                allow_inspection=options.allow_inspection,  # type: ignore[arg-type]
+                force_inspection=options.force_inspection,  # type: ignore[arg-type]
             )
             try:
-                for pre_loaded_module in options.preload_modules:
+                for pre_loaded_module in options.preload_modules:  # type: ignore[union-attr]
                     if pre_loaded_module not in self._modules_collection:
                         loader.load(
                             pre_loaded_module,
                             try_relative_path=False,
-                            find_stubs_package=options.find_stubs_package,
+                            find_stubs_package=options.find_stubs_package,  # type: ignore[arg-type]
                         )
                 loader.load(
                     module_name,
                     try_relative_path=False,
-                    find_stubs_package=options.find_stubs_package,
+                    find_stubs_package=options.find_stubs_package,  # type: ignore[arg-type]
                 )
             except ImportError as error:
                 raise CollectionError(str(error)) from error
@@ -288,7 +257,7 @@ class PythonHandler(BaseHandler):
         Returns:
             The rendered data (HTML).
         """
-        template_name = rendering.do_get_template(self.env, data)
+        template_name = rendering.do_get_template(data)
         template = self.env.get_template(template_name)
 
         return template.render(
@@ -314,8 +283,6 @@ class PythonHandler(BaseHandler):
         self.env.lstrip_blocks = True
         self.env.keep_trailing_newline = False
         self.env.filters["split_path"] = rendering.do_split_path
-        self.env.filters["crossref"] = rendering.do_crossref
-        self.env.filters["multi_crossref"] = rendering.do_multi_crossref
         self.env.filters["order_members"] = rendering.do_order_members
         self.env.filters["format_code"] = rendering.do_format_code
         self.env.filters["format_signature"] = rendering.do_format_signature

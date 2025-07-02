@@ -13,6 +13,8 @@ _logger = griffe.get_logger("griffe_extensions")
 class CustomFields(griffe.Extension):
     """Support our custom dataclass fields."""
 
+    _custom_field_path = "mkdocstrings_handlers.python._internal.config._Field"
+
     def on_attribute_instance(
         self,
         *,
@@ -24,11 +26,11 @@ class CustomFields(griffe.Extension):
         if attr.docstring:
             return
         try:
-            field: griffe.ExprCall = attr.annotation.slice.elements[1]  # type: ignore[union-attr]
+            field = attr.annotation.slice.elements[1]  # type: ignore[union-attr]
         except AttributeError:
             return
 
-        if field.canonical_path == "mkdocstrings_handlers.python._internal.config._Field":
+        if isinstance(field, griffe.ExprCall) and field.canonical_path == self._custom_field_path:
             description = next(
                 attr.value
                 for attr in field.arguments

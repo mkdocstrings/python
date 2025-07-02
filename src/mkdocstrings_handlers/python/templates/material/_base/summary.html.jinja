@@ -7,24 +7,18 @@
   -#}
 {% endblock logs %}
 
-{% with members_list = config.members if root_members else None %}
-  {% if config.summary.modules %}
-    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-    {% include "summary/modules"|get_template with context %}
-  {% endif %}
+{% if config.summary.modules %}
+  {% include "summary/modules.html.jinja" with context %}
+{% endif %}
 
-  {% if config.summary.classes %}
-    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-    {% include "summary/classes"|get_template with context %}
-  {% endif %}
+{% if config.summary.classes %}
+  {% include "summary/classes.html.jinja" with context %}
+{% endif %}
 
-  {% if config.summary.functions %}
-    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-    {% include "summary/functions"|get_template with context %}
-  {% endif %}
+{% if config.summary.functions %}
+  {% include "summary/functions.html.jinja" with context %}
+{% endif %}
 
-  {% if config.summary.attributes %}
-    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-    {% include "summary/attributes"|get_template with context %}
-  {% endif %}
-{% endwith %}
+{% if config.summary.attributes %}
+  {% include "summary/attributes.html.jinja" with context %}
+{% endif %}
