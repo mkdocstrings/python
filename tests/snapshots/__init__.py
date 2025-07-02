@@ -60,10 +60,10 @@ snapshots_signatures = snapshot(
             "45fa32980cab*.html",
         ),
         (("overloads_only", True), ("separate_signature", True), ("show_overloads", False)): external(
-            "550c1a60e48a*.html",
+            "90ca219874af*.html",
         ),
         (("overloads_only", True), ("separate_signature", True), ("show_overloads", True)): external(
-            "5be7b84bac00*.html",
+            "fca9fb3aa9f5*.html",
         ),
         (("overloads_only", True), ("separate_signature", False), ("show_overloads", False)): external(
             "17e520187500*.html",
