@@ -108,6 +108,69 @@ def test_end_to_end_for_signatures(
     assert outsource(html, suffix=".html") == snapshots_signatures[snapshot_key]
 
 
+# Signature overloads tests.
+@pytest.fixture(name="overloads_package", scope="session")
+def _overloads_package() -> Iterator[TmpPackage]:
+    code = """
+        from typing_extensions import overload
+
+        @overload
+        def foo(a: int, b: str) -> float: ...
+
+        @overload
+        def foo(a: str, b: int) -> None: ...
+
+        def foo(a: str | int, b: int | str) -> float | None:
+            '''Docstring for `foo`.'''
+
+        def bar(a: str, b: int | str) -> float | None:
+            '''Docstring for `bar`.'''
+
+        class Class:
+            '''Docstring for `Class`.'''
+
+            @overload
+            def foo(self, a: int, b: str) -> float: ...
+
+            @overload
+            def foo(self, a: str, b: int) -> None: ...
+
+            def foo(self, a: str | int, b: int | str) -> float | None:
+                '''Docstring for `Class.foo`.'''
+
+            def bar(self, a: str, b: int | str) -> float | None:
+                '''Docstring for `Class.bar`.'''
+    """
+    with temporary_pypackage("overloads_package", {"__init__.py": code}) as tmppkg:
+        yield tmppkg
+
+
+@pytest.mark.parametrize("separate_signature", [True, False])
+@pytest.mark.parametrize("show_overloads", [True, False])
+@pytest.mark.parametrize("overloads_only", [True, False])
+def test_end_to_end_for_overloads(
+    session_handler: PythonHandler,
+    overloads_package: TmpPackage,
+    separate_signature: bool,
+    show_overloads: bool,
+    overloads_only: bool,
+) -> None:
+    """Test rendering of a given theme's templates.
+
+    Parameters:
+        identifier: Parametrized identifier.
+        session_handler: Python handler (fixture).
+    """
+    final_options = {
+        "separate_signature": separate_signature,
+        "show_overloads": show_overloads,
+        "overloads_only": overloads_only,
+    }
+    html = _render_options(final_options) + _render(session_handler, overloads_package, final_options)
+    snapshot_key = tuple(sorted(final_options.items()))
+    assert outsource(html, suffix=".html") == snapshots_signatures[snapshot_key]
+
+
 # Member tests.
 @pytest.fixture(name="members_package", scope="session")
 def _members_package() -> Iterator[TmpPackage]:

@@ -554,6 +554,14 @@ class PythonInputOptions:
         ),
     ] = False
 
+    overloads_only: Annotated[
+        bool,
+        _Field(
+            group="signatures",
+            description="Whether to hide the implementation signature if the overloads are shown.",
+        ),
+    ] = False
+
     parameter_headings: Annotated[
         bool,
         _Field(
