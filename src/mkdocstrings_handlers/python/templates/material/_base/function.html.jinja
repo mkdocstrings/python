@@ -94,7 +94,7 @@ Context:
             {% endfor %}
           </div>
         {% endif %}
-        {% if config.separate_signature %}
+        {% if config.separate_signature and not (config.show_overloads and function.overloads and config.overloads_only) %}
           {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
             {{ function.name }}
           {% endfilter %}

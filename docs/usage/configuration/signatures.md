@@ -286,6 +286,56 @@ plugins:
 
 ///
 
+[](){#option-overloads_only}
+## `overloads_only`
+
+Whether to hide the implementation signature if the overloads are shown with [`show_overloads`][].
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          overloads_only: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      overloads_only: true
+```
+
+/// admonition | Preview
+    type: preview
+//// tab | With overloads only
+<h2>function</h2>
+
+```python
+@overload
+function(param1: int): ...
+@overload
+function(param1: str): ...
+```
+Function docstring.
+
+////
+//// tab | Without overloads only
+<h2>function</h2>
+
+```python
+@overload
+function(param1: int): ...
+@overload
+function(param1: str): ...
+function(param1: str | int)
+```
+Function docstring.
+
+////
+
+///
+
 [](){#option-show_signature}
 ## `show_signature`
 

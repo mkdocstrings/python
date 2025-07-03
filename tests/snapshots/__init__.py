@@ -44,6 +44,30 @@ snapshots_signatures = snapshot(
             ("show_signature_annotations", True),
             ("signature_crossrefs", False),
         ): external("d1216ebf8e30*.html"),
+        (("overloads_only", False), ("separate_signature", True), ("show_overloads", True)): external(
+            "19a1066a31c4*.html",
+        ),
+        (("overloads_only", False), ("separate_signature", True), ("show_overloads", False)): external(
+            "728ef9e28d86*.html",
+        ),
+        (("overloads_only", True), ("separate_signature", False), ("show_overloads", True)): external(
+            "30b2733496a8*.html",
+        ),
+        (("overloads_only", False), ("separate_signature", False), ("show_overloads", True)): external(
+            "35c8879435c0*.html",
+        ),
+        (("overloads_only", False), ("separate_signature", False), ("show_overloads", False)): external(
+            "45fa32980cab*.html",
+        ),
+        (("overloads_only", True), ("separate_signature", True), ("show_overloads", False)): external(
+            "90ca219874af*.html",
+        ),
+        (("overloads_only", True), ("separate_signature", True), ("show_overloads", True)): external(
+            "fca9fb3aa9f5*.html",
+        ),
+        (("overloads_only", True), ("separate_signature", False), ("show_overloads", False)): external(
+            "17e520187500*.html",
+        ),
     },
 )
 
