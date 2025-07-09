@@ -208,6 +208,7 @@ def do_format_attribute(
     line_length: int,
     *,
     crossrefs: bool = False,  # noqa: ARG001
+    show_value: bool = True,
 ) -> str:
     """Format an attribute.
 
@@ -235,7 +236,7 @@ def do_format_attribute(
             backlink_type="returned-by",
         )
         signature += f": {annotation}"
-    if attribute.value:
+    if show_value and attribute.value:
         value = template.render(context.parent, expression=attribute.value, signature=True, backlink_type="used-by")
         signature += f" = {value}"
 
