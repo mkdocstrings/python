@@ -55,7 +55,7 @@ Context:
           {% else %}
             {%+ filter highlight(language="python", inline=True) %}
               {{ attribute_name }}{% if attribute.annotation and config.show_signature_annotations %}: {{ attribute.annotation }}{% endif %}
-              {% if attribute.value %} = {{ attribute.value }}{% endif %}
+              {% if config.show_attribute_values and attribute.value %} = {{ attribute.value }}{% endif %}
             {% endfilter %}
           {% endif %}
         {% endblock heading %}
@@ -79,7 +79,7 @@ Context:
         This block renders the signature for the attribute.
         -#}
         {% if config.separate_signature %}
-          {% filter format_attribute(attribute, config.line_length, crossrefs=config.signature_crossrefs) %}
+          {% filter format_attribute(attribute, config.line_length, crossrefs=config.signature_crossrefs, show_value=config.show_attribute_values) %}
             {{ attribute.name }}
           {% endfilter %}
         {% endif %}
