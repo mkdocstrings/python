@@ -671,7 +671,7 @@ plugins:
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-Whether to not give objects local inventory entries and permalinks.
+Whether to not give objects local inventory entries.
 
 With this option enabled, re-rendering docstrings for objects from external inventories is possible with their cross-references pointing to the original external inventory, not local.
 

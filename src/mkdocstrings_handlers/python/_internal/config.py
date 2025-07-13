@@ -869,7 +869,7 @@ class PythonInputOptions:
         bool,
         _Field(
             group="headings",
-            description="Whether to not give objects local inventory entries and permalinks.",
+            description="Whether to not give objects local inventory entries.",
         ),
     ] = False
 
