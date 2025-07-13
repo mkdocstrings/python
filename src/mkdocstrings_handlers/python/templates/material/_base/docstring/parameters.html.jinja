@@ -43,6 +43,7 @@ Context:
                     id=html_id ~ "(" ~ parameter.name ~ ")",
                     class="doc doc-heading doc-heading-parameter",
                     toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + parameter.name,
+                    skip_inventory=config.skip_local_inventory,
                   ) %}
                   <code>{{ parameter.name }}</code>
                 {% endfilter %}
@@ -92,6 +93,7 @@ Context:
                 id=html_id ~ "(" ~ parameter.name ~ ")",
                 class="doc doc-heading doc-heading-parameter",
                 toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + parameter.name,
+                skip_inventory=config.skip_local_inventory,
               ) %}
               <b><code>{{ parameter.name }}</code></b>
             {% endfilter %}
@@ -139,6 +141,7 @@ Context:
                     id=html_id ~ "(" ~ parameter.name ~ ")",
                     class="doc doc-heading doc-heading-parameter",
                     toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + parameter.name,
+                    skip_inventory=config.skip_local_inventory,
                   ) %}
                   <code>{{ parameter.name }}</code>
                 {% endfilter %}

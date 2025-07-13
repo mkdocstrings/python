@@ -865,6 +865,14 @@ class PythonInputOptions:
         ),
     ] = False
 
+    skip_local_inventory: Annotated[
+        bool,
+        _Field(
+            group="headings",
+            description="Whether to not give objects local inventory entries and permalinks.",
+        ),
+    ] = False
+
     signature_crossrefs: Annotated[
         bool,
         _Field(
