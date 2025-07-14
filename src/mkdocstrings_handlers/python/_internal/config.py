@@ -625,7 +625,7 @@ class PythonInputOptions:
     show_attribute_values: Annotated[
         bool,
         _Field(
-            group="members",
+            group="signatures",
             description="Show initial values of attributes in classes.",
         ),
     ] = True
