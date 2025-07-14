@@ -122,3 +122,6 @@ format-command = "ruff format --config config/ruff.toml --stdin-filename {filena
 
 [tool.uv]
 default-groups = ["maintain", "ci", "docs"]
+
+[tool.uv.sources]
+mkdocstrings = { git = "https://github.com/mkdocstrings/mkdocstrings", rev = "bartosz/flag-skip-inventory" }

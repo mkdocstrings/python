@@ -494,3 +494,63 @@ def some_function():
 <p>Docstring of the function.</p>
 ////
 ///
+
+[](){#option-skip_local_inventory}
+## `skip_local_inventory`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Whether to not give objects local inventory entries.
+
+With this option enabled, re-rendering docstrings for objects from external inventories is possible with their cross-references pointing to the original external inventory, not local.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          skip_local_inventory: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      skip_local_inventory: true
+```
+
+/// admonition | Preview
+    type: preview
+
+
+//// tab | Without `skip_local_inventory`
+
+```md exec="on"
+::: bisect.bisect_left
+    options:
+      heading_level: 3
+      skip_local_inventory: false
+      show_docstring_description: false
+```
+
+Notice how [`bisect.bisect_left`][] now points to the section above.
+
+////
+
+//// tab | With `skip_local_inventory`
+
+```md exec="on"
+::: bisect.bisect_right
+    inventories:
+    - https://docs.python.org/3/objects.inv
+    options:
+      heading_level: 3
+      skip_local_inventory: true
+      show_docstring_description: false
+```
+
+Notice how [`bisect.bisect_right`][] points to the original Python documentation.
+
+////
+///
