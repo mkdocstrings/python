@@ -694,7 +694,7 @@ plugins:
     type: preview
 
 
-//// tab | With `skip_local_inventory`
+//// tab | Without `skip_local_inventory`
 
 ```md exec="on"
 ::: bisect.bisect_left
@@ -708,7 +708,7 @@ Notice how [`bisect.bisect_left`][] now points to the section above.
 
 ////
 
-//// tab | Without `skip_local_inventory`
+//// tab | With `skip_local_inventory`
 
 ```md exec="on"
 ::: bisect.bisect_right
