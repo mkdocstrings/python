@@ -868,7 +868,7 @@ class PythonInputOptions:
     skip_local_inventory: Annotated[
         bool,
         _Field(
-            group="headings",
+            group="general",
             description="Whether to not give objects local inventory entries.",
         ),
     ] = False
