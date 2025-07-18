@@ -176,6 +176,30 @@ def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
         assert handler.render(module, PythonOptions(show_source=True))
 
 
+def test_llm_friendly_source_rendering(handler: PythonHandler) -> None:
+    """Test LLM-friendly source code rendering."""
+    code = dedent(
+        """
+        class Example:
+            '''Example class.'''
+
+            def method(self):
+                '''Example method.'''
+                return "hello"
+        """,
+    )
+    with temporary_visited_module(code) as module:
+        # Test traditional rendering (with line numbers)
+        traditional_html = handler.render(module["Example"], PythonOptions(show_source=True, llm_friendly_source=False))
+        assert "linenums" in traditional_html or "lineno" in traditional_html
+
+        # Test LLM-friendly rendering (without line numbers, simple code blocks)
+        llm_friendly_html = handler.render(module["Example"], PythonOptions(show_source=True, llm_friendly_source=True))
+        assert '<pre><code class="language-python">' in llm_friendly_html
+        assert "linenums" not in llm_friendly_html
+        assert "lineno" not in llm_friendly_html
+
+
 def test_give_precedence_to_user_paths() -> None:
     """Assert user paths take precedence over default paths."""
     last_sys_path = sys.path[-1]

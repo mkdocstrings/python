@@ -841,6 +841,14 @@ class PythonInputOptions:
         ),
     ] = True
 
+    llm_friendly_source: Annotated[
+        bool,
+        _Field(
+            group="general",
+            description="When show_source is enabled, render source code in a format more compatible with LLM-focused tools (no line numbers, simple markdown code blocks).",
+        ),
+    ] = False
+
     show_submodules: Annotated[
         bool,
         _Field(

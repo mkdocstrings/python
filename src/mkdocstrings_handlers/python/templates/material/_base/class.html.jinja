@@ -200,7 +200,13 @@ Context:
                         {{ init.relative_filepath }}
                       {%- endif -%}
                     </code></summary>
-                    {{ init.source|highlight(language="python", linestart=init.lineno or 0, linenums=True) }}
+                    {% if config.llm_friendly_source %}
+                      <div class="language-python highlight">
+                        <pre><code class="language-python">{{ init.source }}</code></pre>
+                      </div>
+                    {% else %}
+                      {{ init.source|highlight(language="python", linestart=init.lineno or 0, linenums=True) }}
+                    {% endif %}
                   </details>
                 {% endwith %}
               {% endif %}
@@ -213,7 +219,13 @@ Context:
                     {{ class.relative_filepath }}
                   {%- endif -%}
                 </code></summary>
-                {{ class.source|highlight(language="python", linestart=class.lineno or 0, linenums=True) }}
+                {% if config.llm_friendly_source %}
+                  <div class="language-python highlight">
+                    <pre><code class="language-python">{{ class.source }}</code></pre>
+                  </div>
+                {% else %}
+                  {{ class.source|highlight(language="python", linestart=class.lineno or 0, linenums=True) }}
+                {% endif %}
               </details>
             {% endif %}
           {% endif %}

@@ -153,7 +153,13 @@ Context:
                   {{ function.relative_filepath }}
                 {%- endif -%}
               </code></summary>
-              {{ function.source|highlight(language="python", linestart=function.lineno or 0, linenums=True) }}
+              {% if config.llm_friendly_source %}
+                <div class="language-python highlight">
+                  <pre><code class="language-python">{{ function.source }}</code></pre>
+                </div>
+              {% else %}
+                {{ function.source|highlight(language="python", linestart=function.lineno or 0, linenums=True) }}
+              {% endif %}
             </details>
           {% endif %}
         {% endblock source %}

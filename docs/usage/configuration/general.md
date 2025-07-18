@@ -494,3 +494,62 @@ def some_function():
 <p>Docstring of the function.</p>
 ////
 ///
+
+[](){#option-llm_friendly_source}
+## `llm_friendly_source`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template] and  [`function.html`][function template]) -->
+
+When [`show_source`](#show_source) is enabled, render source code in a format more compatible with LLM-focused tools. This removes line numbers and uses simple markdown code blocks instead of complex HTML tables.
+
+This is particularly useful when using tools like mkdocs-llmstxt that convert documentation to LLM-friendly text formats.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_source: true
+          llm_friendly_source: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      show_source: true
+      llm_friendly_source: true
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | LLM-friendly source
+<h2><code>some_function()</code></h2>
+<p>Docstring of the function.</p>
+
+///// details | Source code in `package/module.py`
+    type: quote
+
+```python
+def some_function():
+    ...
+```
+/////
+////
+
+//// tab | Traditional source (with line numbers)
+<h2><code>some_function()</code></h2>
+<p>Docstring of the function.</p>
+
+///// details | Source code in `package/module.py`
+    type: quote
+
+```python linenums="1"
+def some_function():
+    ...
+```
+/////
+////
+///
