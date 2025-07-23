@@ -625,7 +625,7 @@ class PythonInputOptions:
     show_attribute_values: Annotated[
         bool,
         _Field(
-            group="members",
+            group="signatures",
             description="Show initial values of attributes in classes.",
         ),
     ] = True
@@ -1043,7 +1043,9 @@ class PythonInputConfig:
 
     locale: Annotated[
         str | None,
-        _Field(description="The locale to use when translating template strings."),
+        _Field(
+            description="Deprecated. Use mkdocstrings' own `locale` setting instead. The locale to use when translating template strings.",
+        ),
     ] = None
 
     @classmethod

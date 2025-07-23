@@ -483,6 +483,49 @@ function(param1, param2=None)
 ////
 ///
 
+[](){#option-show_attribute_values}
+## `show_attribute_values`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+Show initial values of attributes in classes.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_attribute_values: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      show_attribute_values: true
+```
+
+```python title="package/module.py"
+class SomeClass:
+  def __init__(self):
+      self.some_attr = 1
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With attribute values visible
+<h2><code>SomeClass</code></h2>
+<p>some_attr = 1</p>
+////
+
+//// tab | With attribute values hidden
+<h2><code>SomeClass</code></h2>
+<p>some_attr</p>
+////
+///
+
 [](){#option-show_overloads}
 ## `show_overloads`
 
