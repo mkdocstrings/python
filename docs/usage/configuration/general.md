@@ -501,9 +501,9 @@ def some_function():
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-Whether to not give objects local inventory entries.
+Whether to skip registering symbols in the objects inventory.
 
-With this option enabled, re-rendering docstrings for objects from external inventories is possible with their cross-references pointing to the original external inventory, not local.
+With this option enabled, re-rendering docstrings for objects from external inventories is possible with their cross-references pointing to the original external inventory, not local. Similarly, it becomes possible to render the same symbol several times in the same documentation, with only one canonical location being used for cross-references (preventing confusion in mkdocs-autorefs).
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
