@@ -278,12 +278,13 @@ class PythonHandler(BaseHandler):
 
         return doc_object
 
-    def render(self, data: CollectorItem, options: PythonOptions) -> str:
+    def render(self, data: CollectorItem, options: PythonOptions, locale: str | None = None) -> str:
         """Render the collected data.
 
         Parameters:
             data: The collected data.
             options: The options to use for rendering.
+            locale: The locale to use for rendering (default is "en").
 
         Returns:
             The rendered data (HTML).
@@ -300,7 +301,8 @@ class PythonHandler(BaseHandler):
                 # than as an item in a dictionary.
                 "heading_level": options.heading_level,
                 "root": True,
-                "locale": self.config.locale,
+                # YORE: Bump 2: Regex-replace ` or .+` with ` or "en",` within line.
+                "locale": locale or self.config.locale,
             },
         )
 
@@ -401,6 +403,7 @@ def get_handler(
     Parameters:
         handler_config: The handler configuration.
         tool_config: The tool (SSG) configuration.
+        **kwargs: Additional arguments to pass to the handler.
 
     Returns:
         An instance of `PythonHandler`.

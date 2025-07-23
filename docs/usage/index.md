@@ -150,9 +150,11 @@ plugins:
   [__all__]: https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
 
 [](){#setting-locale}
-#### `locale`
+#### ~~`locale`~~
 
-The locale to use when translating template strings. The translation system is not fully ready yet, so we don't recommend setting the option for now.
+**Deprecated.** Use mkdocstrings' own `locale` setting.
+
+~~The locale to use when translating template strings.~~
 
 [](){#setting-paths}
 #### `paths`
