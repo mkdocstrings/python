@@ -300,7 +300,7 @@ class PythonHandler(BaseHandler):
                 # than as an item in a dictionary.
                 "heading_level": options.heading_level,
                 "root": True,
-                # YORE: Bump 2: Regex-replace ` or .+` with `,` within line.
+                # YORE: Bump 2: Regex-replace ` or .+` with ` or "en",` within line.
                 "locale": locale or self.config.locale,
             },
         )
