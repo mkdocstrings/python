@@ -9,9 +9,7 @@ from typing import TYPE_CHECKING, Any
 import bs4
 import pytest
 from griffe import LinesCollection, ModulesCollection, TmpPackage, temporary_pypackage
-from inline_snapshot import outsource, register_format_alias
-
-from tests.snapshots import snapshots_members, snapshots_signatures
+from inline_snapshot import external_file, register_format_alias
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -62,6 +60,10 @@ def _render_options(options: dict[str, Any]) -> str:
     return f"<!--\n{json.dumps(options, indent=2, sort_keys=True)}\n-->\n\n"
 
 
+def _snapshot_file(group: str, options: dict[str, Any]) -> str:
+    return f"snapshots/{group}/" + ",".join(f"{k}={v}" for k, v in sorted(options.items())) + ".html"
+
+
 # Signature tests.
 @pytest.fixture(name="signature_package", scope="session")
 def _signature_package() -> Iterator[TmpPackage]:
@@ -101,14 +103,13 @@ def test_end_to_end_for_signatures(
         identifier: Parametrized identifier.
         session_handler: Python handler (fixture).
     """
-    final_options = {
+    options = {
         "show_signature_annotations": show_signature_annotations,
         "signature_crossrefs": signature_crossrefs,
         "separate_signature": separate_signature,
     }
-    html = _render_options(final_options) + _render(session_handler, signature_package, final_options)
-    snapshot_key = tuple(sorted(final_options.items()))
-    assert outsource(html, suffix=".html") == snapshots_signatures[snapshot_key]
+    html = _render_options(options) + _render(session_handler, signature_package, options)
+    assert html == external_file(_snapshot_file("signatures", options), format=".txt")
 
 
 # Signature overloads tests.
@@ -164,14 +165,13 @@ def test_end_to_end_for_overloads(
         identifier: Parametrized identifier.
         session_handler: Python handler (fixture).
     """
-    final_options = {
+    options = {
         "separate_signature": separate_signature,
         "show_overloads": show_overloads,
         "overloads_only": overloads_only,
     }
-    html = _render_options(final_options) + _render(session_handler, overloads_package, final_options)
-    snapshot_key = tuple(sorted(final_options.items()))
-    assert outsource(html, suffix=".html") == snapshots_signatures[snapshot_key]
+    html = _render_options(options) + _render(session_handler, overloads_package, options)
+    assert html == external_file(_snapshot_file("overloads", options), format=".txt")
 
 
 # Member tests.
@@ -229,14 +229,13 @@ def test_end_to_end_for_members(
         identifier: Parametrized identifier.
         session_handler: Python handler (fixture).
     """
-    final_options = {
+    options = {
         "inherited_members": inherited_members,
         "members": members,
         "filters": filters,
     }
-    html = _render_options(final_options) + _render(session_handler, members_package, final_options)
-    snapshot_key = tuple(sorted(final_options.items()))
-    assert outsource(html, suffix=".html") == snapshots_members[snapshot_key]
+    html = _render_options(options) + _render(session_handler, members_package, options)
+    assert html == external_file(_snapshot_file("members", options), format=".txt")
 
 
 # Heading tests.
@@ -275,12 +274,10 @@ def test_end_to_end_for_headings(
         identifier: Parametrized identifier.
         session_handler: Python handler (fixture).
     """
-    final_options = {
+    options = {
         "separate_signature": separate_signature,
         "heading": heading,
-        "show_if_no_docstring": True,
-        "members": False,
     }
-    html = _render_options(final_options) + _render(session_handler, headings_package, final_options)
-    snapshot_key = tuple(sorted(final_options.items()))
-    assert outsource(html, suffix=".html") == snapshots_members[snapshot_key]
+    extra = {"show_if_no_docstring": True, "members": False}
+    html = _render_options(options) + _render(session_handler, headings_package, {**options, **extra})
+    assert html == external_file(_snapshot_file("headings", options), format=".txt")
