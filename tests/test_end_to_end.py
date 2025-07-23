@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Any
 import bs4
 import pytest
 from griffe import LinesCollection, ModulesCollection, TmpPackage, temporary_pypackage
-from inline_snapshot import outsource
+from inline_snapshot import outsource, register_format_alias
 
 from tests.snapshots import snapshots_members, snapshots_signatures
 
@@ -17,6 +17,9 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
 
     from mkdocstrings_handlers.python import PythonHandler
+
+
+register_format_alias(".html", ".txt")
 
 
 def _normalize_html(html: str) -> str:
