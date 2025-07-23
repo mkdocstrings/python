@@ -284,6 +284,7 @@ class PythonHandler(BaseHandler):
         Parameters:
             data: The collected data.
             options: The options to use for rendering.
+            locale: The locale to use for rendering (default is "en").
 
         Returns:
             The rendered data (HTML).
