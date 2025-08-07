@@ -869,7 +869,7 @@ class PythonInputOptions:
         bool,
         _Field(
             group="general",
-            description="Whether to not give objects local inventory entries.",
+            description="Whether to prevent objects from being registered in the local objects inventory.",
         ),
     ] = False
 
