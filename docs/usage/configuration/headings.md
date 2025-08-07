@@ -88,7 +88,7 @@ With this option enabled, each function/method parameter
 (including parameters of `__init__` methods merged in their parent class
 with the [`merge_init_into_class`][] option)
 gets a permalink, an entry in the Table of Contents,
-and an entry in the generated objects inventory.
+and an entry in the generated objects inventory (unless [`skip_local_inventory`][] is enabled).
 The permalink and inventory entry allow cross-references
 from internal and external pages.
 

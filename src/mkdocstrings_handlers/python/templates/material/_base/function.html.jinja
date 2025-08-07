@@ -46,6 +46,7 @@ Context:
           id=html_id,
           class="doc doc-heading",
           toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else function.name),
+          skip_inventory=config.skip_local_inventory,
         ) %}
 
         {% block heading scoped %}
@@ -110,6 +111,7 @@ Context:
             id=html_id,
             toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else function.name),
             hidden=True,
+            skip_inventory=config.skip_local_inventory,
           ) %}
         {% endfilter %}
       {% endif %}
