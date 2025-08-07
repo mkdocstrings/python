@@ -639,7 +639,7 @@ def do_as_attributes_section(
                 name=attribute.name,
                 description=_parse_docstring_summary(attribute),
                 annotation=attribute.annotation,
-                value=attribute.value,  # type: ignore[arg-type]
+                value=attribute.value,
             )
             for attribute in attributes
             if not check_public or attribute.is_public
