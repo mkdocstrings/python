@@ -105,6 +105,20 @@
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about documented parameters not appearing in the signature.",
           "title": "warn_unknown_params",
           "type": "boolean"
+        },
+        "warn_missing_types": {
+          "default": true,
+          "description": "Warn about missing type/annotation for parameters, return values, etc.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about missing type/annotation for parameters, return values, etc.",
+          "title": "warn_missing_types",
+          "type": "boolean"
+        },
+        "warnings": {
+          "default": true,
+          "description": "Generally enable/disable warnings when parsing docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nGenerally enable/disable warnings when parsing docstrings.",
+          "title": "warnings",
+          "type": "boolean"
         }
       },
       "title": "GoogleStyleOptions",
@@ -171,6 +185,20 @@
           "description": "Warn about documented parameters not appearing in the signature.",
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about documented parameters not appearing in the signature.",
           "title": "warn_unknown_params",
+          "type": "boolean"
+        },
+        "warn_missing_types": {
+          "default": true,
+          "description": "Warn about missing type/annotation for parameters, return values, etc.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about missing type/annotation for parameters, return values, etc.",
+          "title": "warn_missing_types",
+          "type": "boolean"
+        },
+        "warnings": {
+          "default": true,
+          "description": "Generally enable/disable warnings when parsing docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nGenerally enable/disable warnings when parsing docstrings.",
+          "title": "warnings",
           "type": "boolean"
         }
       },
@@ -260,8 +288,8 @@
             }
           ],
           "default": null,
-          "description": "The locale to use when translating template strings.",
-          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#locale)\n\nThe locale to use when translating template strings.",
+          "description": "Deprecated. Use mkdocstrings' own `locale` setting instead. The locale to use when translating template strings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/#locale)\n\nDeprecated. Use mkdocstrings' own `locale` setting instead. The locale to use when translating template strings.",
           "title": "locale"
         }
       },
@@ -371,6 +399,7 @@
                 "type": "string"
               },
               {
+                "additionalProperties": true,
                 "type": "object"
               }
             ]
@@ -509,6 +538,13 @@
           "title": "modernize_annotations",
           "type": "boolean"
         },
+        "overloads_only": {
+          "default": false,
+          "description": "Whether to hide the implementation signature if the overloads are shown.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#overloads_only)\n\nWhether to hide the implementation signature if the overloads are shown.",
+          "title": "overloads_only",
+          "type": "boolean"
+        },
         "parameter_headings": {
           "default": false,
           "description": "Whether to render headings for parameters (therefore showing parameters in the ToC).",
@@ -551,6 +587,13 @@
           "description": "Whether to put the whole signature in a code block below the heading.\n\nIf Black or Ruff are installed, the signature is also formatted using them.",
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#separate_signature)\n\nWhether to put the whole signature in a code block below the heading.\n\nIf Black or Ruff are installed, the signature is also formatted using them.",
           "title": "separate_signature",
+          "type": "boolean"
+        },
+        "show_attribute_values": {
+          "default": true,
+          "description": "Show initial values of attributes in classes.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_attribute_values)\n\nShow initial values of attributes in classes.",
+          "title": "show_attribute_values",
           "type": "boolean"
         },
         "show_bases": {
@@ -756,6 +799,13 @@
           "title": "show_symbol_type_toc",
           "type": "boolean"
         },
+        "skip_local_inventory": {
+          "default": false,
+          "description": "Whether to prevent objects from being registered in the local objects inventory.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#skip_local_inventory)\n\nWhether to prevent objects from being registered in the local objects inventory.",
+          "title": "skip_local_inventory",
+          "type": "boolean"
+        },
         "signature_crossrefs": {
           "default": false,
           "description": "Whether to render cross-references for type annotations in signatures.",
@@ -791,6 +841,7 @@
           "type": "boolean"
         },
         "extra": {
+          "additionalProperties": true,
           "description": "Extra options.",
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/general/#extra)\n\nExtra options.",
           "title": "extra",
@@ -802,7 +853,29 @@
     },
     "SphinxStyleOptions": {
       "description": "Sphinx style docstring options.",
-      "properties": {},
+      "properties": {
+        "warn_unknown_params": {
+          "default": true,
+          "description": "Warn about documented parameters not appearing in the signature.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about documented parameters not appearing in the signature.",
+          "title": "warn_unknown_params",
+          "type": "boolean"
+        },
+        "warn_missing_types": {
+          "default": true,
+          "description": "Warn about missing type/annotation for return values.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nWarn about missing type/annotation for return values.",
+          "title": "warn_missing_types",
+          "type": "boolean"
+        },
+        "warnings": {
+          "default": true,
+          "description": "Generally enable/disable warnings when parsing docstrings.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#docstring_options)\n\nGenerally enable/disable warnings when parsing docstrings.",
+          "title": "warnings",
+          "type": "boolean"
+        }
+      },
       "title": "SphinxStyleOptions",
       "type": "object"
     },

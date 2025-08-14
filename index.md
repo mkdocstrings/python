@@ -19,7 +19,6 @@ pyproject.toml
 dependencies = [
     "mkdocstrings[python]>=0.18",
 ]
-
 ```
 
 You can also explicitly depend on the handler:
@@ -33,7 +32,6 @@ pyproject.toml
 dependencies = [
     "mkdocstrings-python",
 ]
-
 ```
 
 ## Preview
