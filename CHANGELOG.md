@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.17.0](https://github.com/mkdocstrings/python/releases/tag/1.17.0) - 2025-08-14
+
+<small>[Compare with 1.16.12](https://github.com/mkdocstrings/python/compare/1.16.12...1.17.0)</small>
+
+### Features
+
+- Support new Griffe parsing options `warn_missing_types` and `warnings` ([0e3bdb8](https://github.com/mkdocstrings/python/commit/0e3bdb857b5ede3e15aa7a9b8b87b33f68889c9e) by Timothée Mazzucotelli). [Issue-mkdocstrings-437](https://github.com/mkdocstrings/mkdocstrings/issues/437)
+- Add `skip_local_inventory` option to prevent objects from being registered in the local objects inventory ([e82c24f](https://github.com/mkdocstrings/python/commit/e82c24f17513fba4cff22e90f0a82c00a01a077d) by Bartosz Sławecki). [Issue-296](https://github.com/mkdocstrings/python/issues/296), [Issue-mkdocstrings-671](https://github.com/mkdocstrings/mkdocstrings/issues/671), [PR-297](https://github.com/mkdocstrings/python/pull/297)
+- Support hiding attribute values ([6cf34b9](https://github.com/mkdocstrings/python/commit/6cf34b9882e20d9147a6481e672ae09989a27796) by Bartosz Sławecki). Issue-292: #292, PR-293: #293
+- Support hiding implementation signature (showing overload only) ([d3b35e1](https://github.com/mkdocstrings/python/commit/d3b35e17384901e7280b8b6926f10fb033480358) by Bartosz Sławecki). [Issue-213](https://github.com/mkdocstrings/python/issues/213), [PR-286](https://github.com/mkdocstrings/python/pull/286)
+
+### Code Refactoring
+
+- Deprecate `locale` option in favor of mkdocstrings' ([17f71ba](https://github.com/mkdocstrings/python/commit/17f71babf11081869478b21b2bde1a33fc97be41) by Timothée Mazzucotelli). [PR-288](https://github.com/mkdocstrings/python/pull/288)
+
 ## [1.16.12](https://github.com/mkdocstrings/python/releases/tag/1.16.12) - 2025-06-03
 
 <small>[Compare with 1.16.11](https://github.com/mkdocstrings/python/compare/1.16.11...1.16.12)</small>
