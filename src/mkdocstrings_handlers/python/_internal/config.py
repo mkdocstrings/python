@@ -186,6 +186,24 @@ class GoogleStyleOptions:
         ),
     ] = True
 
+    warn_missing_types: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            parent="docstring_options",
+            description="Warn about missing type/annotation for parameters, return values, etc.",
+        ),
+    ] = True
+
+    warnings: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            parent="docstring_options",
+            description="Generally enable/disable warnings when parsing docstrings.",
+        ),
+    ] = True
+
 
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
 @dataclass(**_dataclass_options)  # type: ignore[call-overload]
@@ -219,11 +237,56 @@ class NumpyStyleOptions:
         ),
     ] = True
 
+    warn_missing_types: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            parent="docstring_options",
+            description="Warn about missing type/annotation for parameters, return values, etc.",
+        ),
+    ] = True
+
+    warnings: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            parent="docstring_options",
+            description="Generally enable/disable warnings when parsing docstrings.",
+        ),
+    ] = True
+
 
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
 @dataclass(**_dataclass_options)  # type: ignore[call-overload]
 class SphinxStyleOptions:
     """Sphinx style docstring options."""
+
+    warn_unknown_params: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            parent="docstring_options",
+            description="Warn about documented parameters not appearing in the signature.",
+        ),
+    ] = True
+
+    warn_missing_types: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            parent="docstring_options",
+            description="Warn about missing type/annotation for return values.",
+        ),
+    ] = True
+
+    warnings: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            parent="docstring_options",
+            description="Generally enable/disable warnings when parsing docstrings.",
+        ),
+    ] = True
 
 
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
