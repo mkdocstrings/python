@@ -10,7 +10,6 @@ import sys
 import warnings
 from collections import defaultdict
 from contextlib import suppress
-from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
 from re import Match, Pattern

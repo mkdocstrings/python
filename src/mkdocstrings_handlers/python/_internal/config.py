@@ -1044,7 +1044,13 @@ class PythonInputOptions:
             if summary is True:
                 summary = SummaryOption(attributes=True, functions=True, classes=True, modules=True, type_aliases=True)
             elif summary is False:
-                summary = SummaryOption(attributes=False, functions=False, classes=False, modules=False, type_aliases=False)
+                summary = SummaryOption(
+                    attributes=False,
+                    functions=False,
+                    classes=False,
+                    modules=False,
+                    type_aliases=False,
+                )
             else:
                 summary = SummaryOption(**summary)
             data["summary"] = summary
