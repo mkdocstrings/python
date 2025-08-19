@@ -12,7 +12,7 @@ Context:
 {%- if config.show_signature -%}
   {%- block logs scoped -%}
     {#- Logging block.
-    
+
     This block can be used to log debug messages, deprecation messages, warnings, etc.
     -#}
     {{ log.debug("Rendering signature") }}
@@ -47,9 +47,12 @@ Context:
         {#- Prepare type annotation. -#}
         {%- if config.show_signature_annotations and parameter.annotation is not none -%}
           {%- set ns.equal = " = " -%}
-          {%- if config.separate_signature and config.signature_crossrefs -%}
+          {%- if config.separate_signature -%}
             {%- with expression = parameter.annotation -%}
-              {%- set ns.annotation -%}: {% include "expression"|get_template with context %}{%- endset -%}
+              {%- set ns.annotation -%}: {% with backlink_type = "used-by" -%}
+                {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
+                {%- include "expression"|get_template with context -%}
+              {%- endwith -%}{%- endset -%}
             {%- endwith -%}
           {%- else -%}
             {%- set ns.annotation = ": " + parameter.annotation|safe -%}
@@ -102,7 +105,8 @@ Context:
         {%- if ns.default -%}
           {{ ns.equal }}
           {%- if config.signature_crossrefs and config.separate_signature -%}
-            {%- with expression = parameter.default -%}
+            {%- with expression = parameter.default, backlink_type = "used-by" -%}
+              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
               {%- include "expression"|get_template with context -%}
             {%- endwith -%}
           {%- else -%}
@@ -121,7 +125,10 @@ Context:
         and function.annotation
         and not (config.merge_init_into_class and function.name == "__init__" )
       %} -> {% if config.separate_signature and config.signature_crossrefs -%}
-        {%- with expression = function.annotation %}{% include "expression"|get_template with context %}{%- endwith -%}
+        {%- with expression = function.annotation, backlink_type = "returned-by" -%}
+          {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
+          {%- include "expression"|get_template with context -%}
+        {%- endwith -%}
       {%- else -%}
         {{ function.annotation|safe }}
       {%- endif -%}

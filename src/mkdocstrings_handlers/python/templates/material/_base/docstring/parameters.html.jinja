@@ -9,12 +9,13 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug("Rendering parameters section") }}
 {% endblock logs %}
 
+{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
 {% import "language"|get_template as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
@@ -42,6 +43,7 @@ Context:
                     id=html_id ~ "(" ~ parameter.name ~ ")",
                     class="doc doc-heading doc-heading-parameter",
                     toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + parameter.name,
+                    skip_inventory=config.skip_local_inventory,
                   ) %}
                   <code>{{ parameter.name }}</code>
                 {% endfilter %}
@@ -51,7 +53,8 @@ Context:
             </td>
             <td>
               {% if parameter.annotation %}
-                {% with expression = parameter.annotation %}
+                {% with expression = parameter.annotation, backlink_type = "used-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -63,7 +66,8 @@ Context:
             </td>
             <td>
               {% if parameter.default %}
-                {% with expression = parameter.default %}
+                {% with expression = parameter.default, backlink_type = "used-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% else %}
@@ -89,6 +93,7 @@ Context:
                 id=html_id ~ "(" ~ parameter.name ~ ")",
                 class="doc doc-heading doc-heading-parameter",
                 toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + parameter.name,
+                skip_inventory=config.skip_local_inventory,
               ) %}
               <b><code>{{ parameter.name }}</code></b>
             {% endfilter %}
@@ -96,10 +101,12 @@ Context:
             <b><code>{{ parameter.name }}</code></b>
           {% endif %}
           {% if parameter.annotation %}
-            {% with expression = parameter.annotation %}
+            {% with expression = parameter.annotation, backlink_type = "used-by" %}
+              {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
               (<code>{% include "expression"|get_template with context %}</code>
               {%- if parameter.default %}, {{ lang.t("default:") }}
-                {% with expression = parameter.default %}
+                {% with expression = parameter.default, backlink_type = "used-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %})
@@ -134,6 +141,7 @@ Context:
                     id=html_id ~ "(" ~ parameter.name ~ ")",
                     class="doc doc-heading doc-heading-parameter",
                     toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + parameter.name,
+                    skip_inventory=config.skip_local_inventory,
                   ) %}
                   <code>{{ parameter.name }}</code>
                 {% endfilter %}
@@ -149,7 +157,8 @@ Context:
                 {% if parameter.annotation %}
                   <span class="doc-param-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
-                    {% with expression = parameter.annotation %}
+                    {% with expression = parameter.annotation, backlink_type = "used-by" %}
+                      {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>
@@ -157,7 +166,8 @@ Context:
                 {% if parameter.default %}
                   <span class="doc-param-default">
                     <b>{{ lang.t("DEFAULT:") }}</b>
-                    {% with expression = parameter.default %}
+                    {% with expression = parameter.default, backlink_type = "used-by" %}
+                      {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>

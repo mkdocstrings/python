@@ -13,6 +13,9 @@ validation:
   absolute_links: warn
   unrecognized_links: warn
 
+hooks:
+- scripts/mkdocs_hooks.py
+
 nav:
 - Home:
   - Overview: index.md
@@ -34,9 +37,7 @@ nav:
   - Advanced:
     - Customization: usage/customization.md
     - Extensions: usage/extensions.md
-# defer to gen-files + literate-nav
-- API reference:
-  - mkdocstrings-python: reference/
+- API reference: reference/api.md
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
@@ -60,7 +61,8 @@ theme:
   - content.code.copy
   - content.tooltips
   - navigation.footer
-  - navigation.indexes
+  - navigation.instant.preview
+  - navigation.path
   - navigation.sections
   - navigation.tabs
   - navigation.tabs.sticky
@@ -137,32 +139,31 @@ markdown_extensions:
     permalink: "¤"
 
 plugins:
-- autorefs
 - search
+- autorefs
 - markdown-exec
-- gen-files:
-    scripts:
-    - scripts/gen_ref_nav.py
-- literate-nav:
-    nav_file: SUMMARY.md
+- section-index
 # - coverage
 - mkdocstrings:
     handlers:
       python:
         paths: [src, docs/snippets]
-        import:
+        inventories:
         - https://docs.python.org/3/objects.inv
         - https://mkdocstrings.github.io/objects.inv
         - https://mkdocstrings.github.io/autorefs/objects.inv
         - https://mkdocstrings.github.io/griffe/objects.inv
         - https://python-markdown.github.io/objects.inv
         options:
+          backlinks: tree
           docstring_options:
             ignore_init_summary: true
           docstring_section_style: list
-          filters: ["!^_"]
+          extensions: [scripts/griffe_extensions.py]
+          filters: public
           heading_level: 1
           inherited_members: true
+          line_length: 88
           merge_init_into_class: true
           parameter_headings: true
           type_parameter_headings: true
@@ -182,12 +183,27 @@ plugins:
           signature_crossrefs: true
           summary: true
           unwrap_annotated: true
+- llmstxt:
+    full_output: llms-full.txt
+    sections:
+      Usage:
+      - index.md
+      API:
+      - reference/api.md
 - git-revision-date-localized:
     enabled: !ENV [DEPLOY, false]
     enable_creation_date: true
     type: timeago
 - minify:
     minify_html: !ENV [DEPLOY, false]
+- redirects:
+    redirect_maps:
+      reference/mkdocstrings_handlers/python/index.md: reference/api.md
+      reference/mkdocstrings_handlers/python/config.md: reference/api.md#mkdocstrings_handlers.python.config
+      reference/mkdocstrings_handlers/python/debug.md: reference/api.md#mkdocstrings_handlers.python.debug
+      reference/mkdocstrings_handlers/python/handler.md: reference/api.md#mkdocstrings_handlers.python.handler
+      reference/mkdocstrings_handlers/python/rendering.md: reference/api.md#mkdocstrings_handlers.python.rendering
+
 - group:
     enabled: !ENV [MATERIAL_INSIDERS, false]
     plugins:

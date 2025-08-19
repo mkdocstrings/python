@@ -1,6 +1,6 @@
 # Usage
 
-TIP: **This is the documentation for the NEW Python handler.**  
+TIP: **This is the documentation for the NEW Python handler.**
 To read the documentation for the LEGACY handler,
 go to the [legacy handler documentation](https://mkdocstrings.github.io/python-legacy).
 
@@ -75,10 +75,11 @@ plugins:
 
 Some options are **global only**, and go directly under the handler's name.
 
-#### `import`
+[](){#setting-inventories}
+#### `inventories`
 
-This option is used to import Sphinx-compatible objects inventories from other
-documentation sites. For example, you can import the standard library
+This option is used to load Sphinx-compatible objects inventories from other
+documentation sites. For example, you can load the standard library
 objects inventory like this:
 
 ```yaml title="mkdocs.yml"
@@ -86,23 +87,23 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
-        - https://docs.python-requests.org/en/master/objects.inv
+        inventories:
+        - https://docs.python.org/3/objects.inv
 ```
 
-When importing an inventory, you enable automatic cross-references
+When loading an inventory, you enable automatic cross-references
 to other documentation sites like the standard library docs
-or any third-party package docs. Typically, you want to import
+or any third-party package docs. Typically, you want to load
 the inventories of your project's dependencies, at least those
-that are used in the public API. 
+that are used in the public API.
 
 See [*mkdocstrings*' documentation on inventories][inventories]
 for more details.
 
   [inventories]: https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories
 
-Additionally, the Python handler accepts a `domains` option in the import items,
-which allows to select the inventory domains to select.
+Additionally, the Python handler accepts a `domains` option in the inventory options,
+which allows to select the inventory domains to load.
 By default the Python handler only selects the `py` domain (for Python objects).
 You might find useful to also enable the [`std` domain][std domain]:
 
@@ -113,29 +114,12 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         - url: https://docs.python-requests.org/en/master/objects.inv
           domains: [std, py]
 ```
 
-NOTE: The `import` option is common to *all* handlers, however
-they might implement it differently, or not even implement it.
-
-#### `paths`
-
-This option is used to provide filesystem paths in which to search for Python modules.
-Non-absolute paths are computed as relative to MkDocs configuration file. Example:
-
-```yaml title="mkdocs.yml"
-plugins:
-- mkdocstrings:
-    handlers:
-      python:
-        paths: [src]  # search packages in the src folder
-```
-
-More details at [Finding modules](#finding-modules).
-
+[](){#setting-load_external_modules}
 #### `load_external_modules`
 
 This option allows resolving aliases (imports) to any external module.
@@ -165,6 +149,30 @@ plugins:
 
   [__all__]: https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
 
+[](){#setting-locale}
+#### ~~`locale`~~
+
+**Deprecated.** Use mkdocstrings' own `locale` setting.
+
+~~The locale to use when translating template strings.~~
+
+[](){#setting-paths}
+#### `paths`
+
+This option is used to provide filesystem paths in which to search for Python modules.
+Non-absolute paths are computed as relative to MkDocs configuration file. Example:
+
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        paths: [src]  # search packages in the src folder
+```
+
+More details at [Finding modules](#finding-modules).
+
+[](){#setting-options}
 ### Global/local options
 
 The other options can be used both globally *and* locally, under the `options` key.
@@ -198,13 +206,6 @@ in the following pages:
     in the generated documentation
 - [Docstrings options](configuration/docstrings.md): options related to docstrings (parsing and rendering)
 - [Signature options](configuration/signatures.md): options related to signatures and type annotations
-
-#### Options summary
-
-::: mkdocstrings_handlers.python.handler.PythonHandler.default_config
-    options:
-      show_root_heading: false
-      show_root_toc_entry: false
 
 ## Finding modules
 
@@ -292,7 +293,7 @@ to make sure anyone can build your docs from any location on their filesystem.
 
 ### Using the PYTHONPATH environment variable
 
-WARNING: **This method has limitations.**  
+WARNING: **This method has limitations.**
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
 We recommend using the [`paths` method](#using-the-paths-option) instead.
@@ -348,10 +349,10 @@ In Bash and other shells, you can run your command like this
     ```bash
     PYTHONPATH=src mkdocs build -f docs/mkdocs.yml
     ```
-  
+
 ### Installing your package in the current Python environment
 
-WARNING: **This method has limitations.**  
+WARNING: **This method has limitations.**
 This method might work for you, with your current setup,
 but not for others trying your build your docs with their own setup/environment.
 We recommend using the [`paths` method](#using-the-paths-option) instead.

@@ -9,12 +9,13 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug("Rendering raises section") }}
 {% endblock logs %}
 
+{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
 {% import "language"|get_template as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
@@ -34,7 +35,8 @@ Context:
           <tr class="doc-section-item">
             <td>
               {% if raises.annotation %}
-                {% with expression = raises.annotation %}
+                {% with expression = raises.annotation, backlink_type = "raised-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -57,7 +59,8 @@ Context:
       {% for raises in section.value %}
         <li class="doc-section-item field-body">
           {% if raises.annotation %}
-            {% with expression = raises.annotation %}
+            {% with expression = raises.annotation, backlink_type = "raised-by" %}
+              {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
               <code>{% include "expression"|get_template with context %}</code>
             {% endwith %}
             –
@@ -84,7 +87,8 @@ Context:
           <tr class="doc-section-item">
             <td>
               <span class="doc-raises-annotation">
-                {% with expression = raises.annotation %}
+                {% with expression = raises.annotation, backlink_type = "raised-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               </span>

@@ -2,6 +2,18 @@
 
 ## mkdocstrings-python Insiders
 
+### 1.12.0 <small>March 22, 2025</small> { id="1.12.0" }
+
+- [Ordering method: `__all__`][option-members_order]
+
+### 1.11.0 <small>March 20, 2025</small> { id="1.11.0" }
+
+- [Filtering method: `public`][option-filters-public]
+
+### 1.10.0 <small>March 10, 2025</small> { id="1.10.0" }
+
+- [Backlinks][backlinks]
+
 ### 1.9.0 <small>September 03, 2024</small> { id="1.9.0" }
 
 - [Relative cross-references][relative_crossrefs]
@@ -77,6 +89,6 @@
 
 - Add [cross-references for type annotations in signatures](../usage/configuration/signatures.md#signature_crossrefs).
     Make sure to update your local templates as the signature of the
-    [`format_signature` filter][mkdocstrings_handlers.python.rendering.do_format_signature]
+    [`format_signature` filter][mkdocstrings_handlers.python.do_format_signature]
     has changed. The templates that must be updated:
     `class.html`, `expression.html`, `function.html` and `signature.html`.

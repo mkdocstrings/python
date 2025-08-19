@@ -24,34 +24,47 @@ Context:
       {% if config.show_docstring_description and section.kind.value == "text" %}
         {{ section.value|convert_markdown(heading_level, html_id, autoref_hook=autoref_hook) }}
       {% elif config.show_docstring_attributes and section.kind.value == "attributes" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/attributes"|get_template with context %}
       {% elif config.show_docstring_functions and section.kind.value == "functions" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/functions"|get_template with context %}
       {% elif config.show_docstring_classes and section.kind.value == "classes" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/classes"|get_template with context %}
       {% elif config.show_docstring_type_aliases and section.kind.value == "type_aliases" %}
         {% include "docstring/type_aliases"|get_template with context %}
       {% elif config.show_docstring_modules and section.kind.value == "modules" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/modules"|get_template with context %}
       {% elif config.show_docstring_type_parameters and section.kind.value == "type parameters" %}
         {% include "docstring/type_parameters"|get_template with context %}
       {% elif config.show_docstring_parameters and section.kind.value == "parameters" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/parameters"|get_template with context %}
       {% elif config.show_docstring_other_parameters and section.kind.value == "other parameters" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/other_parameters"|get_template with context %}
       {% elif config.show_docstring_raises and section.kind.value == "raises" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/raises"|get_template with context %}
       {% elif config.show_docstring_warns and section.kind.value == "warns" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/warns"|get_template with context %}
       {% elif config.show_docstring_yields and section.kind.value == "yields" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/yields"|get_template with context %}
       {% elif config.show_docstring_receives and section.kind.value == "receives" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/receives"|get_template with context %}
       {% elif config.show_docstring_returns and section.kind.value == "returns" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/returns"|get_template with context %}
       {% elif config.show_docstring_examples and section.kind.value == "examples" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/examples"|get_template with context %}
       {% elif config.show_docstring_description and section.kind.value == "admonition" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/admonition"|get_template with context %}
       {% endif %}
     {% endfor %}

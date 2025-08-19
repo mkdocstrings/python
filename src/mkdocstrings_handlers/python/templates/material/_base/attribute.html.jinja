@@ -12,7 +12,7 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug("Rendering " + attribute.path) }}
@@ -39,31 +39,35 @@ Context:
           role="data" if attribute.parent.kind.value == "module" else "attr",
           id=html_id,
           class="doc doc-heading",
-          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute.name,
+          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute.name),
+          skip_inventory=config.skip_local_inventory,
         ) %}
 
         {% block heading scoped %}
           {#- Heading block.
-          
+
           This block renders the heading for the attribute.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>{% endif %}
-          {% if config.separate_signature %}
+          {% if config.heading and root %}
+            {{ config.heading }}
+          {% elif config.separate_signature %}
             <span class="doc doc-object-name doc-attribute-name">{{ attribute_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) %}
               {{ attribute_name }}{% if attribute.annotation and config.show_signature_annotations %}: {{ attribute.annotation }}{% endif %}
-              {% if attribute.value %} = {{ attribute.value }}{% endif %}
+              {% if config.show_attribute_values and attribute.value %} = {{ attribute.value }}{% endif %}
             {% endfilter %}
           {% endif %}
         {% endblock heading %}
 
         {% block labels scoped %}
           {#- Labels block.
-          
+
           This block renders the labels for the attribute.
           -#}
           {% with labels = attribute.labels %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "labels"|get_template with context %}
           {% endwith %}
         {% endblock labels %}
@@ -72,11 +76,11 @@ Context:
 
       {% block signature scoped %}
         {#- Signature block.
-        
+
         This block renders the signature for the attribute.
         -#}
         {% if config.separate_signature %}
-          {% filter format_attribute(attribute, config.line_length, crossrefs=config.signature_crossrefs) %}
+          {% filter format_attribute(attribute, config.line_length, crossrefs=config.signature_crossrefs, show_value=config.show_attribute_values) %}
             {{ attribute.name }}
           {% endfilter %}
         {% endif %}
@@ -88,8 +92,9 @@ Context:
         {% filter heading(heading_level,
             role="data" if attribute.parent.kind.value == "module" else "attr",
             id=html_id,
-            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + attribute.name,
+            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute_name),
             hidden=True,
+            skip_inventory=config.skip_local_inventory,
           ) %}
         {% endfilter %}
       {% endif %}
@@ -99,20 +104,25 @@ Context:
     <div class="doc doc-contents {% if root %}first{% endif %}">
       {% block contents scoped %}
         {#- Contents block.
-        
+
         This block renders the contents of the attribute.
         It contains other blocks that users can override.
         Overriding the contents block allows to rearrange the order of the blocks.
         -#}
         {% block docstring scoped %}
           {#- Docstring block.
-          
+
           This block renders the docstring for the attribute.
           -#}
           {% with docstring_sections = attribute.docstring.parsed %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "docstring"|get_template with context %}
           {% endwith %}
         {% endblock docstring %}
+
+        {% if config.backlinks %}
+          <backlinks identifier="{{ html_id }}" handler="python" />
+        {% endif %}
       {% endblock contents %}
     </div>
 

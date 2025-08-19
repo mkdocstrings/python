@@ -5,6 +5,232 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.17.0](https://github.com/mkdocstrings/python/releases/tag/1.17.0) - 2025-08-14
+
+<small>[Compare with 1.16.12](https://github.com/mkdocstrings/python/compare/1.16.12...1.17.0)</small>
+
+### Features
+
+- Support new Griffe parsing options `warn_missing_types` and `warnings` ([0e3bdb8](https://github.com/mkdocstrings/python/commit/0e3bdb857b5ede3e15aa7a9b8b87b33f68889c9e) by Timothée Mazzucotelli). [Issue-mkdocstrings-437](https://github.com/mkdocstrings/mkdocstrings/issues/437)
+- Add `skip_local_inventory` option to prevent objects from being registered in the local objects inventory ([e82c24f](https://github.com/mkdocstrings/python/commit/e82c24f17513fba4cff22e90f0a82c00a01a077d) by Bartosz Sławecki). [Issue-296](https://github.com/mkdocstrings/python/issues/296), [Issue-mkdocstrings-671](https://github.com/mkdocstrings/mkdocstrings/issues/671), [PR-297](https://github.com/mkdocstrings/python/pull/297)
+- Support hiding attribute values ([6cf34b9](https://github.com/mkdocstrings/python/commit/6cf34b9882e20d9147a6481e672ae09989a27796) by Bartosz Sławecki). Issue-292: #292, PR-293: #293
+- Support hiding implementation signature (showing overload only) ([d3b35e1](https://github.com/mkdocstrings/python/commit/d3b35e17384901e7280b8b6926f10fb033480358) by Bartosz Sławecki). [Issue-213](https://github.com/mkdocstrings/python/issues/213), [PR-286](https://github.com/mkdocstrings/python/pull/286)
+
+### Code Refactoring
+
+- Deprecate `locale` option in favor of mkdocstrings' ([17f71ba](https://github.com/mkdocstrings/python/commit/17f71babf11081869478b21b2bde1a33fc97be41) by Timothée Mazzucotelli). [PR-288](https://github.com/mkdocstrings/python/pull/288)
+
+## [1.16.12](https://github.com/mkdocstrings/python/releases/tag/1.16.12) - 2025-06-03
+
+<small>[Compare with 1.16.11](https://github.com/mkdocstrings/python/compare/1.16.11...1.16.12)</small>
+
+### Bug Fixes
+
+- Only replace CSS class in first *highlighting* span ([d57740f](https://github.com/mkdocstrings/python/commit/d57740f874f056fb3ba1c6013ad04227df0f0af8) by Timothée Mazzucotelli). [Issue-281](https://github.com/mkdocstrings/python/issues/281)
+
+## [1.16.11](https://github.com/mkdocstrings/python/releases/tag/1.16.11) - 2025-05-24
+
+<small>[Compare with 1.16.10](https://github.com/mkdocstrings/python/compare/1.16.10...1.16.11)</small>
+
+### Bug Fixes
+
+- Fix highlighting for signature with known special names like `__init__` ([7f95686](https://github.com/mkdocstrings/python/commit/7f956868f93a766346455fedb296c26787894d5c) by Timothée Mazzucotelli). [Issue-mkdocstrings-757](https://github.com/mkdocstrings/mkdocstrings/issues/757)
+- Use default font-size for parameter headings ([0a35b20](https://github.com/mkdocstrings/python/commit/0a35b20a6050a28ba8492d93e5f9940a69462ce3) by Timothée Mazzucotelli). [Issue-mkdocstrings-697](https://github.com/mkdocstrings/mkdocstrings/issues/697)
+- Prevent uppercasing H5 titles (by Material for MkDocs) ([ba66969](https://github.com/mkdocstrings/python/commit/ba669697daad5067ea5db3fdf8a2d5ba2f966b25) by Timothée Mazzucotelli). [Issue-mkdocstrings-697](https://github.com/mkdocstrings/mkdocstrings/issues/697), [Issue-276](https://github.com/mkdocstrings/python/issues/276)
+- Use configured heading even when signature is not separated ([096960a](https://github.com/mkdocstrings/python/commit/096960abd79831d6fd45e2a7962dfd2bd49e4edd) by Timothée Mazzucotelli). [Issue-mkdocstrings-767](https://github.com/mkdocstrings/mkdocstrings/issues/767), [PR-278](https://github.com/mkdocstrings/python/pull/278)
+- Render attribute names without full path in ToC ([d4e618a](https://github.com/mkdocstrings/python/commit/d4e618ab794747b84dced848b1be824639fea2b8) by David Lee). [Issue-271](https://github.com/mkdocstrings/python/issues/271), [PR-272](https://github.com/mkdocstrings/python/pull/272)
+
+## [1.16.10](https://github.com/mkdocstrings/python/releases/tag/1.16.10) - 2025-04-03
+
+<small>[Compare with 1.16.9](https://github.com/mkdocstrings/python/compare/1.16.9...1.16.10)</small>
+
+### Bug Fixes
+
+- Fix inventory `base_url` being ignored ([8870eb9](https://github.com/mkdocstrings/python/commit/8870eb9af837666f59f96149c67c849e02f7ee25) by Stefan Mejlgaard). [Issue-268](https://github.com/mkdocstrings/python/issues/268), [PR-269](https://github.com/mkdocstrings/python/pull/269)
+
+## [1.16.9](https://github.com/mkdocstrings/python/releases/tag/1.16.9) - 2025-04-03
+
+<small>[Compare with 1.16.8](https://github.com/mkdocstrings/python/compare/1.16.8...1.16.9)</small>
+
+### Bug Fixes
+
+- Use `toc_label` option in a few missing places ([337b46b](https://github.com/mkdocstrings/python/commit/337b46be912ff69e70b398bb252c8217c917db0a) by Timothée Mazzucotelli). [Issue-267](https://github.com/mkdocstrings/python/discussions/267)
+
+## [1.16.8](https://github.com/mkdocstrings/python/releases/tag/1.16.8) - 2025-03-24
+
+<small>[Compare with 1.16.7](https://github.com/mkdocstrings/python/compare/1.16.7...1.16.8)</small>
+
+### Bug Fixes
+
+- Prevent infinite recursion by detecting parent-member cycles ([f3917e9](https://github.com/mkdocstrings/python/commit/f3917e9dd50ca7f94d0dd22b6e4e11885b4617e7) by Timothée Mazzucotelli). [Issue-griffe-368](https://github.com/mkdocstrings/griffe/issues/368)
+
+### Code Refactoring
+
+- Prepare feature for ordering by `__all__` value ([bfb5b30](https://github.com/mkdocstrings/python/commit/bfb5b303f4ea2187c15bccc688f7eba25e7edfcc) by Timothée Mazzucotelli). [Issue-219](https://github.com/mkdocstrings/python/issues/219)
+- Sort objects without line numbers last instead of first ([681afb1](https://github.com/mkdocstrings/python/commit/681afb146225d98350a8eb2178aab07aec95fe6b) by Timothée Mazzucotelli).
+
+## [1.16.7](https://github.com/mkdocstrings/python/releases/tag/1.16.7) - 2025-03-20
+
+<small>[Compare with 1.16.6](https://github.com/mkdocstrings/python/compare/1.16.6...1.16.7)</small>
+
+### Code Refactoring
+
+- Prepare `public` filtering method feature ([fde2019](https://github.com/mkdocstrings/python/commit/fde20191cab20f39d9e5e729a95cdfa3390b8f1f) by Timothée Mazzucotelli). [Issue-78](https://github.com/mkdocstrings/python/issues/78)
+
+## [1.16.6](https://github.com/mkdocstrings/python/releases/tag/1.16.6) - 2025-03-18
+
+<small>[Compare with 1.16.5](https://github.com/mkdocstrings/python/compare/1.16.5...1.16.6)</small>
+
+### Deprecations
+
+Importing from submodules is now deprecated: the public API is fully exposed under the top-level `mkdocstrings_handler.python` module.
+
+### Bug Fixes
+
+- Add back default compiled filters (regression) ([2d83900](https://github.com/mkdocstrings/python/commit/2d83900c9e258399c90ecbac350ad03ff5d8f311) by Timothée Mazzucotelli). [Issue-264](https://github.com/mkdocstrings/python/issues/264)
+
+### Code Refactoring
+
+- Start logging warnings instead of info messages about deprecated use of templates ([7606f33](https://github.com/mkdocstrings/python/commit/7606f33559ced6962ecf9a1bc9aa76f24d87f515) by Timothée Mazzucotelli).
+- Move modules into internal folder, expose API in top-level module ([93a68d0](https://github.com/mkdocstrings/python/commit/93a68d0d7afce38c78a8264189cfa812d737666c) by Timothée Mazzucotelli).
+
+## [1.16.5](https://github.com/mkdocstrings/python/releases/tag/1.16.5) - 2025-03-10
+
+<small>[Compare with 1.16.4](https://github.com/mkdocstrings/python/compare/1.16.4...1.16.5)</small>
+
+### Code Refactoring
+
+- Prepare backlinks support ([56bf627](https://github.com/mkdocstrings/python/commit/56bf627b9483a12228b769ae4690b84733061ea5) by Timothée Mazzucotelli). [Issue-153](https://github.com/mkdocstrings/python/issues/153), [PR-252](https://github.com/mkdocstrings/python/pull/252)
+
+## [1.16.4](https://github.com/mkdocstrings/python/releases/tag/1.16.4) - 2025-03-10
+
+<small>[Compare with 1.16.3](https://github.com/mkdocstrings/python/compare/1.16.3...1.16.4)</small>
+
+### Bug Fixes
+
+- Fix de-duplication of summary sections ([dc46ac9](https://github.com/mkdocstrings/python/commit/dc46ac9b4cfc642decd153dceb62e9f45c5c750e) by Timothée Mazzucotelli).
+
+## [1.16.3](https://github.com/mkdocstrings/python/releases/tag/1.16.3) - 2025-03-08
+
+<small>[Compare with 1.16.2](https://github.com/mkdocstrings/python/compare/1.16.2...1.16.3)</small>
+
+### Build
+
+- Depend on mkdocstrings 0.28.3 ([9fa4f16](https://github.com/mkdocstrings/python/commit/9fa4f1636af240bb695661b7172f052cb11e0ec9) by Timothée Mazzucotelli).
+
+### Bug Fixes
+
+- De-duplicate summary sections ([a657d07](https://github.com/mkdocstrings/python/commit/a657d07499eb82d22337c169aa86b1cdd85543fa) by Timothée Mazzucotelli). [Issue-134](https://github.com/mkdocstrings/python/issues/134)
+
+### Code Refactoring
+
+- Import from top-level `mkdocstrings` module ([da2ba13](https://github.com/mkdocstrings/python/commit/da2ba13b1367ce107416d08f382fb9f2384c015c) by Timothée Mazzucotelli).
+
+## [1.16.2](https://github.com/mkdocstrings/python/releases/tag/1.16.2) - 2025-02-24
+
+<small>[Compare with 1.16.1](https://github.com/mkdocstrings/python/compare/1.16.1...1.16.2)</small>
+
+### Build
+
+- Depend on mkdocs-autorefs >= 1.4 and mkdocstrings >= 0.28.2 ([ea1ab49](https://github.com/mkdocstrings/python/commit/ea1ab498be836c94eb695ace05c41357b12f2c95) by Timothée Mazzucotelli).
+
+## [1.16.1](https://github.com/mkdocstrings/python/releases/tag/1.16.1) - 2025-02-18
+
+<small>[Compare with 1.16.0](https://github.com/mkdocstrings/python/compare/1.16.0...1.16.1)</small>
+
+### Bug Fixes
+
+- Give precedence to user-provided paths when they are already listed in `sys.path` ([0f497d1](https://github.com/mkdocstrings/python/commit/0f497d185ba1860c61555803bfc4b311a410bd39) by Timothée Mazzucotelli). [Issue-248](https://github.com/mkdocstrings/python/discussions/248)
+
+## [1.16.0](https://github.com/mkdocstrings/python/releases/tag/1.16.0) - 2025-02-17
+
+<small>[Compare with 1.15.1](https://github.com/mkdocstrings/python/compare/1.15.1...1.16.0)</small>
+
+### Features
+
+- Add option to show/hide overloads ([4a5ee10](https://github.com/mkdocstrings/python/commit/4a5ee10c65de28b7921a56ef2c222d2f3417edaa) by Pete Stenger). [PR-250](https://github.com/mkdocstrings/python/pull/250)
+
+## [1.15.1](https://github.com/mkdocstrings/python/releases/tag/1.15.1) - 2025-02-17
+
+<small>[Compare with 1.15.0](https://github.com/mkdocstrings/python/compare/1.15.0...1.15.1)</small>
+
+### Bug Fixes
+
+- Unwrap `Annotated` regardless of `signature_crossrefs` ([d809f1a](https://github.com/mkdocstrings/python/commit/d809f1a9e6a6f4eaf6fe4a18c2ec0e69e5716a12) by Timothée Mazzucotelli). [Issue-249](https://github.com/mkdocstrings/python/issues/249)
+
+## [1.15.0](https://github.com/mkdocstrings/python/releases/tag/1.15.0) - 2025-02-11
+
+<small>[Compare with 1.14.6](https://github.com/mkdocstrings/python/compare/1.14.6...1.15.0)</small>
+
+### Features
+
+- Support cross-referencing constructor parameters in instance attribute values ([f07bf58](https://github.com/mkdocstrings/python/commit/f07bf58a7358dea106032c7da27098e7617eefa0) by Timothée Mazzucotelli).
+
+## [1.14.6](https://github.com/mkdocstrings/python/releases/tag/1.14.6) - 2025-02-07
+
+<small>[Compare with 1.14.5](https://github.com/mkdocstrings/python/compare/1.14.5...1.14.6)</small>
+
+### Bug Fixes
+
+- Catch alias resolution errors when getting aliases for an identifier ([0aaa260](https://github.com/mkdocstrings/python/commit/0aaa260139afe2e3ab85d62224c90a389df64978) by Timothée Mazzucotelli). [Issue-358](https://github.com/mkdocstrings/griffe/discussions/358)
+
+### Code Refactoring
+
+- Improve translations for Simplified Chinese and Japanese ([753a0df](https://github.com/mkdocstrings/python/commit/753a0df8f91f1cf42fb7e56b7fdd312b2bd652ab) by Zhikang Yan). [PR-244](https://github.com/mkdocstrings/python/pull/244)
+
+## [1.14.5](https://github.com/mkdocstrings/python/releases/tag/1.14.5) - 2025-02-05
+
+<small>[Compare with 1.14.4](https://github.com/mkdocstrings/python/compare/1.14.4...1.14.5)</small>
+
+### Bug Fixes
+
+- Remove type from property docstring summary in summary sections ([15f2cd4](https://github.com/mkdocstrings/python/commit/15f2cd48b79a1f062086a47ea0c6bc52d89786d8) by Uchechukwu Orji). [PR-242](https://github.com/mkdocstrings/python/pull/242)
+
+## [1.14.4](https://github.com/mkdocstrings/python/releases/tag/1.14.4) - 2025-02-04
+
+<small>[Compare with 1.14.3](https://github.com/mkdocstrings/python/compare/1.14.3...1.14.4)</small>
+
+### Bug Fixes
+
+- Deactivate Pydantic validation on Python 3.9 is `eval-type-backport` is not available (for modern typing syntax support) ([0de0e5e](https://github.com/mkdocstrings/python/commit/0de0e5e57f8f22e039b0d19aad6341ce7ab3da9f) by Timothée Mazzucotelli). [Issue-241](https://github.com/mkdocstrings/python/issues/241)
+
+## [1.14.3](https://github.com/mkdocstrings/python/releases/tag/1.14.3) - 2025-02-04
+
+<small>[Compare with 1.14.2](https://github.com/mkdocstrings/python/compare/1.14.2...1.14.3)</small>
+
+### Bug Fixes
+
+- Let dataclass implement `__init__` method, set extra fields in `get_options` ([477b9e4](https://github.com/mkdocstrings/python/commit/477b9e447ef9717c6edcb14bd4c53f9cacc555b8) by Timothée Mazzucotelli).
+
+## [1.14.2](https://github.com/mkdocstrings/python/releases/tag/1.14.2) - 2025-02-03
+
+<small>[Compare with 1.14.1](https://github.com/mkdocstrings/python/compare/1.14.1...1.14.2)</small>
+
+### Bug Fixes
+
+- Deactivate Pydantic logic if v1 is installed instead of v2 ([c5ecd70](https://github.com/mkdocstrings/python/commit/c5ecd702b04417fa3d862806d608ea627b2e8ed9) by Timothée Mazzucotelli). [Issue-240](https://github.com/mkdocstrings/python/issues/240)
+
+## [1.14.1](https://github.com/mkdocstrings/python/releases/tag/1.14.1) - 2025-02-03
+
+<small>[Compare with 1.14.0](https://github.com/mkdocstrings/python/compare/1.14.0...1.14.1)</small>
+
+### Bug Fixes
+
+- Fix type errors with options during collection and docstring parsing ([15ca6d8](https://github.com/mkdocstrings/python/commit/15ca6d8cbe8187ae2938b3cc3a6134d10c94a3aa) by Timothée Mazzucotelli).
+
+## [1.14.0](https://github.com/mkdocstrings/python/releases/tag/1.14.0) - 2025-02-03
+
+<small>[Compare with 1.13.0](https://github.com/mkdocstrings/python/compare/1.13.0...1.14.0)</small>
+
+### Features
+
+- Add `heading` and `toc_label` options ([7cabacf](https://github.com/mkdocstrings/python/commit/7cabacf13735dbc5066793baf5820d61cd342dc8) by Yann Van Crombrugge). [Issue-mkdocstrings-725](https://github.com/mkdocstrings/mkdocstrings/issues/725), [PR-236](https://github.com/mkdocstrings/python/pull/236)
+- Add `force_inspection` option to force dynamic analysis ([83823be](https://github.com/mkdocstrings/python/commit/83823be2146d6a2ecedc5fe9c0cfd84098d780ca) by Uchechukwu Orji). [Issue-94](https://github.com/mkdocstrings/python/issues/94), [PR-231](https://github.com/mkdocstrings/python/pull/231)
+
+### Code Refactoring
+
+- Use dataclasses for configuration/options and automate schema generation ([5ebeda6](https://github.com/mkdocstrings/python/commit/5ebeda6fce1b1bc7cb3f5e27a5a90ac394a3de0c) by Timothée Mazzucotelli).
+
 ## [1.13.0](https://github.com/mkdocstrings/python/releases/tag/1.13.0) - 2024-12-26
 
 <small>[Compare with 1.12.2](https://github.com/mkdocstrings/python/compare/1.12.2...1.13.0)</small>
@@ -227,12 +453,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Release Insiders features of the $500/month funding goal ([bd30106](https://github.com/mkdocstrings/python/commit/bd301061fe9c647f9b91c2c9b4baa784c304eca7) by Timothée Mazzucotelli).
     The features and projects related to *mkdocstrings-python* are:
-    
+
     - [Cross-references for type annotations in signatures](https://mkdocstrings.github.io/python/usage/configuration/signatures/#signature_crossrefs)
     - [Symbol types in headings and table of contents](https://mkdocstrings.github.io/python/usage/configuration/headings/#show_symbol_type_toc)
     - [`griffe-inherited-docstrings`](https://mkdocstrings.github.io/griffe-inherited-docstrings/), a Griffe extension for inheriting docstrings
     - [`griffe2md`](https://mkdocstrings.github.io/griffe2md/), a tool to output API docs to Markdown using Griffe
-    
+
     See the complete list of features and projects here:
     https://pawamoy.github.io/insiders/#500-plasmavac-user-guide.
 
@@ -452,7 +678,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Breaking changes
 
-- The signature of the [`format_signature` filter](https://mkdocstrings.github.io/python/reference/mkdocstrings_handlers/python/rendering/#mkdocstrings_handlers.python.rendering.do_format_signature) has changed.
+- The signature of the [`format_signature` filter][mkdocstrings_handlers.python.do_format_signature] has changed.
     If you override templates in your project to customize the output,
     make sure to update the following templates so that they use
     the new filter signature:
@@ -464,7 +690,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
     You can see how to use the filter in this commit's changes:
     [f686f4e4](https://github.com/mkdocstrings/python/commit/f686f4e4599cea64686d4ef4863b507dd096a513).
-    
+
 **We take this as an opportunity to go out of beta and bump the version to 1.0.0.
 This will allow users to rely on semantic versioning.**
 

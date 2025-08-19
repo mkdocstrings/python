@@ -38,7 +38,8 @@ Context:
           role="class",
           id=html_id,
           class="doc doc-heading",
-          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + class.name,
+          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else class.name),
+          skip_inventory=config.skip_local_inventory,
         ) %}
 
         {% block heading scoped %}
@@ -47,18 +48,22 @@ Context:
           This block renders the heading for the class.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>{% endif %}
-          {% if config.separate_signature %}
+          {% if config.heading and root %}
+            {{ config.heading }}
+          {% elif config.separate_signature %}
             <span class="doc doc-object-name doc-class-name">{{ class_name }}</span>
           {% elif config.merge_init_into_class and "__init__" in all_members %}
             {% with function = all_members["__init__"] %}
               {%+ filter highlight(language="python", inline=True) %}
                 {{ class_name -}}
-                {%- include "type_parameters"|get_template with context -%}
-                {%- if function.is_generic and config.show_signature_annotations and config.show_signature_type_parameters -%}
-                  {%- with obj = function -%}
-                    .__init__
-                    {%- include "type_parameters"|get_template with context -%}
-                  {%- endwith -%}
+                {%- if config.show_signature_annotations and config.show_signature_type_parameters -%}
+                  {# TODO: Merge type parameters instead of concatenating them. #}
+                  {%- include "type_parameters"|get_template with context -%}
+                  {% if function.is_generic %}
+                    {%- with obj = function -%}
+                      {%- include "type_parameters"|get_template with context -%}
+                    {%- endwith -%}
+                  {%- endif -%}
                 {%- endif -%}
                 {%- include "signature"|get_template with context -%}
               {% endfilter %}
@@ -76,6 +81,7 @@ Context:
           This block renders the labels for the class.
           -#}
           {% with labels = class.labels %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "labels"|get_template with context %}
           {% endwith %}
         {% endblock labels %}
@@ -95,28 +101,24 @@ Context:
         If the `__init__` method or any overloads are generic, they are rendered as methods if
         `merge_init_into_class`, `separate_signature` and `show_signature_type_parameters` are enabled.
         -#}
+        {# TODO: Merge type parameters of class and its `__init__` method. #}
         {% if config.merge_init_into_class and "__init__" in all_members %}
           {% with function = all_members["__init__"] %}
-            {% set init_as_method = config.show_signature_type_parameters and (function.is_generic and config.show_signature_annotations) or (function.overloads and function.overloads|selectattr("is_generic")|list|length) %}
-            {% if function.overloads %}
+            {% if function.overloads and config.show_overloads %}
               <div class="doc-overloads">
                 {% for overload in function.overloads %}
-                  {% filter format_merged_init(overload, config.line_length, init_as_method=init_as_method, annotations=True, crossrefs=config.signature_crossrefs) %}
+                  {% filter format_signature(overload, config.line_length, annotations=True, crossrefs=config.signature_crossrefs) %}
                     {{ class.name }}
                   {% endfilter %}
                 {% endfor %}
               </div>
             {% endif %}
             {% if config.separate_signature %}
-              {% filter format_merged_init(function, config.line_length, init_as_method=init_as_method, crossrefs=config.signature_crossrefs) %}
+              {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
                 {{ class.name }}
               {% endfilter %}
             {% endif %}
           {% endwith %}
-        {% elif config.separate_signature and config.show_signature_type_parameters and class.is_generic %}
-          {% filter format_class(class, config.line_length, crossrefs=config.signature_crossrefs) %}
-            {{ class.name }}
-          {% endfilter %}
         {% endif %}
       {% endblock signature %}
 
@@ -125,8 +127,9 @@ Context:
         {% filter heading(heading_level,
             role="class",
             id=html_id,
-            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + class.name,
+            toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else class.name),
             hidden=True,
+            skip_inventory=config.skip_local_inventory,
           ) %}
         {% endfilter %}
       {% endif %}
@@ -149,7 +152,12 @@ Context:
           {% if config.show_bases and class.bases %}
             <p class="doc doc-class-bases">
               Bases: {% for expression in class.bases -%}
-                <code>{% include "expression"|get_template with context %}</code>{% if not loop.last %}, {% endif %}
+                <code>
+                  {%- with backlink_type = "subclassed-by" -%}
+                    {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
+                    {%- include "expression"|get_template with context -%}
+                  {%- endwith -%}
+                </code>{% if not loop.last %}, {% endif %}
               {% endfor -%}
             </p>
           {% endif %}
@@ -161,6 +169,7 @@ Context:
           This block renders the docstring for the class.
           -#}
           {% with docstring_sections = class.docstring.parsed %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "docstring"|get_template with context %}
           {% endwith %}
           {% if config.merge_init_into_class %}
@@ -170,6 +179,7 @@ Context:
               {% if "__init__" in check_members and check_members["__init__"].has_docstring %}
                 {% with function = check_members["__init__"] %}
                   {% with obj = function, docstring_sections = function.docstring.parsed %}
+                    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                     {% include "docstring"|get_template with context %}
                   {% endwith %}
                 {% endwith %}
@@ -178,11 +188,16 @@ Context:
           {% endif %}
         {% endblock docstring %}
 
+        {% if config.backlinks %}
+          <backlinks identifier="{{ html_id }}" handler="python" />
+        {% endif %}
+
         {% block summary scoped %}
           {#- Summary block.
 
           This block renders auto-summaries for classes, methods, and attributes.
           -#}
+          {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
           {% include "summary"|get_template with context %}
         {% endblock summary %}
 
@@ -229,6 +244,7 @@ Context:
           -#}
           {% set root = False %}
           {% set heading_level = heading_level + 1 %}
+          {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
           {% include "children"|get_template with context %}
         {% endblock children %}
       {% endblock contents %}

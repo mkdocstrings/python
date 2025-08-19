@@ -9,12 +9,13 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug() }}
 {% endblock %}
 
+{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
 {% import "language"|get_template as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
@@ -32,8 +33,9 @@ Context:
             <li>
               {% if returns.name %}<b><code>{{ returns.name }}</code></b>{% endif %}
               {% if returns.annotation %}
-                {% with expression = returns.annotation %}
+                {% with expression = returns.annotation, backlink_type = "returned-by" %}
                   {% if returns.name %}({% endif %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                   {% if returns.name %}){% endif %}
                 {% endwith %}

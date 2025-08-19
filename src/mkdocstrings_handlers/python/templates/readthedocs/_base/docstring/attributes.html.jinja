@@ -9,12 +9,13 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug() }}
 {% endblock %}
 
+{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
 {% import "language"|get_template as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
@@ -33,6 +34,7 @@ Context:
               <b><code>{{ attribute.name }}</code></b>
               {% if attribute.annotation %}
                 {% with expression = attribute.annotation %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   (<code>{% include "expression"|get_template with context %}</code>)
                 {% endwith %}
               {% endif %}

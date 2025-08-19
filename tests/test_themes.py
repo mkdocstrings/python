@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import pytest
 
 if TYPE_CHECKING:
-    from mkdocstrings.handlers.python import PythonHandler
+    from mkdocstrings_handlers.python import PythonHandler
 
 
 @pytest.mark.parametrize(
@@ -38,5 +38,6 @@ def test_render_themes_templates_python(identifier: str, handler: PythonHandler)
         identifier: Parametrized identifier.
         handler: Python handler (fixture).
     """
-    data = handler.collect(identifier, {})
-    handler.render(data, {})
+    options = handler.get_options({})
+    data = handler.collect(identifier, options)
+    handler.render(data, options)

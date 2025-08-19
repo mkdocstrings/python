@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-"""Management commands."""
-
 from __future__ import annotations
 
 import os
@@ -16,7 +14,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
 
 
-PYTHON_VERSIONS = os.getenv("PYTHON_VERSIONS", "3.9 3.10 3.11 3.12 3.13 3.14").split()
+PYTHON_VERSIONS = os.getenv("PYTHON_VERSIONS", "3.9 3.10 3.11 3.12 3.13").split()
 
 
 def shell(cmd: str, *, capture_output: bool = False, **kwargs: Any) -> str | None:

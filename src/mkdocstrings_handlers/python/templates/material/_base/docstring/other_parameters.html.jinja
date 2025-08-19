@@ -9,12 +9,13 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug("Rendering other parameters section") }}
 {% endblock logs %}
 
+{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
 {% import "language"|get_template as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
@@ -36,7 +37,8 @@ Context:
             <td><code>{{ parameter.name }}</code></td>
             <td>
               {% if parameter.annotation %}
-                {% with expression = parameter.annotation %}
+                {% with expression = parameter.annotation, backlink_type = "used-by" %}
+                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                   <code>{% include "expression"|get_template with context %}</code>
                 {% endwith %}
               {% endif %}
@@ -60,7 +62,8 @@ Context:
         <li class="doc-section-item field-body">
           <b><code>{{ parameter.name }}</code></b>
           {% if parameter.annotation %}
-            {% with expression = parameter.annotation %}
+            {% with expression = parameter.annotation, backlink_type = "used-by" %}
+              {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
               (<code>{% include "expression"|get_template with context %}</code>)
             {% endwith %}
           {% endif %}
@@ -94,7 +97,8 @@ Context:
                 {% if parameter.annotation %}
                   <span class="doc-param-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
-                    {% with expression = parameter.annotation %}
+                    {% with expression = parameter.annotation, backlink_type = "used-by" %}
+                      {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
                       <code>{% include "expression"|get_template with context %}</code>
                     {% endwith %}
                   </span>

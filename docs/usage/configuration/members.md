@@ -1,5 +1,6 @@
 # Members options
 
+[](){#option-members}
 ## `members`
 
 - **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
@@ -95,6 +96,7 @@ this_attribute = 0
 
 INFO: **The default behavior (with unspecified `members` or `members: null`) is to use [`filters`][].**
 
+[](){#option-inherited_members}
 ## `inherited_members`
 
 - **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
@@ -259,15 +261,17 @@ class Main(Base):
 
 ///
 
+[](){#option-members_order}
 ## `members_order`
 
-- **:octicons-package-24: Type [`str`][] :material-equal: `"alphabetical"`{ title="default value" }**
+- **:octicons-package-24: Type `str | list[str]` :material-equal: `"alphabetical"`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 The members ordering to use. Possible values:
 
-- `alphabetical`: order by the members names.
-- `source`: order members as they appear in the source file.
+- `__all__` ([:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash; [:octicons-tag-24: Insiders 1.12.0](../../insiders/changelog.md#1.12.0)): Order according to `__all__` attributes. Since classes do not define `__all__` attributes, you can specify a second ordering method by using a list.
+- `alphabetical`: Order by the members names.
+- `source`: Order members as they appear in the source file.
 
 The order applies for all members, recursively.
 The order will be ignored for members that are explicitely sorted using the [`members`][] option.
@@ -287,6 +291,12 @@ plugins:
 ::: package.module
     options:
       members_order: source
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: package.module
+    options:
+      members_order: [__all__, source]
 ```
 
 ```python title="package/module.py"
@@ -329,12 +339,24 @@ def function_c():
 ////
 ///
 
+[](){#option-filters}
 ## `filters`
 
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | <autoref identifier="typing.Literal" optional>Literal</autoref>["public"] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-A list of filters applied to filter objects based on their name.
+A list of filters, or `"public"`.
+
+**Filtering methods**
+
+[](){#option-filters-public}
+
+[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
+[:octicons-tag-24: Insiders 1.11.0](../../insiders/changelog.md#1.11.0)
+
+The `public` filtering method will include only public objects: those added to the `__all__` attribute of modules, or not starting with a single underscore. Special methods and attributes ("dunder" methods/attributes, starting and ending with two underscores), like `__init__`, `__call__`, `__mult__`, etc., are always considered public.
+
+**List of filters**
 
 Filters are regular expressions. These regular expressions are evaluated by Python
 and so must match the syntax supported by the [`re`][] module.
@@ -375,13 +397,13 @@ plugins:
       python:
         options:
           filters:
-          - "!^_"
+          - "!^_[^_]"
 ```
 
 ```md title="or in docs/some_page.md (local configuration)"
 ::: package.module
     options:
-      filters: []
+      filters: public
 ```
 
 ```python title="package/module.py"
@@ -427,6 +449,7 @@ Here are some common filters that you might to want to use.
 - `["!^_[^_]"]`: exclude all private/protected objects, keep special ones (default filters)
 ///
 
+[](){#option-group_by_category}
 ## `group_by_category`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -496,6 +519,7 @@ def function_d():
 ////
 ///
 
+[](){#option-show_submodules}
 ## `show_submodules`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -550,6 +574,7 @@ package
 ////
 ///
 
+[](){#option-summary}
 ## `summary`
 
 [:octicons-tag-24: Insiders 1.2.0](../../insiders/changelog.md#1.2.0)
@@ -643,6 +668,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_labels}
 ## `show_labels`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**

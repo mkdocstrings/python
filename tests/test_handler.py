@@ -3,43 +3,52 @@
 from __future__ import annotations
 
 import os
+import sys
+from dataclasses import replace
 from glob import glob
+from io import BytesIO
+from pathlib import Path
 from textwrap import dedent
 from typing import TYPE_CHECKING
 
+import mkdocstrings
 import pytest
-from griffe import DocstringSectionExamples, DocstringSectionKind, temporary_visited_module
+from griffe import (
+    Docstring,
+    DocstringSectionExamples,
+    DocstringSectionKind,
+    Module,
+    temporary_inspected_module,
+    temporary_visited_module,
+)
+from mkdocstrings import CollectionError
 
-from mkdocstrings_handlers.python.handler import CollectionError, PythonHandler, get_handler
+from mkdocstrings_handlers.python import Inventory, PythonConfig, PythonHandler, PythonOptions
 
 if TYPE_CHECKING:
-    from pathlib import Path
+    from mkdocstrings import MkdocstringsPlugin
 
 
-def test_collect_missing_module() -> None:
+def test_collect_missing_module(handler: PythonHandler) -> None:
     """Assert error is raised for missing modules."""
-    handler = get_handler(theme="material")
     with pytest.raises(CollectionError):
-        handler.collect("aaaaaaaa", {})
+        handler.collect("aaaaaaaa", PythonOptions())
 
 
-def test_collect_missing_module_item() -> None:
+def test_collect_missing_module_item(handler: PythonHandler) -> None:
     """Assert error is raised for missing items within existing modules."""
-    handler = get_handler(theme="material")
     with pytest.raises(CollectionError):
-        handler.collect("mkdocstrings.aaaaaaaa", {})
+        handler.collect("mkdocstrings.aaaaaaaa", PythonOptions())
 
 
-def test_collect_module() -> None:
+def test_collect_module(handler: PythonHandler) -> None:
     """Assert existing module can be collected."""
-    handler = get_handler(theme="material")
-    assert handler.collect("mkdocstrings", {})
+    assert handler.collect("mkdocstrings", PythonOptions())
 
 
-def test_collect_with_null_parser() -> None:
+def test_collect_with_null_parser(handler: PythonHandler) -> None:
     """Assert we can pass `None` as parser when collecting."""
-    handler = get_handler(theme="material")
-    assert handler.collect("mkdocstrings", {"docstring_style": None})
+    assert handler.collect("mkdocstrings", PythonOptions(docstring_style=None))
 
 
 @pytest.mark.parametrize(
@@ -71,7 +80,7 @@ def test_render_docstring_examples_section(handler: PythonHandler) -> None:
     assert "Hello" in rendered
 
 
-def test_expand_globs(tmp_path: Path) -> None:
+def test_expand_globs(tmp_path: Path, plugin: MkdocstringsPlugin) -> None:
     """Assert globs are correctly expanded.
 
     Parameters:
@@ -86,24 +95,16 @@ def test_expand_globs(tmp_path: Path) -> None:
     globbed_paths = [tmp_path.joinpath(globbed_name) for globbed_name in globbed_names]
     for path in globbed_paths:
         path.touch()
-    handler = PythonHandler(
-        handler="python",
-        theme="material",
-        config_file_path=str(tmp_path.joinpath("mkdocs.yml")),
-        paths=["*exp*"],
-    )
+    plugin.handlers._tool_config.config_file_path = str(tmp_path.joinpath("mkdocs.yml"))
+    handler: PythonHandler = plugin.handlers.get_handler("python", {"paths": ["*exp*"]})  # type: ignore[assignment]
     for path in globbed_paths:
         assert str(path) in handler._paths
 
 
-def test_expand_globs_without_changing_directory() -> None:
+def test_expand_globs_without_changing_directory(plugin: MkdocstringsPlugin) -> None:
     """Assert globs are correctly expanded when we are already in the right directory."""
-    handler = PythonHandler(
-        handler="python",
-        theme="material",
-        config_file_path="mkdocs.yml",
-        paths=["*.md"],
-    )
+    plugin.handlers._tool_config.config_file_path = "mkdocs.yml"
+    handler: PythonHandler = plugin.handlers.get_handler("python", {"paths": ["*.md"]})  # type: ignore[assignment]
     for path in list(glob(os.path.abspath(".") + "/*.md")):
         assert path in handler._paths
 
@@ -130,12 +131,15 @@ def test_expand_globs_without_changing_directory() -> None:
         (False, {"dot.notation.path.to.pyextension": {"option": "value"}}),
     ],
 )
-def test_extension_paths(tmp_path: Path, expect_change: bool, extension: str | dict) -> None:
+def test_extension_paths(
+    tmp_path: Path,
+    expect_change: bool,
+    extension: str | dict,
+    plugin: MkdocstringsPlugin,
+) -> None:
     """Assert extension paths are resolved relative to config file."""
-    handler = get_handler(
-        theme="material",
-        config_file_path=str(tmp_path.joinpath("mkdocs.yml")),
-    )
+    plugin.handlers._tool_config.config_file_path = str(tmp_path.joinpath("mkdocs.yml"))
+    handler: PythonHandler = plugin.handlers.get_handler("python")  # type: ignore[assignment]
     normalized = handler.normalize_extension_paths([extension])[0]
     if expect_change:
         if isinstance(normalized, str) and isinstance(extension, str):
@@ -166,10 +170,164 @@ def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
         """,
     )
     with temporary_visited_module(code) as module:
-        # TODO: Remove once Griffe does that automatically.
-        module.lines_collection[module.filepath] = code.splitlines()
-
         module["Class"].lineno = None
         module["Class.function"].lineno = None
         module["attribute"].lineno = None
-        assert handler.render(module, {"show_source": True})
+        assert handler.render(module, PythonOptions(show_source=True))
+
+
+def test_give_precedence_to_user_paths() -> None:
+    """Assert user paths take precedence over default paths."""
+    last_sys_path = sys.path[-1]
+    handler = PythonHandler(
+        base_dir=Path("."),
+        config=PythonConfig.from_data(paths=[last_sys_path]),
+        mdx=[],
+        mdx_config={},
+    )
+    assert handler._paths[0] == last_sys_path
+
+
+@pytest.mark.parametrize(
+    ("section", "code"),
+    [
+        (
+            "Attributes",
+            """
+            class A:
+                '''Summary.
+
+                Attributes:
+                    x: X.
+                    y: Y.
+                '''
+                x: int = 0
+                '''X.'''
+                y: int = 0
+                '''Y.'''
+            """,
+        ),
+        (
+            "Methods",
+            """
+            class A:
+                '''Summary.
+
+                Methods:
+                    x: X.
+                    y: Y.
+                '''
+                def x(self): ...
+                '''X.'''
+                def y(self): ...
+                '''Y.'''
+            """,
+        ),
+        (
+            "Functions",
+            """
+            '''Summary.
+
+            Functions:
+                x: X.
+                y: Y.
+            '''
+            def x(): ...
+            '''X.'''
+            def y(): ...
+            '''Y.'''
+            """,
+        ),
+        (
+            "Classes",
+            """
+            '''Summary.
+
+            Classes:
+                A: A.
+                B: B.
+            '''
+            class A: ...
+            '''A.'''
+            class B: ...
+            '''B.'''
+            """,
+        ),
+        (
+            "Modules",
+            """
+            '''Summary.
+
+            Modules:
+                a: A.
+                b: B.
+            '''
+            """,
+        ),
+    ],
+)
+def test_deduplicate_summary_sections(handler: PythonHandler, section: str, code: str) -> None:
+    """Assert summary sections are deduplicated."""
+    summary_section = section.lower()
+    summary_section = "functions" if summary_section == "methods" else summary_section
+    with temporary_visited_module(code, docstring_parser="google") as module:
+        if summary_section == "modules":
+            module.set_member("a", Module("A", docstring=Docstring("A.")))
+            module.set_member("b", Module("B", docstring=Docstring("B.")))
+        html = handler.render(
+            module,
+            handler.get_options(
+                {
+                    "summary": {summary_section: True},
+                    "show_source": False,
+                    "show_submodules": True,
+                },
+            ),
+        )
+        assert html.count(f"{section}:") == 1
+
+
+def test_inheriting_self_from_parent_class(handler: PythonHandler) -> None:
+    """Inspect self only once when inheriting it from parent class."""
+    with temporary_inspected_module(
+        """
+        class A: ...
+        class B(A): ...
+        A.B = B
+        """,
+    ) as module:
+        # Assert no recusrion error.
+        handler.render(
+            module,
+            handler.get_options({"inherited_members": True}),
+        )
+
+
+def test_specifying_inventory_base_url(handler: PythonHandler) -> None:
+    """Assert that the handler renders inventory URLs using the specified base_url."""
+    # Update handler config to include an inventory with a base URL
+    base_url = "https://docs.com/my_library"
+    inventory = Inventory(url="https://example.com/objects.inv", base_url=base_url)
+    handler.config = replace(handler.config, inventories=[inventory])
+
+    # Mock inventory bytes
+    item_name = "my_library.my_module.MyClass"
+    mocked_inventory = mkdocstrings.Inventory()
+    mocked_inventory.register(
+        name=item_name,
+        domain="py",
+        role="class",
+        uri=f"api-reference/#{item_name}",
+        dispname=item_name,
+    )
+    mocked_bytes = BytesIO(mocked_inventory.format_sphinx())
+
+    # Get inventory URL and config
+    url, config = handler.get_inventory_urls()[0]
+
+    # Load the mocked inventory
+    _, item_url = next(handler.load_inventory(mocked_bytes, url, **config))
+
+    # Assert the URL is based on the provided base URL
+    msg = "Expected inventory URL to start with base_url"
+    assert item_url.startswith(base_url), msg

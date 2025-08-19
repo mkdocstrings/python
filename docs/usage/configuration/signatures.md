@@ -1,5 +1,6 @@
 # Signatures options
 
+[](){#option-annotations_path}
 ## `annotations_path`
 
 - **:octicons-package-24: Type [`str`][] :material-equal: `"brief"`{ title="default value" }**
@@ -146,6 +147,7 @@ def convert(text: str, md: Markdown) -> Markup:
 ////
 ///
 
+[](){#option-line_length}
 ## `line_length`
 
 - **:octicons-package-24: Type [`int`][] :material-equal: `60`{ title="default value" }**
@@ -198,6 +200,7 @@ plugins:
 ////
 ///
 
+[](){#option-modernize_annotations}
 ## `modernize_annotations`
 
 [:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
@@ -283,8 +286,57 @@ plugins:
 
 ///
 
+[](){#option-overloads_only}
+## `overloads_only`
 
+Whether to hide the implementation signature if the overloads are shown with [`show_overloads`][].
 
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          overloads_only: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      overloads_only: true
+```
+
+/// admonition | Preview
+    type: preview
+//// tab | With overloads only
+<h2>function</h2>
+
+```python
+@overload
+function(param1: int): ...
+@overload
+function(param1: str): ...
+```
+Function docstring.
+
+////
+//// tab | Without overloads only
+<h2>function</h2>
+
+```python
+@overload
+function(param1: int): ...
+@overload
+function(param1: str): ...
+function(param1: str | int)
+```
+Function docstring.
+
+////
+
+///
+
+[](){#option-show_signature}
 ## `show_signature`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
@@ -323,6 +375,7 @@ plugins:
 ////
 ///
 
+[](){#option-show_signature_annotations}
 ## `show_signature_annotations`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -377,6 +430,7 @@ function(param1, param2=None)
 ////
 ///
 
+[](){#option-show_signature_type_parameters}
 ## `show_signature_type_parameters`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -431,6 +485,7 @@ function(param: T) -> tuple[*R]
 ////
 ///
 
+[](){#option-separate_signature}
 ## `separate_signature`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
@@ -483,6 +538,99 @@ function(param1, param2=None)
 ////
 ///
 
+[](){#option-show_attribute_values}
+## `show_attribute_values`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
+
+Show initial values of attributes in classes.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_attribute_values: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      show_attribute_values: true
+```
+
+```python title="package/module.py"
+class SomeClass:
+  def __init__(self):
+      self.some_attr = 1
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With attribute values visible
+<h2><code>SomeClass</code></h2>
+<p>some_attr = 1</p>
+////
+
+//// tab | With attribute values hidden
+<h2><code>SomeClass</code></h2>
+<p>some_attr</p>
+////
+///
+
+[](){#option-show_overloads}
+## `show_overloads`
+
+Whether to render function / method overloads.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_overloads: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      show_overloads: false
+```
+
+/// admonition | Preview
+    type: preview
+//// tab | With overloads
+<h2>function</h2>
+
+
+```python
+@overload
+function(param1: int): ...
+
+@overload
+function(param1: str): ...
+
+function(param1: str | int)
+```
+Function docstring.
+
+////
+//// tab | Without overloads
+<h2>function</h2>
+
+```python
+function(param1: str | int)
+```
+Function docstring.
+
+////
+///
+
+[](){#option-signature_crossrefs}
 ## `signature_crossrefs`
 
 [:octicons-tag-24: Insiders 1.0.0](../../insiders/changelog.md#1.0.0)
@@ -530,6 +678,7 @@ plugins:
 ////
 ///
 
+[](){#option-unwrap_annotated}
 ## `unwrap_annotated`
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
