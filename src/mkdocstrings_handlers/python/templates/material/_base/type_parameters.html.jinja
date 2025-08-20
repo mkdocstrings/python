@@ -63,7 +63,7 @@ Context:
         {{ type_param_prefix }}
         {%- if config.separate_signature and config.type_parameter_headings and config.signature_crossrefs -%}
           {%- filter stash_crossref(length=type_parameter.name|length) -%}
-            <autoref identifier="{{ obj.path }}:{{ type_param_prefix }}{{ type_parameter.name }}" optional>{{ type_parameter.name }}</autoref>
+            <autoref identifier="{{ obj.path }}[{{ type_param_prefix }}{{ type_parameter.name }}]" optional>{{ type_parameter.name }}</autoref>
           {%- endfilter -%}
         {%- else -%}
           {{ type_parameter.name }}

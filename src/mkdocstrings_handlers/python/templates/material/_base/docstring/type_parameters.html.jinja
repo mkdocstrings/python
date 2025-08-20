@@ -19,12 +19,10 @@ Context:
 {#- Language module providing the `t` translation method. -#}
 
 {% with %}
-  {% set is_merged_init = obj.is_function and obj.name == "__init__" and config.merge_init_into_class %}
-
   {% if config.docstring_section_style == "table" %}
     {% block table_style scoped %}
       {#- Block for the `table` section style. -#}
-      <p><span class="doc-section-title">{{ section.title or lang.t("Type Parameters:") if not is_merged_init else lang.t("<code>__init__</code> Type Parameters:") }}</span></p>
+      <p><span class="doc-section-title">{{ section.title or lang.t("Type Parameters:") }}</span></p>
       <table>
         <thead>
           <tr>
@@ -42,7 +40,7 @@ Context:
                   {% filter heading(
                       heading_level + 1,
                       role="typeparam",
-                      id=obj.path ~ ":" ~ type_parameter.name,
+                      id=obj.path ~ "[" ~ type_parameter.name ~ "]",
                       class="doc doc-heading doc-heading-type_parameter",
                       toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_parameter.name,
                     ) %}
@@ -81,7 +79,7 @@ Context:
   {% elif config.docstring_section_style == "list" %}
     {% block list_style scoped %}
       {#- Block for the `list` section style. -#}
-      <p><span class="doc-section-title">{{ section.title or lang.t("Type Parameters:") if not is_merged_init else lang.t("<code>__init__</code> Type Parameters:") }}</span></p>
+      <p><span class="doc-section-title">{{ section.title or lang.t("Type Parameters:") }}</span></p>
       <ul>
         {% for type_parameter in section.value %}
           <li class="doc-section-item field-body">
@@ -89,7 +87,7 @@ Context:
               {% filter heading(
                   heading_level + 1,
                   role="typeparam",
-                  id=obj.path ~ ":" ~ type_parameter.name ,
+                  id=obj.path ~ "[" ~ type_parameter.name ~ "]",
                   class="doc doc-heading doc-heading-type_parameter",
                   toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_parameter.name,
                 ) %}
@@ -130,7 +128,7 @@ Context:
       <table>
         <thead>
           <tr>
-            <th><span class="doc-section-title">{{ (section.title or lang.t("TYPE PARAMETER")).rstrip(":").upper() if not is_merged_init else lang.t("<code>__init__</code> TYPE PARAMETER") }}</span></th>
+            <th><span class="doc-section-title">{{ (section.title or lang.t("TYPE PARAMETER")).rstrip(":").upper() }}</span></th>
             <th><span>{{ lang.t("DESCRIPTION") }}</span></th>
           </tr>
         </thead>
@@ -142,7 +140,7 @@ Context:
                   {% filter heading(
                       heading_level + 1,
                       role="typeparam",
-                      id=obj.path ~ ":" ~ type_parameter.name ,
+                      id=obj.path ~ "[" ~ type_parameter.name ~ "]"
                       class="doc doc-heading doc-heading-type_parameter",
                       toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_parameter.name,
                     ) %}
