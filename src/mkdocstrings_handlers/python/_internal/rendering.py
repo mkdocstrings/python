@@ -30,6 +30,7 @@ from griffe import (
     DocstringSectionTypeAliases,
     DocstringTypeAlias,
     Object,
+    TypeAlias,
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup

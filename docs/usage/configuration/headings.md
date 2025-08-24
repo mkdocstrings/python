@@ -202,10 +202,6 @@ To customize symbols, see [Customizing symbol types](../customization.md/#symbol
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 
-Here's a ref-style link: [title][[ref]]
-
-[[ref]]: https://example.com
-
 Whether to render headings for generic class, function/method and type alias
 type parameters.
 
