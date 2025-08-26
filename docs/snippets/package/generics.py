@@ -1,3 +1,9 @@
+"""Some module showing generics.
+
+Type Aliases:
+    SomeType: Some type alias.
+"""
+
 type SomeType[Z] = int | list[Z]
 """Some type alias.
 

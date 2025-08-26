@@ -63,6 +63,7 @@ Context:
           This block renders the labels for the type alias.
           -#}
           {% with labels = type_alias.labels %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "labels"|get_template with context %}
           {% endwith %}
         {% endblock labels %}
@@ -108,6 +109,7 @@ Context:
           This block renders the docstring for the type alias.
           -#}
           {% with docstring_sections = type_alias.docstring.parsed %}
+            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
             {% include "docstring"|get_template with context %}
           {% endwith %}
         {% endblock docstring %}
