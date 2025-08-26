@@ -287,7 +287,6 @@ For example, to use single letters instead of truncated types:
       content: "T";
     }
 
-
     #preview-symbol-names .doc-symbol-module::after {
       content: "M";
     }
