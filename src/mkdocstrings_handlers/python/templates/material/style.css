@@ -193,7 +193,7 @@ a code.doc-symbol-type_alias {
 }
 
 code.doc-symbol-type_alias::after {
-  content: "alias";
+  content: "type";
 }
 
 code.doc-symbol-module,

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 import random
 import re
 import string
@@ -162,16 +163,16 @@ def do_format_signature(
         The same code, formatted.
     """
     env = context.environment
-    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
     type_params_template = env.get_template(do_get_template(env, "type_parameters"))
+    # YORE: Bump 2: Replace `do_get_template(env, "signature")` with `"signature.html.jinja"` within line.
     signature_template = env.get_template(do_get_template(env, "signature"))
 
     if annotations is None:
         new_context = context.parent
     else:
         new_context = dict(context.parent)
-        new_context["config"] = dict(new_context["config"])
-        new_context["config"]["show_signature_annotations"] = annotations
+        new_context["config"] = replace(new_context["config"], show_signature_annotations=annotations)
 
     signature = type_params_template.render(context.parent, obj=function, signature=True)
     signature += signature_template.render(new_context, function=function, signature=True)
@@ -287,8 +288,9 @@ def do_format_type_alias(
         The same code, formatted.
     """
     env = context.environment
-    # TODO: Stop using `do_get_template` when `*.html` templates are removed.
+    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
     type_params_template = env.get_template(do_get_template(env, "type_parameters"))
+    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"` within line.
     expr_template = env.get_template(do_get_template(env, "expression"))
 
     signature = str(type_alias_path).strip()
