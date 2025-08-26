@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.18.0](https://github.com/mkdocstrings/python/releases/tag/1.18.0) - 2025-08-26
+
+<small>[Compare with 1.17.0](https://github.com/mkdocstrings/python/compare/1.17.0...1.18.0)</small>
+
+### Features
+
+- Support PEP 695 generics ([dc8c3ad](https://github.com/mkdocstrings/python/commit/dc8c3adb23b37add6601de9e74085f76e5fc9ee5) by Victor Westerhuis). [PR-221](https://github.com/mkdocstrings/python/pull/221), Co-authored-by: Timothée Mazzucotelli <dev@pawamoy.fr>
+
+### Bug Fixes
+
+- Increase maximum recursion limit in case of deeply nested ASTs (rare occurrence) ([6004ccf](https://github.com/mkdocstrings/python/commit/6004ccf3576c7a20e21c880bb2235b7b426ba382) by Timothée Mazzucotelli). [Issue-griffe-402](https://github.com/mkdocstrings/griffe/issues/402)
+
 ## [1.17.0](https://github.com/mkdocstrings/python/releases/tag/1.17.0) - 2025-08-14
 
 <small>[Compare with 1.16.12](https://github.com/mkdocstrings/python/compare/1.16.12...1.17.0)</small>
