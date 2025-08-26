@@ -697,6 +697,7 @@ type parameters of `__init__` methods merged in their parent class with the
 Contents, and an entry in the generated objects inventory. The permalink and
 inventory entry allow cross-references from internal and external pages.
 
+<!-- TODO: Update when https://github.com/mkdocstrings/griffe/issues/404 is solved.
 The identifier used in the permalink and inventory is of the following form:
 `path.to.function:type_param_name`. To manually cross-reference a parameter,
 you can therefore use this Markdown syntax:
@@ -709,6 +710,7 @@ you can therefore use this Markdown syntax:
 - Type variable tuple: [`*Args`][package.module.function[*Args\]]
 - Parameter specification: [`**Params`][package.module.function[**Params\]]
 ```
+-->
 
 Enabling this option along with [`signature_crossrefs`][] will automatically
 render cross-references to type parameters in class/function/method/type alias

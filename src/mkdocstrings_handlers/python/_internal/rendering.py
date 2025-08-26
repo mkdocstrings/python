@@ -191,10 +191,12 @@ def do_format_signature(
     # Pygments sees it as a function call and not a function definition.
     # The result is that the function name is not parsed as such,
     # but instead as a regular name: `n` CSS class instead of `nf`.
-    # To fix it, we replace the first occurrence of an `n` CSS class
-    # with an `nf` one, unless we found `nf` already.
-    if signature.find('class="nf"') == -1:
-        signature = signature.replace('class="n"', 'class="nf"', 1)
+    # When the function name is a known special name like `__exit__`,
+    # Pygments will set an `fm` (function -> magic) CSS class.
+    # To fix this, we replace the CSS class in the first span with `nf`,
+    # unless we already found an `nf` span.
+    if not re.search(r'<span class="nf">', signature):
+        signature = re.sub(r'<span class="[a-z]{1,2}">', '<span class="nf">', signature, count=1)
 
     if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
@@ -306,14 +308,14 @@ def do_format_type_alias(
     )
 
     # Since we highlight the signature without `type`,
-    # Pygments sees only an assignment, not a type alias definition.
-    # (At the moment it does not understand type alias definitions anyway)
+    # Pygments sees only an assignment, not a type alias definition
+    # (at the moment it does not understand type alias definitions anyway).
     # The result is that the type alias name is not parsed as such,
     # but instead as a regular name: `n` CSS class instead of `nc`.
     # To fix it, we replace the first occurrence of an `n` CSS class
     # with an `nc` one, unless we found `nc` already.
-    if signature.find('class="nc"') == -1:
-        signature = signature.replace('class="n"', 'class="nc"', 1)
+    if not re.search(r'<span class="nc">', signature):
+        signature = re.sub(r'<span class="[a-z]{1,2}">', '<span class="nc">', signature, count=1)
 
     if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
