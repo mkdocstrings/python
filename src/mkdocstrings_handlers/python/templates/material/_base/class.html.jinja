@@ -56,15 +56,9 @@ Context:
             {% with function = all_members["__init__"] %}
               {%+ filter highlight(language="python", inline=True) %}
                 {{ class_name -}}
-                {%- if config.show_signature_annotations and config.show_signature_type_parameters -%}
-                  {# TODO: Merge type parameters instead of concatenating them. #}
+                {%- with obj = function -%}
                   {%- include "type_parameters"|get_template with context -%}
-                  {% if function.is_generic %}
-                    {%- with obj = function -%}
-                      {%- include "type_parameters"|get_template with context -%}
-                    {%- endwith -%}
-                  {%- endif -%}
-                {%- endif -%}
+                {%- endwith -%}
                 {%- include "signature"|get_template with context -%}
               {% endfilter %}
             {% endwith %}
@@ -101,7 +95,6 @@ Context:
         If the `__init__` method or any overloads are generic, they are rendered as methods if
         `merge_init_into_class`, `separate_signature` and `show_signature_type_parameters` are enabled.
         -#}
-        {# TODO: Merge type parameters of class and its `__init__` method. #}
         {% if config.merge_init_into_class and "__init__" in all_members %}
           {% with function = all_members["__init__"] %}
             {% if function.overloads and config.show_overloads %}

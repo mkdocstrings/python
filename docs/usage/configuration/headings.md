@@ -246,232 +246,76 @@ plugins:
 /// admonition | Preview: Cross-references
     type: preview
 
-<div class="doc doc-object doc-function">
-  <h3 id="package.set_element" class="doc doc-heading">
-    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code> <span
-      class="doc doc-object-name doc-function-name"><mark data-md-highlight="">set_e</mark>lement</span>
-    <a href="#package.set_element" class="headerlink" title="Permanent link">¤</a>
-  </h3>
-  <div class="language-python doc-signature highlight">
-    <pre id="__code_10"><span></span><button class="md-clipboard md-icon" title="Copy to clipboard" data-clipboard-target="#__code_10 > code"></button><code><span class="nf"><mark data-md-highlight="">set_e</mark>lement</span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" href="#package.set_element:T">T</a></span><span class="p">](</span><span class="n"><a class="autorefs autorefs-internal" href="#package.set_element(element)">element</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-</code></pre>
-  </div>
-  <div class="doc doc-contents first">
-    <p>Set element.</p>
-    <p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-      <li class="doc-section-item field-body">
-        <h4 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter"> <b><code>element</code></b>
-          <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
-        </h4>
-        (<code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>)
-        –
-        <div class="doc-md-description">
-          <p>The element to set.</p>
-        </div>
-      </li>
-    </ul>
-    <p><span class="doc-section-title">Type Parameters:</span></p>
-    <ul>
-      <li class="doc-section-item field-body">
-        <h4 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <b><code>T</code></b>
-          <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
-        </h4> –
-        <div class="doc-md-description">
-          <p>The type of the element.</p>
-        </div>
-      </li>
-    </ul>
-  </div>
-</div>
+```md exec="on"
+::: package.MagicBag
+    options:
+      heading_level: 3
+      docstring_section_style: list
+      show_bases: true
+      summary: false
+      separate_signature: true
+      type_parameter_headings: true
+```
 
 ///
 
-/// admonition | Preview: Type parameters sections
+/// admonition | Preview: Type parameter sections
     type: preview
 
 //// tab | Table style
-<div class="doc doc-object doc-function">
-  <div class="doc doc-contents first">
-    <p><span class="doc-section-title">Parameters:</span></p>
-    <div class="md-typeset__scrollwrap">
-      <div class="md-typeset__table">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Default</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="doc-section-item">
-              <td>
-                <h3 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter">
-                  <code>element</code>
-                  <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
-                </h3>
-              </td>
-              <td>
-                <code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>
-              </td>
-              <td>
-                <div class="doc-md-description">
-                  <p>The element to set.</p>
-                </div>
-              </td>
-              <td>
-                <em>required</em>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p><span class="doc-section-title">Type Parameters:</span></p>
-    <div class="md-typeset__scrollwrap">
-      <div class="md-typeset__table">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Bound or Constraints</th>
-              <th>Description</th>
-              <th>Default</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="doc-section-item">
-              <td>
-                <h3 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <code>T</code>
-                  <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
-                </h3>
-              </td>
-              <td>
-              </td>
-              <td>
-                <div class="doc-md-description">
-                  <p>The type of the element.</p>
-                </div>
-              </td>
-              <td>
-                <em>required</em>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+```md exec="on"
+::: package.MagicBag
+    options:
+      members: false
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: table
+      show_docstring_description: false
+      show_docstring_parameters: false
+      show_docstring_returns: false
+```
 ////
 
 //// tab | List style
-<div class="doc doc-object doc-function">
-  <div class="doc doc-contents first">
-    <p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-      <li class="doc-section-item field-body">
-        <h3 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter"> <b><code>element</code></b>
-          <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
-        </h3>
-        (<code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>)
-        –
-        <div class="doc-md-description">
-          <p>The element to set.</p>
-        </div>
-      </li>
-    </ul>
-    <p><span class="doc-section-title">Type Parameters:</span></p>
-    <ul>
-      <li class="doc-section-item field-body">
-        <h3 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <b><code>T</code></b>
-          <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
-        </h3> –
-        <div class="doc-md-description">
-          <p>The type of the element.</p>
-        </div>
-      </li>
-    </ul>
-  </div>
-</div>
+```md exec="on"
+::: package.MagicBag
+    options:
+      members: false
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: list
+      show_docstring_description: false
+      show_docstring_parameters: false
+      show_docstring_returns: false
+```
 ////
 
 //// tab | Spacy style
-<div class="doc doc-object doc-function">
-  <div class="doc doc-contents first">
-    <div class="md-typeset__scrollwrap">
-      <div class="md-typeset__table">
-        <table>
-          <thead>
-            <tr>
-              <th><span class="doc-section-title">PARAMETER</span></th>
-              <th><span>DESCRIPTION</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="doc-section-item">
-              <td>
-                <h3 id="package.set_element(element)" class="doc doc-heading doc-heading-parameter">
-                  <code>element</code>
-                  <a href="#package.set_element(element)" class="headerlink" title="Permanent link">¤</a>
-                </h3>
-              </td>
-              <td class="doc-param-details">
-                <div class="doc-md-description">
-                  <p>The element to set.</p>
-                </div>
-                <p>
-                  <span class="doc-param-annotation">
-                    <b>TYPE:</b>
-                    <code><a class="autorefs autorefs-internal" title="package.set_element:T" href="#package.set_element:T">T</a></code>
-                  </span>
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="md-typeset__scrollwrap">
-      <div class="md-typeset__table">
-        <table>
-          <thead>
-            <tr>
-              <th><span class="doc-section-title">TYPE PARAMETER</span></th>
-              <th><span>DESCRIPTION</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="doc-section-item">
-              <td>
-                <h3 id="package.set_element:T" class="doc doc-heading doc-heading-type_parameter"> <code>T</code>
-                  <a href="#package.set_element:T" class="headerlink" title="Permanent link">¤</a>
-                </h3>
-              </td>
-              <td class="doc-type_param-details">
-                <div class="doc-md-description">
-                  <p>The type of the element.</p>
-                </div>
-                <p>
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+```md exec="on"
+::: package.MagicBag
+    options:
+      members: false
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: spacy
+      show_docstring_description: false
+      show_docstring_parameters: false
+      show_docstring_returns: false
+```
 ////
 ///
 
 /// admonition | Preview: Table of contents (with symbol types)
     type: preview
 
-<code class="doc-symbol doc-symbol-toc doc-symbol-function"></code> set_element<br>
-<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter" style="margin-left: 16px;"></code> T
+<code class="doc-symbol doc-symbol-toc doc-symbol-function"></code> mutate<br>
+<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter" style="margin-left: 16px;"></code> U
 
 To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
 
