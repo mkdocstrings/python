@@ -65,10 +65,8 @@ Context:
               {% endfilter %}
             {% endwith %}
           {% else %}
-            {%+ filter highlight(language="python", inline=True) %}
-              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
-              {{ class_name }}{% include "type_parameters"|get_template with context %}
-            {% endfilter %}
+            {# TODO: Maybe render type parameters here. #}
+            <code>{{ class_name }}</code>
           {% endif %}
         {% endblock heading %}
 

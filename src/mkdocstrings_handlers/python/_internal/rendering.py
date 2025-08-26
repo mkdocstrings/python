@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from dataclasses import replace
 import random
 import re
 import string
@@ -11,6 +10,7 @@ import sys
 import warnings
 from collections import defaultdict
 from contextlib import suppress
+from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
 from re import Match, Pattern
