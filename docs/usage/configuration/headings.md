@@ -254,6 +254,7 @@ plugins:
       show_bases: true
       summary: false
       separate_signature: true
+      show_signature_type_parameters: true
       type_parameter_headings: true
 ```
 
