@@ -28,7 +28,10 @@ from griffe import (
     DocstringSectionClasses,
     DocstringSectionFunctions,
     DocstringSectionModules,
+    DocstringSectionTypeAliases,
+    DocstringTypeAlias,
     Object,
+    TypeAlias,
 )
 from jinja2 import TemplateNotFound, pass_context, pass_environment
 from markupsafe import Markup
@@ -160,8 +163,10 @@ def do_format_signature(
         The same code, formatted.
     """
     env = context.environment
+    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
+    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
     # YORE: Bump 2: Replace `do_get_template(env, "signature")` with `"signature.html.jinja"` within line.
-    template = env.get_template(do_get_template(env, "signature"))
+    signature_template = env.get_template(do_get_template(env, "signature"))
 
     if annotations is None:
         new_context = context.parent
@@ -169,7 +174,9 @@ def do_format_signature(
         new_context = dict(context.parent)
         new_context["config"] = replace(new_context["config"], show_signature_annotations=annotations)
 
-    signature = template.render(new_context, function=function, signature=True)
+    signature = type_params_template.render(context.parent, obj=function, signature=True)
+    signature += signature_template.render(new_context, function=function, signature=True)
+
     signature = _format_signature(callable_path, signature, line_length)
     signature = str(
         env.filters["highlight"](
@@ -250,6 +257,67 @@ def do_format_attribute(
             linenums=False,
         ),
     )
+
+    if stash := env.filters["stash_crossref"].stash:
+        for key, value in stash.items():
+            signature = re.sub(rf"\b{key}\b", value, signature)
+        stash.clear()
+
+    return signature
+
+
+@pass_context
+def do_format_type_alias(
+    context: Context,
+    type_alias_path: Markup,
+    type_alias: TypeAlias,
+    line_length: int,
+    *,
+    crossrefs: bool = False,  # noqa: ARG001
+) -> str:
+    """Format a type alias.
+
+    Parameters:
+        context: Jinja context, passed automatically.
+        type_alias_path: The path of the type alias we render the signature of.
+        type_alias: The type alias we render the signature of.
+        line_length: The line length.
+        crossrefs: Whether to cross-reference types in the signature.
+
+    Returns:
+        The same code, formatted.
+    """
+    env = context.environment
+    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
+    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
+    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"` within line.
+    expr_template = env.get_template(do_get_template(env, "expression"))
+
+    signature = str(type_alias_path).strip()
+    signature += type_params_template.render(context.parent, obj=type_alias, signature=True)
+    value = expr_template.render(context.parent, expression=type_alias.value, signature=True)
+    signature += f" = {value}"
+
+    signature = do_format_code(signature, line_length)
+    signature = str(
+        env.filters["highlight"](
+            Markup.escape(signature),
+            language="python",
+            inline=False,
+            classes=["doc-signature"],
+            linenums=False,
+        ),
+    )
+
+    # Since we highlight the signature without `type`,
+    # Pygments sees only an assignment, not a type alias definition
+    # (at the moment it does not understand type alias definitions anyway).
+    # The result is that the type alias name is not parsed as such,
+    # but instead as a regular name: `n` CSS class instead of `nc`.
+    # To fix it, we replace the first occurrence of an `n` CSS class
+    # with an `nc` one, unless we found `nc` already.
+    if not re.search(r'<span class="nc">', signature):
+        signature = re.sub(r'<span class="[a-z]{1,2}">', '<span class="nc">', signature, count=1)
 
     if stash := env.filters["stash_crossref"].stash:
         for key, value in stash.items():
@@ -592,7 +660,7 @@ def do_get_template(env: Environment, obj: str | Object) -> str:
         extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
         if name := extra_data.get("template", ""):
             return name
-        name = obj.kind.value
+        name = obj.kind.value.replace(" ", "_")
     # YORE: Bump 2: Replace block with `return f"{name}.html.jinja"`.
     try:
         template = env.get_template(f"{name}.html")
@@ -728,6 +796,34 @@ def do_as_modules_section(
             )
             for module in modules
             if not check_public or module.is_public
+        ],
+    )
+
+
+@pass_context
+def do_as_type_aliases_section(
+    context: Context,  # noqa: ARG001
+    type_aliases: Sequence[TypeAlias],
+    *,
+    check_public: bool = True,
+) -> DocstringSectionTypeAliases:
+    """Build a type aliases section from a list of type aliases.
+
+    Parameters:
+        type_aliases: The type aliases to build the section from.
+        check_public: Whether to check if the type_alias is public.
+
+    Returns:
+        A type aliases docstring section.
+    """
+    return DocstringSectionTypeAliases(
+        [
+            DocstringTypeAlias(
+                name=type_alias.name,
+                description=type_alias.docstring.value.split("\n", 1)[0] if type_alias.docstring else "",
+            )
+            for type_alias in type_aliases
+            if not check_public or type_alias.is_public
         ],
     )
 

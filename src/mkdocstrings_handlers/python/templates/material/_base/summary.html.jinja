@@ -13,6 +13,11 @@
     {% include "summary/modules"|get_template with context %}
   {% endif %}
 
+  {% if config.summary.type_aliases %}
+    {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
+    {% include "summary/type_aliases"|get_template with context %}
+  {% endif %}
+
   {% if config.summary.classes %}
     {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
     {% include "summary/classes"|get_template with context %}

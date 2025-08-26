@@ -423,6 +423,15 @@ class SummaryOption:
         ),
     ] = False
 
+    type_aliases: Annotated[
+        bool,
+        _Field(
+            group="members",
+            parent="summary",
+            description="Whether to render summaries of type aliases.",
+        ),
+    ] = False
+
 
 # YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
 @dataclass(**_dataclass_options)  # type: ignore[call-overload]
@@ -797,6 +806,22 @@ class PythonInputOptions:
         ),
     ] = True
 
+    show_docstring_type_aliases: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Type Aliases' section in the object's docstring.",
+        ),
+    ] = True
+
+    show_docstring_type_parameters: Annotated[
+        bool,
+        _Field(
+            group="docstrings",
+            description="Whether to display the 'Type Parameters' section in the object's docstring.",
+        ),
+    ] = True
+
     show_docstring_warns: Annotated[
         bool,
         _Field(
@@ -888,6 +913,14 @@ class PythonInputOptions:
         ),
     ] = False
 
+    show_signature_type_parameters: Annotated[
+        bool,
+        _Field(
+            group="signatures",
+            description="Show the type parameters in generic classes, methods, functions and type aliases signatures.",
+        ),
+    ] = False
+
     show_signature: Annotated[
         bool,
         _Field(
@@ -960,6 +993,14 @@ class PythonInputOptions:
         ),
     ] = ""
 
+    type_parameter_headings: Annotated[
+        bool,
+        _Field(
+            group="headings",
+            description="Whether to render headings for type parameters (therefore showing type parameters in the ToC).",
+        ),
+    ] = False
+
     unwrap_annotated: Annotated[
         bool,
         _Field(
@@ -1001,9 +1042,15 @@ class PythonInputOptions:
         if "summary" in data:
             summary = data["summary"]
             if summary is True:
-                summary = SummaryOption(attributes=True, functions=True, classes=True, modules=True)
+                summary = SummaryOption(attributes=True, functions=True, classes=True, modules=True, type_aliases=True)
             elif summary is False:
-                summary = SummaryOption(attributes=False, functions=False, classes=False, modules=False)
+                summary = SummaryOption(
+                    attributes=False,
+                    functions=False,
+                    classes=False,
+                    modules=False,
+                    type_aliases=False,
+                )
             else:
                 summary = SummaryOption(**summary)
             data["summary"] = summary
@@ -1028,7 +1075,7 @@ class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
     """A list of filters, or `"public"`."""
 
     summary: SummaryOption = field(default_factory=SummaryOption)
-    """Whether to render summaries of modules, classes, functions (methods) and attributes."""
+    """Whether to render summaries of modules, classes, functions (methods), attributes and type aliases."""
 
     @classmethod
     def coerce(cls, **data: Any) -> MutableMapping[str, Any]:

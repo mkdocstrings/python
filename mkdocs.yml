@@ -166,6 +166,7 @@ plugins:
           line_length: 88
           merge_init_into_class: true
           parameter_headings: true
+          type_parameter_headings: true
           preload_modules: [mkdocstrings]
           relative_crossrefs: true
           scoped_crossrefs: true
@@ -175,6 +176,7 @@ plugins:
           show_root_heading: true
           show_root_full_path: false
           show_signature_annotations: true
+          show_signature_type_parameters: true
           show_source: false
           show_symbol_type_heading: true
           show_symbol_type_toc: true

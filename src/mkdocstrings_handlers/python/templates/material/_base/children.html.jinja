@@ -57,6 +57,26 @@ Context:
           {% endif %}
         {% endwith %}
 
+        {% with type_aliases = obj.type_aliases|filter_objects(
+            filters=config.filters,
+            members_list=members_list,
+            inherited_members=config.inherited_members,
+            keep_no_docstrings=config.show_if_no_docstring,
+          ) %}
+          {% if type_aliases %}
+            {% if config.show_category_heading %}
+              {% filter heading(heading_level, id=html_id ~ "-type_aliases") %}Type Aliases{% endfilter %}
+            {% endif %}
+            {% with heading_level = heading_level + extra_level %}
+              {% for type_alias in type_aliases|order_members(config.members_order, members_list) %}
+                {% if config.filters == "public" or members_list is not none or (not type_alias.is_imported or type_alias.is_public) %}
+                  {% include type_alias|get_template with context %}
+                {% endif %}
+              {% endfor %}
+            {% endwith %}
+          {% endif %}
+        {% endwith %}
+
         {% with classes = obj.classes|filter_objects(
             filters=config.filters,
             members_list=members_list,
@@ -141,6 +161,11 @@ Context:
             {% if child.is_attribute %}
               {% with attribute = child %}
                 {% include attribute|get_template with context %}
+              {% endwith %}
+
+            {% elif child.is_type_alias %}
+              {% with type_alias = child %}
+                {% include type_alias|get_template with context %}
               {% endwith %}
 
             {% elif child.is_class %}

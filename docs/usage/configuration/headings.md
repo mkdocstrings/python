@@ -682,3 +682,131 @@ NOTE: **Use with/without `heading`.** If you use this option without specifying 
       heading: "My fancy module"
       toc_label: "My fancy module"
 ```
+
+[](){#option-type_parameter_headings}
+## `type_parameter_headings`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+
+Whether to render headings for generic class, function/method and type alias
+type parameters.
+
+With this option enabled, each type parameter of a generic object (including
+type parameters of `__init__` methods merged in their parent class with the
+[`merge_init_into_class`][] option) gets a permalink, an entry in the Table of
+Contents, and an entry in the generated objects inventory. The permalink and
+inventory entry allow cross-references from internal and external pages.
+
+<!-- TODO: Update when https://github.com/mkdocstrings/griffe/issues/404 is solved.
+The identifier used in the permalink and inventory is of the following form:
+`path.to.function:type_param_name`. To manually cross-reference a parameter,
+you can therefore use this Markdown syntax:
+
+```md
+- Class type parameter: [`Param`][package.module.Class[Param\]]
+- Method type parameter: [`Param`][package.module.Class.method[Param\]]
+- Function type parameter: [`Param`][package.module.function[Param\]]
+- Type alias type parameter: [`Param`][package.module.TypeAlias[Param\]]
+- Type variable tuple: [`*Args`][package.module.function[*Args\]]
+- Parameter specification: [`**Params`][package.module.function[**Params\]]
+```
+-->
+
+Enabling this option along with [`signature_crossrefs`][] will automatically
+render cross-references to type parameters in class/function/method/type alias
+signatures.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          type_parameter_headings: false
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      type_parameter_headings: true
+```
+
+/// admonition | Preview: Cross-references
+    type: preview
+
+```md exec="on"
+::: package.generics
+    options:
+      show_root_heading: false
+      heading_level: 3
+      docstring_section_style: list
+      show_bases: true
+      summary: false
+      separate_signature: true
+      show_signature_type_parameters: true
+      type_parameter_headings: true
+```
+
+///
+
+/// admonition | Preview: Type parameter sections
+    type: preview
+
+//// tab | Table style
+```md exec="on"
+::: package.generics.MagicBag
+    options:
+      members: false
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: table
+      show_docstring_description: false
+      show_docstring_parameters: false
+      show_docstring_returns: false
+```
+////
+
+//// tab | List style
+```md exec="on"
+::: package.generics.MagicBag
+    options:
+      members: false
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: list
+      show_docstring_description: false
+      show_docstring_parameters: false
+      show_docstring_returns: false
+```
+////
+
+//// tab | Spacy style
+```md exec="on"
+::: package.generics.MagicBag
+    options:
+      members: false
+      heading_level: 3
+      show_root_heading: false
+      show_root_toc_entry: false
+      parameter_headings: true
+      docstring_section_style: spacy
+      show_docstring_description: false
+      show_docstring_parameters: false
+      show_docstring_returns: false
+```
+////
+///
+
+/// admonition | Preview: Table of contents (with symbol types)
+    type: preview
+
+<code class="doc-symbol doc-symbol-toc doc-symbol-function"></code> mutate<br>
+<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter" style="margin-left: 16px;"></code> U
+
+To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+
+///

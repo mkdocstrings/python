@@ -430,6 +430,61 @@ function(param1, param2=None)
 ////
 ///
 
+[](){#option-show_signature_type_parameters}
+## `show_signature_type_parameters`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+<!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
+
+Show the type parameters in generic classes, methods, functions and type aliases
+signatures.
+
+Since the heading can become quite long when type parameters are rendered, it is
+usually best to [separate the signature][separate_signature] from the heading.
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          separate_signature: true
+          show_signature_annotations: true
+          show_signature_type_parameters: true
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.module
+    options:
+      separate_signature: true
+      show_signature_annotations: true
+      show_signature_type_parameters: false
+```
+
+/// admonition | Preview
+    type: preview
+
+//// tab | With signature type parameters
+<h2>function</h2>
+
+```python
+function[T, *R](param: T) -> tuple[*R]
+```
+
+<p>Function docstring.</p>
+////
+
+//// tab | Without signature type parameters
+<h2>function</h2>
+
+```python
+function(param: T) -> tuple[*R]
+```
+
+<p>Function docstring.</p>
+////
+///
+
 [](){#option-separate_signature}
 ## `separate_signature`
 

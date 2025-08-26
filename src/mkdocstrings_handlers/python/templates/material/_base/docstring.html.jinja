@@ -32,9 +32,15 @@ Context:
       {% elif config.show_docstring_classes and section.kind.value == "classes" %}
         {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/classes"|get_template with context %}
+      {% elif config.show_docstring_type_aliases and section.kind.value == "type aliases" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
+        {% include "docstring/type_aliases"|get_template with context %}
       {% elif config.show_docstring_modules and section.kind.value == "modules" %}
         {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/modules"|get_template with context %}
+      {% elif config.show_docstring_type_parameters and section.kind.value == "type parameters" %}
+        {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
+        {% include "docstring/type_parameters"|get_template with context %}
       {% elif config.show_docstring_parameters and section.kind.value == "parameters" %}
         {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
         {% include "docstring/parameters"|get_template with context %}

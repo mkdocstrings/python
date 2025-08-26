@@ -61,8 +61,10 @@ Context:
             <span class="doc doc-object-name doc-function-name">{{ function_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) -%}
-              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
-              {{ function_name }}{% include "signature"|get_template with context %}
+              {{ function_name }}
+              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within block. -#}
+              {%- include "type_parameters"|get_template with context -%}
+              {%- include "signature"|get_template with context -%}
             {%- endfilter %}
           {% endif %}
         {% endblock heading %}

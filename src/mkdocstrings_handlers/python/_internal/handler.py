@@ -322,12 +322,14 @@ class PythonHandler(BaseHandler):
         self.env.filters["format_code"] = rendering.do_format_code
         self.env.filters["format_signature"] = rendering.do_format_signature
         self.env.filters["format_attribute"] = rendering.do_format_attribute
+        self.env.filters["format_type_alias"] = rendering.do_format_type_alias
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = rendering.do_stash_crossref
         self.env.filters["get_template"] = rendering.do_get_template
         self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section
         self.env.filters["as_classes_section"] = rendering.do_as_classes_section
+        self.env.filters["as_type_aliases_section"] = rendering.do_as_type_aliases_section
         self.env.filters["as_modules_section"] = rendering.do_as_modules_section
         self.env.filters["backlink_tree"] = rendering.do_backlink_tree
         self.env.globals["AutorefsHook"] = rendering.AutorefsHook
