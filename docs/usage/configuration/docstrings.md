@@ -623,7 +623,7 @@ class ClassWithoutDocstring:
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-Whether to render the "Attributes" sections of docstrings.
+Whether to render the "Attributes" section of docstrings.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -676,7 +676,7 @@ class Class:
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-Whether to render the "Functions" or "Methods" sections of docstrings.
+Whether to render the "Functions" or "Methods" section of docstrings.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -751,7 +751,7 @@ class Class:
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-Whether to render the "Classes" sections of docstrings.
+Whether to render the "Classes" section of docstrings.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -809,7 +809,7 @@ class Class:
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
 
-Whether to render the "Type Aliases" sections of docstrings.
+Whether to render the "Type Aliases" section of docstrings.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -868,7 +868,7 @@ type TypeAlias = int
 - **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
-Whether to render the "Modules" sections of docstrings.
+Whether to render the "Modules" section of docstrings.
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
