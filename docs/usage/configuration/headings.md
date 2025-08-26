@@ -733,8 +733,9 @@ plugins:
     type: preview
 
 ```md exec="on"
-::: package.generics.MagicBag
+::: package.generics
     options:
+      show_root_heading: false
       heading_level: 3
       docstring_section_style: list
       show_bases: true

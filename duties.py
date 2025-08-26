@@ -93,7 +93,7 @@ def check_quality(ctx: Context) -> None:
     )
 
 
-@duty
+@duty(skip_if=sys.version_info < (3, 13), skip_reason=pyprefix("Skipped: docs require modern generics syntax"))
 def check_docs(ctx: Context) -> None:
     """Check if the documentation builds correctly."""
     Path("htmlcov").mkdir(parents=True, exist_ok=True)
@@ -128,7 +128,7 @@ def check_api(ctx: Context, *cli_args: str) -> None:
     )
 
 
-@duty
+@duty(skip_if=sys.version_info < (3, 13), skip_reason=pyprefix("Skipped: docs require modern generics syntax"))
 def docs(ctx: Context, *cli_args: str, host: str = "127.0.0.1", port: int = 8000) -> None:
     """Serve the documentation (localhost:8000).
 
@@ -144,7 +144,7 @@ def docs(ctx: Context, *cli_args: str, host: str = "127.0.0.1", port: int = 8000
         )
 
 
-@duty
+@duty(skip_if=sys.version_info < (3, 13), skip_reason=pyprefix("Skipped: docs require modern generics syntax"))
 def docs_deploy(ctx: Context, *, force: bool = False) -> None:
     """Deploy the documentation to GitHub pages.
 

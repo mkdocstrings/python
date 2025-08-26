@@ -1,3 +1,11 @@
+type SomeType[Z] = int | list[Z]
+"""Some type alias.
+
+Type parameters:
+    Z: Some type parameter.
+"""
+
+
 class MagicBag[T: (str, bytes) = str](list[T]):
     """A magic bag of items.
 
