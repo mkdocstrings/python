@@ -744,6 +744,7 @@ plugins:
       summary: false
       separate_signature: true
       show_signature_type_parameters: true
+      show_inheritance_diagram: false
       type_parameter_headings: true
 ```
 
@@ -765,6 +766,7 @@ plugins:
       show_docstring_description: false
       show_docstring_parameters: false
       show_docstring_returns: false
+      show_inheritance_diagram: false
 ```
 ////
 
@@ -781,6 +783,7 @@ plugins:
       show_docstring_description: false
       show_docstring_parameters: false
       show_docstring_returns: false
+      show_inheritance_diagram: false
 ```
 ////
 
@@ -797,6 +800,7 @@ plugins:
       show_docstring_description: false
       show_docstring_parameters: false
       show_docstring_returns: false
+      show_inheritance_diagram: false
 ```
 ////
 ///
