@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.18.1](https://github.com/mkdocstrings/python/releases/tag/1.18.1) - 2025-08-28
+
+<small>[Compare with 1.18.0](https://github.com/mkdocstrings/python/compare/1.18.0...1.18.1)</small>
+
+### Bug Fixes
+
+- Don't show implementation signature of `__init__` method when `overloads_only` is true and it is merged into the class ([9ef620f](https://github.com/mkdocstrings/python/commit/9ef620f2b1ae80b3711a2e84ab12d7d2c4a2dbdd) by Timothée Mazzucotelli). [Issue-308](https://github.com/mkdocstrings/python/issues/308)
+
 ## [1.18.0](https://github.com/mkdocstrings/python/releases/tag/1.18.0) - 2025-08-26
 
 <small>[Compare with 1.17.0](https://github.com/mkdocstrings/python/compare/1.17.0...1.18.0)</small>
