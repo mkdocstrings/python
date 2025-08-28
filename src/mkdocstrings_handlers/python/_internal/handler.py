@@ -295,7 +295,7 @@ class PythonHandler(BaseHandler):
         return template.render(
             **{
                 "config": options,
-                data.kind.value: data,
+                data.kind.value.replace(" ", "_"): data,
                 # Heading level is a "state" variable, that will change at each step
                 # of the rendering recursion. Therefore, it's easier to use it as a plain value
                 # than as an item in a dictionary.
