@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.18.2](https://github.com/mkdocstrings/python/releases/tag/1.18.2) - 2025-08-28
+
+<small>[Compare with 1.18.1](https://github.com/mkdocstrings/python/compare/1.18.1...1.18.2)</small>
+
+### Bug Fixes
+
+- Normalize spaces to underscores when passing object to rendering context using its kind as key ([6f79be0](https://github.com/mkdocstrings/python/commit/6f79be0ea83522021e16e5d401209e58576ef93a) by Timothée Mazzucotelli). [Issue-mkdocstrings-791](https://github.com/mkdocstrings/mkdocstrings/issues/791)
+
 ## [1.18.1](https://github.com/mkdocstrings/python/releases/tag/1.18.1) - 2025-08-28
 
 <small>[Compare with 1.18.0](https://github.com/mkdocstrings/python/compare/1.18.0...1.18.1)</small>
