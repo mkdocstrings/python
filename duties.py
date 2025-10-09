@@ -26,6 +26,8 @@ CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
 WINDOWS = os.name == "nt"
 PTY = not WINDOWS and not CI
 MULTIRUN = os.environ.get("MULTIRUN", "0") == "1"
+PY_VERSION = f"{sys.version_info.major}{sys.version_info.minor}"
+PY_DEV = "314"
 
 
 def pyprefix(title: str) -> str:
@@ -84,7 +86,7 @@ def check(ctx: Context) -> None:
     """Check it all!"""
 
 
-@duty
+@duty(nofail=PY_VERSION == PY_DEV)
 def check_quality(ctx: Context) -> None:
     """Check the code quality."""
     ctx.run(
@@ -93,7 +95,7 @@ def check_quality(ctx: Context) -> None:
     )
 
 
-@duty(skip_if=sys.version_info < (3, 13), skip_reason=pyprefix("Skipped: docs require modern generics syntax"))
+@duty(nofail=PY_VERSION == PY_DEV, skip_if=sys.version_info < (3, 13), skip_reason=pyprefix("Skipped: docs require modern generics syntax"))
 def check_docs(ctx: Context) -> None:
     """Check if the documentation builds correctly."""
     Path("htmlcov").mkdir(parents=True, exist_ok=True)
@@ -105,7 +107,7 @@ def check_docs(ctx: Context) -> None:
         )
 
 
-@duty
+@duty(nofail=PY_VERSION == PY_DEV)
 def check_types(ctx: Context) -> None:
     """Check that the code is correctly typed."""
     os.environ["MYPYPATH"] = "src"
@@ -118,7 +120,7 @@ def check_types(ctx: Context) -> None:
     )
 
 
-@duty
+@duty(nofail=PY_VERSION == PY_DEV)
 def check_api(ctx: Context, *cli_args: str) -> None:
     """Check for API breaking changes."""
     ctx.run(
@@ -239,7 +241,7 @@ def coverage(ctx: Context) -> None:
     ctx.run(tools.coverage.html(rcfile="config/coverage.ini"))
 
 
-@duty
+@duty(nofail=PY_VERSION == PY_DEV)
 def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "report") -> None:  # noqa: PT028
     """Run the test suite.
 
@@ -247,17 +249,23 @@ def test(ctx: Context, *cli_args: str, match: str = "", snapshot: str = "report"
         match: A pytest expression to filter selected tests.
         snapshot: Whether to "create", "fix", "trim", or "update" snapshots.
     """
-    py_version = f"{sys.version_info.major}{sys.version_info.minor}"
-    os.environ["COVERAGE_FILE"] = f".coverage.{py_version}"
+    os.environ["COVERAGE_FILE"] = f".coverage.{PY_VERSION}"
+    os.environ["PYTHONWARNDEFAULTENCODING"] = "1"
     args = list(cli_args)
     if snapshot == "disable" or not snapshot:
         args = ["-n", "auto", "--inline-snapshot=disable"]
     else:
         args = [f"--inline-snapshot={snapshot}"]
+
+    config_file = "config/pytest.ini"
+    # YORE: EOL 3.9: Remove block.
+    if sys.version_info[:2] < (3, 10):
+        config_file = "config/pytest_39.ini"
+
     ctx.run(
         tools.pytest(
             "tests",
-            config_file="config/pytest.ini",
+            config_file=config_file,
             select=match,
             color="yes",
         ).add_args(*args),
