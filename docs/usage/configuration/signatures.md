@@ -289,6 +289,8 @@ plugins:
 [](){#option-overloads_only}
 ## `overloads_only`
 
+- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+
 Whether to hide the implementation signature if the overloads are shown with [`show_overloads`][].
 
 ```yaml title="in mkdocs.yml (global configuration)"
@@ -297,7 +299,7 @@ plugins:
     handlers:
       python:
         options:
-          overloads_only: true
+          overloads_only: false
 ```
 
 ```md title="or in docs/some_page.md (local configuration)"
@@ -583,6 +585,8 @@ class SomeClass:
 
 [](){#option-show_overloads}
 ## `show_overloads`
+
+- **:octicons-package-24: Type [`bool`][] :material-equal: `True`{ title="default value" }**
 
 Whether to render function / method overloads.
 
