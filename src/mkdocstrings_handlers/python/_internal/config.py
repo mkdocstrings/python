@@ -1088,11 +1088,7 @@ class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
     @classmethod
     def coerce(cls, **data: Any) -> MutableMapping[str, Any]:
         """Create an instance from a dictionary."""
-        if "filters" in data:
-            # Non-insiders: transform back to default filters.
-            # Next: `if "filters" in data and not isinstance(data["filters"], str):`.
-            if data["filters"] == "public":
-                data["filters"] = _DEFAULT_FILTERS
+        if "filters" in data and not isinstance(data["filters"], str):
             # Filters are `None` or a sequence of strings (tests use tuples).
             data["filters"] = [
                 (re.compile(filtr.removeprefix("!")), filtr.startswith("!")) for filtr in data["filters"] or ()
