@@ -46,3 +46,5 @@ dependencies = [
 - **Admonition support in Google docstrings:** blocks like `Note:` or `Warning:` will be transformed to their [admonition](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) equivalent. *We do not support nested admonitions in docstrings!*
 - **Every object has a TOC entry:** we render a heading for each object, meaning *MkDocs* picks them into the Table of Contents, which is nicely displayed by the Material theme. Thanks to *mkdocstrings* cross-reference ability, you can reference other objects within your docstrings, with the classic Markdown syntax: `[this object][package.module.object]` or directly with `[package.module.object][]`
 - **Source code display:** *mkdocstrings* can add a collapsible div containing the highlighted source code of the Python object.
+
+## Sponsors

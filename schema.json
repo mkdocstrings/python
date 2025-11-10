@@ -421,8 +421,8 @@
               "type": "string"
             }
           ],
-          "description": "A list of filters, or `\"public\"`.\n\n**List of filters**\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).\n\n**Filtering methods**\n\n[:octicons-heart-fill-24:{ .pulse } Sponsors only](../insiders/index.md){ .insiders } &mdash;\n[:octicons-tag-24: Insiders 1.11.0](../insiders/changelog.md#1.11.0)\n\nThe `public` method will include only public objects:\nthose added to `__all__` or not starting with an underscore (except for special methods/attributes).",
-          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#filters)\n\nA list of filters, or `\"public\"`.\n\n**List of filters**\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).\n\n**Filtering methods**\n\n[:octicons-heart-fill-24:{ .pulse } Sponsors only](../insiders/index.md){ .insiders } &mdash;\n[:octicons-tag-24: Insiders 1.11.0](../insiders/changelog.md#1.11.0)\n\nThe `public` method will include only public objects:\nthose added to `__all__` or not starting with an underscore (except for special methods/attributes).",
+          "description": "A list of filters, or `\"public\"`.\n\n**List of filters**\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).\n\n**Filtering methods**\n\nThe `public` method will include only public objects:\nthose added to `__all__` or not starting with an underscore (except for special methods/attributes).",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#filters)\n\nA list of filters, or `\"public\"`.\n\n**List of filters**\n\nA filter starting with `!` will exclude matching objects instead of including them.\nThe `members` option takes precedence over `filters` (filters will still be applied recursively\nto lower members in the hierarchy).\n\n**Filtering methods**\n\nThe `public` method will include only public objects:\nthose added to `__all__` or not starting with an underscore (except for special methods/attributes).",
           "title": "filters"
         },
         "find_stubs_package": {
@@ -452,6 +452,20 @@
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#heading_level)\n\nThe initial heading level to use.",
           "title": "heading_level",
           "type": "integer"
+        },
+        "inheritance_diagram_direction": {
+          "default": "TD",
+          "description": "The direction of the Mermaid chart presenting the inheritance diagram of a class.",
+          "enum": [
+            "TB",
+            "TD",
+            "BT",
+            "RL",
+            "LR"
+          ],
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#inheritance_diagram_direction)\n\nThe direction of the Mermaid chart presenting the inheritance diagram of a class.",
+          "title": "inheritance_diagram_direction",
+          "type": "string"
         },
         "inherited_members": {
           "anyOf": [
@@ -687,6 +701,20 @@
           "title": "show_docstring_returns",
           "type": "boolean"
         },
+        "show_docstring_type_aliases": {
+          "default": true,
+          "description": "Whether to display the 'Type Aliases' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_type_aliases)\n\nWhether to display the 'Type Aliases' section in the object's docstring.",
+          "title": "show_docstring_type_aliases",
+          "type": "boolean"
+        },
+        "show_docstring_type_parameters": {
+          "default": true,
+          "description": "Whether to display the 'Type Parameters' section in the object's docstring.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/docstrings/#show_docstring_type_parameters)\n\nWhether to display the 'Type Parameters' section in the object's docstring.",
+          "title": "show_docstring_type_parameters",
+          "type": "boolean"
+        },
         "show_docstring_warns": {
           "default": true,
           "description": "Whether to display the 'Warns' section in the object's docstring.",
@@ -764,6 +792,13 @@
           "title": "show_signature_annotations",
           "type": "boolean"
         },
+        "show_signature_type_parameters": {
+          "default": false,
+          "description": "Show the type parameters in generic classes, methods, functions and type aliases signatures.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/signatures/#show_signature_type_parameters)\n\nShow the type parameters in generic classes, methods, functions and type aliases signatures.",
+          "title": "show_signature_type_parameters",
+          "type": "boolean"
+        },
         "show_signature": {
           "default": true,
           "description": "Show methods and functions signatures.",
@@ -832,6 +867,13 @@
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#toc_label)\n\nA custom string to override the autogenerated toc label of the root object.",
           "title": "toc_label",
           "type": "string"
+        },
+        "type_parameter_headings": {
+          "default": false,
+          "description": "Whether to render headings for type parameters (therefore showing type parameters in the ToC).",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/headings/#type_parameter_headings)\n\nWhether to render headings for type parameters (therefore showing type parameters in the ToC).",
+          "title": "type_parameter_headings",
+          "type": "boolean"
         },
         "unwrap_annotated": {
           "default": false,
@@ -908,6 +950,13 @@
           "description": "Whether to render summaries of modules.",
           "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#summary)\n\nWhether to render summaries of modules.",
           "title": "modules",
+          "type": "boolean"
+        },
+        "type_aliases": {
+          "default": false,
+          "description": "Whether to render summaries of type aliases.",
+          "markdownDescription": "[DOCUMENTATION](https://mkdocstrings.github.io/python/usage/configuration/members/#summary)\n\nWhether to render summaries of type aliases.",
+          "title": "type_aliases",
           "type": "boolean"
         }
       },
