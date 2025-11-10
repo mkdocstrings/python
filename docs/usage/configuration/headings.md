@@ -469,12 +469,15 @@ plugins:
 [](){#option-show_category_heading}
 ## `show_category_heading`
 
-- **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
+- **:octicons-package-24: Type [`str|bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 When [grouped by categories][group_by_category], show a heading for each category.
 These category headings will appear in the table of contents,
 allowing you to link to them using their permalinks.
+
+`show_category_heading` can be enabled selectively for individual object types by specifying either `mod` or `class`.
+When specified, category headings will only be shown for the chosen type.
 
 WARNING: **Not recommended with deeply nested objects.**
 When injecting documentation for deeply nested objects,
