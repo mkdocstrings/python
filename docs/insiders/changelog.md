@@ -2,7 +2,11 @@
 
 ## mkdocstrings-python Insiders
 
-### 1.12.0 <small>March 22, 2025</small> { id="1.12.0" }
+### 1.12.1 <small>May 24, 2025</small> { id="1.12.1" }
+
+- Visually-lighter admonitions for source code blocks
+
+### 1.12.0 <small>March 24, 2025</small> { id="1.12.0" }
 
 - [Ordering method: `__all__`][option-members_order]
 
@@ -13,6 +17,11 @@
 ### 1.10.0 <small>March 10, 2025</small> { id="1.10.0" }
 
 - [Backlinks][backlinks]
+
+### 1.9.1 <small>December 26, 2024</small> { id="1.9.1" }
+
+- Re-add class template for RTD theme
+- Make inheritance diagrams rendering more robust
 
 ### 1.9.0 <small>September 03, 2024</small> { id="1.9.0" }
 

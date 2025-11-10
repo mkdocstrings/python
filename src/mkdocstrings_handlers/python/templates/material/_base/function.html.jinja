@@ -149,7 +149,7 @@ Context:
           This block renders the source code for the function.
           -#}
           {% if config.show_source and function.source %}
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>{{ lang.t("Source code in") }} <code>
                 {%- if function.relative_filepath.is_absolute() -%}
                   {{ function.relative_package_filepath }}

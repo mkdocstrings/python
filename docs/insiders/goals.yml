@@ -50,4 +50,6 @@ goals:
       since: 2025/03/20
     - name: "Ordering method: `__all__`"
       ref: /usage/configuration/members/#option-members_order
-      since: 2025/03/22
+      since: 2025/03/24
+    - name: "Visually-lighter source code blocks"
+      since: 2025/05/24
