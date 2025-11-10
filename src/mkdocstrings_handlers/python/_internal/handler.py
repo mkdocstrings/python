@@ -22,15 +22,17 @@ from griffe import (
     patch_loggers,
 )
 from mkdocs.exceptions import PluginError
+from mkdocs_autorefs import BacklinkCrumb
 from mkdocstrings import BaseHandler, CollectionError, CollectorItem, HandlerOptions, Inventory, get_logger
 
 from mkdocstrings_handlers.python._internal import rendering
 from mkdocstrings_handlers.python._internal.config import PythonConfig, PythonOptions
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator, Mapping, MutableMapping, Sequence
+    from collections.abc import Iterable, Iterator, Mapping, MutableMapping, Sequence
 
     from mkdocs.config.defaults import MkDocsConfig
+    from mkdocs_autorefs import Backlink
 
 
 # YORE: EOL 3.10: Replace block with line 2.
@@ -304,6 +306,24 @@ class PythonHandler(BaseHandler):
                 # YORE: Bump 2: Regex-replace ` or .+` with ` or "en",` within line.
                 "locale": locale or self.config.locale,
             },
+        )
+
+    def render_backlinks(self, backlinks: Mapping[str, Iterable[Backlink]], *, locale: str | None = None) -> str:  # noqa: ARG002
+        """Render the backlinks.
+
+        Parameters:
+            backlinks: The backlinks to render.
+
+        Returns:
+            The rendered backlinks (HTML).
+        """
+        template = self.env.get_template("backlinks.html.jinja")
+        verbose_type = {key: key.capitalize().replace("-by", " by") for key in backlinks.keys()}  # noqa: SIM118
+        return template.render(
+            backlinks=backlinks,
+            config=self.get_options({}),
+            verbose_type=verbose_type,
+            default_crumb=BacklinkCrumb(title="", url=""),
         )
 
     def update_env(self, config: Any) -> None:  # noqa: ARG002
