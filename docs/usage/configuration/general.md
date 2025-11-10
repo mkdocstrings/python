@@ -63,9 +63,6 @@ plugins:
 [](){#option-backlinks}
 ## `backlinks`
 
-[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
-[:octicons-tag-24: Insiders 1.10.0](../../insiders/changelog.md#1.10.0)
-
 - **:octicons-package-24: Type <code><autoref identifier="typing.Literal" optional>Literal</autoref>["flat", "tree", False]</code> :material-equal: `False`{ title="default value" }**
 
 The `backlinks` option enables rendering of backlinks within your API documentation.
@@ -502,9 +499,6 @@ plugins:
 
 [](){#option-show_inheritance_diagram}
 ## `show_inheritance_diagram`
-
-[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
-[:octicons-tag-24: Insiders 1.7.0](../../insiders/changelog.md#1.7.0)
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->

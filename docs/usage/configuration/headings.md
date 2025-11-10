@@ -77,8 +77,6 @@ plugins:
 [](){#option-parameter_headings}
 ## `parameter_headings`
 
-[:octicons-tag-24: Insiders 1.6.0](../../insiders/changelog.md#1.6.0)
-
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
@@ -537,8 +535,6 @@ plugins:
 [](){#option-show_symbol_type_heading}
 ## `show_symbol_type_heading`
 
-[:octicons-tag-24: Insiders 1.1.0](../../insiders/changelog.md#1.1.0)
-
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
@@ -601,8 +597,6 @@ plugins:
 
 [](){#option-show_symbol_type_toc}
 ## `show_symbol_type_toc`
-
-[:octicons-tag-24: Insiders 1.1.0](../../insiders/changelog.md#1.1.0)
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->

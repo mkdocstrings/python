@@ -203,12 +203,6 @@ plugins:
 [](){#option-modernize_annotations}
 ## `modernize_annotations`
 
-[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
-[:octicons-tag-24: Insiders 1.8.0](../../insiders/changelog.md#1.8.0) &mdash;
-**This feature also requires
-[Griffe Insiders](https://mkdocstrings.github.io/griffe/insiders/)
-to be installed.**
-
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
 
@@ -636,8 +630,6 @@ Function docstring.
 
 [](){#option-signature_crossrefs}
 ## `signature_crossrefs`
-
-[:octicons-tag-24: Insiders 1.0.0](../../insiders/changelog.md#1.0.0)
 
 Whether to render cross-references for type annotations in signatures.
 

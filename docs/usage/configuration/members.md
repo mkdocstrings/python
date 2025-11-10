@@ -269,7 +269,7 @@ class Main(Base):
 
 The members ordering to use. Possible values:
 
-- `__all__` ([:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash; [:octicons-tag-24: Insiders 1.12.0](../../insiders/changelog.md#1.12.0)): Order according to `__all__` attributes. Since classes do not define `__all__` attributes, you can specify a second ordering method by using a list.
+- `__all__`: Order according to `__all__` attributes. Since classes do not define `__all__` attributes, you can specify a second ordering method by using a list.
 - `alphabetical`: Order by the members names.
 - `source`: Order members as they appear in the source file.
 
@@ -350,9 +350,6 @@ A list of filters, or `"public"`.
 **Filtering methods**
 
 [](){#option-filters-public}
-
-[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
-[:octicons-tag-24: Insiders 1.11.0](../../insiders/changelog.md#1.11.0)
 
 The `public` filtering method will include only public objects: those added to the `__all__` attribute of modules, or not starting with a single underscore. Special methods and attributes ("dunder" methods/attributes, starting and ending with two underscores), like `__init__`, `__call__`, `__mult__`, etc., are always considered public.
 
@@ -576,8 +573,6 @@ package
 
 [](){#option-summary}
 ## `summary`
-
-[:octicons-tag-24: Insiders 1.2.0](../../insiders/changelog.md#1.2.0)
 
 - **:octicons-package-24: Type <code><autoref identifier="bool" optional>bool</autoref> | <autoref identifier="dict" optional>dict</autoref>[<autoref identifier="str" optional>str</autoref>, <autoref identifier="bool" optional>bool</autoref>]</code>  :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->

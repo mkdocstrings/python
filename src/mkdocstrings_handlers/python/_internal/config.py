@@ -519,9 +519,6 @@ class PythonInputOptions:
 
             **Filtering methods**
 
-            [:octicons-heart-fill-24:{ .pulse } Sponsors only](../insiders/index.md){ .insiders } &mdash;
-            [:octicons-tag-24: Insiders 1.11.0](../insiders/changelog.md#1.11.0)
-
             The `public` method will include only public objects:
             those added to `__all__` or not starting with an underscore (except for special methods/attributes).
             """,

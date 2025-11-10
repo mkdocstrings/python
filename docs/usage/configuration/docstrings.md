@@ -327,9 +327,6 @@ class Thing:
 [](){#option-relative_crossrefs}
 ## `relative_crossrefs`
 
-[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
-[:octicons-tag-24: Insiders 1.9.0](../../insiders/changelog.md#1.9.0)
-
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
@@ -439,9 +436,6 @@ INFO: **There is an alternative, third-party Python handler that handles relativ
 
 [](){#option-scoped_crossrefs}
 ## `scoped_crossrefs`
-
-[:octicons-heart-fill-24:{ .pulse } Sponsors only](../../insiders/index.md){ .insiders } &mdash;
-[:octicons-tag-24: Insiders 1.9.0](../../insiders/changelog.md#1.9.0)
 
 - **:octicons-package-24: Type [`bool`][] :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->

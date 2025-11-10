@@ -487,9 +487,6 @@ Importing from submodules is now deprecated: the public API is fully exposed und
     - [`griffe-inherited-docstrings`](https://mkdocstrings.github.io/griffe-inherited-docstrings/), a Griffe extension for inheriting docstrings
     - [`griffe2md`](https://mkdocstrings.github.io/griffe2md/), a tool to output API docs to Markdown using Griffe
 
-    See the complete list of features and projects here:
-    https://pawamoy.github.io/insiders/#500-plasmavac-user-guide.
-
 ## [1.7.5](https://github.com/mkdocstrings/python/releases/tag/1.7.5) - 2023-11-21
 
 <small>[Compare with 1.7.4](https://github.com/mkdocstrings/python/compare/1.7.4...1.7.5)</small>

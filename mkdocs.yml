@@ -137,7 +137,7 @@ plugins:
 - autorefs
 - markdown-exec
 - section-index
-# - coverage
+- coverage
 - mkdocstrings:
     handlers:
       python:
