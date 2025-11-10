@@ -62,8 +62,15 @@ def _sort_key_source(item: CollectorItem) -> float:
     return item.lineno if item.lineno is not None else float("inf")
 
 
-def _sort__all__(item: CollectorItem) -> float:  # noqa: ARG001
-    raise ValueError("Not implemented in public version of mkdocstrings-python")
+def _sort__all__(item: CollectorItem) -> float:
+    if item.parent.exports is not None:
+        try:
+            return item.parent.exports.index(item.name)
+        except ValueError:
+            # If the item is not in `__all__`, it will go to the end of the list.
+            return float("inf")
+    # No exports declared, refuse to sort (try other methods or return members as they are).
+    raise ValueError(f"Parent object {item.parent.path} doesn't declare exports")
 
 
 Order = Literal["__all__", "alphabetical", "source"]
