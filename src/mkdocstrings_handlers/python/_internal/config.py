@@ -691,10 +691,15 @@ class PythonInputOptions:
     ] = True
 
     show_category_heading: Annotated[
-        bool,
+        Literal["mod",  "class", True, False],
         _Field(
             group="headings",
-            description="When grouped by categories, show a heading for each category.",
+            description="""When grouped by categories, show a heading for the categories.
+
+        When true, shows all category headings.
+        When false, shows no category headings.
+        When "mod" or "class", shows only headings on the given object.
+        """,
         ),
     ] = False
 
