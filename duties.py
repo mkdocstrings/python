@@ -79,7 +79,11 @@ def check_quality(ctx: Context) -> None:
     )
 
 
-@duty(nofail=PY_VERSION == PY_DEV, skip_if=sys.version_info < (3, 13), skip_reason=pyprefix("Skipped: docs require modern generics syntax"))
+@duty(
+    nofail=PY_VERSION == PY_DEV,
+    skip_if=sys.version_info < (3, 13),
+    skip_reason=pyprefix("Skipped: docs require modern generics syntax"),
+)
 def check_docs(ctx: Context) -> None:
     """Check if the documentation builds correctly."""
     Path("htmlcov").mkdir(parents=True, exist_ok=True)
