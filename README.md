@@ -77,3 +77,8 @@ dependencies = [
 
 - **Source code display:** *mkdocstrings* can add a collapsible div containing the highlighted source code
   of the Python object.
+
+## Sponsors
+
+<!-- sponsors-start -->
+<!-- sponsors-end -->

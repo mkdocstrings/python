@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier.
-_commit: 1.5.1
+_commit: 1.6.0
 _src_path: gh:mkdocstrings/handler-template
 author_email: dev@pawamoy.fr
 author_fullname: Timothée Mazzucotelli
@@ -8,13 +8,9 @@ copyright_date: '2021'
 copyright_holder: Timothée Mazzucotelli
 copyright_holder_email: dev@pawamoy.fr
 copyright_license: ISC
-insiders: true
-insiders_email: insiders@pawamoy.fr
-insiders_repository_name: mkdocstrings-python
 language: Python
 project_description: A Python handler for mkdocstrings.
 project_name: mkdocstrings-python
-public_release: true
 python_package_distribution_name: mkdocstrings-python
 python_package_import_name: python
 repository_name: python
