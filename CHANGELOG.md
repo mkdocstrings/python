@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.19.0](https://github.com/mkdocstrings/python/releases/tag/1.19.0) - 2025-11-10
+
+<small>[Compare with 1.18.2](https://github.com/mkdocstrings/python/compare/1.18.2...1.19.0)</small>
+
+### Features
+
+- Release scoped and relative cross-references ([872afc5](https://github.com/mkdocstrings/python/commit/872afc584f33f50a133472afdc9355734a5e51ec) by Timothée Mazzucotelli).
+- Release `__all__` ordering feature ([84aaebc](https://github.com/mkdocstrings/python/commit/84aaebcb4991c0245bf7ca8d7024c9d04942b0c1) by Timothée Mazzucotelli).
+- Release public filter feature ([3be14cc](https://github.com/mkdocstrings/python/commit/3be14cc07bc9429d7ce01c748d825e2db1559212) by Timothée Mazzucotelli).
+- Release backlinks feature ([ae7cc2d](https://github.com/mkdocstrings/python/commit/ae7cc2d7d8ea5711d8ce06620edd534a3e2b47aa) by Timothée Mazzucotelli).
+- Release expression modernization feature ([dbadd1e](https://github.com/mkdocstrings/python/commit/dbadd1e898bb2e67515077d152890bdbbf0b3eb1) by Timothée Mazzucotelli).
+- Release visually-lighter admonitions for source code blocks ([fdaeb48](https://github.com/mkdocstrings/python/commit/fdaeb48a0f2208bafd14f2f7ead42bca37bea665) by Timothée Mazzucotelli).
+- Release inheritance diagram features ([669b42e](https://github.com/mkdocstrings/python/commit/669b42ebd7c154c81764fa98c052cf857f7aa406) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Update code base for Python 3.10 ([b696ed2](https://github.com/mkdocstrings/python/commit/b696ed2224756472a3617fa3cc18b69d0418ed71) by Timothée Mazzucotelli).
+
 ## [1.18.2](https://github.com/mkdocstrings/python/releases/tag/1.18.2) - 2025-08-28
 
 <small>[Compare with 1.18.1](https://github.com/mkdocstrings/python/compare/1.18.1...1.18.2)</small>
