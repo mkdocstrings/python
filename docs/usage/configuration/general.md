@@ -269,6 +269,143 @@ plugins:
 
 WARNING: **Packages are loaded only once.** When mkdocstrings-python collects data from a Python package (thanks to [Griffe](https://mkdocstrings.github.io/griffe/)), it collects *the entire package* and *caches it*. Next time an object from the same package is rendered, the package is retrieved from the cache and not collected again. The `force_inspection` option will therefore only have an effect the first time a package is collected, and will do nothing for objects rendered afterwards.
 
+[](){#option-inheritance_diagram_direction}
+## `inheritance_diagram_direction`
+
+The direction of the Mermaid chart presenting the inheritance diagram of a class, `TD` by default.
+
+```yaml title="mkdocs.yml"
+extra_javascript:
+- https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js
+```
+
+```yaml title="in mkdocs.yml (global configuration)"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          inheritance_diagram_direction: TD
+```
+
+```md title="or in docs/some_page.md (local configuration)"
+::: path.to.object
+    options:
+      inheritance_diagram_direction: TD
+```
+
+/// admonition | Preview
+    type: preview
+
+
+With the following classes:
+
+```python
+class SuperAbstract:
+    """Super abstract class."""
+class Mixin1:
+    """Mixin 1."""
+class Abstract(SuperAbstract, Mixin1):
+    """Abstract class."""
+class Mixin2A:
+    """Mixin 2A."""
+class Mixin2B(Mixin2A):
+    """Mixin 2B."""
+class Concrete(Abstract, Mixin2B):
+    """Concrete class."""
+class SuperConcrete(Concrete):
+    """Super concrete class."""
+```
+
+//// tab | `TD` (or `TB`)
+
+```mermaid
+flowchart TD
+SuperConcrete[SuperConcrete]
+Concrete[Concrete]
+Abstract[Abstract]
+SuperAbstract[SuperAbstract]
+Mixin1[Mixin1]
+Mixin2B[Mixin2B]
+Mixin2A[Mixin2A]
+
+Concrete --> SuperConcrete
+Abstract --> Concrete
+SuperAbstract --> Abstract
+Mixin1 --> Abstract
+Mixin2B --> Concrete
+Mixin2A --> Mixin2B
+```
+
+////
+
+//// tab | `BT`
+
+```mermaid
+flowchart BT
+SuperConcrete[SuperConcrete]
+Concrete[Concrete]
+Abstract[Abstract]
+SuperAbstract[SuperAbstract]
+Mixin1[Mixin1]
+Mixin2B[Mixin2B]
+Mixin2A[Mixin2A]
+
+Concrete --> SuperConcrete
+Abstract --> Concrete
+SuperAbstract --> Abstract
+Mixin1 --> Abstract
+Mixin2B --> Concrete
+Mixin2A --> Mixin2B
+```
+
+////
+
+//// tab | `RL`
+
+```mermaid
+flowchart RL
+SuperConcrete[SuperConcrete]
+Concrete[Concrete]
+Abstract[Abstract]
+SuperAbstract[SuperAbstract]
+Mixin1[Mixin1]
+Mixin2B[Mixin2B]
+Mixin2A[Mixin2A]
+
+Concrete --> SuperConcrete
+Abstract --> Concrete
+SuperAbstract --> Abstract
+Mixin1 --> Abstract
+Mixin2B --> Concrete
+Mixin2A --> Mixin2B
+```
+
+////
+
+//// tab | `LR`
+
+```mermaid
+flowchart LR
+SuperConcrete[SuperConcrete]
+Concrete[Concrete]
+Abstract[Abstract]
+SuperAbstract[SuperAbstract]
+Mixin1[Mixin1]
+Mixin2B[Mixin2B]
+Mixin2A[Mixin2A]
+
+Concrete --> SuperConcrete
+Abstract --> Concrete
+SuperAbstract --> Abstract
+Mixin1 --> Abstract
+Mixin2B --> Concrete
+Mixin2A --> Mixin2B
+```
+
+////
+///
+
 [](){#option-preload_modules}
 ## `preload_modules`
 

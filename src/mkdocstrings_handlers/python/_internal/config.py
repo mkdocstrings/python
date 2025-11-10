@@ -560,6 +560,14 @@ class PythonInputOptions:
         ),
     ] = 2
 
+    inheritance_diagram_direction: Annotated[
+        Literal["TB", "TD", "BT", "RL", "LR"],
+        _Field(
+            group="docstrings",
+            description="The direction of the Mermaid chart presenting the inheritance diagram of a class.",
+        ),
+    ] = "TD"
+
     inherited_members: Annotated[
         bool | list[str],
         _Field(
