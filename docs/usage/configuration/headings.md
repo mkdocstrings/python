@@ -469,7 +469,8 @@ plugins:
 [](){#option-show_category_heading}
 ## `show_category_heading`
 
-- **:octicons-package-24: Type [`str|bool`][] :material-equal: `False`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="bool" optional>bool</autoref> |
+    <autoref identifier="str" optional>str</autoref></code>  :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 When [grouped by categories][group_by_category], show a heading for each category.
