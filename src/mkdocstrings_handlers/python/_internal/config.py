@@ -39,18 +39,6 @@ try:
     if getattr(pydantic, "__version__", "1.").startswith("1."):
         raise ImportError  # noqa: TRY301
 
-    # YORE: EOL 3.9: Remove block.
-    if sys.version_info < (3, 10):
-        try:
-            import eval_type_backport  # noqa: F401
-        except ImportError:
-            _logger.debug(
-                "Pydantic needs the `eval-type-backport` package to be installed "
-                "for modern type syntax to work on Python 3.9. "
-                "Deactivating Pydantic validation for Python handler options.",
-            )
-            raise
-
     from inspect import cleandoc
 
     from pydantic import Field as BaseField
@@ -87,14 +75,7 @@ if TYPE_CHECKING:
     from collections.abc import MutableMapping
 
 
-# YORE: EOL 3.9: Remove block.
-_dataclass_options = {"frozen": True}
-if sys.version_info >= (3, 10):
-    _dataclass_options["kw_only"] = True
-
-
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class GoogleStyleOptions:
     """Google style docstring options."""
 
@@ -205,8 +186,7 @@ class GoogleStyleOptions:
     ] = True
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class NumpyStyleOptions:
     """Numpy style docstring options."""
 
@@ -256,8 +236,7 @@ class NumpyStyleOptions:
     ] = True
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class SphinxStyleOptions:
     """Sphinx style docstring options."""
 
@@ -289,8 +268,7 @@ class SphinxStyleOptions:
     ] = True
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class PerStyleOptions:
     """Per style options."""
 
@@ -333,8 +311,7 @@ class PerStyleOptions:
         return cls(**data)
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class AutoStyleOptions:
     """Auto style docstring options."""
 
@@ -382,8 +359,7 @@ class AutoStyleOptions:
         return cls(**data)
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class SummaryOption:
     """Summary option."""
 
@@ -433,8 +409,7 @@ class SummaryOption:
     ] = False
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class PythonInputOptions:
     """Accepted input options."""
 
@@ -1067,8 +1042,7 @@ class PythonInputOptions:
         return cls(**cls.coerce(**data))
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
     """Final options passed as template context."""
 
@@ -1093,8 +1067,7 @@ class PythonOptions(PythonInputOptions):  # type: ignore[override,unused-ignore]
         return super().coerce(**data)
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class Inventory:
     """An inventory."""
 
@@ -1127,8 +1100,7 @@ class Inventory:
         return {"base_url": self.base_url, "domains": self.domains}
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class PythonInputConfig:
     """Python handler configuration."""
 
@@ -1170,8 +1142,7 @@ class PythonInputConfig:
         return cls(**cls.coerce(**data))
 
 
-# YORE: EOL 3.9: Replace `**_dataclass_options` with `frozen=True, kw_only=True` within line.
-@dataclass(**_dataclass_options)  # type: ignore[call-overload]
+@dataclass(frozen=True, kw_only=True)
 class PythonConfig(PythonInputConfig):  # type: ignore[override,unused-ignore]
     """Python handler configuration."""
 
