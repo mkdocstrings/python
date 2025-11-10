@@ -28,10 +28,18 @@ Context:
     {% endif %}
 
     {% if config.group_by_category %}
-
+      
       {% with %}
-
-        {% if config.show_category_heading %}
+        {% if config.show_category_heading is sameas true
+        or (config.show_category_heading == "class" and obj.kind.value == "class")
+        or (config.show_category_heading == "mod" and obj.kind.value == "module")
+        %}
+          {% set show_category_heading = true %}
+        {% else %}
+          {% set show_category_heading = false %}
+        {% endif %}         
+        
+        {% if show_category_heading %}
           {% set extra_level = 1 %}
         {% else %}
           {% set extra_level = 0 %}
@@ -44,7 +52,7 @@ Context:
             keep_no_docstrings=config.show_if_no_docstring,
           ) %}
           {% if attributes %}
-            {% if config.show_category_heading %}
+            {% if show_category_heading %}
               {% filter heading(heading_level, id=html_id ~ "-attributes", skip_inventory=config.skip_local_inventory) %}Attributes{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
@@ -64,7 +72,7 @@ Context:
             keep_no_docstrings=config.show_if_no_docstring,
           ) %}
           {% if type_aliases %}
-            {% if config.show_category_heading %}
+            {% if show_category_heading %}
               {% filter heading(heading_level, id=html_id ~ "-type_aliases") %}Type Aliases{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
@@ -84,7 +92,7 @@ Context:
             keep_no_docstrings=config.show_if_no_docstring,
           ) %}
           {% if classes %}
-            {% if config.show_category_heading %}
+            {% if show_category_heading %}
               {% filter heading(heading_level, id=html_id ~ "-classes", skip_inventory=config.skip_local_inventory) %}Classes{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
@@ -104,7 +112,7 @@ Context:
             keep_no_docstrings=config.show_if_no_docstring,
           ) %}
           {% if functions %}
-            {% if config.show_category_heading %}
+            {% if show_category_heading %}
               {% filter heading(heading_level, id=html_id ~ "-functions", skip_inventory=config.skip_local_inventory) %}Functions{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
@@ -127,7 +135,7 @@ Context:
               keep_no_docstrings=config.show_if_no_docstring,
             ) %}
             {% if modules %}
-              {% if config.show_category_heading %}
+              {% if show_category_heading %}
                 {% filter heading(heading_level, id=html_id ~ "-modules", skip_inventory=config.skip_local_inventory) %}Modules{% endfilter %}
               {% endif %}
               {% with heading_level = heading_level + extra_level %}
