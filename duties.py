@@ -202,7 +202,7 @@ def coverage(ctx: Context) -> None:
 
 
 @duty(nofail=PY_VERSION == PY_DEV)
-def test(ctx: Context, *cli_args: str, snapshot: str = "report") -> None:
+def test(ctx: Context, *cli_args: str, snapshot: str = "report") -> None:  # noqa: PT028
     """Run the test suite."""
     os.environ["COVERAGE_FILE"] = f".coverage.{PY_VERSION}"
     os.environ["PYTHONWARNDEFAULTENCODING"] = "1"
