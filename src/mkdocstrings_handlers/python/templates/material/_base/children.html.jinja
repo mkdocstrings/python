@@ -35,13 +35,9 @@ Context:
         or (config.show_category_heading == "mod" and obj.kind.value == "module")
         %}
           {% set show_category_heading = true %}
-        {% else %}
-          {% set show_category_heading = false %}
-        {% endif %}         
-        
-        {% if show_category_heading %}
           {% set extra_level = 1 %}
         {% else %}
+          {% set show_category_heading = false %}
           {% set extra_level = 0 %}
         {% endif %}
 
