@@ -434,7 +434,7 @@ def get_handler(
     # We therefore increase the limit here, once, before Griffe is used to collect or render stuff.
     sys.setrecursionlimit(max(sys.getrecursionlimit(), 2000))
 
-    base_dir = Path(tool_config.config_file_path or "./mkdocs.yml").parent
+    base_dir = Path(getattr(tool_config, "config_file_path", None) or "./mkdocs.yml").parent
     if "inventories" not in handler_config and "import" in handler_config:
         warn("The 'import' key is renamed 'inventories' for the Python handler", FutureWarning, stacklevel=1)
         handler_config["inventories"] = handler_config.pop("import", [])
