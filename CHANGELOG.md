@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.0](https://github.com/mkdocstrings/python/releases/tag/2.0.0) - 2025-11-27
+
+<small>[Compare with 1.19.0](https://github.com/mkdocstrings/python/compare/1.19.0...2.0.0)</small>
+
+### Code Refactoring
+
+- Remove deprecated code for v2 ([c10afdb](https://github.com/mkdocstrings/python/commit/c10afdb98d590a23c8840c7c0cdd6c358094dc2c) by Timothée Mazzucotelli).
+
 ## [1.19.0](https://github.com/mkdocstrings/python/releases/tag/1.19.0) - 2025-11-10
 
 <small>[Compare with 1.18.2](https://github.com/mkdocstrings/python/compare/1.18.2...1.19.0)</small>
