@@ -27,8 +27,7 @@ Context:
           {%- set ns.equal = " = " -%}
           {%- if config.separate_signature and config.signature_crossrefs -%}
             {%- with expression = type_parameter.annotation -%}
-              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
-              {%- set ns.annotation -%}: {% include "expression"|get_template with context %}{%- endset -%}
+              {%- set ns.annotation -%}: {% include "expression.html.jinja" with context %}{%- endset -%}
             {%- endwith -%}
           {%- else -%}
             {%- set ns.annotation = ": " + type_parameter.annotation|safe -%}
@@ -72,8 +71,7 @@ Context:
           {{ ns.equal }}
           {%- if config.signature_crossrefs and config.separate_signature -%}
             {%- with expression = type_parameter.default -%}
-              {#- YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. -#}
-              {%- include "expression"|get_template with context -%}
+              {%- include "expression.html.jinja" with context -%}
             {%- endwith -%}
           {%- else -%}
             {{ type_parameter.default|safe }}

@@ -15,7 +15,7 @@ Context:
   {{ log.debug("Rendering type parameters section") }}
 {% endblock logs %}
 
-{% import "language"|get_template as lang with context %}
+{% import "language.html.jinja" as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
 {% if config.docstring_section_style == "table" %}
@@ -56,7 +56,7 @@ Context:
             <td>
               {% if type_parameter.annotation %}
                 {% with expression = type_parameter.annotation %}
-                  <code>{% include "expression"|get_template with context %}</code>
+                  <code>{% include "expression.html.jinja" with context %}</code>
                 {% endwith %}
               {% endif %}
             </td>
@@ -68,7 +68,7 @@ Context:
             <td>
               {% if type_parameter.default %}
                 {% with expression = type_parameter.default %}
-                  <code>{% include "expression"|get_template with context %}</code>
+                  <code>{% include "expression.html.jinja" with context %}</code>
                 {% endwith %}
               {% else %}
                 <em>{{ lang.t("required") }}</em>
@@ -108,12 +108,12 @@ Context:
           {%- endif -%}
           {%- if type_parameter.bound -%}
             {%- with expression = type_parameter.bound -%}
-              <code>{% include "expression"|get_template with context %}</code>
+              <code>{% include "expression.html.jinja" with context %}</code>
             {%- endwith -%}
             {%- if type_parameter.default %}, {% endif -%}
           {%- elif type_parameter.constraints -%}
             {%- for expression in type_parameter.constraints -%}
-              <code>{% include "expression"|get_template with context %}</code>
+              <code>{% include "expression.html.jinja" with context %}</code>
               {%- if not loop.last %}, {% endif -%}
             {%- endfor -%}
             {%- if type_parameter.default %}, {% endif -%}
@@ -121,7 +121,7 @@ Context:
           {%- if type_parameter.default -%}
             {{ lang.t("default:") }}
             {% with expression = type_parameter.default %}
-              <code>{% include "expression"|get_template with context %}</code>
+              <code>{% include "expression.html.jinja" with context %}</code>
             {%- endwith -%}
           {%- endif -%}
           {%- if type_parameter.constraints or type_parameter.default -%}
@@ -177,7 +177,7 @@ Context:
                     <b>{{ lang.t("CONSTRAINTS:") }}</b>
                     {% for constraint in type_parameter.constraints -%}
                       {%- with expression = constraint -%}
-                        <code>{% include "expression"|get_template with context %}</code>
+                        <code>{% include "expression.html.jinja" with context %}</code>
                       {%- endwith -%}
                       {%- if not loop.last %}, {% endif -%}
                     {% endfor %}
@@ -186,7 +186,7 @@ Context:
                   <span class="doc-type_param-bound">
                     <b>{{ lang.t("BOUND:") }}</b>
                     {% with expression = type_parameter.bound %}
-                      <code>{% include "expression"|get_template with context %}</code>
+                      <code>{% include "expression.html.jinja" with context %}</code>
                     {% endwith %}
                   </span>
                 {% endif %}
@@ -194,7 +194,7 @@ Context:
                   <span class="doc-type_param-default">
                     <b>{{ lang.t("DEFAULT:") }}</b>
                     {% with expression = type_parameter.default %}
-                      <code>{% include "expression"|get_template with context %}</code>
+                      <code>{% include "expression.html.jinja" with context %}</code>
                     {% endwith %}
                   </span>
                 {% endif %}

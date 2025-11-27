@@ -15,8 +15,7 @@ Context:
   {{ log.debug("Rendering parameters section") }}
 {% endblock logs %}
 
-{# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-{% import "language"|get_template as lang with context %}
+{% import "language.html.jinja" as lang with context %}
 {#- Language module providing the `t` translation method. -#}
 
 {% if config.docstring_section_style == "table" %}
@@ -54,8 +53,7 @@ Context:
             <td>
               {% if parameter.annotation %}
                 {% with expression = parameter.annotation, backlink_type = "used-by" %}
-                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                  <code>{% include "expression"|get_template with context %}</code>
+                  <code>{% include "expression.html.jinja" with context %}</code>
                 {% endwith %}
               {% endif %}
             </td>
@@ -67,8 +65,7 @@ Context:
             <td>
               {% if parameter.default %}
                 {% with expression = parameter.default, backlink_type = "used-by" %}
-                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                  <code>{% include "expression"|get_template with context %}</code>
+                  <code>{% include "expression.html.jinja" with context %}</code>
                 {% endwith %}
               {% else %}
                 <em>{{ lang.t("required") }}</em>
@@ -102,12 +99,10 @@ Context:
           {% endif %}
           {% if parameter.annotation %}
             {% with expression = parameter.annotation, backlink_type = "used-by" %}
-              {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-              (<code>{% include "expression"|get_template with context %}</code>
+              (<code>{% include "expression.html.jinja" with context %}</code>
               {%- if parameter.default %}, {{ lang.t("default:") }}
                 {% with expression = parameter.default, backlink_type = "used-by" %}
-                  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                  <code>{% include "expression"|get_template with context %}</code>
+                  <code>{% include "expression.html.jinja" with context %}</code>
                 {% endwith %}
               {% endif %})
             {% endwith %}
@@ -158,8 +153,7 @@ Context:
                   <span class="doc-param-annotation">
                     <b>{{ lang.t("TYPE:") }}</b>
                     {% with expression = parameter.annotation, backlink_type = "used-by" %}
-                      {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                      <code>{% include "expression"|get_template with context %}</code>
+                      <code>{% include "expression.html.jinja" with context %}</code>
                     {% endwith %}
                   </span>
                 {% endif %}
@@ -167,8 +161,7 @@ Context:
                   <span class="doc-param-default">
                     <b>{{ lang.t("DEFAULT:") }}</b>
                     {% with expression = parameter.default, backlink_type = "used-by" %}
-                      {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-                      <code>{% include "expression"|get_template with context %}</code>
+                      <code>{% include "expression.html.jinja" with context %}</code>
                     {% endwith %}
                   </span>
                 {% endif %}

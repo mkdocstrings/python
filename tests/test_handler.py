@@ -180,6 +180,8 @@ def test_give_precedence_to_user_paths() -> None:
     """Assert user paths take precedence over default paths."""
     last_sys_path = sys.path[-1]
     handler = PythonHandler(
+        theme="material",
+        custom_templates=None,
         base_dir=Path("."),
         config=PythonConfig.from_data(paths=[last_sys_path]),
         mdx=[],

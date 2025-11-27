@@ -7,13 +7,11 @@ import re
 import string
 import subprocess
 import sys
-import warnings
 from collections import defaultdict
 from contextlib import suppress
 from dataclasses import replace
 from functools import lru_cache
-from pathlib import Path
-from re import Match, Pattern
+from re import Pattern
 from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal, TypeVar
 
 from griffe import (
@@ -33,7 +31,7 @@ from griffe import (
     Object,
     TypeAlias,
 )
-from jinja2 import TemplateNotFound, pass_context, pass_environment
+from jinja2 import pass_context
 from markupsafe import Markup
 from mkdocs_autorefs import AutorefsHookInterface, Backlink, BacklinkCrumb
 from mkdocstrings import get_logger
@@ -42,7 +40,6 @@ if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator, Sequence
 
     from griffe import Attribute, Class, Function, Module
-    from jinja2 import Environment
     from jinja2.runtime import Context
     from mkdocstrings import CollectorItem
 
@@ -170,10 +167,8 @@ def do_format_signature(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
-    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
-    # YORE: Bump 2: Replace `do_get_template(env, "signature")` with `"signature.html.jinja"` within line.
-    signature_template = env.get_template(do_get_template(env, "signature"))
+    type_params_template = env.get_template("type_parameters.html.jinja")
+    signature_template = env.get_template("signature.html.jinja")
 
     if annotations is None:
         new_context = context.parent
@@ -237,8 +232,7 @@ def do_format_attribute(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"` within line.
-    template = env.get_template(do_get_template(env, "expression"))
+    template = env.get_template("expression.html.jinja")
     annotations = context.parent["config"].show_signature_annotations
 
     signature = str(attribute_path).strip()
@@ -295,10 +289,8 @@ def do_format_type_alias(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
-    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
-    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"` within line.
-    expr_template = env.get_template(do_get_template(env, "expression"))
+    type_params_template = env.get_template("type_parameters.html.jinja")
+    expr_template = env.get_template("expression.html.jinja")
 
     signature = str(type_alias_path).strip()
     signature += type_params_template.render(context.parent, obj=type_alias, signature=True)
@@ -362,76 +354,6 @@ def do_order_members(
         with suppress(ValueError):
             return sorted(members, key=_order_map[method])
     return members
-
-
-# YORE: Bump 2: Remove block.
-@lru_cache
-def _warn_crossref() -> None:
-    warnings.warn(
-        "The `crossref` filter is deprecated and will be removed in a future version",
-        DeprecationWarning,
-        stacklevel=1,
-    )
-
-
-# YORE: Bump 2: Remove block.
-def do_crossref(path: str, *, brief: bool = True) -> Markup:
-    """Deprecated. Filter to create cross-references.
-
-    Parameters:
-        path: The path to link to.
-        brief: Show only the last part of the path, add full path as hover.
-
-    Returns:
-        Markup text.
-    """
-    _warn_crossref()
-    full_path = path
-    if brief:
-        path = full_path.split(".")[-1]
-    return Markup("<autoref identifier={full_path} optional hover>{path}</autoref>").format(
-        full_path=full_path,
-        path=path,
-    )
-
-
-# YORE: Bump 2: Remove block.
-@lru_cache
-def _warn_multi_crossref() -> None:
-    warnings.warn(
-        "The `multi_crossref` filter is deprecated and will be removed in a future version",
-        DeprecationWarning,
-        stacklevel=1,
-    )
-
-
-# YORE: Bump 2: Remove block.
-def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
-    """Deprecated. Filter to create cross-references.
-
-    Parameters:
-        text: The text to scan.
-        code: Whether to wrap the result in a code tag.
-
-    Returns:
-        Markup text.
-    """
-    _warn_multi_crossref()
-    group_number = 0
-    variables = {}
-
-    def repl(match: Match) -> str:
-        nonlocal group_number
-        group_number += 1
-        path = match.group()
-        path_var = f"path{group_number}"
-        variables[path_var] = path
-        return f"<autoref identifier={{{path_var}}} optional hover>{{{path_var}}}</autoref>"
-
-    text = re.sub(r"([\w.]+)", repl, text)
-    if code:
-        text = f"<code>{text}</code>"
-    return Markup(text).format(**variables)  # noqa: S704
 
 
 _split_path_re = re.compile(r"([.(]?)([\w]+)(\))?")
@@ -648,39 +570,20 @@ def _get_black_formatter() -> Callable[[str, int], str] | None:
     return formatter
 
 
-# YORE: Bump 2: Remove line.
-@pass_environment
-# YORE: Bump 2: Replace `env: Environment, ` with `` within line.
-# YORE: Bump 2: Replace `str | ` with `` within line.
-def do_get_template(env: Environment, obj: str | Object) -> str:
+def do_get_template(obj: Object | Alias) -> str:
     """Get the template name used to render an object.
 
     Parameters:
-        env: The Jinja environment, passed automatically.
-        obj: A Griffe object, or a template name.
+        obj: A Griffe object.
 
     Returns:
         A template name.
     """
-    name = obj
-    if isinstance(obj, (Alias, Object)):
-        extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
-        if name := extra_data.get("template", ""):
-            return name
-        name = obj.kind.value.replace(" ", "_")
-    # YORE: Bump 2: Replace block with `return f"{name}.html.jinja"`.
-    try:
-        template = env.get_template(f"{name}.html")
-    except TemplateNotFound:
-        return f"{name}.html.jinja"
-    our_template = Path(template.filename).is_relative_to(Path(__file__).parent.parent)  # type: ignore[arg-type]
-    if our_template:
-        return f"{name}.html.jinja"
-    _logger.warning(
-        f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. ",
-        once=True,
-    )
-    return f"{name}.html"
+    extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
+    if name := extra_data.get("template", ""):
+        return name
+    name = obj.kind.value.replace(" ", "_")
+    return f"{name}.html.jinja"
 
 
 @pass_context

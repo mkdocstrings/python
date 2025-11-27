@@ -51,8 +51,7 @@ Context:
             <span class="doc doc-object-name doc-type_alias-name">{{ type_alias_name }}</span>
           {% else %}
             {%+ filter highlight(language="python", inline=True) %}
-              {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-              {{ type_alias_name }}{% include "type_parameters"|get_template with context %} = {{ type_alias.value }}
+              {{ type_alias_name }}{% include "type_parameters.html.jinja" with context %} = {{ type_alias.value }}
             {% endfilter %}
           {% endif %}
         {% endblock heading %}
@@ -63,8 +62,7 @@ Context:
           This block renders the labels for the type alias.
           -#}
           {% with labels = type_alias.labels %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "labels"|get_template with context %}
+            {% include "labels.html.jinja" with context %}
           {% endwith %}
         {% endblock labels %}
 
@@ -109,8 +107,7 @@ Context:
           This block renders the docstring for the type alias.
           -#}
           {% with docstring_sections = type_alias.docstring.parsed %}
-            {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-            {% include "docstring"|get_template with context %}
+            {% include "docstring.html.jinja" with context %}
           {% endwith %}
         {% endblock docstring %}
       {% endblock contents %}

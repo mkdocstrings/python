@@ -11,7 +11,7 @@ Context:
 
 {% block logs scoped %}
   {#- Logging block.
-  
+
   This block can be used to log debug messages, deprecation messages, warnings, etc.
   -#}
   {{ log.debug("Rendering " + class.path) }}
@@ -43,7 +43,7 @@ Context:
 
         {% block heading scoped %}
           {#- Heading block.
-          
+
           This block renders the heading for the class.
           -#}
           {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>{% endif %}
@@ -52,7 +52,7 @@ Context:
           {% elif config.merge_init_into_class and "__init__" in class.all_members %}
             {% with function = class.all_members["__init__"] %}
               {%+ filter highlight(language="python", inline=True) %}
-                {{ class_name }}{% include "signature"|get_template with context %}
+                {{ class_name }}{% include "signature.html.jinja" with context %}
               {% endfilter %}
             {% endwith %}
           {% else %}
@@ -62,11 +62,11 @@ Context:
 
         {% block labels scoped %}
           {#- Labels block.
-          
+
           This block renders the labels for the class.
           -#}
           {% with labels = class.labels %}
-            {% include "labels"|get_template with context %}
+            {% include "labels.html.jinja" with context %}
           {% endwith %}
         {% endblock labels %}
 
@@ -74,7 +74,7 @@ Context:
 
       {% block signature scoped %}
         {#- Signature block.
-        
+
         This block renders the signature for the class.
         -#}
         {% if config.separate_signature and config.merge_init_into_class %}
@@ -104,20 +104,20 @@ Context:
     <div class="doc doc-contents {% if root %}first{% endif %}">
       {% block contents scoped %}
         {#- Contents block.
-        
+
         This block renders the contents of the class.
         It contains other blocks that users can override.
         Overriding the contents block allows to rearrange the order of the blocks.
         -#}
         {% block bases scoped %}
           {#- Class bases block.
-          
+
           This block renders the bases for the class.
           -#}
           {% if config.show_bases and class.bases %}
             <p class="doc doc-class-bases">
               Bases: {% for expression in class.bases -%}
-                <code>{% include "expression"|get_template with context %}</code>{% if not loop.last %}, {% endif %}
+                <code>{% include "expression.html.jinja" with context %}</code>{% if not loop.last %}, {% endif %}
               {% endfor -%}
             </p>
           {% endif %}
@@ -125,7 +125,7 @@ Context:
 
         {% block inheritance_diagram scoped %}
           {#- Inheritance diagram block.
-          
+
           This block renders the inheritance diagram for the class,
           using Mermaid syntax and a bit of JavaScript to make the nodes clickable,
           linking to the corresponding class documentation.
@@ -173,17 +173,17 @@ Context:
 
         {% block docstring scoped %}
           {#- Docstring block.
-          
+
           This block renders the docstring for the class.
           -#}
           {% with docstring_sections = class.docstring.parsed %}
-            {% include "docstring"|get_template with context %}
+            {% include "docstring.html.jinja" with context %}
           {% endwith %}
           {% if config.merge_init_into_class %}
             {% if "__init__" in class.all_members and class.all_members["__init__"].has_docstring %}
               {% with function = class.all_members["__init__"] %}
                 {% with obj = function, docstring_sections = function.docstring.parsed %}
-                  {% include "docstring"|get_template with context %}
+                  {% include "docstring.html.jinja" with context %}
                 {% endwith %}
               {% endwith %}
             {% endif %}
@@ -192,15 +192,15 @@ Context:
 
         {% block summary scoped %}
           {#- Summary block.
-          
+
           This block renders auto-summaries for classes, methods, and attributes.
           -#}
-          {% include "summary"|get_template with context %}
+          {% include "summary.html.jinja" with context %}
         {% endblock summary %}
 
         {% block source scoped %}
           {#- Source block.
-          
+
           This block renders the source code for the class.
           -#}
           {% if config.show_source %}
@@ -236,12 +236,12 @@ Context:
 
         {% block children scoped %}
           {#- Children block.
-          
+
           This block renders the children (members) of the class.
           -#}
           {% set root = False %}
           {% set heading_level = heading_level + 1 %}
-          {% include "children"|get_template with context %}
+          {% include "children.html.jinja" with context %}
         {% endblock children %}
       {% endblock contents %}
     </div>

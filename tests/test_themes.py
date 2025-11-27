@@ -22,13 +22,9 @@ if TYPE_CHECKING:
 @pytest.mark.parametrize(
     "identifier",
     [
-        "mkdocstrings.extension",
-        "mkdocstrings.inventory",
-        "mkdocstrings.loggers",
-        "mkdocstrings.plugin",
-        "mkdocstrings.handlers.base",
-        "mkdocstrings.handlers.rendering",
-        "mkdocstrings_handlers.python",
+        "mkdocstrings_handlers.python._internal.config",
+        "mkdocstrings_handlers.python._internal.handler",
+        "mkdocstrings_handlers.python._internal.rendering",
     ],
 )
 def test_render_themes_templates_python(identifier: str, handler: PythonHandler) -> None:

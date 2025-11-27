@@ -7,15 +7,12 @@
   -#}
 {% endblock logs %}
 
-{# YORE: Bump 2: Replace `| get_template` with `~ ".html.jinja"` within line. #}
-{% set lang_pth = "languages/" ~ locale | get_template %}
+{% set lang_pth = "languages/" ~ locale ~ ".html.jinja" %}
 {% if lang_pth is existing_template %}
   {% import lang_pth as lang %}
-  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-  {% import "languages/en"|get_template as fallback %}
+  {% import "languages/en.html.jinja" as fallback %}
   {% macro t(key) %}{{ lang.t(key) or fallback.t(key) }}{% endmacro %}
 {% else %}
-  {# YORE: Bump 2: Replace `"|get_template` with `.html.jinja"` within line. #}
-  {% import "languages/en"|get_template as lang %}
+  {% import "languages/en.html.jinja" as lang %}
   {% macro t(key) %}{{ lang.t(key) }}{% endmacro %}
 {% endif %}
