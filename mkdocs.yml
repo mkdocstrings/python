@@ -197,11 +197,7 @@ plugins:
       reference/mkdocstrings_handlers/python/debug.md: reference/api.md#mkdocstrings_handlers.python.debug
       reference/mkdocstrings_handlers/python/handler.md: reference/api.md#mkdocstrings_handlers.python.handler
       reference/mkdocstrings_handlers/python/rendering.md: reference/api.md#mkdocstrings_handlers.python.rendering
-
-- group:
-    enabled: !ENV [MATERIAL_INSIDERS, false]
-    plugins:
-    - typeset
+- typeset
 
 extra:
   social:
