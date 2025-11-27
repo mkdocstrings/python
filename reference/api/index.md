@@ -2,12 +2,6 @@
 
 Python handler for mkdocstrings.
 
-Modules:
-
-- **`config`** – Deprecated. Import from mkdocstrings_handlers.python directly.
-- **`handler`** – Deprecated. Import from mkdocstrings_handlers.python directly.
-- **`rendering`** – Deprecated. Import from mkdocstrings_handlers.python directly.
-
 Classes:
 
 - **`AutoStyleOptions`** – Auto style docstring options.
@@ -32,14 +26,12 @@ Functions:
 - **`do_as_modules_section`** – Build a modules section from a list of modules.
 - **`do_as_type_aliases_section`** – Build a type aliases section from a list of type aliases.
 - **`do_backlink_tree`** – Build a tree of backlinks.
-- **`do_crossref`** – Deprecated. Filter to create cross-references.
 - **`do_filter_objects`** – Filter a dictionary of objects based on their docstrings.
 - **`do_format_attribute`** – Format an attribute.
 - **`do_format_code`** – Format code.
 - **`do_format_signature`** – Format a signature.
 - **`do_format_type_alias`** – Format a type alias.
 - **`do_get_template`** – Get the template name used to render an object.
-- **`do_multi_crossref`** – Deprecated. Filter to create cross-references.
 - **`do_order_members`** – Order members given an ordering method.
 - **`do_split_path`** – Split object paths for building cross-references.
 - **`get_handler`** – Return an instance of PythonHandler.
@@ -804,7 +796,6 @@ Attributes:
 - **`enable_inventory`** (`bool`) – Whether this handler is interested in enabling the creation of the objects.inv Sphinx inventory file.
 - **`env`** – The Jinja environment.
 - **`extra_css`** (`str`) – Extra CSS.
-- **`fallback_config`** (`dict`) – Fallback configuration when searching anchors for identifiers.
 - **`fallback_theme`** (`str`) – The fallback theme.
 - **`global_options`** – The global configuration options (in mkdocs.yml).
 - **`md`** (`Markdown`) – The Markdown instance.
@@ -832,17 +823,8 @@ def __init__(self, config: PythonConfig, base_dir: Path, **kwargs: Any) -> None:
     self.base_dir = base_dir
     """The base directory of the project."""
 
-    # YORE: Bump 2: Remove block.
-    global_extra, global_options = PythonOptions._extract_extra(config.options)
-    if global_extra:
-        _warn_extra_options(global_extra.keys())  # type: ignore[arg-type]
-    self._global_extra = global_extra
-    self.global_options = global_options
+    self.global_options = config.options
     """The global configuration options (in `mkdocs.yml`)."""
-
-    # YORE: Bump 2: Replace `# ` with `` within block.
-    # self.global_options = config.options
-    # """The global configuration options (in `mkdocs.yml`)."""
 
     # Warn if user overrides base templates.
     if self.custom_templates:
@@ -938,14 +920,6 @@ extra_css: str = ''
 
 Extra CSS.
 
-### fallback_config
-
-```python
-fallback_config: dict = {}
-```
-
-Fallback configuration when searching anchors for identifiers.
-
 ### fallback_theme
 
 ```python
@@ -957,7 +931,7 @@ The fallback theme.
 ### global_options
 
 ```python
-global_options = global_options
+global_options = options
 ```
 
 The global configuration options (in `mkdocs.yml`).
@@ -1181,8 +1155,7 @@ def do_convert_markdown(
     treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
     if BacklinksTreeProcessor.name in treeprocessors:
         treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # type: ignore[attr-defined]
-
-    if autoref_hook:
+    if autoref_hook and AutorefsInlineProcessor.name in self.md.inlinePatterns:
         self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
 
     try:
@@ -1193,7 +1166,8 @@ def do_convert_markdown(
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
         if BacklinksTreeProcessor.name in treeprocessors:
             treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # type: ignore[attr-defined]
-        self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
+        if AutorefsInlineProcessor.name in self.md.inlinePatterns:
+            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
         self.md.reset()
         _markdown_conversion_layer -= 1
 ```
@@ -1481,24 +1455,12 @@ def get_options(self, local_options: Mapping[str, Any]) -> HandlerOptions:
     Returns:
         The combined options.
     """
-    # YORE: Bump 2: Remove block.
-    local_extra, local_options = PythonOptions._extract_extra(local_options)  # type: ignore[arg-type]
-    if local_extra:
-        _warn_extra_options(local_extra.keys())  # type: ignore[arg-type]
-    unknown_extra = self._global_extra | local_extra
-
     extra = {**self.global_options.get("extra", {}), **local_options.get("extra", {})}
     options = {**self.global_options, **local_options, "extra": extra}
     try:
-        # YORE: Bump 2: Replace `opts =` with `return` within line.
-        opts = PythonOptions.from_data(**options)
+        return PythonOptions.from_data(**options)
     except Exception as error:
         raise PluginError(f"Invalid options: {error}") from error
-
-    # YORE: Bump 2: Remove block.
-    for key, value in unknown_extra.items():
-        object.__setattr__(opts, key, value)
-    return opts
 ```
 
 ### get_templates_dir
@@ -1725,7 +1687,7 @@ def render(self, data: CollectorItem, options: PythonOptions, locale: str | None
     Returns:
         The rendered data (HTML).
     """
-    template_name = rendering.do_get_template(self.env, data)
+    template_name = rendering.do_get_template(data)
     template = self.env.get_template(template_name)
 
     return template.render(
@@ -1737,8 +1699,7 @@ def render(self, data: CollectorItem, options: PythonOptions, locale: str | None
             # than as an item in a dictionary.
             "heading_level": options.heading_level,
             "root": True,
-            # YORE: Bump 2: Regex-replace ` or .+` with ` or "en",` within line.
-            "locale": locale or self.config.locale,
+            "locale": locale or "en",
         },
     )
 ```
@@ -1833,8 +1794,6 @@ def update_env(self, config: Any) -> None:  # noqa: ARG002
     self.env.lstrip_blocks = True
     self.env.keep_trailing_newline = False
     self.env.filters["split_path"] = rendering.do_split_path
-    self.env.filters["crossref"] = rendering.do_crossref
-    self.env.filters["multi_crossref"] = rendering.do_multi_crossref
     self.env.filters["order_members"] = rendering.do_order_members
     self.env.filters["format_code"] = rendering.do_format_code
     self.env.filters["format_signature"] = rendering.do_format_signature
@@ -3955,51 +3914,6 @@ def do_backlink_tree(backlinks: list[Backlink]) -> Tree[BacklinkCrumb]:
     return _compact_tree(_tree(backlink.crumbs for backlink in backlinks))
 ```
 
-## do_crossref
-
-```python
-do_crossref(path: str, *, brief: bool = True) -> Markup
-```
-
-Deprecated. Filter to create cross-references.
-
-Parameters:
-
-- ### **`path`**
-
-  (`str`) – The path to link to.
-
-- ### **`brief`**
-
-  (`bool`, default: `True` ) – Show only the last part of the path, add full path as hover.
-
-Returns:
-
-- `Markup` – Markup text.
-
-Source code in `src/mkdocstrings_handlers/python/_internal/rendering.py`
-
-```python
-def do_crossref(path: str, *, brief: bool = True) -> Markup:
-    """Deprecated. Filter to create cross-references.
-
-    Parameters:
-        path: The path to link to.
-        brief: Show only the last part of the path, add full path as hover.
-
-    Returns:
-        Markup text.
-    """
-    _warn_crossref()
-    full_path = path
-    if brief:
-        path = full_path.split(".")[-1]
-    return Markup("<autoref identifier={full_path} optional hover>{path}</autoref>").format(
-        full_path=full_path,
-        path=path,
-    )
-```
-
 ## do_filter_objects
 
 ```python
@@ -4181,8 +4095,7 @@ def do_format_attribute(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"` within line.
-    template = env.get_template(do_get_template(env, "expression"))
+    template = env.get_template("expression.html.jinja")
     annotations = context.parent["config"].show_signature_annotations
 
     signature = str(attribute_path).strip()
@@ -4332,10 +4245,8 @@ def do_format_signature(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
-    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
-    # YORE: Bump 2: Replace `do_get_template(env, "signature")` with `"signature.html.jinja"` within line.
-    signature_template = env.get_template(do_get_template(env, "signature"))
+    type_params_template = env.get_template("type_parameters.html.jinja")
+    signature_template = env.get_template("signature.html.jinja")
 
     if annotations is None:
         new_context = context.parent
@@ -4442,10 +4353,8 @@ def do_format_type_alias(
         The same code, formatted.
     """
     env = context.environment
-    # YORE: Bump 2: Replace `do_get_template(env, "type_parameters")` with `"type_parameters.html.jinja"` within line.
-    type_params_template = env.get_template(do_get_template(env, "type_parameters"))
-    # YORE: Bump 2: Replace `do_get_template(env, "expression")` with `"expression.html.jinja"` within line.
-    expr_template = env.get_template(do_get_template(env, "expression"))
+    type_params_template = env.get_template("type_parameters.html.jinja")
+    expr_template = env.get_template("expression.html.jinja")
 
     signature = str(type_alias_path).strip()
     signature += type_params_template.render(context.parent, obj=type_alias, signature=True)
@@ -4484,20 +4393,16 @@ def do_format_type_alias(
 ## do_get_template
 
 ```python
-do_get_template(env: Environment, obj: str | Object) -> str
+do_get_template(obj: Object | Alias) -> str
 ```
 
 Get the template name used to render an object.
 
 Parameters:
 
-- ### **`env`**
-
-  (`Environment`) – The Jinja environment, passed automatically.
-
 - ### **`obj`**
 
-  (`str | Object`) – A Griffe object, or a template name.
+  (`Object | Alias`) – A Griffe object.
 
 Returns:
 
@@ -4506,91 +4411,20 @@ Returns:
 Source code in `src/mkdocstrings_handlers/python/_internal/rendering.py`
 
 ```python
-@pass_environment
-# YORE: Bump 2: Replace `env: Environment, ` with `` within line.
-# YORE: Bump 2: Replace `str | ` with `` within line.
-def do_get_template(env: Environment, obj: str | Object) -> str:
+def do_get_template(obj: Object | Alias) -> str:
     """Get the template name used to render an object.
 
     Parameters:
-        env: The Jinja environment, passed automatically.
-        obj: A Griffe object, or a template name.
+        obj: A Griffe object.
 
     Returns:
         A template name.
     """
-    name = obj
-    if isinstance(obj, (Alias, Object)):
-        extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
-        if name := extra_data.get("template", ""):
-            return name
-        name = obj.kind.value.replace(" ", "_")
-    # YORE: Bump 2: Replace block with `return f"{name}.html.jinja"`.
-    try:
-        template = env.get_template(f"{name}.html")
-    except TemplateNotFound:
-        return f"{name}.html.jinja"
-    our_template = Path(template.filename).is_relative_to(Path(__file__).parent.parent)  # type: ignore[arg-type]
-    if our_template:
-        return f"{name}.html.jinja"
-    _logger.warning(
-        f"DeprecationWarning: Overriding '{name}.html' is deprecated, override '{name}.html.jinja' instead. ",
-        once=True,
-    )
-    return f"{name}.html"
-```
-
-## do_multi_crossref
-
-```python
-do_multi_crossref(text: str, *, code: bool = True) -> Markup
-```
-
-Deprecated. Filter to create cross-references.
-
-Parameters:
-
-- ### **`text`**
-
-  (`str`) – The text to scan.
-
-- ### **`code`**
-
-  (`bool`, default: `True` ) – Whether to wrap the result in a code tag.
-
-Returns:
-
-- `Markup` – Markup text.
-
-Source code in `src/mkdocstrings_handlers/python/_internal/rendering.py`
-
-```python
-def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
-    """Deprecated. Filter to create cross-references.
-
-    Parameters:
-        text: The text to scan.
-        code: Whether to wrap the result in a code tag.
-
-    Returns:
-        Markup text.
-    """
-    _warn_multi_crossref()
-    group_number = 0
-    variables = {}
-
-    def repl(match: Match) -> str:
-        nonlocal group_number
-        group_number += 1
-        path = match.group()
-        path_var = f"path{group_number}"
-        variables[path_var] = path
-        return f"<autoref identifier={{{path_var}}} optional hover>{{{path_var}}}</autoref>"
-
-    text = re.sub(r"([\w.]+)", repl, text)
-    if code:
-        text = f"<code>{text}</code>"
-    return Markup(text).format(**variables)  # noqa: S704
+    extra_data = getattr(obj, "extra", {}).get("mkdocstrings", {})
+    if name := extra_data.get("template", ""):
+        return name
+    name = obj.kind.value.replace(" ", "_")
+    return f"{name}.html.jinja"
 ```
 
 ## do_order_members
@@ -4770,25 +4604,10 @@ def get_handler(
     # We therefore increase the limit here, once, before Griffe is used to collect or render stuff.
     sys.setrecursionlimit(max(sys.getrecursionlimit(), 2000))
 
-    base_dir = Path(tool_config.config_file_path or "./mkdocs.yml").parent
-    if "inventories" not in handler_config and "import" in handler_config:
-        warn("The 'import' key is renamed 'inventories' for the Python handler", FutureWarning, stacklevel=1)
-        handler_config["inventories"] = handler_config.pop("import", [])
+    base_dir = Path(getattr(tool_config, "config_file_path", None) or "./mkdocs.yml").parent
     return PythonHandler(
         config=PythonConfig.from_data(**handler_config),
         base_dir=base_dir,
         **kwargs,
     )
 ```
-
-## config
-
-Deprecated. Import from `mkdocstrings_handlers.python` directly.
-
-## handler
-
-Deprecated. Import from `mkdocstrings_handlers.python` directly.
-
-## rendering
-
-Deprecated. Import from `mkdocstrings_handlers.python` directly.
