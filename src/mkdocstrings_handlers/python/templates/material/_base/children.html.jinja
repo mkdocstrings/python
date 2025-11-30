@@ -88,7 +88,7 @@ Context:
           ) %}
           {% if classes %}
             {% if config.show_category_heading %}
-              {% filter heading(heading_level, id=html_id ~ "-classes", skip_inventory=config.skip_local_inventory) %}Classes{% endfilter %}
+              {% filter heading(heading_level, id=html_id ~ "-classes", skip_inventory=config.skip_local_inventory) %}{{ lang.t("Classes") }}{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
               {% for class in classes|order_members(config.members_order, members_list) %}
@@ -108,7 +108,7 @@ Context:
           ) %}
           {% if functions %}
             {% if config.show_category_heading %}
-              {% filter heading(heading_level, id=html_id ~ "-functions", skip_inventory=config.skip_local_inventory) %}Functions{% endfilter %}
+              {% filter heading(heading_level, id=html_id ~ "-functions", skip_inventory=config.skip_local_inventory) %}{{ lang.t("Functions") }}{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
               {% for function in functions|order_members(config.members_order, members_list) %}
@@ -131,7 +131,7 @@ Context:
             ) %}
             {% if modules %}
               {% if config.show_category_heading %}
-                {% filter heading(heading_level, id=html_id ~ "-modules", skip_inventory=config.skip_local_inventory) %}Modules{% endfilter %}
+                {% filter heading(heading_level, id=html_id ~ "-modules", skip_inventory=config.skip_local_inventory) %}{{ lang.t("Modules") }}{% endfilter %}
               {% endif %}
               {% with heading_level = heading_level + extra_level %}
                 {% for module in modules|order_members("alphabetical", members_list) %}
