@@ -93,7 +93,7 @@ Context:
               <p>
                 {% if attribute.annotation %}
                   <span class="doc-attribute-annotation">
-                    <b>TYPE:</b>
+                    <b>{{ lang.t("TYPE:") }}</b>
                     {% with expression = attribute.annotation %}
                       <code>{% include "expression.html.jinja" with context %}</code>
                     {% endwith %}
