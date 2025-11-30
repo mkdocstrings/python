@@ -19,6 +19,9 @@ Context:
     {{ log.debug("Rendering children of " + obj.path) }}
   {% endblock logs %}
 
+  {% import "language.html.jinja" as lang with context %}
+  {#- Language module providing the `t` translation method. -#}
+
   <div class="doc doc-children">
 
     {% if root_members %}

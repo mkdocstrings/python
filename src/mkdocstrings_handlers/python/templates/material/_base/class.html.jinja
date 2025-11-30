@@ -17,6 +17,9 @@ Context:
   {{ log.debug("Rendering " + class.path) }}
 {% endblock logs %}
 
+{% import "language.html.jinja" as lang with context %}
+{#- Language module providing the `t` translation method. -#}
+
 <div class="doc doc-object doc-class">
   {% with obj = class, html_id = class.path, all_members = class.all_members %}
 
