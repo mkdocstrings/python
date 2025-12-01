@@ -17,6 +17,9 @@ Context:
   {{ log.debug("Rendering " + class.path) }}
 {% endblock logs %}
 
+{% import "language.html.jinja" as lang with context %}
+{#- Language module providing the `t` translation method. -#}
+
 <div class="doc doc-object doc-class">
   {% with obj = class, html_id = class.path, all_members = class.all_members %}
 
@@ -246,7 +249,7 @@ Context:
               {% if "__init__" in all_members and all_members["__init__"].source %}
                 {% with init = all_members["__init__"] %}
                   <details class="mkdocstrings-source">
-                    <summary>Source code in <code>
+                    <summary>{{ lang.t("Source code in") }} <code>
                       {%- if init.relative_filepath.is_absolute() -%}
                         {{ init.relative_package_filepath }}
                       {%- else -%}
@@ -259,7 +262,7 @@ Context:
               {% endif %}
             {% elif class.source %}
               <details class="mkdocstrings-source">
-                <summary>Source code in <code>
+                <summary>{{ lang.t("Source code in") }} <code>
                   {%- if class.relative_filepath.is_absolute() -%}
                     {{ class.relative_package_filepath }}
                   {%- else -%}
