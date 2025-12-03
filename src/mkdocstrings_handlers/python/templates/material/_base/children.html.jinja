@@ -157,7 +157,7 @@ Context:
 
         {% if not (obj.is_class and child.name == "__init__" and config.merge_init_into_class) %}
 
-          {% if config.filters == "public" or members_list is not none or child.is_public %}
+          {% if config.filters == "public" or members_list is not none or (not child.is_imported or child.is_public) %}
             {% if child.is_attribute %}
               {% with attribute = child %}
                 {% include attribute|get_template with context %}
