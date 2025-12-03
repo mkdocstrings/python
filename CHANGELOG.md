@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.1](https://github.com/mkdocstrings/python/releases/tag/2.0.1) - 2025-12-03
+
+<small>[Compare with 2.0.0](https://github.com/mkdocstrings/python/compare/2.0.0...2.0.1)</small>
+
+### Bug Fixes
+
+- Don't ignore filters when category grouping is disabled ([63aa1b0](https://github.com/mkdocstrings/python/commit/63aa1b0af0d14912ebf83a4e3c2cd0c7f2a19dae) by Timothée Mazzucotelli). [Issue-324](https://github.com/mkdocstrings/python/issues/324)
+
+### Code Refactoring
+
+- Localize more contents in templates ([854b6a6](https://github.com/mkdocstrings/python/commit/854b6a601bd334fe544285aa9eae11482388a583) by Zhikang Yan). [PR-321](https://github.com/mkdocstrings/python/pull/321)
+- Improve ja/zh translations ([b83107c](https://github.com/mkdocstrings/python/commit/b83107c8e86d9650fe4544e569f6da16a46b8472) by Zhikang Yan). [PR-322](https://github.com/mkdocstrings/python/pull/322)
+
 ## [2.0.0](https://github.com/mkdocstrings/python/releases/tag/2.0.0) - 2025-11-27
 
 <small>[Compare with 1.19.0](https://github.com/mkdocstrings/python/compare/1.19.0...2.0.0)</small>
