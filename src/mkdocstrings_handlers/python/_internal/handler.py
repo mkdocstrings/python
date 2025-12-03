@@ -139,7 +139,7 @@ class PythonHandler(BaseHandler):
     ) -> Iterator[tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
-        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.plugin`][]).
+        This implements mkdocstrings' `load_inventory` "protocol" (see [`mkdocstrings.BaseHandler.load_inventory`][]).
 
         Arguments:
             in_file: The binary file-like object to read the inventory from.
