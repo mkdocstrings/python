@@ -330,7 +330,7 @@ class PythonHandler(BaseHandler):
         """
         if "(" in identifier:
             identifier, parameter = identifier.split("(", 1)
-            parameter.removesuffix(")")
+            parameter = parameter.removesuffix(")")
         else:
             parameter = ""
         try:
