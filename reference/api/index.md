@@ -1330,7 +1330,7 @@ def get_aliases(self, identifier: str) -> tuple[str, ...]:
     """
     if "(" in identifier:
         identifier, parameter = identifier.split("(", 1)
-        parameter.removesuffix(")")
+        parameter = parameter.removesuffix(")")
     else:
         parameter = ""
     try:
