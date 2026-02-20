@@ -325,7 +325,7 @@ def expand_identifier(self, identifier: str) -> str:
         obj = self.current_object
         while identifier and identifier[0] == ".":
             identifier = identifier[1:]
-            obj = obj.parent  # type: ignore[assignment]
+            obj = obj.parent
         identifier = f"{obj.path}.{identifier}" if identifier else obj.path
 
     # We resolve the identifier to its full path.
@@ -372,8 +372,8 @@ def get_context(self) -> AutorefsHookInterface.Context:
     }.get(self.current_object.kind.value.lower(), "obj")
     origin = self.current_object.path
     try:
-        filepath = self.current_object.docstring.parent.filepath  # type: ignore[union-attr]
-        lineno = self.current_object.docstring.lineno or 0  # type: ignore[union-attr]
+        filepath = self.current_object.docstring.parent.filepath
+        lineno = self.current_object.docstring.lineno or 0
     except AttributeError:
         filepath = self.current_object.filepath
         lineno = 0
@@ -1108,7 +1108,7 @@ def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:
             extensions=load_extensions(*extensions),
             search_paths=self._paths,
             docstring_parser=parser,
-            docstring_options=parser_options,  # type: ignore[arg-type]
+            docstring_options=parser_options,
             modules_collection=self._modules_collection,
             lines_collection=self._lines_collection,
             allow_inspection=options.allow_inspection,
@@ -1216,24 +1216,24 @@ def do_convert_markdown(
     global _markdown_conversion_layer  # noqa: PLW0603
     _markdown_conversion_layer += 1
     treeprocessors = self.md.treeprocessors
-    treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
-    treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
-    treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
+    treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level
+    treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"
+    treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph
     if BacklinksTreeProcessor.name in treeprocessors:
-        treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # type: ignore[attr-defined]
+        treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id
     if autoref_hook and AutorefsInlineProcessor.name in self.md.inlinePatterns:
-        self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
+        self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # ty: ignore[unresolved-attribute]
 
     try:
         return Markup(self.md.convert(text))
     finally:
-        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
-        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
-        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
+        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
+        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
+        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False
         if BacklinksTreeProcessor.name in treeprocessors:
-            treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # type: ignore[attr-defined]
+            treeprocessors[BacklinksTreeProcessor.name].initial_id = None
         if AutorefsInlineProcessor.name in self.md.inlinePatterns:
-            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
+            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None
         self.md.reset()
         _markdown_conversion_layer -= 1
 ```
@@ -1999,7 +1999,7 @@ PythonInputOptions(
     docstring_section_style: Literal["table", "list", "spacy"] = "table",
     docstring_style: Literal["auto", "google", "numpy", "sphinx"] | None = "google",
     extensions: list[str | dict[str, Any]] = list(),
-    filters: list[str] | Literal["public"] = (lambda: copy())(),
+    filters: list[str] | Literal["public"] = copy(),
     find_stubs_package: bool = False,
     group_by_category: bool = True,
     heading: str = "",
@@ -2213,7 +2213,7 @@ Extra options.
 ### filters
 
 ```python
-filters: list[str] | Literal['public'] = field(default_factory=lambda: copy())
+filters: list[str] | Literal['public'] = field(default_factory=copy)
 ```
 
 A list of filters, or `"public"`.
