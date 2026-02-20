@@ -51,7 +51,7 @@ def _yield_public_objects(
                 if modules:
                     yield member
                 yield from _yield_public_objects(
-                    member,  # type: ignore[arg-type]
+                    member,
                     modules=modules,
                     modulelevel=modulelevel,
                     inherited=inherited,
@@ -63,7 +63,7 @@ def _yield_public_objects(
                 continue
             if member.is_class and not modulelevel:
                 yield from _yield_public_objects(
-                    member,  # type: ignore[arg-type]
+                    member,
                     modules=modules,
                     modulelevel=False,
                     inherited=inherited,

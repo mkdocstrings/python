@@ -414,15 +414,15 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
 
 
 def _parents(obj: Alias) -> set[str]:
-    parent: Object | Alias = obj.parent  # type: ignore[assignment]
+    parent: Object | Alias = obj.parent
     parents = {obj.path, parent.path}
     if parent.is_alias:
-        parents.add(parent.final_target.path)  # type: ignore[union-attr]
+        parents.add(parent.final_target.path)
     while parent.parent:
         parent = parent.parent
         parents.add(parent.path)
         if parent.is_alias:
-            parents.add(parent.final_target.path)  # type: ignore[union-attr]
+            parents.add(parent.final_target.path)
     return parents
 
 
@@ -431,7 +431,7 @@ def _remove_cycles(objects: list[Object | Alias]) -> Iterator[Object | Alias]:
     for obj in objects:
         if obj.is_alias:
             with suppress_errors:
-                if obj.final_target.path in _parents(obj):  # type: ignore[arg-type,union-attr]
+                if obj.final_target.path in _parents(obj):
                     continue
         yield obj
 
@@ -778,7 +778,7 @@ class AutorefsHook(AutorefsHookInterface):
             obj = self.current_object
             while identifier and identifier[0] == ".":
                 identifier = identifier[1:]
-                obj = obj.parent  # type: ignore[assignment]
+                obj = obj.parent
             identifier = f"{obj.path}.{identifier}" if identifier else obj.path
 
         # We resolve the identifier to its full path.
@@ -809,8 +809,8 @@ class AutorefsHook(AutorefsHookInterface):
         }.get(self.current_object.kind.value.lower(), "obj")
         origin = self.current_object.path
         try:
-            filepath = self.current_object.docstring.parent.filepath  # type: ignore[union-attr]
-            lineno = self.current_object.docstring.lineno or 0  # type: ignore[union-attr]
+            filepath = self.current_object.docstring.parent.filepath
+            lineno = self.current_object.docstring.lineno or 0
         except AttributeError:
             filepath = self.current_object.filepath
             lineno = 0

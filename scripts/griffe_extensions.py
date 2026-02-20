@@ -24,7 +24,7 @@ class CustomFields(griffe.Extension):
         if attr.docstring:
             return
         try:
-            field: griffe.ExprCall = attr.annotation.slice.elements[1]  # type: ignore[union-attr]
+            field: griffe.ExprCall = attr.annotation.slice.elements[1]
         except AttributeError:
             return
 

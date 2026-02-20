@@ -498,7 +498,7 @@ class PythonInputOptions:
             those added to `__all__` or not starting with an underscore (except for special methods/attributes).
             """,
         ),
-    ] = field(default_factory=lambda: _DEFAULT_FILTERS.copy())
+    ] = field(default_factory=_DEFAULT_FILTERS.copy)
 
     find_stubs_package: Annotated[
         bool,

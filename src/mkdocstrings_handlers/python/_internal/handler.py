@@ -203,7 +203,7 @@ class PythonHandler(BaseHandler):
                 extensions=load_extensions(*extensions),
                 search_paths=self._paths,
                 docstring_parser=parser,
-                docstring_options=parser_options,  # type: ignore[arg-type]
+                docstring_options=parser_options,
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
                 allow_inspection=options.allow_inspection,
