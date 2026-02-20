@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.3](https://github.com/mkdocstrings/python/releases/tag/2.0.3) - 2026-02-20
+
+<small>[Compare with 2.0.2](https://github.com/mkdocstrings/python/compare/2.0.2...2.0.3)</small>
+
+### Build
+
+- Depend on griffelib instead of griffe ([770a5f6](https://github.com/mkdocstrings/python/commit/770a5f69d801f24f0b36d1e671a540196e06f710) by Timothée Mazzucotelli).
+
 ## [2.0.2](https://github.com/mkdocstrings/python/releases/tag/2.0.2) - 2026-02-09
 
 <small>[Compare with 2.0.1](https://github.com/mkdocstrings/python/compare/2.0.1...2.0.2)</small>
