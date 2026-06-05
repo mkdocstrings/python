@@ -1124,7 +1124,7 @@ Returns:
 
 - `Markup` – An HTML string.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def do_convert_markdown(
@@ -1223,7 +1223,7 @@ Returns:
 
 - `Markup` – An HTML string.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def do_heading(
@@ -1367,7 +1367,7 @@ Returns:
 
 - `list[Path]` – The extensions templates directories.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_extended_templates_dirs(self, handler: str) -> list[Path]:
@@ -1395,7 +1395,7 @@ Returns:
 
 - `Sequence[Element]` – A list of HTML elements.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_headings(self) -> Sequence[Element]:
@@ -1488,7 +1488,7 @@ Returns:
 
 - `Path` – The templates directory path.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_templates_dir(self, handler: str | None = None) -> Path:
@@ -1756,7 +1756,7 @@ Teardown the handler.
 
 This method should be implemented to, for example, terminate a subprocess that was started when creating the handler instance.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def teardown(self) -> None:
