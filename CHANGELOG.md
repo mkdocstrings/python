@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.4](https://github.com/mkdocstrings/python/releases/tag/2.0.4) - 2026-06-05
+
+<small>[Compare with 2.0.3](https://github.com/mkdocstrings/python/compare/2.0.3...2.0.4)</small>
+
+### Bug Fixes
+
+- Display Methods instead of Functions for category headings inside classes ([7bf8b98](https://github.com/mkdocstrings/python/commit/7bf8b98cc03e1cb3573e88aecaa3ebd60c7fa9ca) by Timothée Mazzucotelli). [Issue-330](https://github.com/mkdocstrings/python/issues/330)
+
 ## [2.0.3](https://github.com/mkdocstrings/python/releases/tag/2.0.3) - 2026-02-20
 
 <small>[Compare with 2.0.2](https://github.com/mkdocstrings/python/compare/2.0.2...2.0.3)</small>
