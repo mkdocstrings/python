@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.5](https://github.com/mkdocstrings/python/releases/tag/2.0.5) - 2026-06-19
+
+<small>[Compare with 2.0.4](https://github.com/mkdocstrings/python/compare/2.0.4...2.0.5)</small>
+
+### Bug Fixes
+
+- Allow relative cross-references to work in summaries ([abe2888](https://github.com/mkdocstrings/python/commit/abe28889584df8fb0bc923dfad6f2ddaff41bb7a) by Timothée Mazzucotelli). [Issue-331](https://github.com/mkdocstrings/python/issues/331)
+- Always display attribute values as they're written in the source ([0334131](https://github.com/mkdocstrings/python/commit/033413123b95c0788f500b871f00ed1223ae2b82) by Timothée Mazzucotelli). [Issue-311](https://github.com/mkdocstrings/python/issues/311)
+
 ## [2.0.4](https://github.com/mkdocstrings/python/releases/tag/2.0.4) - 2026-06-05
 
 <small>[Compare with 2.0.3](https://github.com/mkdocstrings/python/compare/2.0.3...2.0.4)</small>
