@@ -931,7 +931,7 @@ The fallback theme.
 ### global_options
 
 ```python
-global_options = options
+global_options = config.options
 ```
 
 The global configuration options (in `mkdocs.yml`).
@@ -2147,7 +2147,7 @@ Extra options.
 ### filters
 
 ```python
-filters: list[str] | Literal['public'] = field(default_factory=copy)
+filters: list[str] | Literal['public'] = field(default_factory=_DEFAULT_FILTERS.copy)
 ```
 
 A list of filters, or `"public"`.
@@ -2958,7 +2958,8 @@ Extra options.
 ```python
 filters: list[tuple[Pattern, bool]] | Literal["public"] = field(
     default_factory=lambda: [
-        (compile(removeprefix("!")), startswith("!")) for filtr in _DEFAULT_FILTERS
+        (re.compile(filtr.removeprefix("!")), filtr.startswith("!"))
+        for filtr in _DEFAULT_FILTERS
     ]
 )
 ```
@@ -4108,7 +4109,13 @@ def do_format_attribute(
         )
         signature += f": {annotation}"
     if show_value and attribute.value:
-        value = template.render(context.parent, expression=attribute.value, signature=True, backlink_type="used-by")
+        value = template.render(
+            context.parent,
+            expression=attribute.value,
+            signature=True,
+            annotations_path="source",
+            backlink_type="used-by",
+        )
         signature += f" = {value}"
 
     signature = do_format_code(signature, line_length)
