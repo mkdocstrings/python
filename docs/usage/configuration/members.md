@@ -3,7 +3,7 @@
 [](){#option-members}
 ## `members`
 
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>\[<autoref identifier="str" optional>str</autoref>\] |
     <autoref identifier="bool" optional>bool</autoref> | None</code>  :material-equal: `None`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
@@ -99,7 +99,7 @@ INFO: **The default behavior (with unspecified `members` or `members: null`) is 
 [](){#option-inherited_members}
 ## `inherited_members`
 
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] |
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>\[<autoref identifier="str" optional>str</autoref>\] |
     <autoref identifier="bool" optional>bool</autoref></code>  :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
@@ -342,7 +342,7 @@ def function_c():
 [](){#option-filters}
 ## `filters`
 
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | <autoref identifier="typing.Literal" optional>Literal</autoref>["public"] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>\[<autoref identifier="str" optional>str</autoref>\] | <autoref identifier="typing.Literal" optional>Literal</autoref>\["public"\] | None</code>  :material-equal: `["!^_[^_]"]`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 A list of filters, or `"public"`.
@@ -574,7 +574,7 @@ package
 [](){#option-summary}
 ## `summary`
 
-- **:octicons-package-24: Type <code><autoref identifier="bool" optional>bool</autoref> | <autoref identifier="dict" optional>dict</autoref>[<autoref identifier="str" optional>str</autoref>, <autoref identifier="bool" optional>bool</autoref>]</code>  :material-equal: `False`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="bool" optional>bool</autoref> | <autoref identifier="dict" optional>dict</autoref>\[<autoref identifier="str" optional>str</autoref>, <autoref identifier="bool" optional>bool</autoref>\]</code>  :material-equal: `False`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 Whether to render summaries of modules, classes, functions (methods) and attributes.

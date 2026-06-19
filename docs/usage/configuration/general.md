@@ -63,7 +63,7 @@ plugins:
 [](){#option-backlinks}
 ## `backlinks`
 
-- **:octicons-package-24: Type <code><autoref identifier="typing.Literal" optional>Literal</autoref>["flat", "tree", False]</code> :material-equal: `False`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="typing.Literal" optional>Literal</autoref>\["flat", "tree", False\]</code> :material-equal: `False`{ title="default value" }**
 
 The `backlinks` option enables rendering of backlinks within your API documentation.
 
@@ -102,7 +102,7 @@ plugins:
 [](){#option-extensions}
 ## `extensions`
 
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref> | <autoref identifier="dict" optional>dict</autoref>[<autoref identifier="str" optional>str</autoref>, <autoref identifier="dict" optional>dict</autoref>[<autoref identifier="str" optional>str</autoref>, <autoref identifier="typing.Any" optional>Any</autoref>]]]</code> :material-equal: `[]`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>\[<autoref identifier="str" optional>str</autoref> | <autoref identifier="dict" optional>dict</autoref>\[<autoref identifier="str" optional>str</autoref>, <autoref identifier="dict" optional>dict</autoref>\[<autoref identifier="str" optional>str</autoref>, <autoref identifier="typing.Any" optional>Any</autoref>\]\]\]</code> :material-equal: `[]`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (contained in [`class.html`][class template]) -->
 
 The `extensions` option lets you enable [Griffe extensions](https://mkdocstrings.github.io/griffe/extensions/), which enhance or modify the data collected from Python sources (or compiled modules).
@@ -406,7 +406,7 @@ Mixin2A --> Mixin2B
 [](){#option-preload_modules}
 ## `preload_modules`
 
-- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>[<autoref identifier="str" optional>str</autoref>] | None</code>  :material-equal: `None`{ title="default value" }**
+- **:octicons-package-24: Type <code><autoref identifier="list" optional>list</autoref>\[<autoref identifier="str" optional>str</autoref>\] | None</code>  :material-equal: `None`{ title="default value" }**
 <!-- - **:octicons-project-template-24: Template :material-null:** (N/A) -->
 
 Pre-load modules that are not specified directly in [autodoc instructions][autodoc syntax] (`::: identifier`).

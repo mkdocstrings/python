@@ -191,7 +191,7 @@ plugins:
 <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code> get_version<br>
 <code class="doc-symbol doc-symbol-toc doc-symbol-parameter" style="margin-left: 16px;"></code> dist
 
-To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+To customize symbols, see [Customizing symbol types](../customization.md#symbol-types).
 
 ///
 
@@ -302,6 +302,10 @@ More text.
 
 /// admonition | Preview
     type: preview
+
+[](){#permalink-to-some-heading}
+[](){#permalink-to-object}
+[](){#permalink-to-other-heading}
 
 //// tab | With ToC entry
 **Table of contents**
@@ -548,7 +552,7 @@ This option will prefix headings with
 <code class="doc-symbol doc-symbol-module"></code> types.
 See also [`show_symbol_type_toc`][show_symbol_type_toc].
 
-To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+To customize symbols, see [Customizing symbol types](../customization.md#symbol-types).
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:
@@ -611,7 +615,7 @@ This option will prefix items in the ToC with
 <code class="doc-symbol doc-symbol-module"></code> types.
 See also [`show_symbol_type_heading`][show_symbol_type_heading].
 
-To customize symbols, see [Customizing symbol types](../customization.md/#symbol-types).
+To customize symbols, see [Customizing symbol types](../customization.md#symbol-types).
 
 ```yaml title="in mkdocs.yml (global configuration)"
 plugins:

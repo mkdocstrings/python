@@ -64,12 +64,16 @@ def convert(text: str, md: markdown.Markdown) -> markupsafe.Markup:
 <p>Convert text to Markdown.</p>
 <p><b>Parameters:</b></p>
 
+[](){#ref-to-markdown}
+
 **Type**   | **Description**          | **Default**
 ---------- | ------------------------ | -----------
 [`str`][]  | The text to convert.     | *required*
 [`Markdown`](#ref-to-markdown){ .external title="markdown.Markdown" } | A Markdown instance. | *required*
 
 <p><b>Returns:</b></p>
+
+[](){#ref-to-markup}
 
 **Type**   | **Name**    | **Description**
 ---------- | ----------- | ---------------
