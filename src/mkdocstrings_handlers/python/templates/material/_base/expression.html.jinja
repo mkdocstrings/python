@@ -169,4 +169,4 @@ Context:
 {%- if config.modernize_annotations and expression is not string -%}
   {%- set expression = expression.modernize() -%}
 {%- endif -%}
-{{ render(expression, config.annotations_path, backlink_type|default("")) }}
+{{ render(expression, annotations_path|default(config.annotations_path), backlink_type|default("")) }}

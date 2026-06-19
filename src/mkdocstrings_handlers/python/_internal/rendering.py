@@ -245,7 +245,13 @@ def do_format_attribute(
         )
         signature += f": {annotation}"
     if show_value and attribute.value:
-        value = template.render(context.parent, expression=attribute.value, signature=True, backlink_type="used-by")
+        value = template.render(
+            context.parent,
+            expression=attribute.value,
+            signature=True,
+            annotations_path="source",
+            backlink_type="used-by",
+        )
         signature += f" = {value}"
 
     signature = do_format_code(signature, line_length)
