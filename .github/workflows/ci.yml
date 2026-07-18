@@ -142,6 +142,7 @@ jobs:
 
     - name: Download objects inventory
       uses: actions/download-artifact@v4
+      if: ${{ matrix.resolution == 'highest' }}
       with:
         name: objects.inv
         path: site/
