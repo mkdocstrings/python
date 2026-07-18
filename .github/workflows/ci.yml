@@ -112,6 +112,10 @@ jobs:
           resolution: lowest-direct
         - os: windows-latest
           resolution: lowest-direct
+        - python-version: "3.14"
+          resolution: lowest-direct
+        - python-version: "3.15"
+          resolution: lowest-direct
     runs-on: ${{ matrix.os }}
     continue-on-error: true
 
