@@ -45,6 +45,8 @@ if TYPE_CHECKING:
 
 _logger = get_logger(__name__)
 
+_STASH_KEY_ALPHABET = string.ascii_letters + string.digits
+
 
 def _sort_key_alphabetical(item: CollectorItem) -> str:
     # `chr(sys.maxunicode)` is a string that contains the final unicode character,
@@ -107,11 +109,15 @@ class _StashCrossRefFilter:
 
     @staticmethod
     def _gen_key(length: int) -> str:
-        return "_" + "".join(random.choice(string.ascii_letters + string.digits) for _ in range(max(1, length - 1)))  # noqa: S311
+        return "_" + "".join(random.choice(_STASH_KEY_ALPHABET) for _ in range(max(1, length - 1)))  # noqa: S311
 
     def _gen_stash_key(self, length: int) -> str:
         key = self._gen_key(length)
         while key in self.stash:
+            key_length = len(key)
+            keyspace_size = len(_STASH_KEY_ALPHABET) ** (key_length - 1)
+            if sum(len(stash_key) == key_length for stash_key in self.stash) >= keyspace_size:
+                length = key_length + 1
             key = self._gen_key(length)
         return key
 

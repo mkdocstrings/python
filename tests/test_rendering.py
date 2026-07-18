@@ -54,6 +54,19 @@ def test_format_signature(name: Markup, signature: str) -> None:
         assert rendering._format_signature(name, signature, length)
 
 
+def test_stash_crossref_filter_expands_exhausted_keyspace() -> None:
+    """Assert stashing more cross-references than fit at the requested length terminates."""
+    stash_crossref = rendering._StashCrossRefFilter()
+    stash_crossref.stash.clear()
+    try:
+        keys = [stash_crossref(str(index), length=1) for index in range(63)]
+    finally:
+        stash_crossref.stash.clear()
+
+    assert len(set(keys)) == 63
+    assert len(keys[-1]) == 3
+
+
 @dataclass
 class _FakeObject:
     name: str
