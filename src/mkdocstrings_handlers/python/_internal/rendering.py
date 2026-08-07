@@ -107,7 +107,7 @@ class _StashCrossRefFilter:
 
     @staticmethod
     def _gen_key(length: int) -> str:
-        return "_" + "".join(random.choice(string.ascii_letters + string.digits) for _ in range(max(1, length - 1)))  # noqa: S311
+        return "_" + "".join(random.choice(string.ascii_letters + string.digits) for _ in range(max(2, length - 1)))  # noqa: S311
 
     def _gen_stash_key(self, length: int) -> str:
         key = self._gen_key(length)
