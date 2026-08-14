@@ -31,6 +31,7 @@ from mkdocstrings_handlers.python._internal.rendering import (
     do_format_type_alias,
     do_get_template,
     do_order_members,
+    do_source_location,
     do_split_path,
     do_stash_crossref,
 )
@@ -64,6 +65,7 @@ __all__ = [
     "do_format_type_alias",
     "do_get_template",
     "do_order_members",
+    "do_source_location",
     "do_split_path",
     "do_stash_crossref",
     "get_handler",
