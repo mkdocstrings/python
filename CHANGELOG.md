@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.6](https://github.com/mkdocstrings/python/releases/tag/2.0.6) - 2026-08-16
+
+<small>[Compare with 2.0.5](https://github.com/mkdocstrings/python/compare/2.0.5...2.0.6)</small>
+
+### Bug Fixes
+
+- Don't pass unsupported options to Griffe parsers ([4b38b6b](https://github.com/mkdocstrings/python/commit/4b38b6ba6c3d1e09339cd5eb2c43145be84bda66) by Timothée Mazzucotelli). [Issue-337](https://github.com/mkdocstrings/python/issues/337)
+- Increase stash key length from 1 to 2 ([6ff2749](https://github.com/mkdocstrings/python/commit/6ff274911441ffaace47dd822fd92a3cdac84e65) by Jonas Haag). [PR-336](https://github.com/mkdocstrings/python/pull/336)
+
 ## [2.0.5](https://github.com/mkdocstrings/python/releases/tag/2.0.5) - 2026-06-19
 
 <small>[Compare with 2.0.4](https://github.com/mkdocstrings/python/compare/2.0.4...2.0.5)</small>
