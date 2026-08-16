@@ -55,4 +55,4 @@ dependencies = [
 
 ______________________________________________________________________
 
-*And 7 more private sponsor(s).*
+*And 4 more private sponsor(s).*

@@ -259,6 +259,8 @@ def expand_identifier(self, identifier: str) -> str:
         obj = self.current_object
         while identifier and identifier[0] == ".":
             identifier = identifier[1:]
+            if obj.parent is None:
+                break
             obj = obj.parent
         identifier = f"{obj.path}.{identifier}" if identifier else obj.path
 
@@ -305,12 +307,13 @@ def get_context(self) -> AutorefsHookInterface.Context:
         "module": "mod",
     }.get(self.current_object.kind.value.lower(), "obj")
     origin = self.current_object.path
-    try:
-        filepath = self.current_object.docstring.parent.filepath
-        lineno = self.current_object.docstring.lineno or 0
-    except AttributeError:
+    docstring = self.current_object.docstring
+    if docstring is None or docstring.parent is None:
         filepath = self.current_object.filepath
         lineno = 0
+    else:
+        filepath = docstring.parent.filepath
+        lineno = docstring.lineno or 0
 
     return AutorefsHookInterface.Context(
         domain="py",
@@ -1034,7 +1037,9 @@ def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:
 
     parser_name = options.docstring_style
     parser = parser_name and Parser(parser_name)
-    parser_options = options.docstring_options and asdict(options.docstring_options)
+    parser_options: dict[str, Any] | None = None
+    if options.docstring_options is not None:
+        parser_options = _filter_parser_options(parser, asdict(options.docstring_options))
 
     if unknown_module:
         extensions = self.normalize_extension_paths(options.extensions)
@@ -1042,7 +1047,7 @@ def collect(self, identifier: str, options: PythonOptions) -> CollectorItem:
             extensions=load_extensions(*extensions),
             search_paths=self._paths,
             docstring_parser=parser,
-            docstring_options=parser_options,
+            docstring_options=parser_options,  # type: ignore[arg-type]
             modules_collection=self._modules_collection,
             lines_collection=self._lines_collection,
             allow_inspection=options.allow_inspection,
@@ -1124,7 +1129,7 @@ Returns:
 
 - `Markup` – An HTML string.
 
-Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def do_convert_markdown(
@@ -1167,7 +1172,7 @@ def do_convert_markdown(
         if BacklinksTreeProcessor.name in treeprocessors:
             treeprocessors[BacklinksTreeProcessor.name].initial_id = None
         if AutorefsInlineProcessor.name in self.md.inlinePatterns:
-            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None
+            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # ty: ignore[unresolved-attribute]
         self.md.reset()
         _markdown_conversion_layer -= 1
 ```
@@ -1223,7 +1228,7 @@ Returns:
 
 - `Markup` – An HTML string.
 
-Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def do_heading(
@@ -1367,7 +1372,7 @@ Returns:
 
 - `list[Path]` – The extensions templates directories.
 
-Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_extended_templates_dirs(self, handler: str) -> list[Path]:
@@ -1395,7 +1400,7 @@ Returns:
 
 - `Sequence[Element]` – A list of HTML elements.
 
-Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_headings(self) -> Sequence[Element]:
@@ -1488,7 +1493,7 @@ Returns:
 
 - `Path` – The templates directory path.
 
-Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_templates_dir(self, handler: str | None = None) -> Path:
@@ -1756,7 +1761,7 @@ Teardown the handler.
 
 This method should be implemented to, for example, terminate a subprocess that was started when creating the handler instance.
 
-Source code in `.venv/lib/python3.13/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def teardown(self) -> None:
