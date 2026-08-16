@@ -36,7 +36,7 @@ def _fixture_public_api(loader: griffe.GriffeLoader) -> griffe.Module:
 
 
 def _yield_public_objects(
-    obj: griffe.Module | griffe.Class,
+    obj: griffe.Module | griffe.Class | griffe.Alias,
     *,
     modules: bool = False,
     modulelevel: bool = True,
@@ -48,6 +48,7 @@ def _yield_public_objects(
             if member.is_module:
                 if member.is_alias or not member.is_public:
                     continue
+                assert isinstance(member, griffe.Module)
                 if modules:
                     yield member
                 yield from _yield_public_objects(
@@ -62,6 +63,7 @@ def _yield_public_objects(
             else:
                 continue
             if member.is_class and not modulelevel:
+                assert isinstance(member, (griffe.Class, griffe.Alias))
                 yield from _yield_public_objects(
                     member,
                     modules=modules,

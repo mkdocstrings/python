@@ -228,10 +228,9 @@ class PythonHandler(BaseHandler):
 
         parser_name = options.docstring_style
         parser = parser_name and Parser(parser_name)
-        parser_options = options.docstring_options
-        if parser_options is not None:
-            parser_options = asdict(parser_options)
-            parser_options = _filter_parser_options(parser, parser_options)
+        parser_options: dict[str, Any] | None = None
+        if options.docstring_options is not None:
+            parser_options = _filter_parser_options(parser, asdict(options.docstring_options))
 
         if unknown_module:
             extensions = self.normalize_extension_paths(options.extensions)
@@ -239,7 +238,7 @@ class PythonHandler(BaseHandler):
                 extensions=load_extensions(*extensions),
                 search_paths=self._paths,
                 docstring_parser=parser,
-                docstring_options=parser_options,
+                docstring_options=parser_options,  # type: ignore[arg-type]
                 modules_collection=self._modules_collection,
                 lines_collection=self._lines_collection,
                 allow_inspection=options.allow_inspection,

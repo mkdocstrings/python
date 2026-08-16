@@ -420,22 +420,20 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
 
 
 def _parents(obj: Alias) -> set[str]:
-    parent: Object | Alias = obj.parent
-    parents = {obj.path, parent.path}
-    if parent.is_alias:
-        parents.add(parent.final_target.path)
-    while parent.parent:
-        parent = parent.parent
+    parents = {obj.path}
+    parent = obj.parent
+    while parent is not None:
         parents.add(parent.path)
-        if parent.is_alias:
+        if isinstance(parent, Alias):
             parents.add(parent.final_target.path)
+        parent = parent.parent
     return parents
 
 
 def _remove_cycles(objects: list[Object | Alias]) -> Iterator[Object | Alias]:
     suppress_errors = suppress(AliasResolutionError, CyclicAliasError)
     for obj in objects:
-        if obj.is_alias:
+        if isinstance(obj, Alias):
             with suppress_errors:
                 if obj.final_target.path in _parents(obj):
                     continue
@@ -784,6 +782,8 @@ class AutorefsHook(AutorefsHookInterface):
             obj = self.current_object
             while identifier and identifier[0] == ".":
                 identifier = identifier[1:]
+                if obj.parent is None:
+                    break
                 obj = obj.parent
             identifier = f"{obj.path}.{identifier}" if identifier else obj.path
 
@@ -814,12 +814,13 @@ class AutorefsHook(AutorefsHookInterface):
             "module": "mod",
         }.get(self.current_object.kind.value.lower(), "obj")
         origin = self.current_object.path
-        try:
-            filepath = self.current_object.docstring.parent.filepath
-            lineno = self.current_object.docstring.lineno or 0
-        except AttributeError:
+        docstring = self.current_object.docstring
+        if docstring is None or docstring.parent is None:
             filepath = self.current_object.filepath
             lineno = 0
+        else:
+            filepath = docstring.parent.filepath
+            lineno = docstring.lineno or 0
 
         return AutorefsHookInterface.Context(
             domain="py",

@@ -23,9 +23,14 @@ class CustomFields(griffe.Extension):
         """Fetch descriptions from `Field` annotations."""
         if attr.docstring:
             return
+        annotation = attr.annotation
+        if not isinstance(annotation, griffe.ExprSubscript) or not isinstance(annotation.slice, griffe.ExprTuple):
+            return
         try:
-            field: griffe.ExprCall = attr.annotation.slice.elements[1]
-        except AttributeError:
+            field = annotation.slice.elements[1]
+        except IndexError:
+            return
+        if not isinstance(field, griffe.ExprCall):
             return
 
         if field.canonical_path == "mkdocstrings_handlers.python._internal.config._Field":

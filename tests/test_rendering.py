@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any, Callable, cast
 
 import pytest
-from griffe import ModulesCollection, temporary_visited_module
+from griffe import Alias, ModulesCollection, Object, temporary_visited_module
 
 from mkdocstrings_handlers.python._internal import rendering
 
@@ -78,7 +78,7 @@ def test_filter_objects(names: list[str], filter_params: dict[str, Any], expecte
         expected_names: Names expected to be kept.
     """
     objects = {name: _FakeObject(name) for name in names}
-    filtered = rendering.do_filter_objects(objects, **filter_params)
+    filtered = rendering.do_filter_objects(cast("dict[str, Object | Alias]", objects), **filter_params)
     filtered_names = {obj.name for obj in filtered}
     assert set(filtered_names) == set(expected_names)
 
