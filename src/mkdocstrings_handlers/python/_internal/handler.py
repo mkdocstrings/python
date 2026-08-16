@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 import glob
+import inspect
 import os
 import posixpath
 import sys
 from contextlib import suppress
 from dataclasses import asdict
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar
+from typing import TYPE_CHECKING, Any, BinaryIO, Callable, ClassVar
 
 from griffe import (
     AliasResolutionError,
@@ -18,6 +19,10 @@ from griffe import (
     ModulesCollection,
     Parser,
     load_extensions,
+    parse_auto,
+    parse_google,
+    parse_numpy,
+    parse_sphinx,
     patch_loggers,
 )
 from mkdocs.exceptions import PluginError
@@ -53,6 +58,34 @@ else:
 _logger = get_logger(__name__)
 
 patch_loggers(get_logger)
+
+_PARSER_FUNCTIONS: dict[Parser, Callable] = {
+    Parser.auto: parse_auto,
+    Parser.google: parse_google,
+    Parser.numpy: parse_numpy,
+    Parser.sphinx: parse_sphinx,
+}
+
+
+def _filter_parser_options(parser: Parser | None, options: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Filter options unsupported by the selected Griffe parser."""
+    if parser is None or options is None:
+        return options
+
+    accepted_options = set(inspect.signature(_PARSER_FUNCTIONS[parser]).parameters) - {"docstring"}
+    filtered_options = {}
+    for name, value in options.items():
+        if name in accepted_options:
+            if parser is Parser.auto and name == "per_style_options":
+                filtered_options[name] = {
+                    style: _filter_parser_options(Parser(style), style_options)
+                    for style, style_options in value.items()
+                }
+            else:
+                filtered_options[name] = value
+        else:
+            _logger.warning(f"Ignoring unsupported {parser.value} docstring parser option: {name}")
+    return filtered_options
 
 
 class PythonHandler(BaseHandler):
@@ -195,7 +228,10 @@ class PythonHandler(BaseHandler):
 
         parser_name = options.docstring_style
         parser = parser_name and Parser(parser_name)
-        parser_options = options.docstring_options and asdict(options.docstring_options)
+        parser_options = options.docstring_options
+        if parser_options is not None:
+            parser_options = asdict(parser_options)
+            parser_options = _filter_parser_options(parser, parser_options)
 
         if unknown_module:
             extensions = self.normalize_extension_paths(options.extensions)
