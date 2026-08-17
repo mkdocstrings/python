@@ -11,6 +11,7 @@ from pathlib import Path
 from textwrap import dedent
 from typing import TYPE_CHECKING
 
+import bs4
 import mkdocstrings
 import pytest
 from griffe import (
@@ -333,3 +334,77 @@ def test_specifying_inventory_base_url(handler: PythonHandler) -> None:
     # Assert the URL is based on the provided base URL
     msg = "Expected inventory URL to start with base_url"
     assert item_url.startswith(base_url), msg
+
+
+def _source_labels(html: str) -> list[Path]:
+    soup = bs4.BeautifulSoup(html, features="html.parser")
+    labels = []
+    for summary in soup.find_all("summary"):
+        if "Source code in" in summary.get_text():
+            code_tag = summary.find("code")
+            assert code_tag is not None
+            labels.append(Path(code_tag.get_text(strip=True)))
+    return labels
+
+
+def _write_site_packages_package(tmp_path: Path, *, single_module: bool) -> None:
+    """Lay out the issue-333 scenario: a package installed in a virtual environment inside the project.
+
+    The environment's `site-packages` directory is relative to the current
+    working directory, so the package's `relative_filepath` is relative too,
+    slipping past `is_absolute()` checks.
+    """
+    code = """
+    class Model:
+        '''Model docstring.'''
+
+        def __init__(self) -> None:
+            '''Init docstring.'''
+            self.model_attribute = 0
+
+        def method(self) -> None:
+            '''Method docstring.'''
+    """
+    site = tmp_path / "site-packages"
+    module_path = site / "pkg.py" if single_module else site / "pkg" / "__init__.py"
+    module_path.parent.mkdir(parents=True)
+    module_path.write_text(dedent(code), encoding="utf-8")
+
+
+@pytest.mark.parametrize(
+    "handler",
+    [
+        {"theme": "readthedocs"},
+        {"theme": {"name": "material"}},
+    ],
+    indirect=["handler"],
+)
+@pytest.mark.parametrize(
+    ("single_module", "extra_options", "expected_label"),
+    [
+        pytest.param(False, {"merge_init_into_class": True}, Path("pkg", "__init__.py"), id="merged-init"),
+        pytest.param(False, {}, Path("pkg", "__init__.py"), id="class-and-methods"),
+        pytest.param(True, {"merge_init_into_class": True}, Path("pkg.py"), id="single-module"),
+    ],
+)
+def test_no_environment_path_in_source_labels(
+    *,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    handler: PythonHandler,
+    single_module: bool,
+    extra_options: dict,
+    expected_label: Path,
+) -> None:
+    """Assert source labels never show an environment path."""
+    _write_site_packages_package(tmp_path, single_module=single_module)
+    monkeypatch.chdir(tmp_path)
+    # `collect()` reads the search paths lazily from this attribute.
+    handler._paths = [str(tmp_path / "site-packages")]
+    options = handler.get_options({"show_source": True, **extra_options})
+    html = handler.render(handler.collect("pkg.Model", options), options)
+    labels = _source_labels(html)
+    assert labels
+    assert set(labels) == {expected_label}
+    # The source bodies themselves are still rendered.
+    assert "model_attribute" in html

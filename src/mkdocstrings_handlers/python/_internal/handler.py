@@ -345,6 +345,7 @@ class PythonHandler(BaseHandler):
         self.env.filters["filter_objects"] = rendering.do_filter_objects
         self.env.filters["stash_crossref"] = rendering.do_stash_crossref
         self.env.filters["get_template"] = rendering.do_get_template
+        self.env.filters["source_location"] = rendering.do_source_location
         self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
         self.env.filters["as_functions_section"] = rendering.do_as_functions_section
         self.env.filters["as_classes_section"] = rendering.do_as_classes_section

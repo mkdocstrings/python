@@ -11,6 +11,7 @@ from collections import defaultdict
 from contextlib import suppress
 from dataclasses import replace
 from functools import lru_cache
+from pathlib import Path
 from re import Pattern
 from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal, TypeVar
 
@@ -588,6 +589,30 @@ def do_get_template(obj: Object | Alias) -> str:
         return name
     name = obj.kind.value.replace(" ", "_")
     return f"{name}.html.jinja"
+
+
+def do_source_location(obj: Object | Alias) -> Path:
+    """Get the file path displayed in an object's source block label.
+
+    Environment paths are never displayed: when the object's file lives in
+    a `site-packages` directory (for example a virtual environment inside
+    the current working directory), the path below `site-packages` is
+    returned instead.
+
+    Parameters:
+        obj: A Griffe object.
+
+    Returns:
+        The file path to display.
+    """
+    relative_filepath = obj.relative_filepath
+    parts = relative_filepath.parts
+    if "site-packages" in parts:
+        anchor = len(parts) - 1 - parts[::-1].index("site-packages")
+        return Path(*parts[anchor + 1 :])
+    if relative_filepath.is_absolute():
+        return obj.relative_package_filepath
+    return relative_filepath
 
 
 @pass_context

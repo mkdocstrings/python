@@ -208,26 +208,14 @@ Context:
               {% if "__init__" in class.all_members and class.all_members["__init__"].source %}
                 {% with init = class.all_members["__init__"] %}
                   <details class="quote">
-                    <summary>Source code in <code>
-                      {%- if init.relative_filepath.is_absolute() -%}
-                        {{ init.relative_package_filepath }}
-                      {%- else -%}
-                        {{ init.relative_filepath }}
-                      {%- endif -%}
-                    </code></summary>
+                    <summary>Source code in <code>{{ init|source_location }}</code></summary>
                     {{ init.source|highlight(language="python", linestart=init.lineno or 0, linenums=True) }}
                   </details>
                 {% endwith %}
               {% endif %}
             {% elif class.source %}
               <details class="quote">
-                <summary>Source code in <code>
-                  {%- if class.relative_filepath.is_absolute() -%}
-                    {{ class.relative_package_filepath }}
-                  {%- else -%}
-                    {{ class.relative_filepath }}
-                  {%- endif -%}
-                </code></summary>
+                <summary>Source code in <code>{{ class|source_location }}</code></summary>
                 {{ class.source|highlight(language="python", linestart=class.lineno or 0, linenums=True) }}
               </details>
             {% endif %}
