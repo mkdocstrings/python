@@ -99,6 +99,7 @@ Functions:
 - **`do_format_type_alias`** – Format a type alias.
 - **`do_get_template`** – Get the template name used to render an object.
 - **`do_order_members`** – Order members given an ordering method.
+- **`do_source_location`** – Get the file path displayed in an object's source block label.
 - **`do_split_path`** – Split object paths for building cross-references.
 - **`get_handler`** – Return an instance of PythonHandler.
 
@@ -1195,7 +1196,7 @@ Returns:
 
 - `Markup` – An HTML string.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def do_convert_markdown(
@@ -1294,7 +1295,7 @@ Returns:
 
 - `Markup` – An HTML string.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def do_heading(
@@ -1438,7 +1439,7 @@ Returns:
 
 - `list[Path]` – The extensions templates directories.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_extended_templates_dirs(self, handler: str) -> list[Path]:
@@ -1466,7 +1467,7 @@ Returns:
 
 - `Sequence[Element]` – A list of HTML elements.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_headings(self) -> Sequence[Element]:
@@ -1559,7 +1560,7 @@ Returns:
 
 - `Path` – The templates directory path.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def get_templates_dir(self, handler: str | None = None) -> Path:
@@ -1827,7 +1828,7 @@ Teardown the handler.
 
 This method should be implemented to, for example, terminate a subprocess that was started when creating the handler instance.
 
-Source code in `.venv/lib/python3.14/site-packages/mkdocstrings/_internal/handlers/base.py`
+Source code in `mkdocstrings/_internal/handlers/base.py`
 
 ```python
 def teardown(self) -> None:
@@ -1873,6 +1874,7 @@ def update_env(self, config: Any) -> None:  # noqa: ARG002
     self.env.filters["filter_objects"] = rendering.do_filter_objects
     self.env.filters["stash_crossref"] = rendering.do_stash_crossref
     self.env.filters["get_template"] = rendering.do_get_template
+    self.env.filters["source_location"] = rendering.do_source_location
     self.env.filters["as_attributes_section"] = rendering.do_as_attributes_section
     self.env.filters["as_functions_section"] = rendering.do_as_functions_section
     self.env.filters["as_classes_section"] = rendering.do_as_classes_section
@@ -4566,6 +4568,53 @@ def do_order_members(
         with suppress(ValueError):
             return sorted(members, key=_order_map[method])
     return members
+```
+
+## do_source_location
+
+```python
+do_source_location(obj: Object | Alias) -> Path
+```
+
+Get the file path displayed in an object's source block label.
+
+Environment paths are never displayed: when the object's file lives in a `site-packages` directory (for example a virtual environment inside the current working directory), the path below `site-packages` is returned instead.
+
+Parameters:
+
+- ### **`obj`**
+
+  (`Object | Alias`) – A Griffe object.
+
+Returns:
+
+- `Path` – The file path to display.
+
+Source code in `src/mkdocstrings_handlers/python/_internal/rendering.py`
+
+```python
+def do_source_location(obj: Object | Alias) -> Path:
+    """Get the file path displayed in an object's source block label.
+
+    Environment paths are never displayed: when the object's file lives in
+    a `site-packages` directory (for example a virtual environment inside
+    the current working directory), the path below `site-packages` is
+    returned instead.
+
+    Parameters:
+        obj: A Griffe object.
+
+    Returns:
+        The file path to display.
+    """
+    relative_filepath = obj.relative_filepath
+    parts = relative_filepath.parts
+    if "site-packages" in parts:
+        anchor = len(parts) - 1 - parts[::-1].index("site-packages")
+        return Path(*parts[anchor + 1 :])
+    if relative_filepath.is_absolute():
+        return obj.relative_package_filepath
+    return relative_filepath
 ```
 
 ## do_split_path
