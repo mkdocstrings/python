@@ -370,11 +370,11 @@ def _write_site_packages_package(tmp_path: Path, *, single_module: bool) -> None
     site_packages = tmp_path / "site-packages"
     site_packages.mkdir(parents=True)
     if single_module:
-        (site_packages / "pkg.py").write_text(dedent(_MODEL_CLASS))
+        (site_packages / "pkg.py").write_text(dedent(_MODEL_CLASS), encoding="utf-8")
     else:
         pkg = site_packages / "pkg"
         pkg.mkdir()
-        (pkg / "__init__.py").write_text(dedent(_MODEL_CLASS))
+        (pkg / "__init__.py").write_text(dedent(_MODEL_CLASS), encoding="utf-8")
 
 
 @pytest.mark.parametrize(
