@@ -347,19 +347,6 @@ def _source_labels(html: str) -> list[Path]:
     return labels
 
 
-_MODEL_CLASS = """
-class Model:
-    '''Model docstring.'''
-
-    def __init__(self) -> None:
-        '''Init docstring.'''
-        self.model_attribute = 0
-
-    def method(self) -> None:
-        '''Method docstring.'''
-"""
-
-
 def _write_site_packages_package(tmp_path: Path, *, single_module: bool) -> None:
     """Lay out the issue-333 scenario: a package installed in a virtual environment inside the project.
 
@@ -367,14 +354,21 @@ def _write_site_packages_package(tmp_path: Path, *, single_module: bool) -> None
     working directory, so the package's `relative_filepath` is relative too,
     slipping past `is_absolute()` checks.
     """
-    site_packages = tmp_path / "site-packages"
-    site_packages.mkdir(parents=True)
-    if single_module:
-        (site_packages / "pkg.py").write_text(dedent(_MODEL_CLASS), encoding="utf-8")
-    else:
-        pkg = site_packages / "pkg"
-        pkg.mkdir()
-        (pkg / "__init__.py").write_text(dedent(_MODEL_CLASS), encoding="utf-8")
+    code = """
+    class Model:
+        '''Model docstring.'''
+
+        def __init__(self) -> None:
+            '''Init docstring.'''
+            self.model_attribute = 0
+
+        def method(self) -> None:
+            '''Method docstring.'''
+    """
+    site = tmp_path / "site-packages"
+    module_path = site / "pkg.py" if single_module else site / "pkg" / "__init__.py"
+    module_path.parent.mkdir(parents=True)
+    module_path.write_text(dedent(code), encoding="utf-8")
 
 
 @pytest.mark.parametrize(
