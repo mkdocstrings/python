@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.7](https://github.com/mkdocstrings/python/releases/tag/2.0.7) - 2026-08-17
+
+<small>[Compare with 2.0.6](https://github.com/mkdocstrings/python/compare/2.0.6...2.0.7)</small>
+
+### Bug Fixes
+
+- Don't render environment paths in source block labels ([84ba73e](https://github.com/mkdocstrings/python/commit/84ba73e8ca4e54afd29a4fe67b8bfb022e76c794) by Chris Wilson). [Issue-333](https://github.com/mkdocstrings/python/issues/333), [PR-338](https://github.com/mkdocstrings/python/pull/338)
+
 ## [2.0.6](https://github.com/mkdocstrings/python/releases/tag/2.0.6) - 2026-08-16
 
 <small>[Compare with 2.0.5](https://github.com/mkdocstrings/python/compare/2.0.5...2.0.6)</small>
