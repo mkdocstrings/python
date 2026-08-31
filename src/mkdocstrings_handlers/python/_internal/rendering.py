@@ -10,7 +10,7 @@ import sys
 from collections import defaultdict
 from contextlib import suppress
 from dataclasses import replace
-from functools import lru_cache
+from functools import cache, lru_cache
 from pathlib import Path
 from re import Pattern
 from typing import TYPE_CHECKING, Any, Callable, ClassVar, Literal, TypeVar
@@ -32,7 +32,7 @@ from griffe import (
     Object,
     TypeAlias,
 )
-from jinja2 import pass_context
+from jinja2 import Environment, pass_context, pass_environment
 from markupsafe import Markup
 from mkdocs_autorefs import AutorefsHookInterface, Backlink, BacklinkCrumb
 from mkdocstrings import get_logger
@@ -898,3 +898,9 @@ def do_backlink_tree(backlinks: list[Backlink]) -> Tree[BacklinkCrumb]:
         A tree of backlinks.
     """
     return _compact_tree(_tree(backlink.crumbs for backlink in backlinks))
+
+
+@cache
+@pass_environment
+def _test_existing_template(env: Environment, path: str) -> bool:
+    return path in env.list_templates()
