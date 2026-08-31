@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.8](https://github.com/mkdocstrings/python/releases/tag/2.0.8) - 2026-08-31
+
+<small>[Compare with 2.0.7](https://github.com/mkdocstrings/python/compare/2.0.7...2.0.8)</small>
+
+### Performance Improvements
+
+- Make template existence test (for locale templates) faster ([c0424f2](https://github.com/mkdocstrings/python/commit/c0424f2b10f9d8cfded49e7720e95ad90e4c5b9c) by Timothée Mazzucotelli).
+
 ## [2.0.7](https://github.com/mkdocstrings/python/releases/tag/2.0.7) - 2026-08-17
 
 <small>[Compare with 2.0.6](https://github.com/mkdocstrings/python/compare/2.0.6...2.0.7)</small>
