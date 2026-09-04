@@ -35,7 +35,7 @@ Context:
     {% if not root or config.show_root_heading %}
       {% filter heading(
           heading_level,
-          role="typealias",
+          role="type",
           id=html_id,
           class="doc doc-heading",
           toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_alias"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_alias.name,
@@ -83,7 +83,7 @@ Context:
     {% else %}
       {% if config.show_root_toc_entry %}
         {% filter heading(heading_level,
-            role="typealias",
+            role="type",
             id=html_id,
             toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_alias"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_alias.name,
             hidden=True,

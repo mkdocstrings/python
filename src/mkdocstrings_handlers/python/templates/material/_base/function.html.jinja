@@ -37,11 +37,13 @@ Context:
     {#- Brief or full function name depending on configuration. -#}
     {% set symbol_type = "method" if function.parent.is_class else "function" %}
     {#- Symbol type: method when parent is a class, function otherwise. -#}
+    {% set object_type = symbol_type %}
+    {#- Object type in objects inventory. -#}
 
     {% if not root or config.show_root_heading %}
       {% filter heading(
           heading_level,
-          role="function",
+          role=object_type,
           id=html_id,
           class="doc doc-heading",
           toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else function.name),
@@ -106,7 +108,7 @@ Context:
       {% if config.show_root_toc_entry %}
         {% filter heading(
             heading_level,
-            role="function",
+            role=object_type,
             id=html_id,
             toc_label=(('<code class="doc-symbol doc-symbol-toc doc-symbol-' + symbol_type + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else function.name),
             hidden=True,

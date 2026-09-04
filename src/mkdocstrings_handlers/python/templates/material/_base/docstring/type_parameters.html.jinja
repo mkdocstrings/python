@@ -42,7 +42,7 @@ Context:
               {% if config.type_parameter_headings %}
                 {% filter heading(
                     heading_level + 1,
-                    role="typeparam",
+                    role="typeparameter",
                     id=obj.path ~ "[" ~ type_parameter.name ~ "]",
                     class="doc doc-heading doc-heading-type_parameter",
                     toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_parameter.name,
@@ -93,7 +93,7 @@ Context:
           {% if config.type_parameter_headings %}
             {% filter heading(
                 heading_level + 1,
-                role="typeparam",
+                role="typeparameter",
                 id=obj.path ~ "[" ~ type_parameter.name ~ "]",
                 class="doc doc-heading doc-heading-type_parameter",
                 toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_parameter.name,
@@ -156,7 +156,7 @@ Context:
               {% if config.type_parameter_headings %}
                 {% filter heading(
                     heading_level + 1,
-                    role="typeparam",
+                    role="typeparameter",
                     id=obj.path ~ "[" ~ type_parameter.name ~ "]",
                     class="doc doc-heading doc-heading-type_parameter",
                     toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-type_parameter"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + type_parameter.name,
