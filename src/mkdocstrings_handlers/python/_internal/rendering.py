@@ -805,6 +805,11 @@ class AutorefsHook(AutorefsHookInterface):
         if self.config.relative_crossrefs and identifier.startswith("."):  # type: ignore[attr-defined]
             identifier = identifier[1:]
             obj = self.current_object
+            # Anchor on the docstring's parent: for inherited members the current
+            # object is an alias living under the inheriting class, while the
+            # docstring was written on the defining object in another tree.
+            if self.current_object.docstring is not None and self.current_object.docstring.parent is not None:
+                obj = self.current_object.docstring.parent
             while identifier and identifier[0] == ".":
                 identifier = identifier[1:]
                 if obj.parent is None:
