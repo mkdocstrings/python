@@ -56,6 +56,16 @@ def test_format_signature(name: Markup, signature: str) -> None:
         assert rendering._format_signature(name, signature, length)
 
 
+def test_restore_crossrefs() -> None:
+    """Restore multiple stashed cross-references without replacing partial keys."""
+    stash = {"_short": "<autoref>short</autoref>", "_shorter": "<autoref>shorter</autoref>"}
+
+    restored = rendering._restore_crossrefs("_short + _shorter + x_short + _shorterx", stash)
+
+    assert restored == "<autoref>short</autoref> + <autoref>shorter</autoref> + x_short + _shorterx"
+    assert not stash
+
+
 @dataclass
 class _FakeObject:
     name: str

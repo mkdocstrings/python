@@ -15,6 +15,7 @@ import bs4
 import mkdocstrings
 import pytest
 from griffe import (
+    Alias,
     Docstring,
     DocstringSectionExamples,
     DocstringSectionKind,
@@ -50,6 +51,32 @@ def test_collect_module(handler: PythonHandler) -> None:
 def test_collect_with_null_parser(handler: PythonHandler) -> None:
     """Assert we can pass `None` as parser when collecting."""
     assert handler.collect("mkdocstrings", PythonOptions(docstring_style=None))
+
+
+def test_get_aliases(handler: PythonHandler) -> None:
+    """Assert aliases are unique, ordered, and extended with parameter identifiers."""
+    with temporary_visited_module(
+        "def target(parameter): ...",
+        module_name="package",
+        modules_collection=handler._modules_collection,
+    ) as module:
+        target = module["target"]
+        module["alias"] = Alias("alias", target=target)
+        module["other_alias"] = Alias("other_alias", target=target)
+        module["unresolved"] = Alias("unresolved", target="missing.target")
+
+        assert handler.get_aliases("package.target") == (
+            "package.target",
+            "package.alias",
+            "package.other_alias",
+        )
+        assert handler.get_aliases("package.alias(parameter)") == (
+            "package.alias(parameter)",
+            "package.target(parameter)",
+            "package.other_alias(parameter)",
+        )
+        assert handler.get_aliases("package.unresolved") == ("package.unresolved",)
+        assert handler.get_aliases("package.missing") == ()
 
 
 @pytest.mark.parametrize(

@@ -125,6 +125,15 @@ class _StashCrossRefFilter:
 do_stash_crossref = _StashCrossRefFilter()
 """Filter to stash cross-references (and restore them after formatting and highlighting)."""
 
+_highlighting_span_re = re.compile(r'<span class="[a-z]{1,2}">')
+_crossref_key_re = re.compile(r"\b_[A-Za-z0-9]{2,}\b")
+
+
+def _restore_crossrefs(text: str, stash: dict[str, str]) -> str:
+    text = _crossref_key_re.sub(lambda match: stash.get(match[0], match[0]), text)
+    stash.clear()
+    return text
+
 
 def _format_signature(name: Markup, signature: str, line_length: int) -> str:
     name = str(name).strip()  # type: ignore[assignment]
@@ -199,13 +208,11 @@ def do_format_signature(
     # Pygments will set an `fm` (function -> magic) CSS class.
     # To fix this, we replace the CSS class in the first span with `nf`,
     # unless we already found an `nf` span.
-    if not re.search(r'<span class="nf">', signature):
-        signature = re.sub(r'<span class="[a-z]{1,2}">', '<span class="nf">', signature, count=1)
+    if '<span class="nf">' not in signature:
+        signature = _highlighting_span_re.sub('<span class="nf">', signature, count=1)
 
     if stash := env.filters["stash_crossref"].stash:
-        for key, value in stash.items():
-            signature = re.sub(rf"\b{key}\b", value, signature)
-        stash.clear()
+        signature = _restore_crossrefs(signature, stash)
 
     return signature
 
@@ -267,9 +274,7 @@ def do_format_attribute(
     )
 
     if stash := env.filters["stash_crossref"].stash:
-        for key, value in stash.items():
-            signature = re.sub(rf"\b{key}\b", value, signature)
-        stash.clear()
+        signature = _restore_crossrefs(signature, stash)
 
     return signature
 
@@ -322,13 +327,11 @@ def do_format_type_alias(
     # but instead as a regular name: `n` CSS class instead of `nc`.
     # To fix it, we replace the first occurrence of an `n` CSS class
     # with an `nc` one, unless we found `nc` already.
-    if not re.search(r'<span class="nc">', signature):
-        signature = re.sub(r'<span class="[a-z]{1,2}">', '<span class="nc">', signature, count=1)
+    if '<span class="nc">' not in signature:
+        signature = _highlighting_span_re.sub('<span class="nc">', signature, count=1)
 
     if stash := env.filters["stash_crossref"].stash:
-        for key, value in stash.items():
-            signature = re.sub(rf"\b{key}\b", value, signature)
-        stash.clear()
+        signature = _restore_crossrefs(signature, stash)
 
     return signature
 

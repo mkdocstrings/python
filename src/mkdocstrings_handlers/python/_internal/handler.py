@@ -365,7 +365,7 @@ class PythonHandler(BaseHandler):
             The aliases.
         """
         if "(" in identifier:
-            identifier, parameter = identifier.split("(", 1)
+            identifier, _, parameter = identifier.partition("(")
             parameter = parameter.removesuffix(")")
         else:
             parameter = ""
@@ -373,15 +373,18 @@ class PythonHandler(BaseHandler):
             data = self._modules_collection[identifier]
         except (KeyError, AliasResolutionError):
             return ()
-        aliases = [data.path]
+        aliases: dict[str, object] = {data.path: None}
         try:
-            for alias in [data.canonical_path, *data.aliases]:
-                if alias not in aliases:
-                    aliases.append(alias)
+            canonical_path = data.canonical_path
+            data_aliases = data.aliases
         except AliasResolutionError:
             pass
+        else:
+            aliases[canonical_path] = None
+            aliases.update(data_aliases)
         if parameter:
-            return tuple(f"{alias}({parameter})" for alias in aliases)
+            suffix = f"({parameter})"
+            return tuple(alias + suffix for alias in aliases)
         return tuple(aliases)
 
     def normalize_extension_paths(self, extensions: Sequence) -> list[str | dict[str, Any]]:
