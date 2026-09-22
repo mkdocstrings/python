@@ -33,10 +33,13 @@ Context:
 
     {% set attribute_name = attribute.path if show_full_path else attribute.name %}
 
+    {% set object_type = "data" if attribute.parent.is_module else "property" if "property" in attribute.labels else "attribute" %}
+    {#- Object type in objects inventory. -#}
+
     {% if not root or config.show_root_heading %}
       {% filter heading(
           heading_level,
-          role=("data" if attribute.parent.kind.value == "module" else "attr"),
+          role=object_type,
           id=html_id,
           class="doc doc-heading",
           toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute.name),
@@ -89,7 +92,7 @@ Context:
 
       {% if config.show_root_toc_entry %}
         {% filter heading(heading_level,
-            role=("data" if attribute.parent.kind.value == "module" else "attr"),
+            role=object_type,
             id=html_id,
             toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute_name),
             hidden=True,
