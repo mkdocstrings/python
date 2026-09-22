@@ -2,13 +2,13 @@
 <span class=c1># adapt to your dependencies manager</span>
 <span class=k>[project]</span>
 <span class=n>dependencies</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>[</span>
-<span class=w>    </span><span class=s2>&quot;mkdocstrings[python]&gt;=0.18&quot;</span><span class=p>,</span>
+<span class=w>    </span><span class=s2>"mkdocstrings[python]&gt;=0.18"</span><span class=p>,</span>
 <span class=p>]</span>
 </code></pre></div> <p>You can also explicitly depend on the handler:</p> <div class="language-toml highlight"><span class=filename>pyproject.toml</span><pre><span></span><code><span class=c1># PEP 621 dependencies declaration</span>
 <span class=c1># adapt to your dependencies manager</span>
 <span class=k>[project]</span>
 <span class=n>dependencies</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>[</span>
-<span class=w>    </span><span class=s2>&quot;mkdocstrings-python&quot;</span><span class=p>,</span>
+<span class=w>    </span><span class=s2>"mkdocstrings-python"</span><span class=p>,</span>
 <span class=p>]</span>
 </code></pre></div> <p>The Python handler is the default <em>mkdocstrings</em> handler. You can change the default handler, or explicitely set the Python handler as default by defining the <code>default_handler</code> configuration option of <code>mkdocstrings</code> in <code>mkdocs.yml</code>:</p> <div class="language-yaml highlight"><span class=filename>mkdocs.yml</span><pre><span></span><code><span class=nt>plugins</span><span class=p>:</span>
 <span class="p p-Indicator">-</span><span class=w> </span><span class=nt>mkdocstrings</span><span class=p>:</span>
@@ -120,7 +120,7 @@ poetry<span class=w> </span>run<span class=w> </span>mkdocs<span class=w> </span
 <span class=w>    </span><span class=nt>handlers</span><span class=p>:</span>
 <span class=w>      </span><span class=nt>python</span><span class=p>:</span>
 
-<span class=w>        </span><span class=c1># Where to find your sources, see &quot;Finding modules&quot;.</span>
+<span class=w>        </span><span class=c1># Where to find your sources, see "Finding modules".</span>
 <span class=w>        </span><span class=nt>paths</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">[</span><span class=nv>src</span><span class="p p-Indicator">]</span>
 
 <span class=w>        </span><span class=c1># Load object inventories to enable cross-references to other projects.</span>
@@ -134,7 +134,7 @@ poetry<span class=w> </span>run<span class=w> </span>mkdocs<span class=w> </span
 <span class=w>          </span><span class=c1># DOCSTRINGS -------------------------------------------------------------</span>
 <span class=w>          </span><span class=nt>docstring_options</span><span class=p>:</span>
 <span class=w>            </span><span class=c1># Discard first line of `__init__` method docstrings,</span>
-<span class=w>            </span><span class=c1># useful when merging such docstrings into their parent class&#39;.</span>
+<span class=w>            </span><span class=c1># useful when merging such docstrings into their parent class'.</span>
 <span class=w>            </span><span class=nt>ignore_init_summary</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class=w>          </span><span class=c1># Tables are generally too large, lists will fix this.</span>
@@ -160,7 +160,7 @@ poetry<span class=w> </span>run<span class=w> </span>mkdocs<span class=w> </span
 <span class=w>          </span><span class=nt>inherited_members</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class=w>          </span><span class=c1># Render auto-generated summaries of attributes, functions, etc.</span>
-<span class=w>          </span><span class=c1># at the start of each symbol&#39;s documentation.</span>
+<span class=w>          </span><span class=c1># at the start of each symbol's documentation.</span>
 <span class=w>          </span><span class=nt>summary</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class=w>          </span><span class=c1># HEADINGS ---------------------------------------------------------------</span>
