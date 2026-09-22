@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.9](https://github.com/mkdocstrings/python/releases/tag/2.0.9) - 2026-09-22
+
+<small>[Compare with 2.0.8](https://github.com/mkdocstrings/python/compare/2.0.8...2.0.9)</small>
+
+### Bug Fixes
+
+- Improve inventory object types (incorrectly called roles in mkdocstrings) ([d754326](https://github.com/mkdocstrings/python/commit/d754326b534a7771a5d815935976bdb869913a5f) by Timothée Mazzucotelli). [Issue-339](https://github.com/mkdocstrings/python/issues/339), [PR-340](https://github.com/mkdocstrings/python/pull/340)
+- Expand relative cross-references against the object the docstring was written on ([a9a4ca3](https://github.com/mkdocstrings/python/commit/a9a4ca3bfd8ee361cd8f7aa63a5079b232adc837) by Dev M). [Issue-341](https://github.com/mkdocstrings/python/issues/341), [PR-342](https://github.com/mkdocstrings/python/pull/342)
+
+### Performance Improvements
+
+- Small performance improvement when getting aliases and formatting/highlighting signatures ([2263163](https://github.com/mkdocstrings/python/commit/2263163f0263cb86ae9696f955213ab8fa8f5518) by Timothée Mazzucotelli).
+
 ## [2.0.8](https://github.com/mkdocstrings/python/releases/tag/2.0.8) - 2026-08-31
 
 <small>[Compare with 2.0.7](https://github.com/mkdocstrings/python/compare/2.0.7...2.0.8)</small>
