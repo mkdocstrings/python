@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any, Callable, cast
 
 import pytest
 from griffe import Alias, ModulesCollection, Object, temporary_visited_module
 
 from mkdocstrings_handlers.python._internal import rendering
+from mkdocstrings_handlers.python._internal.rendering import AutorefsHook
 
 if TYPE_CHECKING:
     from markupsafe import Markup
@@ -174,3 +176,42 @@ def test_ordering_members(order: rendering.Order, members_list: list[str | None]
     members = [Obj("a", 10, is_alias=True), Obj("b", 9, is_alias=False), Obj("c", 8, is_alias=True)]
     ordered = rendering.do_order_members(members, order, members_list)  # type: ignore[arg-type]
     assert [obj.name for obj in ordered] == expected_names
+
+
+def test_expand_identifier_relative_crossref_in_inherited_member() -> None:
+    """Relative cross-references in inherited members expand against the defining object.
+
+    The docstring of an inherited member is rendered in the docs of the inheriting
+    class, where the current object is an alias living under that class. Dots in
+    relative references must still climb the tree of the class the docstring was
+    written on, not the consumer's tree.
+    """
+    collection = ModulesCollection()
+    with temporary_visited_module(
+        '''
+        class Base:
+            MAPPING = {}
+            """The mapping to use for each [`Thing`][....Thing]."""
+        ''',
+        module_name="pkga",
+        modules_collection=collection,
+    ) as module:
+        collection["pkga"] = module
+        with temporary_visited_module(
+            """
+            from pkga import Base
+
+            class Derived(Base): ...
+            """,
+            module_name="pkgb",
+            modules_collection=collection,
+        ) as module_b:
+            collection["pkgb"] = module_b
+            config = SimpleNamespace(relative_crossrefs=True, scoped_crossrefs=False)
+            # Control: a non-inherited object expands relative references in its own tree.
+            direct = AutorefsHook(collection["pkga"]["Base"]["MAPPING"], config)  # type: ignore[arg-type]
+            assert direct.expand_identifier("....Thing") == "pkga.Thing"
+            # Inherited member: the current object is an alias under pkgb.Derived,
+            # but the docstring was written on pkga.Base.MAPPING.
+            inherited = AutorefsHook(collection["pkgb"]["Derived"]["MAPPING"], config)  # type: ignore[arg-type]
+            assert inherited.expand_identifier("....Thing") == "pkga.Thing"
