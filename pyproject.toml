@@ -30,7 +30,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "mkdocstrings>=0.30",
+    "mkdocstrings>=1.0.8",
     "mkdocs-autorefs>=1.4",
     "griffelib>=2.0",
     "typing-extensions>=4.0; python_version < '3.11'",

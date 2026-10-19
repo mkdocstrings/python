@@ -21,6 +21,7 @@ from griffe import (
     DocstringSectionKind,
     Module,
     temporary_inspected_module,
+    temporary_pypackage,
     temporary_visited_module,
 )
 from mkdocstrings import CollectionError
@@ -28,6 +29,7 @@ from mkdocstrings import CollectionError
 from mkdocstrings_handlers.python import Inventory, PythonConfig, PythonHandler, PythonOptions
 
 if TYPE_CHECKING:
+    from markdown import Markdown
     from mkdocstrings import MkdocstringsPlugin
 
 
@@ -202,6 +204,130 @@ def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
         module["Class.function"].lineno = None
         module["attribute"].lineno = None
         assert handler.render(module, PythonOptions(show_source=True))
+
+
+@pytest.mark.parametrize(
+    ("handler", "merge_init_into_class"),
+    [
+        (
+            {
+                "theme": theme,
+                "markdown_extensions": [
+                    {
+                        "pymdownx.highlight": {
+                            "anchor_linenums": True,
+                            "line_spans": "custom-span",
+                            "line_anchors": "custom-line",
+                            "linenums_style": linenums_style,
+                        },
+                    },
+                    {"pymdownx.superfences": {}},
+                ],
+            },
+            merge_init_into_class,
+        )
+        for theme in ("material", "readthedocs", "mkdocs")
+        for linenums_style in ("table", "inline")
+        for merge_init_into_class in (True, False)
+    ],
+    indirect=["handler"],
+)
+def test_source_code_ids_are_unique(
+    handler: PythonHandler,
+    ext_markdown: Markdown,
+    merge_init_into_class: bool,
+) -> None:
+    """Keep source line IDs unique across modules, overlapping sources, and inherited methods."""
+    # Both modules put their source at the same line numbers. Class source also overlaps method source.
+    code = '''
+        class Base:
+            """Base class."""
+
+            def __init__(self):
+                """Initialize the base class."""
+                self.value = 1
+
+            def method(self):
+                """Return a value."""
+                return self.value
+
+        class Derived(Base):
+            """Derived class."""
+    '''
+    markdown = f"""
+::: source_ids.first
+    options:
+      show_source: true
+      inherited_members: true
+      merge_init_into_class: {str(merge_init_into_class).lower()}
+
+::: source_ids.second
+    options:
+      show_source: true
+      inherited_members: true
+      merge_init_into_class: {str(merge_init_into_class).lower()}
+"""
+    with temporary_pypackage("source_ids", {"first.py": code, "second.py": code}) as package:
+        handler._paths = [str(package.tmpdir)]
+
+        html = ext_markdown.convert(markdown)
+
+    soup = bs4.BeautifulSoup(html, "html.parser")
+    source_blocks = soup.select("details.mkdocstrings-source, details.quote")
+    assert len(source_blocks) == (8 if merge_init_into_class else 12)
+
+    # Every source ID is unique, including methods repeated under Derived.
+    ids = [element["id"] for block in source_blocks for element in block.select("[id]")]
+    assert ids
+    assert len(ids) == len(set(ids))
+    assert all(
+        str(identifier).startswith("source_ids.") and "--source--custom-" in str(identifier) for identifier in ids
+    )
+
+    # Line-number links and legacy anchor names still point to IDs in their own source block.
+    for block in source_blocks:
+        block_ids = {element["id"] for element in block.select("[id]")}
+        links = block.select('a[href^="#"]')
+        assert links
+        assert all(str(link["href"])[1:] in block_ids for link in links)
+        assert all(anchor["name"] == anchor["id"] for anchor in block.select("a[name]"))
+
+
+@pytest.mark.parametrize(
+    "handler",
+    [
+        {
+            "markdown_extensions": [
+                {"pymdownx.highlight": {"anchor_linenums": True, "line_spans": "__span"}},
+                {"pymdownx.superfences": {}},
+            ],
+        },
+    ],
+    indirect=True,
+)
+def test_source_and_docstring_code_ids_do_not_collide(handler: PythonHandler) -> None:
+    """Keep source and docstring code IDs distinct."""
+    # Both the function's source and the fenced example start at line 1.
+    code = '''def function():
+    """An example.
+
+    ```python linenums="1"
+    print("example")
+    ```
+    """
+    return 1
+'''
+    with temporary_visited_module(code, module_name="code_ids") as module:
+        html = handler.render(module["function"], handler.get_options({"show_source": True}))
+
+    soup = bs4.BeautifulSoup(html, "html.parser")
+    ids = [element["id"] for element in soup.select("[id]")]
+
+    assert len(ids) == len(set(ids))
+    assert "code_ids.function--__span-0-1" in ids
+    assert "code_ids.function--source--__span-0-1" in ids
+    assert "code_ids.function--__codelineno-0-1" in ids
+    assert "code_ids.function--source--__codelineno-0-1" in ids
 
 
 def test_give_precedence_to_user_paths() -> None:

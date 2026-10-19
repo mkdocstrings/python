@@ -209,14 +209,14 @@ Context:
                 {% with init = class.all_members["__init__"] %}
                   <details class="quote">
                     <summary>Source code in <code>{{ init|source_location }}</code></summary>
-                    {{ init.source|highlight(language="python", linestart=init.lineno or 0, linenums=True) }}
+                    {{ init.source|highlight(language="python", linestart=init.lineno or 0, linenums=True, id_prefix=html_id ~ "--source--") }}
                   </details>
                 {% endwith %}
               {% endif %}
             {% elif class.source %}
               <details class="quote">
                 <summary>Source code in <code>{{ class|source_location }}</code></summary>
-                {{ class.source|highlight(language="python", linestart=class.lineno or 0, linenums=True) }}
+                {{ class.source|highlight(language="python", linestart=class.lineno or 0, linenums=True, id_prefix=html_id ~ "--source--") }}
               </details>
             {% endif %}
           {% endif %}
