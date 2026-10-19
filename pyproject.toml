@@ -9,7 +9,7 @@ authors = [{name = "Timothée Mazzucotelli", email = "dev@pawamoy.fr"}]
 license = "ISC"
 license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 keywords = []
 dynamic = ["version"]
 classifiers = [
@@ -18,7 +18,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -112,8 +111,6 @@ ci = [
     "mkdocs-section-index>=0.3",
     "mkdocstrings>=0.29",
     "pydantic>=2.10",
-    # YORE: EOL 3.10: Remove line.
-    "tomli>=2.0; python_version < '3.11'",
 ]
 
 [tool.inline-snapshot]

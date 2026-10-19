@@ -39,21 +39,7 @@ if TYPE_CHECKING:
     from mkdocs_autorefs import Backlink
 
 
-# YORE: EOL 3.10: Replace block with line 2.
-if sys.version_info >= (3, 11):
-    from contextlib import chdir
-else:
-    from contextlib import contextmanager
-
-    @contextmanager
-    def chdir(path: str) -> Iterator[None]:
-        old_wd = os.getcwd()
-        os.chdir(path)
-        try:
-            yield
-        finally:
-            os.chdir(old_wd)
-
+from contextlib import chdir
 
 _logger = get_logger(__name__)
 
