@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.10](https://github.com/mkdocstrings/python/releases/tag/2.0.10) - 2026-10-19
+
+<small>[Compare with 2.0.9](https://github.com/mkdocstrings/python/compare/2.0.9...2.0.10)</small>
+
+### Build
+
+- Drop support for Python 3.10 ([aad7fc6](https://github.com/mkdocstrings/python/commit/aad7fc6efd12f096807b466e5e3175e27fa7852d) by Timothée Mazzucotelli).
+
+### Bug Fixes
+
+- Prefix code anchor/span IDs in signatures to avoid collisions ([35cde4c](https://github.com/mkdocstrings/python/commit/35cde4c1163d2d8a8fd79b34ab574888bfd30ddf) by Timothée Mazzucotelli). [Issue-200](https://github.com/mkdocstrings/python/issues/200)
+
 ## [2.0.9](https://github.com/mkdocstrings/python/releases/tag/2.0.9) - 2026-09-22
 
 <small>[Compare with 2.0.8](https://github.com/mkdocstrings/python/compare/2.0.8...2.0.9)</small>
