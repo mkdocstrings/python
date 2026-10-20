@@ -54,22 +54,27 @@ Context:
     {%- elif annotation_path == "full" -%}
       {%- set annotation = full -%}
     {%- endif -%}
-    {%- for prefix, title, path, suffix in annotation|split_path(full) -%}
-      {{ prefix }}
-      {%- if not signature -%}
-        {#- Always render cross-references outside of signatures. We don't need to stash them. -#}
-        <autoref identifier="{{ path }}"{% if backlink_type %} backlink-type="{{ backlink_type }}" backlink-anchor="{{ html_id }}"{% endif %} optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
-      {%- elif config.signature_crossrefs -%}
-        {#- We're in a signature and cross-references are enabled, we must render one and stash it. -#}
-        {%- filter stash_crossref(length=title|length) -%}
+    {%- if name.reference_path is none -%}
+      {#- Unresolved names can match unrelated headings, so render them as plain text. -#}
+      {{ annotation }}
+    {%- else -%}
+      {%- for prefix, title, path, suffix in annotation|split_path(name.reference_path) -%}
+        {{ prefix }}
+        {%- if not signature -%}
+          {#- Always render cross-references outside of signatures. We don't need to stash them. -#}
           <autoref identifier="{{ path }}"{% if backlink_type %} backlink-type="{{ backlink_type }}" backlink-anchor="{{ html_id }}"{% endif %} optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
-        {%- endfilter -%}
-      {%- else -%}
-        {#- We're in a signature but cross-references are disabled, we just render the title. -#}
-        {{ title }}
-      {%- endif -%}
-      {{ suffix }}
-    {%- endfor -%}
+        {%- elif config.signature_crossrefs -%}
+          {#- We're in a signature and cross-references are enabled, we must render one and stash it. -#}
+          {%- filter stash_crossref(length=title|length) -%}
+            <autoref identifier="{{ path }}"{% if backlink_type %} backlink-type="{{ backlink_type }}" backlink-anchor="{{ html_id }}"{% endif %} optional{% if title != path %} hover{% endif %}>{{ title }}</autoref>
+          {%- endfilter -%}
+        {%- else -%}
+          {#- We're in a signature but cross-references are disabled, we just render the title. -#}
+          {{ title }}
+        {%- endif -%}
+        {{ suffix }}
+      {%- endfor -%}
+    {%- endif -%}
   {%- endwith -%}
 {%- endmacro -%}
 
@@ -82,11 +87,13 @@ Context:
   Returns:
       The autorefs cross-reference, or the type parameter name.
   -#}
-  {%- if not signature -%}
-    <autoref identifier="{{ name.canonical_path }}" optional{% if name.name not in obj.type_parameters %} hover{% endif %}>{{ name.name }}</autoref>
+  {%- if name.reference_path is none -%}
+    {{ name.name }}
+  {%- elif not signature -%}
+    <autoref identifier="{{ name.reference_path }}" optional{% if name.name not in obj.type_parameters %} hover{% endif %}>{{ name.name }}</autoref>
   {%- elif config.signature_crossrefs -%}
     {%- filter stash_crossref(length=name.name|length) -%}
-      <autoref identifier="{{ name.canonical_path }}" optional{% if name.name not in obj.type_parameters %} hover{% endif %}>{{ name.name }}</autoref>
+      <autoref identifier="{{ name.reference_path }}" optional{% if name.name not in obj.type_parameters %} hover{% endif %}>{{ name.name }}</autoref>
     {%- endfilter -%}
   {%- else -%}
     {{ name.name }}
@@ -102,13 +109,13 @@ Context:
   Returns:
       The autorefs cross-reference, or the parameter name.
   -#}
-  {%- if config.signature_crossrefs -%}
+  {%- if config.signature_crossrefs and expression.reference_path is not none -%}
     {%- if signature -%}
       {%- filter stash_crossref(length=expression.name|length) -%}
-        <autoref identifier="{{ expression.canonical_path }}" optional hover>{{ expression.name }}</autoref>
+        <autoref identifier="{{ expression.reference_path }}" optional hover>{{ expression.name }}</autoref>
       {%- endfilter -%}
     {%- else -%}
-      <autoref identifier="{{ expression.canonical_path }}" optional hover>{{ expression.name }}</autoref>
+      <autoref identifier="{{ expression.reference_path }}" optional hover>{{ expression.name }}</autoref>
     {%- endif -%}
   {%- else -%}
     {{ expression.name }}

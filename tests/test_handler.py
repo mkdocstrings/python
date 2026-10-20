@@ -206,6 +206,79 @@ def test_rendering_object_source_without_lineno(handler: PythonHandler) -> None:
         assert handler.render(module, PythonOptions(show_source=True))
 
 
+@pytest.mark.parametrize("annotations_path", ["brief", "source", "full"])
+@pytest.mark.parametrize(
+    ("code", "expected_text", "expected_targets"),
+    [
+        ("value = intro", "intro", []),
+        ("value = intro.attr", "intro.attr", []),
+        ("value = intro(keyword=1)", "intro(keyword=1)", []),
+        ("value = int", "int", ["int"]),
+        ("from pathlib import Path\nvalue = Path", None, ["pathlib.Path"]),
+        ("def factory(keyword): ...\nvalue = factory(keyword=1)", None, ["module.factory", "module.factory(keyword)"]),
+    ],
+)
+def test_expression_crossrefs(
+    handler: PythonHandler,
+    annotations_path: str,
+    code: str,
+    expected_text: str | None,
+    expected_targets: list[str],
+) -> None:
+    """Cross-reference resolved names and builtins while leaving unknown names as text."""
+    with temporary_visited_module(code) as module:
+        template = handler.env.get_template("expression.html.jinja")
+
+        html = template.render(
+            expression=module["value"].value,
+            config=handler.get_options({"annotations_path": annotations_path, "signature_crossrefs": True}),
+        )
+
+    soup = bs4.BeautifulSoup(html, "html.parser")
+    targets = [ref["identifier"] for ref in soup.find_all("autoref")]
+
+    # Full paths can also link their prefixes, but unknown names must have no targets.
+    assert all(target in targets for target in expected_targets)
+    if not expected_targets:
+        assert not targets
+    if expected_text is not None:
+        if annotations_path == "brief":
+            expected_text = expected_text.rsplit(".", 1)[-1]
+        assert soup.get_text() == expected_text
+
+
+@pytest.mark.parametrize("signature_crossrefs", [True, False])
+def test_instance_attribute_local_value_crossref(handler: PythonHandler, signature_crossrefs: bool) -> None:
+    """Keep a local variable's name visible without linking it to an unrelated heading."""
+    code = """
+        class Class:
+            def __init__(self):
+                intro = "Some text"
+                self.attr: str = intro
+    """
+    with temporary_visited_module(code) as module:
+        options = handler.get_options(
+            {
+                "separate_signature": True,
+                "signature_crossrefs": signature_crossrefs,
+                "show_signature_annotations": True,
+                "show_root_heading": True,
+                "show_source": False,
+            },
+        )
+
+        html = handler.render(module["Class.attr"], options)
+
+    soup = bs4.BeautifulSoup(html, "html.parser")
+    signature = soup.select_one(".doc-signature")
+    assert signature is not None
+    assert signature.get_text(strip=True) == "attr:str=intro"
+
+    # The builtin annotation can link; the unresolved local value cannot.
+    targets = [ref["identifier"] for ref in signature.find_all("autoref")]
+    assert targets == (["str"] if signature_crossrefs else [])
+
+
 @pytest.mark.parametrize(
     ("handler", "merge_init_into_class"),
     [
