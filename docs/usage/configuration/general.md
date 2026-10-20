@@ -247,6 +247,8 @@ Whether to force inspecting modules (importing them) even if their source code i
 
 This option is useful when you know that dynamic analysis (inspection) yields better results than static analysis. Do not use this blindly: the recommended approach is to write a Griffe extension that will improve extracted API data. See [How to selectively inspect objects](https://mkdocstrings.github.io/griffe/guide/users/how-to/selectively-inspect/).
 
+To document lazy module members, set `force_inspection: true` and ensure the module exposes their names through `__dir__` and their values through `__getattr__`. See [Lazy module members](https://mkdocstrings.github.io/griffe/guide/users/loading/#lazy-module-members) for an example.
+
 See also [`allow_inspection`](#allow_inspection).
 
 ```yaml title="in mkdocs.yml (global configuration)"
