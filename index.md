@@ -49,8 +49,6 @@ dependencies = [
 
 ## Sponsors
 
-**Silver sponsors**
-
 **Bronze sponsors**
 
 ______________________________________________________________________
