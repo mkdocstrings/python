@@ -124,7 +124,7 @@ Context:
               <code>{% include "expression.html.jinja" with context %}</code>
             {%- endwith -%}
           {%- endif -%}
-          {%- if type_parameter.constraints or type_parameter.default -%}
+          {%- if type_parameter.bound or type_parameter.constraints or type_parameter.default -%}
             )
           {% endif -%}
           –
