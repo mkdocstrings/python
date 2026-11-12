@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [2.0.11](https://github.com/mkdocstrings/python/releases/tag/2.0.11) - 2026-11-12
+
+<small>[Compare with 2.0.10](https://github.com/mkdocstrings/python/compare/2.0.10...2.0.11)</small>
+
+### Bug Fixes
+
+- Add missing closing parenthesis around type parameter type ([ecfd54d](https://github.com/mkdocstrings/python/commit/ecfd54d4a7530fbed1f53ac023c37ae7d247b9db) by Timothée Mazzucotelli). [Issue-349](https://github.com/mkdocstrings/python/issues/349)
+- Use Griffe's `reference_path` to avoid cross-referencing irrelevant headings ([1f0fa78](https://github.com/mkdocstrings/python/commit/1f0fa78282c03cbbf10d170cc6bd96979bc29c9e) by Timothée Mazzucotelli). [Issue-347](https://github.com/mkdocstrings/python/issues/347)
+
 ## [2.0.10](https://github.com/mkdocstrings/python/releases/tag/2.0.10) - 2026-10-19
 
 <small>[Compare with 2.0.9](https://github.com/mkdocstrings/python/compare/2.0.9...2.0.10)</small>
